@@ -1,0 +1,142 @@
+---
+// v2/src/layouts/PaceLayout.astro - Dedicated Layout for PACE Smart Band
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "PACE Band — Screenless Smart Health Band",
+  description = "A screenless titanium smart band that decodes your heart, sleep, recovery and training load around the clock. No subscription.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Google Fonts: Archivo & Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- PACE Design System CSS (Tailwind utilities, variables, and typography) -->
+    <link rel="stylesheet" href="/_next/static/chunks/0c37tlhoz_s48.css" />
+
+    <style is:global>
+      :root {
+        --pace-bg: #ffffff;
+        --pace-surface: #f6f7f9;
+        --pace-surface-2: #eceef2;
+        --pace-ink: #0c0e12;
+        --pace-ink-soft: #1a1e24;
+        --pace-ink-muted: #5e6777;
+        --pace-line: #e2e5eb;
+        --pace-orange: #ff5a1f;
+        --pace-green: #00d984;
+        --pace-cyan: #00c4df;
+        --pace-dark: #090b0e;
+        --pace-dark-card: #12151b;
+        --font-display: "Archivo", -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background-color: var(--pace-bg);
+        color: var(--pace-ink);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        padding-top: 42px;
+      }
+
+      h1, h2, h3, .font-display {
+        font-family: var(--font-display);
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        font-weight: 800;
+      }
+
+      .eyebrow {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        font-weight: 700;
+        color: var(--pace-ink-muted);
+      }
+
+      /* Micro animations */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f3f6;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd2dc;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #9aa5b6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Top Bar: Quay lại Thư Viện -->
+    <aside style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(9,11,14,0.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.1);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:0.18em;font-family:sans-serif;">
+      <a href="/" style="color:#00d984;text-decoration:none;display:flex;align-items:center;gap:6px;font-weight:600;">
+        <span>← Về Trang Chủ Thư Viện</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="background:rgba(0,217,132,0.12);border:1px solid rgba(0,217,132,0.3);padding:3px 12px;border-radius:9999px;color:#00d984;font-size:10px;font-weight:700;">
+          Phiên Bản: Astro Code Native
+        </span>
+        <a href="/pace-original" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:10px;border-left:1px solid rgba(255,255,255,0.2);padding-left:12px;" title="Xem Bản Gốc">
+          Xem Bản Gốc ↗
+        </a>
+      </div>
+    </aside>
+
+    <slot />
+
+    <!-- IntersectionObserver animation script -->
+    <script is:inline>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+  </body>
+</html>

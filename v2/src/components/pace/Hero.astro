@@ -1,0 +1,223 @@
+---
+// v2/src/components/pace/Hero.astro
+---
+
+<section id="hero" class="relative overflow-hidden pt-16 pb-24 sm:pt-24 sm:pb-32 bg-white">
+  <div class="mx-auto max-w-[1440px] px-5 sm:px-8">
+    <!-- Top Metadata Bar -->
+    <div class="flex items-center justify-between border-b border-[#e2e5eb]/60 pb-6 text-xs uppercase tracking-widest text-[#5e6777] font-semibold">
+      <span>PACE Band / Screenless Health System</span>
+      <span>Model C1 · Reservations Open</span>
+    </div>
+
+    <!-- Center Stage Container -->
+    <div class="relative mt-6 sm:mt-10 flex flex-col justify-center">
+      <!-- Huge Headline Background: YOUR BODY (Left Aligned) -->
+      <div class="w-full text-left">
+        <h1 class="hero-bg-text select-none font-display leading-[0.84] text-[#0c0e12] uppercase tracking-tight">
+          Your body.
+        </h1>
+      </div>
+
+      <!-- Central Band Visual + Interactive Swatches -->
+      <div class="relative w-full max-w-[960px] mx-auto my-[-40px] sm:my-[-80px] lg:my-[-110px] z-10 flex items-center justify-center">
+        <!-- Left Subtext (Desktop) -->
+        <div class="hidden lg:flex flex-col justify-center max-w-[240px] absolute left-0 z-20">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] text-[#ff5a1f] mb-3">
+            No screen. Just signal.
+          </p>
+          <p class="text-sm leading-relaxed text-[#5e6777]">
+            A titanium band that reads your heart, sleep and recovery around the clock, then turns the signal into clear daily direction.
+          </p>
+        </div>
+
+        <!-- Main Band Image -->
+        <div class="band-image-container relative w-full aspect-[4/3] max-w-[620px]">
+          <img
+            id="hero-band-img"
+            src="/images/pace/band-hero.jpg"
+            alt="PACE Band Grade 5 Titanium"
+            class="w-full h-full object-contain filter drop-shadow-[0_36px_60px_rgba(0,0,0,0.18)] transition-all duration-500"
+            loading="eager"
+          />
+        </div>
+
+        <!-- Color Swatch Selector (Floating Right) -->
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end gap-3 z-20">
+          <span id="selected-colorway-label" class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#5e6777] mb-1">
+            SIGNAL ORANGE
+          </span>
+
+          <!-- Swatch 1: Signal Orange -->
+          <button
+            type="button"
+            class="color-swatch-btn active relative size-9 rounded-full border-2 border-white shadow-md transition-all duration-300"
+            data-color="orange"
+            data-label="SIGNAL ORANGE"
+            title="Signal Orange"
+            style="background: linear-gradient(135deg, #a0a4ad 50%, #ff5a1f 50%);"
+          >
+            <span class="sr-only">Signal Orange</span>
+          </button>
+
+          <!-- Swatch 2: Stealth Black -->
+          <button
+            type="button"
+            class="color-swatch-btn relative size-9 rounded-full border-2 border-white shadow-md transition-all duration-300"
+            data-color="black"
+            data-label="STEALTH BLACK"
+            title="Stealth Black"
+            style="background: linear-gradient(135deg, #262930 50%, #111215 50%);"
+          >
+            <span class="sr-only">Stealth Black</span>
+          </button>
+
+          <!-- Swatch 3: Chalk White -->
+          <button
+            type="button"
+            class="color-swatch-btn relative size-9 rounded-full border-2 border-white shadow-md transition-all duration-300"
+            data-color="white"
+            data-label="CHALK WHITE"
+            title="Chalk White"
+            style="background: linear-gradient(135deg, #d8dbe0 50%, #ffffff 50%);"
+          >
+            <span class="sr-only">Chalk White</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Huge Headline Background: DECODED (Right Aligned) -->
+      <div class="w-full text-right z-20">
+        <p class="hero-bg-text select-none font-display leading-[0.84] text-[#0c0e12] uppercase tracking-tight">
+          Decoded.
+        </p>
+      </div>
+
+      <!-- Bottom Mobile/Tablet Subtext & Actions -->
+      <div class="w-full mt-8 sm:mt-12 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 z-30">
+        <div class="max-w-md lg:hidden">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] text-[#ff5a1f] mb-3">
+            No screen. Just signal.
+          </p>
+          <p class="text-base sm:text-lg leading-relaxed text-[#5e6777]">
+            A titanium band that reads your heart, sleep and recovery around the clock, then turns the signal into clear daily direction.
+          </p>
+        </div>
+
+        <!-- Call to actions -->
+        <div class="flex flex-wrap items-center gap-4 sm:ml-auto">
+          <a
+            href="#reserve-cta"
+            class="inline-flex items-center gap-3 rounded-full bg-[#0c0e12] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-xl transition-all duration-300 hover:bg-[#1a1e24] hover:shadow-2xl hover:-translate-y-0.5 no-underline"
+          >
+            <span>Reserve PACE Band</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+          <a
+            href="#colorways"
+            class="inline-flex items-center gap-2 rounded-full border border-[#e2e5eb] bg-[#f6f7f9] px-7 py-4 text-sm font-bold uppercase tracking-wider text-[#0c0e12] transition-colors hover:bg-white hover:border-[#cbd2dc] no-underline"
+          >
+            <span>View Colorways</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Realtime Biometric Marquee Ticker -->
+  <div class="border-y border-[#e2e5eb] bg-[#fafbfc] py-5 text-[#0c0e12] mt-16 sm:mt-24">
+    <div class="relative flex overflow-hidden">
+      <div class="animate-marquee flex w-max" style="--marquee-duration: 45s;">
+        <div class="flex shrink-0 items-center">
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Heart rate 24/7</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Heart-rate variability</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Sleep stages</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Daily recovery</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Respiratory rate</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Skin temperature</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Blood oxygen</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Training load</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">VO2 max</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Dual-frequency GNSS</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+        </div>
+        <div class="flex shrink-0 items-center" aria-hidden="true">
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Heart rate 24/7</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Heart-rate variability</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Sleep stages</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Daily recovery</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Respiratory rate</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Skin temperature</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Blood oxygen</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Training load</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">VO2 max</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+          <span class="whitespace-nowrap px-6 font-display text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-none sm:px-8">Dual-frequency GNSS</span>
+          <span class="size-2 shrink-0 rounded-full bg-[#ff5a1f]" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-bg-text {
+    font-size: clamp(2.8rem, 10.8vw, 150px);
+    letter-spacing: -0.04em;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .color-swatch-btn {
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+  .color-swatch-btn.active {
+    box-shadow: 0 0 0 2px #0c0e12, 0 6px 16px rgba(0, 0, 0, 0.22);
+    transform: scale(1.15);
+  }
+</style>
+
+<script is:inline>
+  // Color switcher logic
+  const swatches = document.querySelectorAll('.color-swatch-btn');
+  const label = document.getElementById('selected-colorway-label');
+  const heroImg = document.getElementById('hero-band-img');
+
+  swatches.forEach(btn => {
+    btn.addEventListener('click', () => {
+      swatches.forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      const text = btn.getAttribute('data-label');
+      if (label && text) label.textContent = text;
+      
+      // Gentle bounce visual feedback
+      if (heroImg) {
+        heroImg.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+          heroImg.style.transform = 'scale(1)';
+        }, 180);
+      }
+    });
+  });
+</script>

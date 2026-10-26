@@ -1,0 +1,110 @@
+---
+// v2/src/components/pace/Pillars.astro
+---
+
+<section id="pillars" class="py-24 sm:py-36 bg-white">
+  <div class="mx-auto max-w-[1440px] px-5 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 sm:mb-20">
+      <div>
+        <span class="eyebrow block mb-3 text-[#ff5a1f]">Circadian Intelligence</span>
+        <h2 class="font-display text-4xl sm:text-6xl text-[#0c0e12] leading-[0.94]">
+          Built for the whole day.
+        </h2>
+      </div>
+      <p class="mt-4 md:mt-0 text-[#5e6777] max-w-md text-base sm:text-lg">
+        Continuous, high-resolution tracking across 4 foundational pillars of human performance.
+      </p>
+    </div>
+
+    <!-- 4 Pillars Grid (2x2 on desktop) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+      <!-- Pillar 1: Sleep -->
+      <div class="pillar-card group relative overflow-hidden rounded-3xl bg-[#f6f7f9] border border-[#e2e5eb]">
+        <div class="aspect-[16/10] overflow-hidden">
+          <img
+            src="/images/pace/life-sleep.jpg"
+            alt="Sleep stages and recovery monitoring"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-8 sm:p-10">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#00d984]">Pillar 01</span>
+            <span class="rounded-full bg-black/5 px-3 py-1 text-xs font-semibold text-[#5e6777]">94% Sleep Quality</span>
+          </div>
+          <h3 class="font-display text-2xl sm:text-3xl text-[#0c0e12] mb-3">Deep Sleep Architecture</h3>
+          <p class="text-[#5e6777] leading-relaxed text-sm sm:text-base">
+            Tracks heart rate variability, skin temperature deviation, and micro-movements to map Light, Deep, and REM cycles with clinical-grade accuracy.
+          </p>
+        </div>
+      </div>
+
+      <!-- Pillar 2: Train -->
+      <div class="pillar-card group relative overflow-hidden rounded-3xl bg-[#f6f7f9] border border-[#e2e5eb]">
+        <div class="aspect-[16/10] overflow-hidden">
+          <img
+            src="/images/pace/life-train.jpg"
+            alt="Endurance training and workout strain"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-8 sm:p-10">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#ff5a1f]">Pillar 02</span>
+            <span class="rounded-full bg-black/5 px-3 py-1 text-xs font-semibold text-[#5e6777]">16.4 Day Strain</span>
+          </div>
+          <h3 class="font-display text-2xl sm:text-3xl text-[#0c0e12] mb-3">Cardiovascular Strain</h3>
+          <p class="text-[#5e6777] leading-relaxed text-sm sm:text-base">
+            Quantifies the internal cost of your training sessions. Monitors time spent in aerobic and anaerobic thresholds to prevent overtraining.
+          </p>
+        </div>
+      </div>
+
+      <!-- Pillar 3: Recover -->
+      <div class="pillar-card group relative overflow-hidden rounded-3xl bg-[#f6f7f9] border border-[#e2e5eb]">
+        <div class="aspect-[16/10] overflow-hidden">
+          <img
+            src="/images/pace/life-recover.jpg"
+            alt="Physiological recovery and nervous system balance"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-8 sm:p-10">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#00c4df]">Pillar 03</span>
+            <span class="rounded-full bg-black/5 px-3 py-1 text-xs font-semibold text-[#5e6777]">88% Recovery Score</span>
+          </div>
+          <h3 class="font-display text-2xl sm:text-3xl text-[#0c0e12] mb-3">Autonomic Balance</h3>
+          <p class="text-[#5e6777] leading-relaxed text-sm sm:text-base">
+            Calculates your autonomic nervous system balance each morning based on overnight HRV baseline, resting heart rate, and respiratory rate.
+          </p>
+        </div>
+      </div>
+
+      <!-- Pillar 4: Live -->
+      <div class="pillar-card group relative overflow-hidden rounded-3xl bg-[#f6f7f9] border border-[#e2e5eb]">
+        <div class="aspect-[16/10] overflow-hidden">
+          <img
+            src="/images/pace/life-run.jpg"
+            alt="Continuous 7-day battery life"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-8 sm:p-10">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#ff5a1f]">Pillar 04</span>
+            <span class="rounded-full bg-black/5 px-3 py-1 text-xs font-semibold text-[#5e6777]">7-Day Battery</span>
+          </div>
+          <h3 class="font-display text-2xl sm:text-3xl text-[#0c0e12] mb-3">Unbroken Longevity</h3>
+          <p class="text-[#5e6777] leading-relaxed text-sm sm:text-base">
+            Slide on the wireless snap-on battery pack to charge without ever taking the band off your wrist. Never miss a single heartbeat.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

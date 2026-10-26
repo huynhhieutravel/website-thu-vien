@@ -1,0 +1,143 @@
+---
+// v2/src/components/pace/ReserveModal.astro
+---
+
+<dialog id="reserve-modal" class="backdrop:bg-black/60 backdrop:backdrop-blur-sm rounded-3xl p-0 border border-[#e2e5eb] shadow-2xl max-w-lg w-[92vw] overflow-hidden m-auto">
+  <div class="bg-white p-8 sm:p-10">
+    <div class="flex items-center justify-between pb-6 border-b border-[#e2e5eb]">
+      <div>
+        <span class="eyebrow block text-[#ff5a1f] mb-1">Zero Deposit Today</span>
+        <h3 class="font-display text-2xl text-[#0c0e12]">Reserve PACE Band</h3>
+      </div>
+      <button id="close-modal-btn" type="button" class="size-8 rounded-full bg-[#f6f7f9] flex items-center justify-center text-[#5e6777] hover:text-[#0c0e12] hover:bg-[#eceef2] transition-colors cursor-pointer" aria-label="Close">
+        ✕
+      </button>
+    </div>
+
+    <!-- Modal Form -->
+    <form id="reserve-form" class="mt-6 space-y-6">
+      <!-- Colorway selection -->
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-[#5e6777] mb-3">1. Select Colorway</label>
+        <div class="grid grid-cols-3 gap-3">
+          <label class="modal-swatch-option active flex flex-col items-center gap-2 p-3 rounded-xl border border-[#e2e5eb] cursor-pointer hover:border-[#0c0e12] transition-colors">
+            <input type="radio" name="modal-colorway" value="Signal Orange" checked class="sr-only" />
+            <span class="size-5 rounded-full" style="background: linear-gradient(135deg, #a0a4ad 50%, #ff5a1f 50%);"></span>
+            <span class="text-[11px] font-bold text-[#0c0e12]">Orange</span>
+          </label>
+          <label class="modal-swatch-option flex flex-col items-center gap-2 p-3 rounded-xl border border-[#e2e5eb] cursor-pointer hover:border-[#0c0e12] transition-colors">
+            <input type="radio" name="modal-colorway" value="Stealth Black" class="sr-only" />
+            <span class="size-5 rounded-full" style="background: linear-gradient(135deg, #262930 50%, #111215 50%);"></span>
+            <span class="text-[11px] font-bold text-[#0c0e12]">Black</span>
+          </label>
+          <label class="modal-swatch-option flex flex-col items-center gap-2 p-3 rounded-xl border border-[#e2e5eb] cursor-pointer hover:border-[#0c0e12] transition-colors">
+            <input type="radio" name="modal-colorway" value="Chalk White" class="sr-only" />
+            <span class="size-5 rounded-full" style="background: linear-gradient(135deg, #d8dbe0 50%, #ffffff 50%);"></span>
+            <span class="text-[11px] font-bold text-[#0c0e12]">White</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Size Selection -->
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-[#5e6777] mb-3">2. Select Wrist Size</label>
+        <div class="grid grid-cols-3 gap-3">
+          <label class="modal-size-option flex flex-col items-center p-3 rounded-xl border border-[#e2e5eb] cursor-pointer hover:border-[#0c0e12] transition-colors">
+            <input type="radio" name="modal-size" value="Small" class="sr-only" />
+            <span class="text-xs font-bold text-[#0c0e12]">Small</span>
+            <span class="text-[10px] text-[#5e6777]">135–165mm</span>
+          </label>
+          <label class="modal-size-option active flex flex-col items-center p-3 rounded-xl border border-[#e2e5eb] cursor-pointer hover:border-[#0c0e12] transition-colors">
+            <input type="radio" name="modal-size" value="Medium" checked class="sr-only" />
+            <span class="text-xs font-bold text-[#0c0e12]">Medium</span>
+            <span class="text-[10px] text-[#5e6777]">160–195mm</span>
+          </label>
+          <label class="modal-size-option flex flex-col items-center p-3 rounded-xl border border-[#e2e5eb] cursor-pointer hover:border-[#0c0e12] transition-colors">
+            <input type="radio" name="modal-size" value="Large" class="sr-only" />
+            <span class="text-xs font-bold text-[#0c0e12]">Large</span>
+            <span class="text-[10px] text-[#5e6777]">190–225mm</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Email Input -->
+      <div>
+        <label for="reserve-email" class="block text-xs font-bold uppercase tracking-wider text-[#5e6777] mb-2">3. Your Email</label>
+        <input
+          type="email"
+          id="reserve-email"
+          required
+          placeholder="athlete@example.com"
+          class="w-full rounded-xl border border-[#e2e5eb] px-4 py-3 text-sm text-[#0c0e12] placeholder-[#a0a4ad] focus:border-[#0c0e12] focus:outline-none transition-colors"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="w-full rounded-full bg-[#0c0e12] py-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-[#1a1e24] transition-colors shadow-lg cursor-pointer"
+      >
+        Complete Free Reservation ($299 due on dispatch)
+      </button>
+    </form>
+
+    <!-- Success Message (Hidden by default) -->
+    <div id="reserve-success" class="hidden mt-6 text-center py-8">
+      <div class="size-16 rounded-full bg-[#00d984]/15 text-[#00a863] mx-auto flex items-center justify-center text-3xl font-black mb-4">
+        ✓
+      </div>
+      <h4 class="font-display text-2xl text-[#0c0e12] mb-2">Reservation Secured</h4>
+      <p class="text-sm text-[#5e6777] leading-relaxed max-w-sm mx-auto">
+        We have reserved your PACE Band Model C1. You will receive an invitation email prior to the February 2027 delivery batch to review your address and finalize order details.
+      </p>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .modal-swatch-option.active, .modal-size-option.active {
+    border-color: #0c0e12;
+    background-color: #f6f7f9;
+  }
+</style>
+
+<script is:inline>
+  const modal = document.getElementById('reserve-modal');
+  const openBtns = document.querySelectorAll('#open-reserve-modal-btn');
+  const closeBtn = document.getElementById('close-modal-btn');
+  const form = document.getElementById('reserve-form');
+  const successBox = document.getElementById('reserve-success');
+
+  openBtns.forEach(b => b.addEventListener('click', () => {
+    if (modal) modal.showModal();
+  }));
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      if (modal) modal.close();
+    });
+  }
+
+  // Radio button styling feedback
+  document.querySelectorAll('input[name="modal-colorway"]').forEach(input => {
+    input.addEventListener('change', () => {
+      document.querySelectorAll('.modal-swatch-option').forEach(el => el.classList.remove('active'));
+      input.closest('label')?.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('input[name="modal-size"]').forEach(input => {
+    input.addEventListener('change', () => {
+      document.querySelectorAll('.modal-size-option').forEach(el => el.classList.remove('active'));
+      input.closest('label')?.classList.add('active');
+    });
+  });
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.style.display = 'none';
+      if (successBox) successBox.classList.remove('hidden');
+    });
+  }
+</script>

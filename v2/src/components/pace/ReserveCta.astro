@@ -1,0 +1,48 @@
+---
+// v2/src/components/pace/ReserveCta.astro
+---
+
+<section id="reserve-cta" class="py-24 sm:py-36 bg-white">
+  <div class="mx-auto max-w-[1440px] px-5 sm:px-8">
+    <div class="relative overflow-hidden rounded-[36px] bg-[#f6f7f9] px-6 py-16 sm:px-16 sm:py-24 border border-[#e2e5eb]">
+      <!-- Background Graphic Rings -->
+      <div class="pointer-events-none absolute -right-24 -top-24 size-[440px] rounded-full border-[56px] border-white/80" aria-hidden="true"></div>
+
+      <div class="relative z-10">
+        <span class="eyebrow block text-[#ff5a1f] mb-4">Priority Access</span>
+        <h2 class="font-display text-4xl sm:text-7xl lg:text-8xl text-[#0c0e12] leading-[0.88] max-w-[14ch] mb-8">
+          Reserve yours.
+        </h2>
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+          <div class="max-w-xl">
+            <p class="font-display text-2xl text-[#0c0e12] mb-3">$299 · No Subscription Ever</p>
+            <p class="text-base sm:text-lg text-[#5e6777] leading-relaxed">
+              Reservations are open today with zero upfront payment. We will confirm your wrist circumference and finish preference by email before dispatching February 2027.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <button
+              id="open-reserve-modal-btn"
+              type="button"
+              class="inline-flex items-center gap-3 rounded-full bg-[#0c0e12] px-8 py-5 text-sm font-bold uppercase tracking-wider text-white shadow-xl transition-all duration-300 hover:bg-[#1a1e24] hover:shadow-2xl hover:-translate-y-0.5 cursor-pointer"
+            >
+              <span>Reserve PACE Band</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </button>
+            <a
+              href="#colorways"
+              class="inline-flex items-center gap-2 rounded-full border border-[#e2e5eb] bg-white px-7 py-5 text-sm font-bold uppercase tracking-wider text-[#0c0e12] transition-colors hover:border-[#cbd2dc] no-underline"
+            >
+              <span>Compare Finishes</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

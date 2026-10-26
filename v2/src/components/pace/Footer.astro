@@ -1,0 +1,77 @@
+---
+// v2/src/components/pace/Footer.astro
+---
+
+<footer class="bg-[#f6f7f9] text-[#0c0e12] border-t border-[#e2e5eb]" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <div class="mx-auto max-w-[1440px] px-5 sm:px-8">
+    <div class="grid gap-12 sm:gap-16 border-b border-[#e2e5eb] py-16 sm:py-24 lg:grid-cols-12">
+      <!-- Left Column -->
+      <div class="lg:col-span-5">
+        <span class="eyebrow block mb-3 text-[#5e6777]">Signal Over Noise</span>
+        <p class="font-display text-4xl sm:text-5xl uppercase leading-[0.92] text-[#0c0e12]">
+          Measure what matters. Ignore the rest.
+        </p>
+        <p class="mt-6 max-w-md text-sm sm:text-base leading-relaxed text-[#5e6777]">
+          PACE Band ships in three colorways with every metric, insight and historical trend included. Zero monthly subscription, ever.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href="#reserve-cta" class="inline-flex h-12 items-center gap-2 rounded-full bg-[#0c0e12] px-6 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-[#1a1e24] no-underline">
+            <span>Reserve yours</span>
+            <span>↗</span>
+          </a>
+          <a href="#dashboard-preview" class="inline-flex h-12 items-center gap-2 rounded-full border border-[#e2e5eb] bg-white px-6 text-xs font-bold uppercase tracking-wider text-[#0c0e12] transition-colors hover:border-[#cbd2dc] no-underline">
+            <span>Explore Dashboard</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Navigation Links -->
+      <nav aria-label="Footer" class="grid grid-cols-2 sm:grid-cols-3 gap-10 lg:col-span-6 lg:col-start-7 text-sm">
+        <div>
+          <p class="eyebrow text-[#0c0e12] mb-4 font-black">Product</p>
+          <ul class="space-y-3 list-none">
+            <li><a href="#statement" class="text-[#5e6777] hover:text-[#0c0e12] transition-colors no-underline">The Band</a></li>
+            <li><a href="#colorways" class="text-[#5e6777] hover:text-[#0c0e12] transition-colors no-underline">Colorways</a></li>
+            <li><a href="#engineering" class="text-[#5e6777] hover:text-[#0c0e12] transition-colors no-underline">Engineering</a></li>
+            <li><a href="#reserve-cta" class="text-[#5e6777] hover:text-[#0c0e12] transition-colors no-underline">Reservations</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="eyebrow text-[#0c0e12] mb-4 font-black">Experience</p>
+          <ul class="space-y-3 list-none">
+            <li><a href="#pillars" class="text-[#5e6777] hover:text-[#0c0e12] transition-colors no-underline">Health & Recovery</a></li>
+            <li><a href="#dashboard-preview" class="text-[#5e6777] hover:text-[#0c0e12] transition-colors no-underline">Performance</a></li>
+            <li><a href="#vo2-max" class="text-[#5e6777] hover:text-[#0c0e12] transition-colors no-underline">VO2 Max</a></li>
+            <li><a href="#field-team" class="text-[#5e6777] hover:text-[#0c0e12] transition-colors no-underline">Field Team</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="eyebrow text-[#0c0e12] mb-4 font-black">Support</p>
+          <ul class="space-y-3 list-none">
+            <li><a href="#faq" class="text-[#5e6777] hover:text-[#0c0e12] transition-colors no-underline">FAQ</a></li>
+            <li><a href="#colorways" class="text-[#5e6777] hover:text-[#0c0e12] transition-colors no-underline">Sizing Guide</a></li>
+            <li><a href="/" class="text-[#00d984] hover:underline font-semibold no-underline">Thư Viện Web →</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Giant PACE Brand Wordmark SVG -->
+    <div aria-hidden="true" class="select-none overflow-hidden pt-12 pb-6">
+      <svg viewBox="0 0 1000 196" class="block w-full text-[#0c0e12]/10 hover:text-[#0c0e12]/20 transition-colors">
+        <text x="0" y="190" textLength="1000" lengthAdjust="spacingAndGlyphs" class="font-display font-black" style="font-size:262px;fill:currentColor">PACE</text>
+      </svg>
+    </div>
+
+    <!-- Legal & Disclosure -->
+    <div class="flex flex-col gap-4 border-t border-[#e2e5eb] py-8 text-xs leading-relaxed text-[#5e6777] md:flex-row md:items-start md:justify-between">
+      <p class="shrink-0">© 2026 PACE Labs. All rights reserved.</p>
+      <p class="max-w-2xl md:text-right">
+        PACE Band is a wellness and athletic performance monitor. It is not an FDA-regulated medical device and is not intended to diagnose, treat, cure or prevent any disease.
+      </p>
+    </div>
+  </div>
+</footer>
