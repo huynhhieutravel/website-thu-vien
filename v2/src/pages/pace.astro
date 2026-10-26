@@ -3,38 +3,38 @@
 import PaceLayout from '../layouts/PaceLayout.astro';
 import Header from '../components/pace/Header.astro';
 import Hero from '../components/pace/Hero.astro';
+import Marquee from '../components/pace/Marquee.astro';
 import Statement from '../components/pace/Statement.astro';
 import Pillars from '../components/pace/Pillars.astro';
 import DashboardPreview from '../components/pace/DashboardPreview.astro';
 import Vo2Max from '../components/pace/Vo2Max.astro';
 import Engineering from '../components/pace/Engineering.astro';
 import Colorways from '../components/pace/Colorways.astro';
-import Testimonials from '../components/pace/Testimonials.astro';
+import FieldTeam from '../components/pace/FieldTeam.astro';
 import Faq from '../components/pace/Faq.astro';
 import ReserveCta from '../components/pace/ReserveCta.astro';
 import Footer from '../components/pace/Footer.astro';
-import ReserveModal from '../components/pace/ReserveModal.astro';
 ---
 
 <PaceLayout
-  title="PACE Band — Screenless Smart Health Band | Phiên Bản Astro Code"
-  description="Vòng đeo tay thông minh Grade 5 Titanium không màn hình, giải mã nhịp tim, giấc ngủ, phục hồi và tải trọng tập luyện 24/7 chuẩn mã nguồn Astro 5."
+  title="PACE Band — Screenless Smart Health Band | Astro Code"
+  description="PACE Band is a screenless smart band that decodes your heart, sleep, recovery and training load around the clock. Grade 5 titanium, woven comfort and a full performance dashboard, with no subscription."
 >
   <Header />
 
-  <main>
+  <main id="main" tabindex="-1" class="page-enter flex-1 outline-none">
     <Hero />
+    <Marquee />
     <Statement />
     <Pillars />
     <DashboardPreview />
     <Vo2Max />
     <Engineering />
     <Colorways />
-    <Testimonials />
+    <FieldTeam />
     <Faq />
     <ReserveCta />
   </main>
 
   <Footer />
-  <ReserveModal />
 </PaceLayout>
