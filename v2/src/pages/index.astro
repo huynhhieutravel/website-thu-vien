@@ -1,7 +1,7 @@
 ---
 // v2/src/pages/index.astro
-// Trang Chủ Thư Viện: 1 Post duy nhất cho Website AERIVE với 2 nút xem chi tiết (Bản Gốc & Bản Astro Code)
-// Bố cục chuẩn grid 3 cột (width rộng 1240px), ảnh thumbnail 16:9, không bị tràn chữ.
+// Trang Chủ Thư Viện: 2 Post cho Website AERIVE & Website VROOMX
+// Bố cục chuẩn grid 3 cột (width rộng 1240px), ảnh thumbnail 16:9, nút bấm cách nhau 16px thoáng đãng.
 ---
 
 <!doctype html>
@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Website Archive Hub — Danh Mục Website Đã Clone & Chuyển Đổi</title>
-    <meta name="description" content="Danh mục các website clone nguyên mẫu và chuyển đổi mã nguồn tối ưu Astro." />
+    <meta name="description" content="Danh mục các trang web đã được clone nguyên mẫu và chuyển đổi mã nguồn tối ưu Astro." />
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -217,12 +217,12 @@
         color: #94a3b8;
       }
       .meta-value {
-        font-size: 13.5px;
+        font-size: 13px;
         font-weight: 700;
         color: #e0533c;
       }
 
-      /* Nhóm 2 Nút Xem Chi Tiết - KHOẢNG CÁCH RÕ RÀNG, THOÁNG ĐÃNG */
+      /* Nhóm 2 Nút Xem Chi Tiết - KHOẢNG CÁCH 16px THOÁNG ĐÃNG */
       .btn-stack {
         display: flex;
         flex-direction: column;
@@ -276,17 +276,18 @@
     <!-- Main Center Container (1240px RỘNG RÃI, KHÔNG FULL-WIDTH) -->
     <div class="page-container">
       <!-- Title Heading -->
-      <h1 class="top-title">Tìm thấy 1 Website (2 Phiên Bản)</h1>
+      <h1 class="top-title">Tìm thấy 2 Website (4 Phiên Bản)</h1>
       <p class="top-subtitle">Danh mục các trang web đã được clone nguyên mẫu và chuyển đổi mã nguồn Astro.</p>
 
       <!-- Filter Pills -->
       <div class="filter-pills">
-        <button type="button" class="pill-btn active">Tất cả (1)</button>
+        <button type="button" class="pill-btn active">Tất cả (2)</button>
         <button type="button" class="pill-btn">Private Aviation</button>
+        <button type="button" class="pill-btn">Game 3D Three.js</button>
         <button type="button" class="pill-btn">Astro 5 Ready</button>
       </div>
 
-      <!-- Grid Bố Cục (1 Post Card duy nhất, đặt trong hệ 3 cột sẵn sàng mở rộng) -->
+      <!-- Grid Bố Cục (2 Post Cards nằm cạnh nhau trên hệ thống lưới 3 cột) -->
       <div class="cards-grid">
         <!-- Post 01: Website AERIVE -->
         <article class="card-item">
@@ -322,13 +323,61 @@
 
             <div class="btn-stack">
               <!-- Nút 1: Bản Astro Code -->
-              <a href="/aerive" class="btn-detail btn-astro" title="Xem Chi Tiết Bản Astro Code">
+              <a href="/aerive" class="btn-detail" title="Xem Chi Tiết Bản Astro Code">
                 <span>Xem Chi Tiết (Bản Astro code)</span>
                 <span class="btn-arrow">→</span>
               </a>
 
               <!-- Nút 2: Bản Gốc -->
-              <a href="/aerive-original" class="btn-detail btn-original" title="Xem Chi Tiết Bản Gốc">
+              <a href="/aerive-original" class="btn-detail" title="Xem Chi Tiết Bản Gốc">
+                <span>Xem Chi Tiết (Bản gốc)</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post 02: Website VROOMX -->
+        <article class="card-item">
+          <!-- Thumbnail 16:9 sắc nét -->
+          <a href="/vroomx" class="card-thumb-wrap" title="Xem Website VroomX 3D">
+            <img
+              src="/images/vroomx-thumb-16x9.png"
+              alt="VroomX F1 Plant 0 Grand Prix 3D"
+              class="card-thumb-img"
+              loading="lazy"
+            />
+          </a>
+
+          <!-- Nội Dung Tiêu Đề & Mô Tả -->
+          <div class="card-body">
+            <span class="card-tag">Website 02 • Three.js 3D Game</span>
+            <div class="card-title-wrap">
+              <a href="/vroomx" class="card-title">
+                VroomX — Miniature F1 Plant 0 Grand Prix
+              </a>
+            </div>
+            <p class="card-desc">
+              Chặng đua F1 xe đồ chơi 3D thời gian thực qua nhà máy Plant 0. Tương tác với 8 tay đua, phím tắt BOOST, chướng ngại vật CHAOS và 5 góc quay camera điện ảnh trên Three.js.
+            </p>
+          </div>
+
+          <!-- Footer với ĐỦ 2 NÚT BẢN GỐC & BẢN ASTRO CODE -->
+          <div class="card-footer">
+            <div class="meta-row">
+              <span class="meta-label">PHIÊN BẢN CÓ SẴN</span>
+              <span class="meta-value">Three.js & Astro 5</span>
+            </div>
+
+            <div class="btn-stack">
+              <!-- Nút 1: Bản Astro Code -->
+              <a href="/vroomx" class="btn-detail" title="Xem Chi Tiết Bản Astro Code">
+                <span>Xem Chi Tiết (Bản Astro code)</span>
+                <span class="btn-arrow">→</span>
+              </a>
+
+              <!-- Nút 2: Bản Gốc -->
+              <a href="/vroomx-original" class="btn-detail" title="Xem Chi Tiết Bản Gốc">
                 <span>Xem Chi Tiết (Bản gốc)</span>
                 <span class="btn-arrow">→</span>
               </a>
