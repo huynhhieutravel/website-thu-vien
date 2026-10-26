@@ -1,0 +1,34 @@
+---
+// v2/src/pages/meridian.astro - Website 05: Meridian Freight (Phiên Bản Astro Code Native)
+import MeridianLayout from '../layouts/MeridianLayout.astro';
+import Header from '../components/meridian/Header.astro';
+import Hero from '../components/meridian/Hero.astro';
+import About from '../components/meridian/About.astro';
+import Journey from '../components/meridian/Journey.astro';
+import Clients from '../components/meridian/Clients.astro';
+import Partners from '../components/meridian/Partners.astro';
+import Insights from '../components/meridian/Insights.astro';
+import Faq from '../components/meridian/Faq.astro';
+import Cta from '../components/meridian/Cta.astro';
+import Footer from '../components/meridian/Footer.astro';
+---
+
+<MeridianLayout
+  title="Meridian Freight — Global Air, Ocean & Intermodal Logistics | Astro Native"
+  description="Air and ocean freight, customs brokerage, warehousing and road transport across Asia Pacific, run end to end by one team that owns every shipment."
+>
+  <div class="flex min-h-screen flex-col">
+    <Header />
+    <main class="flex-1" id="main">
+      <Hero />
+      <About />
+      <Journey />
+      <Clients />
+      <Partners />
+      <Insights />
+      <Faq />
+      <Cta />
+    </main>
+    <Footer />
+  </div>
+</MeridianLayout>
