@@ -1,0 +1,40 @@
+---
+// v2/src/pages/orvane.astro - Website 04: Orvane Autonomous LiDAR Drones (Phiên Bản Astro Code Native)
+import OrvaneLayout from '../layouts/OrvaneLayout.astro';
+import Preloader from '../components/orvane/Preloader.astro';
+import Header from '../components/orvane/Header.astro';
+import Hero from '../components/orvane/Hero.astro';
+import Promise from '../components/orvane/Promise.astro';
+import Gear from '../components/orvane/Gear.astro';
+import Numbers from '../components/orvane/Numbers.astro';
+import Solutions from '../components/orvane/Solutions.astro';
+import Capabilities from '../components/orvane/Capabilities.astro';
+import Controller from '../components/orvane/Controller.astro';
+import Software from '../components/orvane/Software.astro';
+import Terrain from '../components/orvane/Terrain.astro';
+import Footer from '../components/orvane/Footer.astro';
+---
+
+<OrvaneLayout
+  title="Orvane — Autonomous LiDAR Drones | Astro Code Native"
+  description="Self-flying LiDAR drones that measure bridges, power lines, turbines and terrain to the centimetre and catch structural risks early."
+>
+  <div class="relative flex min-h-screen flex-col">
+    <Preloader />
+    <Header />
+
+    <main class="flex-1" id="main" tabindex="-1">
+      <Hero />
+      <Promise />
+      <Gear />
+      <Numbers />
+      <Solutions />
+      <Capabilities />
+      <Controller />
+      <Software />
+      <Terrain />
+    </main>
+
+    <Footer />
+  </div>
+</OrvaneLayout>

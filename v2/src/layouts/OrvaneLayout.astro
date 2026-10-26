@@ -1,0 +1,106 @@
+---
+// v2/src/layouts/OrvaneLayout.astro - Dedicated Layout for Orvane Autonomous LiDAR Drones (Astro Native)
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Orvane — Autonomous LiDAR Drones | Astro Native",
+  description = "Self-flying LiDAR drones that measure bridges, power lines, turbines and terrain to the centimetre and catch structural risks early.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" data-next-head="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" data-next-head="" />
+    <title>{title}</title>
+    <meta name="description" content={description} data-next-head="" />
+    <meta property="og:title" content={title} data-next-head="" />
+    <meta property="og:description" content={description} data-next-head="" />
+    <meta property="og:type" content="website" data-next-head="" />
+    <meta name="twitter:card" content="summary_large_image" data-next-head="" />
+    <meta name="twitter:title" content={title} data-next-head="" />
+    <meta name="twitter:description" content={description} data-next-head="" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f6f8f8" />
+
+    <!-- Google Fonts & Preloads -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link as="font" crossorigin="anonymous" data-next-font="size-adjust" href="/_next/static/media/ab57efd000576a30-s.p.0.xyi-bdzzdcz.woff2" rel="preload" type="font/woff2" />
+    <link as="font" crossorigin="anonymous" data-next-font="size-adjust" href="/_next/static/media/70bc3e132a0a741e-s.p.1409xf.ylxg8g.woff2" rel="preload" type="font/woff2" />
+
+    <link as="style" href="/_next/static/chunks/0hrl7a-ajzz6g.css" rel="preload" />
+    <link data-n-g="" href="/_next/static/chunks/0hrl7a-ajzz6g.css" rel="stylesheet" />
+
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    <script is:inline>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+    
+    <!-- Next.js Turbopack / WebGL / Three.js Engine Scripts -->
+    <script is:inline src="/_next/static/chunks/0n-4eby-6moom.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/05d4ifrohq64y.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0uw~ov22uo1v0.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/turbopack-0pngmihpecu11.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/10cczt~50scth.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0j25jt664v~_f.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/turbopack-0db-dn8_ug3n..js" defer=""></script>
+    <script is:inline src="/_next/static/J9pn5waouGApcq5XKeliw/_buildManifest.js" defer=""></script>
+    <script is:inline src="/_next/static/J9pn5waouGApcq5XKeliw/_ssgManifest.js" defer=""></script>
+    <script is:inline src="/_next/static/J9pn5waouGApcq5XKeliw/_clientMiddlewareManifest.js" defer=""></script>
+
+    <style is:global>
+      :root {
+        --font-app-sans: 'Inter Tight', 'Inter Tight Fallback', sans-serif;
+        --font-app-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
+        --font-app-heading: 'Inter Tight', 'Inter Tight Fallback', sans-serif;
+      }
+
+      body {
+        padding-top: 40px !important;
+      }
+      header.fixed {
+        top: 40px !important;
+      }
+      .preloader {
+        top: 40px !important;
+      }
+      [data-modulify-badge] {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body class="h-full bg-mist font-sans text-ink antialiased selection:bg-[#5fbfd0]/30 selection:text-ink">
+    <!-- Top Bar Navigation quay lại Thư Viện -->
+    <aside style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(9,11,14,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.1);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:0.18em;font-family:sans-serif;">
+      <a href="/" style="color:#00d984;text-decoration:none;display:flex;align-items:center;gap:6px;font-weight:600;">
+        <span>← Về Trang Chủ Thư Viện</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="background:rgba(0,217,132,0.12);border:1px solid rgba(0,217,132,0.3);padding:3px 12px;border-radius:9999px;color:#00d984;font-size:10px;font-weight:700;">
+          Phiên Bản: Astro Code Native (Component Hóa)
+        </span>
+        <a href="/orvane-original" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:10px;border-left:1px solid rgba(255,255,255,0.2);padding-left:12px;" title="Xem Bản Gốc">
+          Xem Bản Gốc ↗
+        </a>
+      </div>
+    </aside>
+
+    <div id="__next">
+      <div class="h-full font-sans">
+        <slot />
+      </div>
+    </div>
+
+    <script is:inline id="__NEXT_DATA__" type="application/json">
+      {"props":{"pageProps":{}},"page":"/","query":{},"buildId":"J9pn5waouGApcq5XKeliw","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}
+    </script>
+  </body>
+</html>
