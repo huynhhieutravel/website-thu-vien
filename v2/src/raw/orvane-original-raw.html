@@ -19,32 +19,5 @@
       addNav();
     }
 
-    // 2. Failsafe auto-dismiss preloader
-    setTimeout(function() {
-      var p = document.querySelector('.preloader[role="status"]');
-      if (p) {
-        var topShutter = p.children[0];
-        var bottomShutter = p.children[1];
-        var content = p.children[2];
-        if (content) content.style.opacity = '0';
-        setTimeout(function() {
-          if (topShutter) {
-            topShutter.style.transition = 'transform 1.1s cubic-bezier(0.76, 0, 0.24, 1)';
-            topShutter.style.transform = 'translate3d(0, -100%, 0)';
-          }
-          if (bottomShutter) {
-            bottomShutter.style.transition = 'transform 1.1s cubic-bezier(0.76, 0, 0.24, 1)';
-            bottomShutter.style.transform = 'translate3d(0, 100%, 0)';
-          }
-          setTimeout(function() {
-            p.style.opacity = '0';
-            p.style.pointerEvents = 'none';
-            setTimeout(function() {
-              if (p.parentNode) p.parentNode.removeChild(p);
-            }, 600);
-          }, 900);
-        }, 200);
-      }
-    }, 3200);
   })();
 </script></body></html>
