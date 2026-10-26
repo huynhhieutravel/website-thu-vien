@@ -19,7 +19,7 @@
         setTimeout(function() {
           l.style.opacity = '0';
           setTimeout(function() {
-            if (l.parentNode) l.parentNode.removeChild(l);
+            l.style.display = 'none';
           }, 700);
         }, 300);
       }

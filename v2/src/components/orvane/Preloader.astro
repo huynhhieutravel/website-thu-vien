@@ -225,7 +225,7 @@
           preloader.style.opacity = '0';
           preloader.style.pointerEvents = 'none';
           setTimeout(() => {
-            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+            preloader.style.display = 'none';
           }, 500);
         }, 900);
       }, 200);
