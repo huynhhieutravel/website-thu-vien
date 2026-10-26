@@ -2,4 +2,82 @@
 // v2/src/components/orvane/Hero.astro
 ---
 
-<section aria-labelledby="hero-title" class="relative h-svh min-h-[540px]" id="hero"><div class="absolute inset-x-2 bottom-2 top-16 overflow-hidden rounded-[28px] border border-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_0_rgba(29,42,49,0.04)] will-change-transform md:inset-x-3 md:bottom-3" style="background:radial-gradient(120% 85% at 50% -5%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 58%), radial-gradient(70% 60% at 88% 105%, rgba(190,212,222,0.6) 0%, rgba(190,212,222,0) 70%), radial-gradient(60% 55% at 6% 96%, rgba(205,222,229,0.55) 0%, rgba(205,222,229,0) 70%), linear-gradient(180deg, #eef3f5 0%, #e4ebee 100%)"><div aria-hidden="true" class="absolute inset-0 flex items-center justify-center will-change-transform"><span class="ghost-wordmark select-none whitespace-nowrap text-[clamp(190px,40vw,780px)] font-light leading-none tracking-[-0.075em]">orvane</span></div><svg aria-hidden="true" class="absolute left-5 top-5 size-4" viewbox="0 0 16 16"><path d="M8 0v16M0 8h16" stroke="#b9c3c8" stroke-width="1"></path></svg><svg aria-hidden="true" class="absolute bottom-5 right-5 hidden size-4 md:block" viewbox="0 0 16 16"><path d="M8 0v16M0 8h16" stroke="#b9c3c8" stroke-width="1"></path></svg><div class="absolute left-12 top-[22px] flex items-center gap-4 text-haze"><span class="label-mono inline-flex items-center gap-[0.6em] whitespace-nowrap"><span aria-hidden="true">[</span><span>Orvane L4</span><span aria-hidden="true">]</span></span><span class="hidden h-px w-10 bg-pale md:block"></span><span class="label-mono hidden md:inline">Self-flying survey unit</span></div><div class="absolute bottom-6 left-5 max-w-[680px] pr-12 md:bottom-10 md:left-10 md:pr-0"><h1 class="text-[clamp(22px,2.7vw,42px)] font-light leading-[1.08] tracking-[-0.04em]" id="hero-title"><span class="block text-ink">Self-flying LiDAR for the structures we rely on.</span><span class="block text-haze">Every bridge, line and turbine, measured to the centimetre.</span></h1></div><div class="absolute bottom-6 right-5 flex items-center gap-3 md:bottom-10 md:right-10"><span class="hidden text-[13px] tracking-[-0.01em] text-ink sm:inline">Scroll Down</span><span aria-hidden="true" class="grid grid-cols-3 gap-[3px]"><span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0s"></span><span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.16s"></span><span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.32s"></span><span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.16s"></span><span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.32s"></span><span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.48s"></span><span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.32s"></span><span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.48s"></span><span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.64s"></span></span></div></div></section>
+<section aria-labelledby="hero-title" class="relative h-svh min-h-[540px]" id="hero">
+  <div
+    class="absolute inset-x-2 bottom-2 top-16 overflow-hidden rounded-[28px] border border-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_0_rgba(29,42,49,0.04)] will-change-transform md:inset-x-3 md:bottom-3"
+    style="background:radial-gradient(120% 85% at 50% -5%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 58%), radial-gradient(70% 60% at 88% 105%, rgba(190,212,222,0.6) 0%, rgba(190,212,222,0) 70%), radial-gradient(60% 55% at 6% 96%, rgba(205,222,229,0.55) 0%, rgba(205,222,229,0) 70%), linear-gradient(180deg, #eef3f5 0%, #e4ebee 100%)"
+  >
+    <!-- Giant Background Typography -->
+    <div aria-hidden="true" class="absolute inset-0 flex items-center justify-center will-change-transform">
+      <span class="ghost-wordmark select-none whitespace-nowrap text-[clamp(190px,40vw,780px)] font-light leading-none tracking-[-0.075em]">
+        orvane
+      </span>
+    </div>
+
+    <!-- Drone 3D Centerpiece with Floating Micro-Animation -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 flex items-center justify-center z-10 px-4">
+      <img
+        src="/images/orvane-drone-hero.png"
+        alt="Orvane L4 Autonomous LiDAR Drone"
+        class="h-auto max-h-[52vh] w-auto max-w-[82vw] object-contain drop-shadow-[0_28px_48px_rgba(29,42,49,0.22)] drone-hover-effect"
+        loading="eager"
+      />
+    </div>
+
+    <!-- Crosshair Markers -->
+    <svg aria-hidden="true" class="absolute left-5 top-5 size-4" viewBox="0 0 16 16">
+      <path d="M8 0v16M0 8h16" stroke="#b9c3c8" stroke-width="1"></path>
+    </svg>
+    <svg aria-hidden="true" class="absolute bottom-5 right-5 hidden size-4 md:block" viewBox="0 0 16 16">
+      <path d="M8 0v16M0 8h16" stroke="#b9c3c8" stroke-width="1"></path>
+    </svg>
+
+    <!-- Top Badge -->
+    <div class="absolute left-12 top-[22px] flex items-center gap-4 text-haze z-20">
+      <span class="label-mono inline-flex items-center gap-[0.6em] whitespace-nowrap">
+        <span aria-hidden="true">[</span><span>Orvane L4</span><span aria-hidden="true">]</span>
+      </span>
+      <span class="hidden h-px w-10 bg-pale md:block"></span>
+      <span class="label-mono hidden md:inline">Self-flying survey unit</span>
+    </div>
+
+    <!-- Bottom Left Title -->
+    <div class="absolute bottom-6 left-5 max-w-[680px] pr-12 md:bottom-10 md:left-10 md:pr-0 z-20">
+      <h1 class="text-[clamp(22px,2.7vw,42px)] font-light leading-[1.08] tracking-[-0.04em]" id="hero-title">
+        <span class="block text-ink">Self-flying LiDAR for the structures we rely on.</span>
+        <span class="block text-haze">Every bridge, line and turbine, measured to the centimetre.</span>
+      </h1>
+    </div>
+
+    <!-- Bottom Right Scroll Cue -->
+    <div class="absolute bottom-6 right-5 flex items-center gap-3 md:bottom-10 md:right-10 z-20">
+      <span class="hidden text-[13px] tracking-[-0.01em] text-ink sm:inline">Scroll Down</span>
+      <span aria-hidden="true" class="grid grid-cols-3 gap-[3px]">
+        <span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0s"></span>
+        <span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.16s"></span>
+        <span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.32s"></span>
+        <span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.16s"></span>
+        <span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.32s"></span>
+        <span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.48s"></span>
+        <span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.32s"></span>
+        <span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.48s"></span>
+        <span class="dot-pulse size-[3px] rounded-full bg-ink" style="animation-delay:0.64s"></span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes droneFloat {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+    }
+    50% {
+      transform: translateY(-10px) scale(1.01);
+    }
+  }
+
+  .drone-hover-effect {
+    animation: droneFloat 5.5s ease-in-out infinite;
+  }
+</style>

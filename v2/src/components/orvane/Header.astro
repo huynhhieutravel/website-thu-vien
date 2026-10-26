@@ -2,4 +2,182 @@
 // v2/src/components/orvane/Header.astro
 ---
 
-<header class="fixed inset-x-0 top-0 z-50"><div class="relative flex h-14 items-center justify-between border-b border-line/70 bg-white/60 px-4 backdrop-blur-md backdrop-saturate-150 md:px-6"><a aria-label="Orvane, back to top" class="flex items-center gap-2.5" href="#hero"><svg aria-hidden="true" class="size-[18px] text-ink" fill="none" viewbox="0 0 24 24"><circle cx="12" cy="12" r="7.25" stroke="currentColor" stroke-width="1.6"></circle><path d="M1.5 12h3.2M19.3 12h3.2" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path><circle cx="12" cy="12" fill="#8fe3f0" r="2.6"></circle></svg><span class="text-[15px] font-medium tracking-[-0.03em] text-ink">orvane</span><span aria-hidden="true" class="size-1 rounded-full bg-ink/35"></span><span class="hidden text-[13px] tracking-[-0.01em] text-haze sm:inline">Lidar Drone Scanning</span></a><p class="pointer-events-none absolute left-1/2 hidden -translate-x-1/2 text-[13px] tracking-[-0.01em] text-ink md:block">Precision Demo</p><div class="flex items-center gap-3 md:gap-5"><p class="hidden min-w-[96px] text-right font-mono text-[11px] uppercase tracking-[0.08em] text-ink sm:block"><span>GMT</span> <time class="normal-case tabular-nums">--:--</time></p><button aria-controls="site-menu" aria-expanded="false" class="h-7 min-w-[62px] rounded-full bg-[#e4e9eb] px-3.5 text-[13px] tracking-[-0.01em] text-ink transition-colors duration-300 hover:bg-[#d7dee1]" type="button">menu</button></div></div></header>
+<header class="fixed inset-x-0 top-0 z-50">
+  <div class="relative flex h-14 items-center justify-between border-b border-line/70 bg-white/60 px-4 backdrop-blur-md backdrop-saturate-150 md:px-6">
+    <a aria-label="Orvane, back to top" class="flex items-center gap-2.5" href="#hero">
+      <svg aria-hidden="true" class="size-[18px] text-ink" fill="none" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="7.25" stroke="currentColor" stroke-width="1.6"></circle>
+        <path d="M1.5 12h3.2M19.3 12h3.2" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path>
+        <circle cx="12" cy="12" fill="#8fe3f0" r="2.6"></circle>
+      </svg>
+      <span class="text-[15px] font-medium tracking-[-0.03em] text-ink">orvane</span>
+      <span aria-hidden="true" class="size-1 rounded-full bg-ink/35"></span>
+      <span class="hidden text-[13px] tracking-[-0.01em] text-haze sm:inline">Lidar Drone Scanning</span>
+    </a>
+
+    <p class="pointer-events-none absolute left-1/2 hidden -translate-x-1/2 text-[13px] tracking-[-0.01em] text-ink md:block">
+      Precision Demo
+    </p>
+
+    <div class="flex items-center gap-3 md:gap-5">
+      <p class="hidden min-w-[96px] text-right font-mono text-[11px] uppercase tracking-[0.08em] text-ink sm:block">
+        <span>GMT</span> <time class="normal-case tabular-nums" id="live-gmt-time">--:--</time>
+      </p>
+      <button
+        aria-controls="site-menu"
+        aria-expanded="false"
+        class="h-7 min-w-[62px] rounded-full bg-[#e4e9eb] px-3.5 text-[13px] tracking-[-0.01em] text-ink transition-colors duration-300 hover:bg-[#d7dee1]"
+        id="menu-toggle-btn"
+        type="button"
+      >
+        menu
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Site Navigation Drawer Overlay -->
+<div
+  id="site-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site menu"
+  aria-hidden="true"
+  inert=""
+  class="fixed inset-0 z-40 bg-[#f6f8f8]/95 backdrop-blur-xl transition-[clip-path] duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] [clip-path:inset(0_0_100%_0)]"
+>
+  <div class="mx-auto flex h-full max-w-[1600px] flex-col justify-between gap-10 overflow-y-auto px-4 pb-8 pt-24 md:px-10 md:pb-10">
+    <nav aria-label="Sections">
+      <ul class="border-t border-line">
+        <li class="border-b border-line">
+          <a href="#hero" class="group flex items-baseline gap-5 py-2.5 md:gap-8 md:py-3.5 menu-nav-item">
+            <span class="label-mono w-8 shrink-0 text-haze">01</span>
+            <span class="block text-[clamp(34px,6.2vw,92px)] font-light leading-[0.95] tracking-[-0.055em] text-ink transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-3">Overview</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right ml-auto size-5 -translate-x-2 text-ink opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+          </a>
+        </li>
+        <li class="border-b border-line">
+          <a href="#gear" class="group flex items-baseline gap-5 py-2.5 md:gap-8 md:py-3.5 menu-nav-item">
+            <span class="label-mono w-8 shrink-0 text-haze">02</span>
+            <span class="block text-[clamp(34px,6.2vw,92px)] font-light leading-[0.95] tracking-[-0.055em] text-ink transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-3">Gear</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right ml-auto size-5 -translate-x-2 text-ink opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+          </a>
+        </li>
+        <li class="border-b border-line">
+          <a href="#numbers" class="group flex items-baseline gap-5 py-2.5 md:gap-8 md:py-3.5 menu-nav-item">
+            <span class="label-mono w-8 shrink-0 text-haze">03</span>
+            <span class="block text-[clamp(34px,6.2vw,92px)] font-light leading-[0.95] tracking-[-0.055em] text-ink transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-3">Numbers</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right ml-auto size-5 -translate-x-2 text-ink opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+          </a>
+        </li>
+        <li class="border-b border-line">
+          <a href="#solutions" class="group flex items-baseline gap-5 py-2.5 md:gap-8 md:py-3.5 menu-nav-item">
+            <span class="label-mono w-8 shrink-0 text-haze">04</span>
+            <span class="block text-[clamp(34px,6.2vw,92px)] font-light leading-[0.95] tracking-[-0.055em] text-ink transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-3">Solutions</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right ml-auto size-5 -translate-x-2 text-ink opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+          </a>
+        </li>
+        <li class="border-b border-line">
+          <a href="#capabilities" class="group flex items-baseline gap-5 py-2.5 md:gap-8 md:py-3.5 menu-nav-item">
+            <span class="label-mono w-8 shrink-0 text-haze">05</span>
+            <span class="block text-[clamp(34px,6.2vw,92px)] font-light leading-[0.95] tracking-[-0.055em] text-ink transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-3">Capabilities</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right ml-auto size-5 -translate-x-2 text-ink opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+          </a>
+        </li>
+        <li class="border-b border-line">
+          <a href="#terrain" class="group flex items-baseline gap-5 py-2.5 md:gap-8 md:py-3.5 menu-nav-item">
+            <span class="label-mono w-8 shrink-0 text-haze">06</span>
+            <span class="block text-[clamp(34px,6.2vw,92px)] font-light leading-[0.95] tracking-[-0.055em] text-ink transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-3">Terrain</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right ml-auto size-5 -translate-x-2 text-ink opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <div class="flex flex-col gap-3">
+        <span class="label-mono inline-flex items-center gap-[0.6em] whitespace-nowrap text-haze">
+          <span aria-hidden="true">[</span><span>Orvane L4 Platform</span><span aria-hidden="true">]</span>
+        </span>
+        <p class="max-w-sm text-[15px] leading-relaxed text-haze">
+          Self-flying LiDAR survey for energy, infrastructure, industry and mapping teams.
+        </p>
+      </div>
+      <a
+        href="#capabilities"
+        class="group inline-flex h-12 items-center gap-3 self-start bg-ink px-6 text-[14px] tracking-[-0.01em] text-white transition-colors duration-300 hover:bg-[#2b3b44] md:self-auto menu-action-btn"
+      >
+        Book a Survey Flight
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    // 1. GMT Clock updater
+    function updateClock() {
+      const timeEl = document.getElementById('live-gmt-time');
+      if (!timeEl) return;
+      const now = new Date();
+      const h = String(now.getUTCHours()).padStart(2, '0');
+      const m = String(now.getUTCMinutes()).padStart(2, '0');
+      const s = String(now.getUTCSeconds()).padStart(2, '0');
+      timeEl.textContent = `${h}:${m}:${s}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. Site menu drawer toggle
+    const btn = document.getElementById('menu-toggle-btn');
+    const menu = document.getElementById('site-menu');
+    if (!btn || !menu) return;
+
+    let isOpen = false;
+
+    function openMenu() {
+      isOpen = true;
+      btn.setAttribute('aria-expanded', 'true');
+      btn.textContent = 'close';
+      menu.setAttribute('aria-hidden', 'false');
+      menu.removeAttribute('inert');
+      menu.style.clipPath = 'inset(0% 0% 0% 0%)';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      isOpen = false;
+      btn.setAttribute('aria-expanded', 'false');
+      btn.textContent = 'menu';
+      menu.setAttribute('aria-hidden', 'true');
+      menu.setAttribute('inert', '');
+      menu.style.clipPath = 'inset(0% 0% 100% 0%)';
+      document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    // Close when clicking nav items
+    const navLinks = menu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        closeMenu();
+      });
+    });
+
+    // Close on Escape key
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isOpen) {
+        closeMenu();
+      }
+    });
+  })();
+</script>

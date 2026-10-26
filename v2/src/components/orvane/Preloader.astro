@@ -1,5 +1,237 @@
 ---
-// v2/src/components/orvane/Preloader.astro
+// v2/src/components/orvane/Preloader.astro - Cinematic Radar Preloader with Auto-Dismiss
 ---
 
-<div aria-busy="true" aria-label="Loading Orvane" class="preloader fixed inset-0 z-[150] overflow-hidden" role="status" style="opacity:1;transition:opacity 0.6s ease"><div aria-hidden="true" class="absolute inset-x-0 top-0 h-1/2 bg-[#fbfcfc] will-change-transform" style="transform:translate3d(0, 0, 0);transition:transform 1.25s cubic-bezier(0.76, 0, 0.24, 1)"><span class="absolute inset-x-0 bottom-0 h-px origin-center bg-[#5fbfd0]" style="transform:scaleX(0);transition:transform 0.62s cubic-bezier(0.65, 0, 0.35, 1)"></span></div><div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-1/2 bg-[#fbfcfc] will-change-transform" style="transform:translate3d(0, 0, 0);transition:transform 1.25s cubic-bezier(0.76, 0, 0.24, 1)"><span class="absolute inset-x-0 top-0 h-px origin-center bg-[#5fbfd0]" style="transform:scaleX(0);transition:transform 0.62s cubic-bezier(0.65, 0, 0.35, 1)"></span></div><div class="absolute inset-0 flex flex-col justify-between px-5 pb-6 pt-5 transition-opacity duration-500 ease-out md:px-10 md:pb-9 md:pt-7" style="opacity:1"><div aria-hidden="true" class="pointer-events-none absolute inset-0 flex items-center justify-center"><canvas class="block size-[min(76vw,44svh)] transition-transform duration-700 ease-out md:size-[min(56vmin,460px)]" style="transform:scale(1)"></canvas></div><div class="relative flex items-start justify-between gap-6"><span class="label-mono inline-flex items-center gap-[0.6em] whitespace-nowrap text-ink"><span aria-hidden="true">[</span><span>Orvane L4</span><span aria-hidden="true">]</span></span><span class="label-mono inline-flex items-center gap-[0.6em] whitespace-nowrap text-haze"><span aria-hidden="true">[</span><span>Pre-flight check</span><span aria-hidden="true">]</span></span></div><div class="relative flex flex-col gap-4"><div class="flex items-end justify-between gap-6"><p aria-hidden="true" class="flex items-start text-[clamp(64px,10vw,152px)] font-light leading-[0.8] tracking-[-0.065em] text-ink tabular-nums"><span>0</span><span class="label-mono ml-2 mt-1 text-haze">%</span></p><div class="flex flex-col items-end gap-1.5 pb-1 text-right"><span class="label-mono tabular-nums text-haze">0<!-- -->1<!-- --> / 04</span><span class="label-mono text-ink animate-in fade-in slide-in-from-bottom-1 duration-500">Warming up the sensor</span><span aria-hidden="true" class="label-mono tabular-nums text-haze">Points <span>0</span></span></div></div><div aria-hidden="true" class="relative h-px w-full overflow-hidden bg-line"><span class="absolute inset-0 block origin-left bg-ink" style="transform:scaleX(0)"></span></div></div></div></div>
+<div
+  aria-busy="true"
+  aria-label="Loading Orvane"
+  class="preloader fixed inset-0 z-[150] overflow-hidden"
+  role="status"
+  style="opacity:1;transition:opacity 0.6s ease"
+>
+  <!-- Top Shutter: slides UP when finished -->
+  <div
+    aria-hidden="true"
+    class="preloader-top absolute inset-x-0 top-0 h-1/2 bg-[#fbfcfc] will-change-transform"
+    style="transform:translate3d(0, 0, 0);transition:transform 1.1s cubic-bezier(0.76, 0, 0.24, 1)"
+  >
+    <span
+      class="absolute inset-x-0 bottom-0 h-px origin-center bg-[#5fbfd0]"
+      style="transform:scaleX(0);transition:transform 0.62s cubic-bezier(0.65, 0, 0.35, 1)"
+    ></span>
+  </div>
+
+  <!-- Bottom Shutter: slides DOWN when finished -->
+  <div
+    aria-hidden="true"
+    class="preloader-bottom absolute inset-x-0 bottom-0 h-1/2 bg-[#fbfcfc] will-change-transform"
+    style="transform:translate3d(0, 0, 0);transition:transform 1.1s cubic-bezier(0.76, 0, 0.24, 1)"
+  >
+    <span
+      class="absolute inset-x-0 top-0 h-px origin-center bg-[#5fbfd0]"
+      style="transform:scaleX(0);transition:transform 0.62s cubic-bezier(0.65, 0, 0.35, 1)"
+    ></span>
+  </div>
+
+  <!-- Preloader UI Content -->
+  <div
+    class="preloader-content absolute inset-0 flex flex-col justify-between px-5 pb-6 pt-5 transition-opacity duration-500 ease-out md:px-10 md:pb-9 md:pt-7"
+    style="opacity:1"
+  >
+    <!-- Radar Canvas in Center -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 flex items-center justify-center">
+      <canvas
+        class="preloader-canvas block size-[min(76vw,44svh)] transition-transform duration-700 ease-out md:size-[min(56vmin,460px)]"
+        style="transform:scale(1)"
+      ></canvas>
+    </div>
+
+    <!-- Header info -->
+    <div class="relative flex items-start justify-between gap-6">
+      <span class="label-mono inline-flex items-center gap-[0.6em] whitespace-nowrap text-ink">
+        <span aria-hidden="true">[</span><span>Orvane L4</span><span aria-hidden="true">]</span>
+      </span>
+      <span class="label-mono inline-flex items-center gap-[0.6em] whitespace-nowrap text-haze">
+        <span aria-hidden="true">[</span><span>Pre-flight check</span><span aria-hidden="true">]</span>
+      </span>
+    </div>
+
+    <!-- Bottom progress & counter -->
+    <div class="relative flex flex-col gap-4">
+      <div class="flex items-end justify-between gap-6">
+        <p
+          aria-hidden="true"
+          class="flex items-start text-[clamp(64px,10vw,152px)] font-light leading-[0.8] tracking-[-0.065em] text-ink tabular-nums"
+        >
+          <span class="preloader-pct">0</span>
+          <span class="label-mono ml-2 mt-1 text-haze">%</span>
+        </p>
+        <div class="flex flex-col items-end gap-1.5 pb-1 text-right">
+          <span class="label-mono tabular-nums text-haze preloader-step">01 / 04</span>
+          <span class="label-mono text-ink animate-in fade-in slide-in-from-bottom-1 duration-500 preloader-label">Warming up the sensor</span>
+          <span aria-hidden="true" class="label-mono tabular-nums text-haze">Points <span class="preloader-points">0</span></span>
+        </div>
+      </div>
+      <div aria-hidden="true" class="relative h-px w-full overflow-hidden bg-line">
+        <span
+          class="preloader-bar absolute inset-0 block origin-left bg-ink transition-transform duration-100 ease-out"
+          style="transform:scaleX(0)"
+        ></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const preloader = document.querySelector('.preloader[role="status"]');
+    if (!preloader) return;
+
+    const topShutter = preloader.querySelector('.preloader-top') || preloader.children[0];
+    const bottomShutter = preloader.querySelector('.preloader-bottom') || preloader.children[1];
+    const content = preloader.querySelector('.preloader-content') || preloader.children[2];
+    const pctEl = preloader.querySelector('.preloader-pct');
+    const labelEl = preloader.querySelector('.preloader-label');
+    const stepEl = preloader.querySelector('.preloader-step');
+    const pointsEl = preloader.querySelector('.preloader-points');
+    const barEl = preloader.querySelector('.preloader-bar');
+    const canvas = preloader.querySelector('canvas');
+
+    // 1. Radar Simulation on Canvas
+    let animFrame;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      const size = 460;
+      canvas.width = size;
+      canvas.height = size;
+      const center = size / 2;
+      const radius = center - 12;
+      let angle = -Math.PI / 2;
+
+      const points = [];
+      for (let i = 0; i < 220; i++) {
+        const a = Math.random() * Math.PI * 2;
+        const r = Math.random() * radius * 0.94;
+        points.push({ a, r, alpha: Math.random() * 0.7 + 0.3 });
+      }
+
+      function drawRadar() {
+        if (!ctx || !preloader.isConnected) return;
+        ctx.clearRect(0, 0, size, size);
+
+        // Concentric radar guide rings
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(29, 42, 49, 0.12)';
+        [1, 0.66, 0.33].forEach((ratio) => {
+          ctx.beginPath();
+          ctx.arc(center, center, radius * ratio, 0, Math.PI * 2);
+          ctx.stroke();
+        });
+
+        // Crosshairs
+        ctx.strokeStyle = 'rgba(29, 42, 49, 0.08)';
+        ctx.beginPath();
+        ctx.moveTo(center - radius, center);
+        ctx.lineTo(center + radius, center);
+        ctx.moveTo(center, center - radius);
+        ctx.lineTo(center, center + radius);
+        ctx.stroke();
+
+        // Rotary radar sweep beam
+        angle += 0.045;
+        const beamGrad = ctx.createRadialGradient(center, center, 0, center, center, radius);
+        beamGrad.addColorStop(0, 'rgba(143, 227, 240, 0.4)');
+        beamGrad.addColorStop(1, 'rgba(143, 227, 240, 0.02)');
+        ctx.fillStyle = beamGrad;
+        ctx.beginPath();
+        ctx.moveTo(center, center);
+        ctx.arc(center, center, radius, angle - 0.48, angle);
+        ctx.closePath();
+        ctx.fill();
+
+        // Sweep line
+        ctx.strokeStyle = 'rgba(29, 42, 49, 0.6)';
+        ctx.beginPath();
+        ctx.moveTo(center, center);
+        ctx.lineTo(center + Math.cos(angle) * radius, center + Math.sin(angle) * radius);
+        ctx.stroke();
+
+        // Detected LiDAR points
+        points.forEach((p) => {
+          const diff = ((angle - p.a) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+          if (diff < 0.75) {
+            ctx.fillStyle = '#5fbfd0';
+            ctx.beginPath();
+            ctx.arc(center + Math.cos(p.a) * p.r, center + Math.sin(p.a) * p.r, 2.2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+
+        animFrame = requestAnimationFrame(drawRadar);
+      }
+      drawRadar();
+    }
+
+    // 2. Preloader Steps Progression
+    const steps = [
+      { at: 0, label: 'Warming up the sensor', step: '01 / 04' },
+      { at: 54, label: 'Aligning the inertial unit', step: '02 / 04' },
+      { at: 72, label: 'Locking satellites', step: '03 / 04' },
+      { at: 100, label: 'Cleared to fly', step: '04 / 04' }
+    ];
+
+    let currentVal = 0;
+    const startTime = performance.now();
+    const duration = 1800; // 1.8 seconds smooth progress
+
+    function updateCounter() {
+      const elapsed = performance.now() - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      const eased = 1 - Math.pow(1 - progress, 2.2);
+      currentVal = Math.round(eased * 100);
+
+      if (pctEl) pctEl.textContent = String(currentVal);
+      if (barEl) barEl.style.transform = `scaleX(${currentVal / 100})`;
+      if (pointsEl) pointsEl.textContent = Math.round(currentVal * 1342).toLocaleString('en-US');
+
+      for (let i = steps.length - 1; i >= 0; i--) {
+        if (currentVal >= steps[i].at) {
+          if (labelEl && labelEl.textContent !== steps[i].label) labelEl.textContent = steps[i].label;
+          if (stepEl && stepEl.textContent !== steps[i].step) stepEl.textContent = steps[i].step;
+          break;
+        }
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      } else {
+        setTimeout(dismissPreloader, 300);
+      }
+    }
+    requestAnimationFrame(updateCounter);
+
+    // 3. Cinematic Split-Shutter Dismissal
+    let dismissed = false;
+    function dismissPreloader() {
+      if (dismissed) return;
+      dismissed = true;
+
+      if (content) content.style.opacity = '0';
+      setTimeout(() => {
+        if (topShutter) topShutter.style.transform = 'translate3d(0, -100%, 0)';
+        if (bottomShutter) bottomShutter.style.transform = 'translate3d(0, 100%, 0)';
+        setTimeout(() => {
+          if (animFrame) cancelAnimationFrame(animFrame);
+          preloader.style.opacity = '0';
+          preloader.style.pointerEvents = 'none';
+          setTimeout(() => {
+            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+          }, 500);
+        }, 900);
+      }, 200);
+    }
+
+    // Failsafe auto-dismiss after 3.2s
+    setTimeout(dismissPreloader, 3200);
+  })();
+</script>
