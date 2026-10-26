@@ -1,0 +1,145 @@
+---
+// v2/src/pages/every-joule.astro - Website 06: Every Joule — A 3D Physics Book About Energy
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Every Joule · A 3D Physics Book About Energy | Techartist</title>
+    <meta
+      name="description"
+      content="A physics book about energy where every diagram lifts off the page as a 3D ink drawing and energy flows as glowing colour between stores."
+    />
+    <link rel="icon" href="/apps/every-joule/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/apps/every-joule/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apps/every-joule/apple-touch-icon.png" />
+    <link rel="manifest" href="/apps/every-joule/site.webmanifest" />
+    <meta name="theme-color" content="#0D0B12" />
+
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #0d0b12;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      .top-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        z-index: 9999;
+        background: rgba(13, 11, 18, 0.95);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+      }
+      .top-nav a {
+        color: #ff9b3d;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 600;
+        transition: color 0.2s ease;
+      }
+      .top-nav a:hover {
+        color: #ffe08a;
+      }
+      .top-nav .badge {
+        background: rgba(255, 155, 61, 0.12);
+        border: 1px solid rgba(255, 155, 61, 0.3);
+        padding: 3px 12px;
+        border-radius: 9999px;
+        color: #ff9b3d;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+      }
+      .app-frame-wrap {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #0d0b12;
+        overflow: hidden;
+      }
+      .app-frame {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+        background: #b9b0a2;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Navigation Bar quay lại Trang Chủ -->
+    <aside class="top-nav">
+      <a href="/" title="Quay lại danh mục Website Archive Hub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>← Về Trang Chủ Thư Viện</span>
+      </a>
+      <span class="badge">
+        Website 06: Every Joule — 3D Physics Book
+      </span>
+    </aside>
+
+    <!-- 3D Physics Book WebGL Canvas / App Wrapper -->
+    <main class="app-frame-wrap">
+      <iframe
+        id="every-joule-frame"
+        class="app-frame"
+        src="/apps/every-joule/index.html"
+        title="Every Joule: a 3D physics book about energy"
+        allow="autoplay; fullscreen"
+        allowfullscreen
+      ></iframe>
+    </main>
+
+    <script is:inline>
+      (() => {
+        const frame = document.getElementById('every-joule-frame');
+        if (frame && location.hash) {
+          frame.src = '/apps/every-joule/index.html' + location.hash;
+        }
+        if (frame) {
+          frame.addEventListener('load', () => {
+            try {
+              frame.contentWindow.focus();
+            } catch (e) {}
+          });
+        }
+        window.addEventListener('keydown', (e) => {
+          if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '].includes(e.key)) {
+            try {
+              if (frame && document.activeElement !== frame) {
+                frame.contentWindow.focus();
+              }
+            } catch (err) {}
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

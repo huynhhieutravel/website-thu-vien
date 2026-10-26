@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Every Joule · a physics book about energy</title>
+<meta name="description" content="A physics book about energy where every diagram lifts off the page as a 3D ink drawing and energy flows as glowing colour between stores." />
+<link rel="canonical" href="https://iamtechartist.com/every-joule/" />
+<!-- ta:head -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0D0B12">
+<style id="ta-loader-css">
+  /* Techartist loader (toolkit/brand). Critical CSS: inline it so the very first paint is already branded. */
+  #ta-loader { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden;
+    background: radial-gradient(120% 90% at 50% 38%, #1d1622 0%, #0d0b12 58%, #08070b 100%); color: #e9e7ef;
+    font: 500 13px/1.4 "Inter Variable", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    transition: opacity 0.7s ease 0.1s, visibility 0s 0.85s; }
+  #ta-loader.ta-done { opacity: 0; visibility: hidden; pointer-events: none; }
+  #ta-loader .ta-in { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0 24px; }
+  #ta-loader .ta-mark { width: clamp(64px, 11vmin, 96px); height: auto; overflow: visible; filter: drop-shadow(0 10px 26px rgba(255, 110, 70, 0.22)); }
+  #ta-loader .ta-l, #ta-loader .ta-r { animation: ta-in 0.9s cubic-bezier(.2,.8,.2,1) both; }
+  #ta-loader .ta-l { animation-name: ta-inL; }
+  #ta-loader .ta-r { animation-name: ta-inR; animation-delay: 0.12s; }
+  #ta-loader .ta-glint { animation: ta-glint 2.4s ease-in-out 0.9s infinite; }
+  #ta-loader .ta-word { width: clamp(132px, 22vmin, 190px); height: auto; opacity: 0; animation: ta-fade 0.8s ease 0.45s forwards; }
+  #ta-loader .ta-title { margin-top: 6px; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #8e93aa; opacity: 0; animation: ta-fade 0.8s ease 0.7s forwards; }
+  #ta-loader .ta-bar { width: clamp(120px, 20vmin, 170px); height: 2px; border-radius: 2px; background: rgba(142, 147, 170, 0.18); overflow: hidden; }
+  #ta-loader .ta-bar i { display: block; height: 100%; width: calc(var(--ta-p, 0) * 100%); min-width: 18%; border-radius: inherit;
+    background: linear-gradient(90deg, #ffe08a, #ff9b3d 45%, #ff5e5b 75%, #c2246b); transition: width 0.35s ease; }
+  #ta-loader.ta-wait .ta-bar i { animation: ta-run 1.3s ease-in-out infinite; }
+  #ta-loader .ta-msg { max-width: 440px; text-align: center; color: #c9c6d4; min-height: 1em; }
+  #ta-loader .ta-copy { position: absolute; left: 0; right: 0; bottom: max(14px, env(safe-area-inset-bottom)); text-align: center; font-size: 10.5px; letter-spacing: 0.08em; color: #70748a; }
+  @keyframes ta-inL { from { opacity: 0; transform: translate(-10px, -8px); } to { opacity: 1; transform: none; } }
+  @keyframes ta-inR { from { opacity: 0; transform: translate(10px, -8px); } to { opacity: 1; transform: none; } }
+  @keyframes ta-fade { to { opacity: 1; } }
+  @keyframes ta-glint { 0% { transform: translateX(-140px); } 55%, 100% { transform: translateX(460px); } }
+  @keyframes ta-run { 0% { transform: translateX(-100%); } 100% { transform: translateX(560%); } }
+  @media (prefers-reduced-motion: reduce) { #ta-loader * { animation: none !important; opacity: 1 !important; } }
+</style>
+<!-- /ta:head -->
+<style>
+  /* critical CSS inline: the loader and the frame must be styled before any script arrives */
+  :root { --ink: #1c2433; --ink2: rgba(28,36,51,0.62); --accent: #9a3b2a; --serif: "Source Serif 4 Variable", "Source Serif 4", Georgia, serif; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #b9b0a2; color: var(--ink); font-family: var(--serif); -webkit-font-smoothing: antialiased; }
+  canvas#c { display: block; width: 100%; height: 100%; touch-action: none; outline: none; }
+  #ui { position: fixed; inset: 0; pointer-events: none; }
+  /* the copyright: beside the capsule on wide screens, in the top corner where the capsule spans the width */
+  #copy { position: fixed; right: 20px; bottom: max(34px, calc(env(safe-area-inset-bottom) + 20px)); font: 400 12px/1 var(--serif); letter-spacing: 0.03em; color: rgba(28,36,51,0.72); pointer-events: none; z-index: 1; white-space: nowrap; }
+  @media (max-width: 939px) { #copy { bottom: auto; top: max(14px, env(safe-area-inset-top)); right: 14px; } }
+  #nogl { position: fixed; inset: 0; display: none; place-items: center; background: #e9e3d6; z-index: 6; padding: 24px; text-align: center; }
+  body.nogl #nogl { display: grid; }
+  html, body { overscroll-behavior: none; }
+  body.still *, body.still *::before, body.still *::after { transition: none !important; animation: none !important; }
+  #a11y button[aria-pressed="true"] { font-weight: 700; text-decoration: underline; }
+  .sr { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .sr:focus-within { position: fixed !important; width: auto; height: auto; clip: auto; left: 12px; top: 12px; max-width: min(520px, calc(100vw - 24px)); max-height: 70vh; overflow: auto; background: #fbf7ee; color: var(--ink); padding: 14px 16px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); z-index: 7; white-space: normal; }
+</style>
+  <script type="module" crossorigin src="./assets/main-CpVTDnX_.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/values-CE81fNvl.js">
+  <link rel="modulepreload" crossorigin href="./assets/base-DuILh_df.js">
+  <link rel="modulepreload" crossorigin href="./assets/ramp-D8I85MxI.js">
+  <link rel="modulepreload" crossorigin href="./assets/bounce-CYnaO_nK.js">
+  <link rel="modulepreload" crossorigin href="./assets/numbers-CZOogZLv.js">
+  <link rel="modulepreload" crossorigin href="./assets/format-0ZmO_YjU.js">
+  <link rel="modulepreload" crossorigin href="./assets/glossary-JBSUFUfK.js">
+  <link rel="modulepreload" crossorigin href="./assets/index-BcX2LtBz.js">
+  <link rel="modulepreload" crossorigin href="./assets/index-Dei7Ruk9.js">
+  <link rel="modulepreload" crossorigin href="./assets/three-PaSYbO4s.js">
+  <link rel="modulepreload" crossorigin href="./assets/post-DnllpK9R.js">
+  <link rel="modulepreload" crossorigin href="./assets/BufferGeometryUtils-CD3AoaZt.js">
+  <link rel="modulepreload" crossorigin href="./assets/sourcelist-DBY2gKZN.js">
+  <link rel="modulepreload" crossorigin href="./assets/colors-DgX8emcA.js">
+  <link rel="modulepreload" crossorigin href="./assets/backmatter-aTXis4sI.js">
+  <link rel="modulepreload" crossorigin href="./assets/spring-BONj-Pu7.js">
+  <link rel="modulepreload" crossorigin href="./assets/cutaway-Dhzn16cq.js">
+  <link rel="modulepreload" crossorigin href="./assets/stream-D0IaxomV.js">
+  <link rel="modulepreload" crossorigin href="./assets/lathe-BJtSZ4sb.js">
+  <link rel="modulepreload" crossorigin href="./assets/things-CkVbGyxA.js">
+  <link rel="modulepreload" crossorigin href="./assets/cards-B502MS5k.js">
+  <link rel="modulepreload" crossorigin href="./assets/stores-CVfpJjy0.js">
+  <link rel="modulepreload" crossorigin href="./assets/spill-DUb6Uk8_.js">
+  <link rel="stylesheet" crossorigin href="./assets/index-utElasQ9.css">
+</head>
+<body>
+<!-- ta:loader -->
+<div id="ta-loader" class="ta-wait" role="status" aria-live="polite"><div class="ta-in"><svg class="ta-mark" viewBox="80 86 352 352" aria-hidden="true"><defs><linearGradient id="taL" x1="0" y1="104" x2="0" y2="432" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE08A"/><stop offset="1" stop-color="#FF9B3D"/></linearGradient><linearGradient id="taR" x1="0" y1="104" x2="0" y2="432" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FF5E5B"/><stop offset="1" stop-color="#C2246B"/></linearGradient><linearGradient id="taG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="0.55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="taClip"><path d="M104 104 L256 104 L256 227 A27 27 0 0 0 250.5 280.43 L250.5 420.13 Z"/><path d="M408 104 L256 104 L256 227 A27 27 0 0 1 261.5 280.43 L261.5 420.13 Z"/></clipPath></defs><g class="ta-l"><path d="M104 104 L256 104 L256 227 A27 27 0 0 0 250.5 280.43 L250.5 420.13 Z" fill="url(#taL)"/></g><g class="ta-r"><path d="M408 104 L256 104 L256 227 A27 27 0 0 1 261.5 280.43 L261.5 420.13 Z" fill="url(#taR)"/></g><g clip-path="url(#taClip)"><rect class="ta-glint" x="0" y="86" width="120" height="352" fill="url(#taG)"/></g></svg><svg class="ta-word" viewBox="0 0 890.4 187.25" role="img" aria-label="techartist"><path d="M89.33203125 56.125H68.3359375V28.0H43.62890625V56.125H25.66015625V75.94921875H43.62890625V133.2734375C43.62890625 150.94921875 53.4921875 159.25 74.48828125 159.25H89.33203125V139.42578125H78.78515625C70.77734375 139.42578125 68.3359375 136.984375 68.3359375 129.66015625V75.94921875H89.33203125Z" fill="#8E93AA"/><path d="M145.2046875 161.59375C169.32578125 161.59375 188.46640625 147.62890625 192.37265625 127.4140625H169.32578125C166.49375 136.203125 158.19296875 142.16015625 145.790625 142.16015625C129.1890625 142.16015625 119.61875 130.9296875 119.0328125 114.1328125H193.6421875V107.39453125C193.6421875 75.75390625 173.915625 53.78125 144.228125 53.78125C115.321875 53.78125 94.91171875 76.4375 94.91171875 107.78515625C94.91171875 139.03515625 114.24765625 161.59375 145.2046875 161.59375ZM119.228125 97.140625C120.88828125 82.39453125 130.3609375 73.3125 144.61875 73.3125C158.8765625 73.3125 168.446875 82.39453125 170.009375 97.140625Z" fill="#8E93AA"/><path d="M252.346875 161.59375C278.42109375 161.59375 297.36640625 144.796875 299.12421875 122.23828125H274.8078125C272.4640625 133.6640625 265.53046875 141.0859375 252.63984375 141.0859375C236.42890625 141.0859375 226.85859375 128.09765625 226.85859375 107.78515625C226.85859375 87.375 236.5265625 74.2890625 252.63984375 74.2890625C265.4328125 74.2890625 273.14765625 82.00390625 275.003125 93.0390625H299.12421875C296.97578125 70.08984375 278.22578125 53.78125 252.346875 53.78125C222.17109375 53.78125 201.95625 75.94921875 201.95625 107.78515625C201.95625 139.62109375 222.17109375 161.59375 252.346875 161.59375Z" fill="#8E93AA"/><path d="M336.63750000000005 100.94921875C336.63750000000005 83.37109375 346.30546875000005 75.65625 359.19609375000005 75.65625C372.37968750000005 75.65625 379.99687500000005 83.56640625 379.99687500000005 98.703125V159.25H404.70390625000005V94.796875C404.70390625000005 68.33203125 389.46953125000005 54.07421875 367.88750000000005 54.07421875C354.02031250000005 54.07421875 343.66875000000005 60.03125 336.63750000000005 71.26171875V13.7421875H312.02812500000005V159.25H336.63750000000005Z" fill="#8E93AA"/><path d="M454.42421875 160.91015625C471.22109375 160.91015625 479.9125 153.87890625 484.7953125 144.69921875H485.1859375V159.25H509.4046875V88.9375C509.4046875 67.453125 493.48671875 54.07421875 466.63125 54.07421875C439.678125 54.07421875 422.88125 67.6484375 421.709375 88.15625H445.43984375C446.1234375 79.46484375 454.13125 73.21484375 466.14296875 73.21484375C477.959375 73.21484375 484.990625 79.46484375 484.990625 88.25390625V89.03515625C484.990625 96.06640625 478.44765625 96.359375 459.30703125 98.5078125C438.01796875 100.75390625 418.7796875 106.515625 418.7796875 129.953125C418.7796875 150.55859375 433.91640625 160.91015625 454.42421875 160.91015625ZM460.47890625 142.6484375C449.73671875 142.6484375 442.803125 137.86328125 442.803125 129.7578125C442.803125 120.3828125 451.7875 116.57421875 462.334375 115.01171875C472.490625 113.44921875 482.0609375 111.88671875 485.08828125 109.93359375V121.06640625C485.08828125 133.078125 476.5921875 142.6484375 460.47890625 142.6484375Z" fill="#FFFFFF"/><path d="M527.58203125 159.25H552.19140625V100.8515625C552.19140625 84.73828125 561.2734375 76.6328125 572.9921875 76.6328125C577.875 76.6328125 582.7578125 77.12109375 584.61328125 77.4140625V55.5390625C582.66015625 55.34375 579.92578125 55.1484375 576.60546875 55.1484375C563.32421875 55.1484375 555.4140625 61.3984375 551.60546875 73.21484375H551.3125V56.125H527.58203125Z" fill="#FFFFFF"/><path d="M653.27890625 56.125H632.2828125V28.0H607.57578125V56.125H589.60703125V75.94921875H607.57578125V133.2734375C607.57578125 150.94921875 617.4390625 159.25 638.43515625 159.25H653.27890625V139.42578125H642.73203125C634.72421875 139.42578125 632.2828125 136.984375 632.2828125 129.66015625V75.94921875H653.27890625Z" fill="#FFFFFF"/><path d="M665.20625 159.25H689.815625V56.125H665.20625Z" fill="#FFFFFF"/><path d="M748.5203124999999 161.69140625C774.0085937499999 161.69140625 792.2703124999999 148.99609375 792.2703124999999 128.87890625C792.2703124999999 113.7421875 782.7976562499999 104.7578125 762.3874999999999 100.4609375L743.8328124999999 96.65234375C735.2390624999999 94.796875 730.1609374999999 90.98828125 730.1609374999999 84.8359375C730.1609374999999 77.8046875 736.8015624999999 72.3359375 747.6414062499999 72.3359375C758.8718749999999 72.3359375 766.3914062499999 79.07421875 766.5867187499999 88.25390625H789.7312499999999C789.1453124999999 67.0625 772.0554687499999 53.87890625 747.0554687499999 53.87890625C721.8601562499999 53.87890625 705.5515624999999 66.671875 705.5515624999999 85.6171875C705.5515624999999 101.2421875 715.9031249999999 111.30078125 735.6296874999999 115.40234375L753.2078124999999 119.015625C761.8992187499999 120.87109375 767.2703124999999 124.484375 767.2703124999999 130.734375C767.2703124999999 138.05859375 760.0437499999999 143.234375 748.1296874999999 143.234375C735.8249999999999 143.234375 728.5984374999999 137.47265625 727.5242187499999 127.4140625H703.2078124999999C704.7703124999999 149.58203125 723.4226562499999 161.69140625 748.5203124999999 161.69140625Z" fill="#FFFFFF"/><path d="M861.8148437499999 56.125H840.8187499999999V28.0H816.1117187499999V56.125H798.1429687499999V75.94921875H816.1117187499999V133.2734375C816.1117187499999 150.94921875 825.9749999999999 159.25 846.9710937499999 159.25H861.8148437499999V139.42578125H851.2679687499999C843.2601562499999 139.42578125 840.8187499999999 136.984375 840.8187499999999 129.66015625V75.94921875H861.8148437499999Z" fill="#FFFFFF"/><path d="M652.17 1.91 L677.51 1.91 L677.51 46.74 Z" fill="#FF9B3D"/><path d="M677.51 1.91 L702.85 1.91 L677.51 46.74 Z" fill="#FF5E5B"/></svg><div class="ta-title">Every Joule</div><div class="ta-bar"><i></i></div><div class="ta-msg" id="loadMsg"></div></div><div class="ta-copy">© 2026 Techartist</div></div>
+<!-- /ta:loader -->
+<canvas id="c" tabindex="0" aria-label="Every Joule: an open book. Use the text version below, or the arrow keys to turn pages."></canvas>
+<div id="ui"></div>
+<main id="a11y" class="sr" aria-label="Text version of the book"></main>
+<div id="a11yLive" class="sr" aria-live="polite" aria-atomic="true"></div>
+<div id="copy">© 2026 Techartist</div>
+<div id="nogl" role="alert"><div><h1 style="font:600 24px Georgia,serif;margin:0 0 10px">This book needs WebGL</h1><p style="font:16px/1.5 Georgia,serif;max-width:460px;margin:0 auto">Your browser could not start 3D graphics. Try a recent Chrome, Edge, Firefox or Safari, or turn on hardware acceleration. The <a href="teachers.html">teachers' page</a> and the text of every lesson still work without it.</p></div></div>
+<noscript><p style="position:fixed;inset:auto 0 0 0;padding:12px;background:#fff;text-align:center">Every Joule needs JavaScript to open the book.</p></noscript>
+</body>
+</html>
