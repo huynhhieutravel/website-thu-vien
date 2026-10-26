@@ -1,0 +1,29 @@
+---
+// v2/src/pages/kuro.astro - Website 10: Kuro Craft Cold Brew Coffee (Phiên Bản Astro Code Native)
+import KuroLayout from '../layouts/KuroLayout.astro';
+import Header from '../components/kuro/Header.astro';
+import Hero from '../components/kuro/Hero.astro';
+import Story from '../components/kuro/Story.astro';
+import Menu from '../components/kuro/Menu.astro';
+import Process from '../components/kuro/Process.astro';
+import Origins from '../components/kuro/Origins.astro';
+import Join from '../components/kuro/Join.astro';
+import Footer from '../components/kuro/Footer.astro';
+---
+
+<KuroLayout
+  title="Kuro — Craft Cold Brew & Botanical Lattes | Astro Native"
+  description="Slow-steeped craft cold brew and botanical lattes. Roasted in small batches, infused with real spices and organic botanicals."
+  isOriginal={false}
+>
+  <Header />
+  <main class="flex-1">
+    <Hero />
+    <Story />
+    <Menu />
+    <Process />
+    <Origins />
+    <Join />
+  </main>
+  <Footer />
+</KuroLayout>
