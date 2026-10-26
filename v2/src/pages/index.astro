@@ -1,7 +1,8 @@
 ---
 // v2/src/pages/index.astro
-// Trang Chủ Thư Viện: 2 Post cho Website AERIVE & Website VROOMX
-// Bố cục chuẩn grid 3 cột (width rộng 1240px), ảnh thumbnail 16:9, nút bấm cách nhau 16px thoáng đãng.
+// Trang Chủ Thư Viện: Danh mục các website clone
+// Website 01 (AERIVE): Có 2 phiên bản (Bản Astro code & Bản gốc)
+// Website 02 (VROOMX): Bản cover nguyên mẫu A-Z y hệt bản gốc (1 nút Xem Chi Tiết)
 ---
 
 <!doctype html>
@@ -10,8 +11,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Website Archive Hub — Danh Mục Website Đã Clone & Chuyển Đổi</title>
-    <meta name="description" content="Danh mục các trang web đã được clone nguyên mẫu và chuyển đổi mã nguồn tối ưu Astro." />
+    <title>Website Archive Hub — Danh Mục Website Đã Clone</title>
+    <meta name="description" content="Danh mục các trang web clone nguyên mẫu và chuyển đổi mã nguồn." />
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -222,7 +223,7 @@
         color: #e0533c;
       }
 
-      /* Nhóm 2 Nút Xem Chi Tiết - KHOẢNG CÁCH 16px THOÁNG ĐÃNG */
+      /* Nhóm Nút Xem Chi Tiết - KHOẢNG CÁCH 16px THOÁNG ĐÃNG */
       .btn-stack {
         display: flex;
         flex-direction: column;
@@ -276,15 +277,14 @@
     <!-- Main Center Container (1240px RỘNG RÃI, KHÔNG FULL-WIDTH) -->
     <div class="page-container">
       <!-- Title Heading -->
-      <h1 class="top-title">Tìm thấy 2 Website (4 Phiên Bản)</h1>
-      <p class="top-subtitle">Danh mục các trang web đã được clone nguyên mẫu và chuyển đổi mã nguồn Astro.</p>
+      <h1 class="top-title">Tìm thấy 2 Website</h1>
+      <p class="top-subtitle">Danh mục các trang web đã được clone lưu trữ trong thư viện.</p>
 
       <!-- Filter Pills -->
       <div class="filter-pills">
         <button type="button" class="pill-btn active">Tất cả (2)</button>
         <button type="button" class="pill-btn">Private Aviation</button>
         <button type="button" class="pill-btn">Game 3D Three.js</button>
-        <button type="button" class="pill-btn">Astro 5 Ready</button>
       </div>
 
       <!-- Grid Bố Cục (2 Post Cards nằm cạnh nhau trên hệ thống lưới 3 cột) -->
@@ -292,7 +292,7 @@
         <!-- Post 01: Website AERIVE -->
         <article class="card-item">
           <!-- Thumbnail 16:9 sắc nét -->
-          <a href="/aerive" class="card-thumb-wrap" title="Xem Website AERIVE">
+          <a href="/aerive-original" class="card-thumb-wrap" title="Xem Website AERIVE">
             <img
               src="/images/aerive/thumb-window-16x9.png"
               alt="AERIVE Luxury Aviation Website"
@@ -305,16 +305,16 @@
           <div class="card-body">
             <span class="card-tag">Website 01 • Private Aviation</span>
             <div class="card-title-wrap">
-              <a href="/aerive" class="card-title">
+              <a href="/aerive-original" class="card-title">
                 AERIVE — Luxury Private Jet & Aviation Charter
               </a>
             </div>
             <p class="card-desc">
-              Website hàng không tư nhân siêu sang, tích hợp Canvas Chroma-Key xóa phông 3D, hiệu ứng mượt mà và tối ưu hóa SEO với Astro 5 component hóa.
+              Website hàng không tư nhân siêu sang, tích hợp Canvas Chroma-Key xóa phông 3D, hiệu ứng mượt mà và chuyển đổi mã nguồn tối ưu SEO với Astro 5.
             </p>
           </div>
 
-          <!-- Footer với ĐỦ 2 NÚT BẢN GỐC & BẢN ASTRO CODE -->
+          <!-- Footer với 2 NÚT (Bản Astro code & Bản gốc) -->
           <div class="card-footer">
             <div class="meta-row">
               <span class="meta-label">PHIÊN BẢN CÓ SẴN</span>
@@ -358,26 +358,19 @@
               </a>
             </div>
             <p class="card-desc">
-              Chặng đua F1 xe đồ chơi 3D thời gian thực qua nhà máy Plant 0. Tương tác với 8 tay đua, phím tắt BOOST, chướng ngại vật CHAOS và 5 góc quay camera điện ảnh trên Three.js.
+              Bản cover nguyên mẫu A-Z y hệt trang gốc. Chặng đua F1 xe đồ chơi 3D thời gian thực qua nhà máy Plant 0 với 8 tay đua, phím BOOST, chướng ngại vật CHAOS và 5 góc quay Three.js.
             </p>
           </div>
 
-          <!-- Footer với ĐỦ 2 NÚT BẢN GỐC & BẢN ASTRO CODE -->
+          <!-- Footer với 1 NÚT XEM CHI TIẾT (BẢN GỐC) -->
           <div class="card-footer">
             <div class="meta-row">
-              <span class="meta-label">PHIÊN BẢN CÓ SẴN</span>
-              <span class="meta-value">Three.js & Astro 5</span>
+              <span class="meta-label">PHIÊN BẢN</span>
+              <span class="meta-value">Bản Clone Gốc A-Z</span>
             </div>
 
             <div class="btn-stack">
-              <!-- Nút 1: Bản Astro Code -->
-              <a href="/vroomx" class="btn-detail" title="Xem Chi Tiết Bản Astro Code">
-                <span>Xem Chi Tiết (Bản Astro code)</span>
-                <span class="btn-arrow">→</span>
-              </a>
-
-              <!-- Nút 2: Bản Gốc -->
-              <a href="/vroomx-original" class="btn-detail" title="Xem Chi Tiết Bản Gốc">
+              <a href="/vroomx" class="btn-detail" title="Xem Chi Tiết Bản Gốc">
                 <span>Xem Chi Tiết (Bản gốc)</span>
                 <span class="btn-arrow">→</span>
               </a>
@@ -389,7 +382,7 @@
 
     <!-- Clean Footer -->
     <footer class="page-footer">
-      <span>Website Archive Hub — Cổng danh mục các website clone & chuyển đổi</span>
+      <span>Website Archive Hub — Cổng danh mục các website clone</span>
     </footer>
   </body>
 </html>
