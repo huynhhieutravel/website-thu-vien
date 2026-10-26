@@ -1,0 +1,44 @@
+---
+// v2/src/pages/norrvik.astro - Website 09: Norrvik Architecture & Building Intelligence (Phiên Bản Astro Code Native)
+import NorrvikLayout from '../layouts/NorrvikLayout.astro';
+import Preloader from '../components/norrvik/Preloader.astro';
+import Header from '../components/norrvik/Header.astro';
+import SiteMenu from '../components/norrvik/SiteMenu.astro';
+import HeroLidar from '../components/norrvik/HeroLidar.astro';
+import Manifesto from '../components/norrvik/Manifesto.astro';
+import Platform from '../components/norrvik/Platform.astro';
+import Evidence from '../components/norrvik/Evidence.astro';
+import SelectedWork from '../components/norrvik/SelectedWork.astro';
+import Atlas from '../components/norrvik/Atlas.astro';
+import FieldReports from '../components/norrvik/FieldReports.astro';
+import Engage from '../components/norrvik/Engage.astro';
+import Footer from '../components/norrvik/Footer.astro';
+---
+
+<NorrvikLayout
+  title="Norrvik — Architecture & Building Intelligence | Stockholm & Lisbon | Astro Native"
+  description="Norrvik is an architecture and building-intelligence studio in Stockholm and Lisbon. We survey, design and monitor buildings, and keep the model alive after handover."
+  isOriginal={false}
+>
+  <Preloader />
+  <div class="page-shell">
+    <div class="relative flex min-h-svh flex-col">
+      <a href="#main" class="hud sr-only z-[60] bg-ink px-4 py-3 text-background focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
+        Skip to content
+      </a>
+      <Header />
+      <SiteMenu />
+      <main id="main" tabindex="-1" class="flex-1 outline-none">
+        <HeroLidar />
+        <Manifesto />
+        <Platform />
+        <Evidence />
+        <SelectedWork />
+        <Atlas />
+        <FieldReports />
+        <Engage />
+      </main>
+      <Footer />
+    </div>
+  </div>
+</NorrvikLayout>

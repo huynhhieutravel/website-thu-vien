@@ -1,0 +1,120 @@
+---
+// v2/src/layouts/NorrvikLayout.astro - Dedicated Layout for Norrvik Architecture & Building Intelligence
+interface Props {
+  title?: string;
+  description?: string;
+  isOriginal?: boolean;
+}
+
+const {
+  title = "Norrvik — Architecture & Building Intelligence | Stockholm & Lisbon",
+  description = "Norrvik is an architecture and building-intelligence studio in Stockholm and Lisbon. We survey, design and monitor buildings, and keep the model alive after handover.",
+  isOriginal = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/norrvik-thumb-16x9.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/images/norrvik-thumb-16x9.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0A0908" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Google Fonts & Font Preloads -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="/_next/static/media/f6752bd2263820da-s.p.10j9.xtie.pqv.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+    <link rel="preload" href="/_next/static/media/b8d1f0a88dfecec3-s.p.0g0e~i-as20lr.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+    <link rel="preload" href="/_next/static/media/ab57efd000576a30-s.p.0.xyi-bdzzdcz.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+    
+    <!-- Norrvik Design System CSS -->
+    <link rel="stylesheet" href="/_next/static/chunks/0gh29ixkptisc.css" />
+
+    <style is:global>
+      :root {
+        --font-app-sans: 'Inter Tight', 'Inter Tight Fallback', sans-serif;
+        --font-app-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
+        --font-app-heading: 'Inter Tight', 'Inter Tight Fallback', sans-serif;
+      }
+
+      body {
+        padding-top: 40px !important;
+        background-color: #0A0908 !important;
+        color: #FBF9F1 !important;
+      }
+      .site-header {
+        top: 40px !important;
+      }
+      [data-modulify-badge] {
+        display: none !important;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0A0908;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #d97706;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-full flex flex-col bg-background text-foreground antialiased">
+    <!-- Top Bar Navigation quay lại Thư Viện -->
+    <aside style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(10,9,8,0.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.12);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:0.18em;font-family:sans-serif;">
+      <a href="/" style="color:#d97706;text-decoration:none;display:flex;align-items:center;gap:6px;font-weight:600;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>← Về Trang Chủ Thư Viện</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="background:rgba(217,119,6,0.14);border:1px solid rgba(217,119,6,0.3);padding:3px 12px;border-radius:9999px;color:#d97706;font-size:10px;font-weight:700;">
+          {isOriginal ? "Mục 09: Bản Clone Gốc (HTML / JS / Lidar)" : "Phiên Bản: Astro Code Native (Component Hóa)"}
+        </span>
+        {isOriginal ? (
+          <a href="/norrvik" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:10px;border-left:1px solid rgba(255,255,255,0.2);padding-left:12px;" title="Xem Bản Astro Code">
+            Xem Bản Astro Code ↗
+          </a>
+        ) : (
+          <a href="/norrvik-original" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:10px;border-left:1px solid rgba(255,255,255,0.2);padding-left:12px;" title="Xem Bản Gốc">
+            Xem Bản Gốc ↗
+          </a>
+        )}
+      </div>
+    </aside>
+
+    <div id="__next">
+      <div class="h-full font-sans">
+        <slot />
+      </div>
+    </div>
+
+    <!-- Client Interactive Controller for 3D Lidar Point Cloud, Clocks, Manifesto & Scenes -->
+    <script is:inline src="/scripts/norrvik-interactive.js"></script>
+  </body>
+</html>
