@@ -1,0 +1,43 @@
+---
+// v2/src/pages/liftline.astro - Website 08: Liftline Garage Doors (Phiên Bản Astro Code Native)
+import LiftlineLayout from '../layouts/LiftlineLayout.astro';
+import Header from '../components/liftline/Header.astro';
+import Hero from '../components/liftline/Hero.astro';
+import Reviews from '../components/liftline/Reviews.astro';
+import Diagnose from '../components/liftline/Diagnose.astro';
+import Services from '../components/liftline/Services.astro';
+import Doors from '../components/liftline/Doors.astro';
+import RecentWork from '../components/liftline/RecentWork.astro';
+import Prices from '../components/liftline/Prices.astro';
+import Financing from '../components/liftline/Financing.astro';
+import Guarantees from '../components/liftline/Guarantees.astro';
+import ServiceArea from '../components/liftline/ServiceArea.astro';
+import Faq from '../components/liftline/Faq.astro';
+import Quote from '../components/liftline/Quote.astro';
+import Footer from '../components/liftline/Footer.astro';
+import QuickActions from '../components/liftline/QuickActions.astro';
+---
+
+<LiftlineLayout
+  title="Liftline — Garage Door Repairs & New Doors across Riverton Metro | Astro Native"
+  description="Garage door repairs and new doors across the Riverton metro. Same-day spring, opener and track repairs, a written price before work starts, and new doors fitted in a day."
+  isOriginal={false}
+>
+  <Header />
+  <main id="main" class="flex-1">
+    <Hero />
+    <Reviews />
+    <Diagnose />
+    <Services />
+    <Doors />
+    <RecentWork />
+    <Prices />
+    <Financing />
+    <Guarantees />
+    <ServiceArea />
+    <Faq />
+    <Quote />
+  </main>
+  <Footer />
+  <QuickActions />
+</LiftlineLayout>
