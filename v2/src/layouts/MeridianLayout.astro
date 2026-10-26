@@ -12,27 +12,29 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
-    <meta charset="utf-8" data-next-head="" />
-    <meta name="viewport" content="width=device-width" data-next-head="" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta name="description" content={description} data-next-head="" />
-    <meta property="og:site_name" content="Meridian Freight" data-next-head="" />
-    <meta property="og:title" content={title} data-next-head="" />
-    <meta property="og:description" content={description} data-next-head="" />
-    <meta property="og:type" content="website" data-next-head="" />
-    <meta name="twitter:card" content="summary_large_image" data-next-head="" />
-    <meta name="twitter:title" content={title} data-next-head="" />
-    <meta name="twitter:description" content={description} data-next-head="" />
+    <meta name="description" content={description} />
+    <meta property="og:site_name" content="Meridian Freight" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/meridian/ship-fog.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/images/meridian/ship-fog.jpg" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#0d1f2d" />
+    <meta name="theme-color" content="#0b0b0d" />
 
     <!-- Google Fonts & Preloads -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link as="font" crossorigin="anonymous" data-next-font="size-adjust" href="/_next/static/media/2a0421e210ae52c2-s.p.02d-f.5otso_q.woff2" rel="preload" type="font/woff2" />
@@ -40,25 +42,15 @@ const {
     <link as="font" crossorigin="anonymous" data-next-font="size-adjust" href="/_next/static/media/75affa71d1e2f6a7-s.p.0e5c5_wyqqx75.woff2" rel="preload" type="font/woff2" />
 
     <!-- Meridian Design System CSS -->
-    <link as="style" href="/_next/static/chunks/0okc8grb9hotf.css" rel="preload" />
-    <link data-n-g="" href="/_next/static/chunks/0okc8grb9hotf.css" rel="stylesheet" />
-
-    <!-- Next.js Turbopack / WebGL / Canvas Engine Scripts -->
-    <script is:inline src="/_next/static/chunks/1111iaft8_7w0.js" defer=""></script>
-    <script is:inline src="/_next/static/chunks/0uw~ov22uo1v0.js" defer=""></script>
-    <script is:inline src="/_next/static/chunks/0mmpg.u0.bfoa.js" defer=""></script>
-    <script is:inline src="/_next/static/chunks/08b3ftsysp8o2.js" defer=""></script>
-    <script is:inline src="/_next/static/chunks/turbopack-00pmd.t4taayf.js" defer=""></script>
-    <script is:inline src="/_next/static/chunks/0t.7egju1041n.js" defer=""></script>
-    <script is:inline src="/_next/static/chunks/0~rlx17ua9rn2.js" defer=""></script>
-    <script is:inline src="/_next/static/chunks/06zwmyt2c6g.z.js" defer=""></script>
-    <script is:inline src="/_next/static/chunks/1147id6-e7wty.js" defer=""></script>
-    <script is:inline src="/_next/static/chunks/turbopack-0tlip2y4kbpx-.js" defer=""></script>
-    <script is:inline src="/_next/static/zlvk7yHoyxO_6eey2QNrr/_buildManifest.js" defer=""></script>
-    <script is:inline src="/_next/static/zlvk7yHoyxO_6eey2QNrr/_ssgManifest.js" defer=""></script>
-    <script is:inline src="/_next/static/zlvk7yHoyxO_6eey2QNrr/_clientMiddlewareManifest.js" defer=""></script>
+    <link rel="stylesheet" href="/_next/static/chunks/0okc8grb9hotf.css" />
 
     <style is:global>
+      :root {
+        --font-app-sans: 'Plus Jakarta Sans', sans-serif;
+        --font-app-mono: 'JetBrains Mono', monospace;
+        --font-app-heading: 'Space Grotesk', sans-serif;
+      }
+
       body {
         padding-top: 40px !important;
       }
@@ -67,6 +59,21 @@ const {
       }
       [data-modulify-badge] {
         display: none !important;
+      }
+
+      /* Native scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0b0b0d;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #2563eb;
       }
     </style>
   </head>
@@ -87,14 +94,307 @@ const {
       </div>
     </aside>
 
-    <div id="__next">
-      <div class="h-full font-sans">
-        <slot />
+    <div class="h-full font-sans">
+      <slot />
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300">
+      <div id="mobile-menu-backdrop" class="absolute inset-0 bg-ink/80 backdrop-blur-sm"></div>
+      <div id="mobile-menu-panel" class="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-ink text-white p-6 shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300">
+        <div>
+          <div class="flex items-center justify-between pb-6 border-b border-white/10">
+            <span class="font-heading text-lg uppercase tracking-wider">Menu</span>
+            <button id="mobile-menu-close" type="button" class="p-2 text-white/70 hover:text-white" aria-label="Close menu">
+              <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
+          <nav class="flex flex-col gap-4 mt-8 font-mono text-sm uppercase tracking-widest">
+            <a class="mobile-nav-link py-2 text-white/80 hover:text-brand-soft" href="/meridian#about">About</a>
+            <a class="mobile-nav-link py-2 text-white/80 hover:text-brand-soft" href="/meridian#services">Services</a>
+            <a class="mobile-nav-link py-2 text-white/80 hover:text-brand-soft" href="/meridian#why-us">Why Us</a>
+            <a class="mobile-nav-link py-2 text-white/80 hover:text-brand-soft" href="/meridian/insights">Insights</a>
+            <a class="mobile-nav-link py-2 text-white/80 hover:text-brand-soft" href="/meridian#faq">FAQ</a>
+            <a class="mobile-nav-link py-2 text-white/80 hover:text-brand-soft" href="/meridian/contact">Contact</a>
+          </nav>
+        </div>
+        <div class="pt-6 border-t border-white/10">
+          <a href="/meridian/contact" class="flex w-full items-center justify-center rounded-full bg-brand py-3 text-center font-mono text-xs uppercase tracking-widest text-white hover:bg-brand/90 transition-colors">
+            Work With Us
+          </a>
+        </div>
       </div>
     </div>
 
-    <script is:inline id="__NEXT_DATA__" type="application/json">
-      {"props":{"pageProps":{}},"page":"/","query":{},"buildId":"zlvk7yHoyxO_6eey2QNrr","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}
+    <!-- Native Client Script: Interactivity without Next.js React Conflicts -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        // 1. FAQ Accordion Logic
+        const faqButtons = document.querySelectorAll('#faq button[aria-controls]');
+        faqButtons.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            const targetId = btn.getAttribute('aria-controls');
+            const panel = document.getElementById(targetId);
+            const icon = btn.querySelector('.lucide-plus');
+            const badge = btn.querySelector('span[aria-hidden="true"]');
+
+            // Close all
+            faqButtons.forEach((otherBtn) => {
+              if (otherBtn !== btn) {
+                otherBtn.setAttribute('aria-expanded', 'false');
+                const otherId = otherBtn.getAttribute('aria-controls');
+                const otherPanel = document.getElementById(otherId);
+                const otherIcon = otherBtn.querySelector('.lucide-plus');
+                const otherBadge = otherBtn.querySelector('span[aria-hidden="true"]');
+                if (otherPanel) {
+                  otherPanel.classList.remove('grid-rows-[1fr]');
+                  otherPanel.classList.add('grid-rows-[0fr]');
+                  otherPanel.setAttribute('inert', '');
+                }
+                if (otherIcon) otherIcon.classList.remove('rotate-45');
+                if (otherBadge) {
+                  otherBadge.classList.remove('border-ink', 'bg-ink', 'text-white');
+                  otherBadge.classList.add('group-hover:border-ink');
+                }
+              }
+            });
+
+            // Toggle current
+            if (isExpanded) {
+              btn.setAttribute('aria-expanded', 'false');
+              if (panel) {
+                panel.classList.remove('grid-rows-[1fr]');
+                panel.classList.add('grid-rows-[0fr]');
+                panel.setAttribute('inert', '');
+              }
+              if (icon) icon.classList.remove('rotate-45');
+              if (badge) {
+                badge.classList.remove('border-ink', 'bg-ink', 'text-white');
+                badge.classList.add('group-hover:border-ink');
+              }
+            } else {
+              btn.setAttribute('aria-expanded', 'true');
+              if (panel) {
+                panel.classList.remove('grid-rows-[0fr]');
+                panel.classList.add('grid-rows-[1fr]');
+                panel.removeAttribute('inert');
+              }
+              if (icon) icon.classList.add('rotate-45');
+              if (badge) {
+                badge.classList.add('border-ink', 'bg-ink', 'text-white');
+                badge.classList.remove('group-hover:border-ink');
+              }
+            }
+          });
+        });
+
+        // 2. Dynamic Sticky Header Scroll Behavior
+        const header = document.querySelector('header.fixed');
+        if (header) {
+          const updateHeader = () => {
+            const scrollY = window.scrollY;
+            const heroSection = document.getElementById('hero');
+            const heroHeight = heroSection ? heroSection.offsetHeight - 120 : 600;
+
+            if (scrollY > heroHeight) {
+              header.classList.remove('text-white');
+              header.classList.add('bg-white/95', 'text-ink', 'shadow-sm', 'backdrop-blur-md');
+              
+              // Border and button overrides
+              const borders = header.querySelectorAll('.border-white\\/25');
+              borders.forEach(el => {
+                el.classList.remove('border-white/25');
+                el.classList.add('border-ink/20');
+              });
+              const ctaBtn = header.querySelector('a[href="/meridian/contact"].bg-white');
+              if (ctaBtn) {
+                ctaBtn.classList.remove('bg-white', 'text-ink');
+                ctaBtn.classList.add('bg-ink', 'text-white');
+              }
+            } else {
+              header.classList.add('text-white');
+              header.classList.remove('bg-white/95', 'text-ink', 'shadow-sm', 'backdrop-blur-md');
+              
+              const borders = header.querySelectorAll('.border-ink\\/20');
+              borders.forEach(el => {
+                el.classList.remove('border-ink/20');
+                el.classList.add('border-white/25');
+              });
+              const ctaBtn = header.querySelector('a[href="/meridian/contact"].bg-ink');
+              if (ctaBtn) {
+                ctaBtn.classList.remove('bg-ink', 'text-white');
+                ctaBtn.classList.add('bg-white', 'text-ink');
+              }
+            }
+          };
+
+          window.addEventListener('scroll', updateHeader, { passive: true });
+          updateHeader();
+        }
+
+        // 3. Mobile Menu Open/Close
+        const menuBtn = document.querySelector('button[aria-controls="site-menu"]');
+        const drawer = document.getElementById('mobile-menu-drawer');
+        const backdrop = document.getElementById('mobile-menu-backdrop');
+        const panel = document.getElementById('mobile-menu-panel');
+        const closeBtn = document.getElementById('mobile-menu-close');
+        const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+        const openMenu = () => {
+          if (!drawer || !panel) return;
+          drawer.classList.remove('pointer-events-none', 'opacity-0');
+          drawer.classList.add('pointer-events-auto', 'opacity-100');
+          panel.classList.remove('translate-x-full');
+          panel.classList.add('translate-x-0');
+        };
+
+        const closeMenu = () => {
+          if (!drawer || !panel) return;
+          drawer.classList.add('opacity-0', 'pointer-events-none');
+          drawer.classList.remove('opacity-100', 'pointer-events-auto');
+          panel.classList.add('translate-x-full');
+          panel.classList.remove('translate-x-0');
+        };
+
+        if (menuBtn) menuBtn.addEventListener('click', openMenu);
+        if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+        if (backdrop) backdrop.addEventListener('click', closeMenu);
+        navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+        // 4. Hero Logistics Radar & Arcs Canvas Animation
+        const canvas = document.querySelector('#hero canvas');
+        if (canvas) {
+          const ctx = canvas.getContext('2d');
+          let animationFrameId;
+          let width = (canvas.width = window.innerWidth);
+          let height = (canvas.height = window.innerHeight);
+
+          const resize = () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+          };
+          window.addEventListener('resize', resize);
+
+          // Logistics hub coordinates mapped across viewport
+          const hubs = [
+            { code: 'SYD', xRatio: 0.85, yRatio: 0.78, name: 'Sydney' },
+            { code: 'SIN', xRatio: 0.68, yRatio: 0.58, name: 'Singapore' },
+            { code: 'HKG', xRatio: 0.72, yRatio: 0.45, name: 'Hong Kong' },
+            { code: 'HND', xRatio: 0.82, yRatio: 0.38, name: 'Tokyo' },
+            { code: 'DXB', xRatio: 0.52, yRatio: 0.42, name: 'Dubai' },
+            { code: 'FRA', xRatio: 0.44, yRatio: 0.32, name: 'Frankfurt' },
+            { code: 'LAX', xRatio: 0.22, yRatio: 0.38, name: 'Los Angeles' },
+            { code: 'JFK', xRatio: 0.28, yRatio: 0.34, name: 'New York' },
+          ];
+
+          const routes = [
+            [0, 1], [1, 2], [2, 3], [1, 4], [4, 5], [5, 7], [7, 6], [3, 6], [0, 6]
+          ];
+
+          // Particles along routes
+          const particles = routes.map(([fromIdx, toIdx], i) => ({
+            fromIdx,
+            toIdx,
+            progress: (i * 0.15) % 1,
+            speed: 0.002 + (i % 3) * 0.001
+          }));
+
+          let time = 0;
+
+          const render = () => {
+            time += 0.015;
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw connecting bezier arcs
+            ctx.lineWidth = 1;
+            routes.forEach(([fromIdx, toIdx]) => {
+              const h1 = hubs[fromIdx];
+              const h2 = hubs[toIdx];
+              const x1 = h1.xRatio * width;
+              const y1 = h1.yRatio * height;
+              const x2 = h2.xRatio * width;
+              const y2 = h2.yRatio * height;
+
+              const midX = (x1 + x2) / 2;
+              const midY = (y1 + y2) / 2 - Math.min(Math.hypot(x2 - x1, y2 - y1) * 0.2, 80);
+
+              const grad = ctx.createLinearGradient(x1, y1, x2, y2);
+              grad.addColorStop(0, 'rgba(56, 189, 248, 0.1)');
+              grad.addColorStop(0.5, 'rgba(56, 189, 248, 0.3)');
+              grad.addColorStop(1, 'rgba(56, 189, 248, 0.1)');
+
+              ctx.strokeStyle = grad;
+              ctx.setLineDash([4, 6]);
+              ctx.lineDashOffset = -time * 15;
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.quadraticCurveTo(midX, midY, x2, y2);
+              ctx.stroke();
+            });
+
+            ctx.setLineDash([]);
+
+            // Draw traveling packet cargo dots
+            particles.forEach((p) => {
+              p.progress += p.speed;
+              if (p.progress > 1) p.progress = 0;
+
+              const h1 = hubs[p.fromIdx];
+              const h2 = hubs[p.toIdx];
+              const x1 = h1.xRatio * width;
+              const y1 = h1.yRatio * height;
+              const x2 = h2.xRatio * width;
+              const y2 = h2.yRatio * height;
+              const midX = (x1 + x2) / 2;
+              const midY = (y1 + y2) / 2 - Math.min(Math.hypot(x2 - x1, y2 - y1) * 0.2, 80);
+
+              const t = p.progress;
+              const px = (1 - t) * (1 - t) * x1 + 2 * (1 - t) * t * midX + t * t * x2;
+              const py = (1 - t) * (1 - t) * y1 + 2 * (1 - t) * t * midY + t * t * y2;
+
+              ctx.fillStyle = '#38bdf8';
+              ctx.beginPath();
+              ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+              ctx.fill();
+
+              ctx.fillStyle = 'rgba(56, 189, 248, 0.3)';
+              ctx.beginPath();
+              ctx.arc(px, py, 6, 0, Math.PI * 2);
+              ctx.fill();
+            });
+
+            // Draw Hubs with pulsing radar rings
+            hubs.forEach((hub, idx) => {
+              const x = hub.xRatio * width;
+              const y = hub.yRatio * height;
+              const pulse = (Math.sin(time * 2 + idx) + 1) / 2;
+
+              // Outer pulse ring
+              ctx.strokeStyle = `rgba(56, 189, 248, ${0.4 - pulse * 0.3})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.arc(x, y, 6 + pulse * 14, 0, Math.PI * 2);
+              ctx.stroke();
+
+              // Inner solid node
+              ctx.fillStyle = '#ffffff';
+              ctx.beginPath();
+              ctx.arc(x, y, 3, 0, Math.PI * 2);
+              ctx.fill();
+
+              // Hub Code Label
+              ctx.font = '10px "JetBrains Mono", monospace';
+              ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+              ctx.fillText(hub.code, x + 8, y + 3);
+            });
+
+            animationFrameId = requestAnimationFrame(render);
+          };
+
+          render();
+        }
+      });
     </script>
   </body>
 </html>

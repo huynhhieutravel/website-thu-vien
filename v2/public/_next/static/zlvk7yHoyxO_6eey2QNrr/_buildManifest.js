@@ -2,6 +2,12 @@ self.__BUILD_MANIFEST = {
   "/": [
     "static/chunks/073347keu99s..js"
   ],
+  "/meridian": [
+    "static/chunks/073347keu99s..js"
+  ],
+  "/meridian-original": [
+    "static/chunks/073347keu99s..js"
+  ],
   "/404": [
     "static/chunks/0f3k1f2c.yaku.js"
   ],
@@ -14,7 +20,13 @@ self.__BUILD_MANIFEST = {
   "/contact": [
     "static/chunks/0s2brdn4xd~38.js"
   ],
+  "/meridian-original/contact": [
+    "static/chunks/0s2brdn4xd~38.js"
+  ],
   "/insights": [
+    "static/chunks/0stno7-~~krj3.js"
+  ],
+  "/meridian-original/insights": [
     "static/chunks/0stno7-~~krj3.js"
   ],
   "/insights/[slug]": [
@@ -27,6 +39,10 @@ self.__BUILD_MANIFEST = {
   },
   "sortedPages": [
     "/",
+    "/meridian",
+    "/meridian-original",
+    "/meridian-original/contact",
+    "/meridian-original/insights",
     "/404",
     "/500",
     "/_app",
@@ -36,4 +52,4 @@ self.__BUILD_MANIFEST = {
     "/insights",
     "/insights/[slug]"
   ]
-};self.__BUILD_MANIFEST_CB && self.__BUILD_MANIFEST_CB()
+};self.__BUILD_MANIFEST_CB && self.__BUILD_MANIFEST_CB();
