@@ -3,11 +3,29 @@
 ---
 
 <!-- Loader Status Screen -->
-<div role="status" aria-label="Loading AERIVE" class="fixed inset-0 z-[55] bg-obsidian">
+<div role="status" aria-label="Loading AERIVE" class="fixed inset-0 z-[55] bg-obsidian transition-opacity duration-700">
   <div class="absolute left-1/2 top-[calc(50%+2.75rem)] -ml-20 h-px w-40 overflow-hidden bg-champagne/20">
-    <div class="h-full w-full origin-left bg-champagne" style="transform:scaleX(0.08)"></div>
+    <div class="h-full w-full origin-left bg-champagne transition-transform duration-700 ease-out" style="transform:scaleX(0.08)"></div>
   </div>
 </div>
+<script is:inline>
+  (function() {
+    // Fail-safe auto dismiss: if loader still exists after 1.8s, fade out and remove
+    setTimeout(function() {
+      var l = document.querySelector('[role="status"][aria-label="Loading AERIVE"]');
+      if (l) {
+        var bar = l.querySelector('.bg-champagne');
+        if (bar) bar.style.transform = 'scaleX(1)';
+        setTimeout(function() {
+          l.style.opacity = '0';
+          setTimeout(function() {
+            if (l.parentNode) l.parentNode.removeChild(l);
+          }, 700);
+        }, 300);
+      }
+    }, 1200);
+  })();
+</script>
 
 <!-- Film Grain Cinematic Overlay -->
 <div class="film-grain hidden md:block" aria-hidden="true"></div>
