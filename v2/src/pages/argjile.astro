@@ -1,0 +1,31 @@
+---
+// v2/src/pages/argjile.astro - Website 07: ARGJILË Ceramic Studio (Phiên Bản Astro Code Native)
+import ArgjileLayout from '../layouts/ArgjileLayout.astro';
+import Header from '../components/argjile/Header.astro';
+import Hero from '../components/argjile/Hero.astro';
+import Manifesto from '../components/argjile/Manifesto.astro';
+import Collection from '../components/argjile/Collection.astro';
+import Process from '../components/argjile/Process.astro';
+import Studio from '../components/argjile/Studio.astro';
+import Workshops from '../components/argjile/Workshops.astro';
+import Voices from '../components/argjile/Voices.astro';
+import Footer from '../components/argjile/Footer.astro';
+---
+
+<ArgjileLayout
+  title="ARGJILË Ceramic Studio — Handmade Ceramics & Pottery | Astro Native"
+  description="A small ceramic studio in Prishtina throwing cups, bowls and vases by hand, one at a time. Shop the collection or book a session at the wheel."
+  isOriginal={false}
+>
+  <Header />
+  <main class="flex-1" id="main">
+    <Hero />
+    <Manifesto />
+    <Collection />
+    <Process />
+    <Studio />
+    <Workshops />
+    <Voices />
+  </main>
+  <Footer />
+</ArgjileLayout>
