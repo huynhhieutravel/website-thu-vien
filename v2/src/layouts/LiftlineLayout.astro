@@ -46,6 +46,58 @@ const {
     <link rel="stylesheet" href="/_next/static/chunks/0eg49iryrxms7.css" />
     <link rel="stylesheet" href="/_next/static/chunks/0po2y48bs.~ni.css" />
 
+    <!-- Image Loader Normalizer for Static Hosting -->
+    <script is:inline>
+      (function() {
+        function cleanUrl(val) {
+          if (typeof val === "string" && val.includes("/_next/image?url=")) {
+            if (val.includes(",")) {
+              return val.replace(/\/_next\/image\?url=([%a-zA-Z0-9_\-\.\/]+)(?:&amp;|&)[^,\s>]+/g, function(m, u) {
+                return decodeURIComponent(u);
+              });
+            }
+            var m = val.match(/url=([^&]+)/);
+            if (m) {
+              return decodeURIComponent(m[1]);
+            }
+          }
+          return val;
+        }
+
+        var origSet = HTMLImageElement.prototype.setAttribute;
+        HTMLImageElement.prototype.setAttribute = function(name, val) {
+          if (name === "src" || name === "srcset" || name === "srcSet") {
+            val = cleanUrl(val);
+          }
+          return origSet.call(this, name, val);
+        };
+
+        var srcDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+        if (srcDesc && srcDesc.set) {
+          Object.defineProperty(HTMLImageElement.prototype, "src", {
+            get: srcDesc.get,
+            set: function(val) {
+              return srcDesc.set.call(this, cleanUrl(val));
+            },
+            configurable: true,
+            enumerable: true
+          });
+        }
+
+        var srcsetDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "srcset");
+        if (srcsetDesc && srcsetDesc.set) {
+          Object.defineProperty(HTMLImageElement.prototype, "srcset", {
+            get: srcsetDesc.get,
+            set: function(val) {
+              return srcsetDesc.set.call(this, cleanUrl(val));
+            },
+            configurable: true,
+            enumerable: true
+          });
+        }
+      })();
+    </script>
+
     <!-- Next.js Client Runtime Engine & Hydration Scripts -->
     <script is:inline src="/_next/static/chunks/14pkkqst5rv~v.js" defer=""></script>
     <script is:inline src="/_next/static/chunks/0uw~ov22uo1v0.js" defer=""></script>
