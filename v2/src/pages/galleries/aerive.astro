@@ -1,0 +1,56 @@
+---
+// v2/src/pages/galleries/aerive.astro
+// Thư viện 01: AERIVE Flagship Experience (Bản Cinematic Đầy Đủ)
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Hero from '../../components/Hero.astro';
+import About from '../../components/About.astro';
+import Fleet from '../../components/Fleet.astro';
+import GalleryShowroom from '../../components/GalleryShowroom.astro';
+import Advantages from '../../components/Advantages.astro';
+import Global from '../../components/Global.astro';
+import Inquiries from '../../components/Inquiries.astro';
+import Footer from '../../components/Footer.astro';
+import BookingModal from '../../components/BookingModal.astro';
+---
+
+<Layout
+  title="Thư Viện 01: AERIVE Flagship Aviation — Chuyên Cơ Siêu Tầm Xa & Trải Nghiệm Đỉnh Cao"
+  description="Thư viện tương tác toàn diện về chuyên cơ siêu tầm xa AERIVE, quy trình phục vụ mặt đất độc quyền và showroom hình ảnh 4K chuẩn SEO."
+  ogImage="/images/aerive/jet-top.png"
+>
+  <!-- Top Breadcrumb Bar -->
+  <div class="fixed top-0 inset-x-0 z-[70] bg-obsidian/90 backdrop-blur-md border-b border-champagne/15 px-5 py-2.5 flex items-center justify-between text-[11px] uppercase tracking-[0.2em]">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-champagne hover:text-ivory transition-colors flex items-center gap-1.5">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Danh mục thư viện</span>
+      </a>
+      <span class="text-smoke">/</span>
+      <span class="text-ivory/80">Thư viện 01: AERIVE Flagship</span>
+    </div>
+    <span class="rounded-full bg-champagne/10 border border-champagne/25 px-2.5 py-0.5 text-champagne text-[10px]">
+      Interactive 3D & 4K
+    </span>
+  </div>
+
+  <div class="pt-10">
+    <Header />
+
+    <main class="relative">
+      <Hero />
+      <About />
+      <Fleet />
+      
+      <!-- Interactive Showroom Gallery -->
+      <GalleryShowroom />
+      
+      <Advantages />
+      <Global />
+      <Inquiries />
+    </main>
+
+    <Footer />
+    <BookingModal />
+  </div>
+</Layout>

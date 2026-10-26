@@ -1,0 +1,197 @@
+---
+// v2/src/pages/galleries/ramp-concierge.astro
+// Thư viện 04: Ramp Access & VIP FBO Concierge
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import BookingModal from '../../components/BookingModal.astro';
+
+const conciergeImages = [
+  {
+    src: "/images/aerive/advantage-boarding.png",
+    thumb: "/images/aerive/advantage-boarding.png",
+    title: "Đón Tiễn Tận Cầu Thang Máy Bay (Tarmac-Side Boarding)",
+    alt: "Xe limousine đưa đón khách VIP đỗ trực tiếp sát cầu thang chuyên cơ trên đường băng riêng",
+    caption: "Xe chuyên dụng đưa đón trực tiếp từ cổng an ninh riêng ra tận chân máy bay, khởi hành trong vòng 15 phút sau khi có mặt.",
+    meta: "Xe Rolls-Royce / Maybach đưa đón | Làm thủ tục trong 15 phút | Cửa VIP riêng biệt"
+  },
+  {
+    src: "/images/aerive/advantage-concierge.png",
+    thumb: "/images/aerive/advantage-concierge.png",
+    title: "Chuyên Viên Điều Phối Chuyến Bay 24/7 (Dedicated Flight Concierge)",
+    alt: "Chuyên viên mặt đất cao cấp chào đón khách hàng với phong thái chuyên nghiệp và bảo mật",
+    caption: "Đội ngũ chuyên viên túc trực 24/7 xử lý mọi yêu cầu khắt khe: từ thông quan ngoại giao, đặt phòng khách sạn tổng thống đến xe bọc thép mặt đất.",
+    meta: "1 Điều phối viên riêng/chuyến | Bảo mật danh tính cấp cao | Hỗ trợ 24/7 toàn cầu"
+  },
+  {
+    src: "/images/aerive/jet-top.png",
+    thumb: "/images/aerive/jet-top.png",
+    title: "Mạng Lưới 1,200+ Nhà Ga FBO Riêng Biệt Toàn Cầu (Global Private FBOs)",
+    alt: "Chuyên cơ sẵn sàng cất cánh tại đường băng sân bay tư nhân quốc tế",
+    caption: "Truy cập không giới hạn vào các đường băng tư nhân biệt lập, tránh xa 100% sự ồn ào và soi mói của các nhà ga thương mại công cộng.",
+    meta: "1,200+ sân bay tư nhân | Miễn kiểm tra an ninh công cộng | Phòng chờ hạng sang"
+  },
+  {
+    src: "/images/aerive/globe.png",
+    thumb: "/images/aerive/globe.png",
+    title: "Mạng Lưới Đường Bay Toàn Cầu & Quyền Hạ Cánh Ưu Tiên (Priority Slots)",
+    alt: "Hệ thống đường bay thẳng liên lục địa kết nối các thủ phủ tài chính thế giới",
+    caption: "Quyền hạn cất và hạ cánh ưu tiên tại các sân bay lớn như Teterboro (New York), Le Bourget (Paris), Farnborough (London) và Haneda (Tokyo).",
+    meta: "Slot giờ bay ưu tiên cao nhất | Tầm bay 7,700 hải lý | Bay thẳng không dừng"
+  }
+];
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Thư Viện Dịch Vụ Đón Tiễn Đường Băng & Concierge Mặt Đất AERIVE",
+  "description": "Bộ sưu tập hình ảnh quy trình đón tiễn tận chân cầu thang, phòng chờ FBO riêng tư và đội ngũ trợ lý hàng không cá nhân của AERIVE.",
+  "url": "https://aerive-template.modulify.website/galleries/ramp-concierge",
+  "associatedMedia": conciergeImages.map((img) => ({
+    "@type": "ImageObject",
+    "contentUrl": img.src,
+    "name": img.title,
+    "description": img.caption,
+    "encodingFormat": "image/png"
+  }))
+};
+---
+
+<Layout
+  title="Thư Viện 04: Ramp Access & FBO Concierge — Dịch Vụ Đón Tiễn & Bảo Mật Tuyệt Đối | AERIVE"
+  description="Bộ sưu tập hình ảnh quy trình đón tiễn tận cầu thang máy bay, phòng chờ tư nhân FBO và đội ngũ điều phối chuyến bay 24/7 của AERIVE."
+  ogImage="/images/aerive/advantage-boarding.png"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <!-- Top Breadcrumb Bar -->
+  <header class="sticky top-0 z-50 bg-obsidian/95 backdrop-blur-md border-b border-champagne/15 px-5 py-3 flex items-center justify-between text-[11px] uppercase tracking-[0.2em]">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-smoke hover:text-champagne transition-colors">Trang Chủ</a>
+      <span class="text-smoke/40">/</span>
+      <a href="/archive" class="text-champagne hover:text-ivory transition-colors flex items-center gap-1.5">
+        <span>Kho Thư Viện</span>
+      </a>
+      <span class="text-smoke/40">/</span>
+      <span class="text-ivory/80">Thư viện 04: Ramp Access & Concierge</span>
+    </div>
+    <div class="flex items-center gap-4 text-smoke text-[10px]">
+      <a href="/galleries/haute-cuisine" class="hover:text-champagne transition-colors hidden sm:inline">← Haute Cuisine</a>
+      <span class="hidden sm:inline">|</span>
+      <a href="/galleries/aerive" class="hover:text-champagne transition-colors hidden sm:inline">AERIVE Flagship →</a>
+    </div>
+  </header>
+
+  <!-- Gallery Header Hero -->
+  <section class="relative px-5 pt-20 pb-16 md:px-[6vw] md:pt-28 md:pb-20 border-b border-champagne/15">
+    <div class="max-w-5xl">
+      <span class="rounded-full bg-champagne/10 border border-champagne/30 px-3.5 py-1 text-[11px] uppercase tracking-[0.22em] text-champagne">
+        Thư viện chuyên đề • 04
+      </span>
+      <h1 class="mt-6 font-heading text-[clamp(2.8rem,7vw,5.5rem)] font-light leading-[0.95] text-ivory">
+        Ramp Access & Concierge<br />
+        <span class="text-champagne">15 phút từ xe limousine lên không trung.</span>
+      </h1>
+      <p class="mt-6 max-w-2xl text-[15px] leading-relaxed text-ivory/75">
+        Quy trình mặt đất không tì vết. Bạn không bao giờ phải bước chân qua các sảnh chờ công cộng, không xếp hàng hải quan. Chiếc xe limousine đưa bạn trực tiếp đến chân cầu thang máy bay.
+      </p>
+
+      <!-- Key Metrics -->
+      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-3xl">
+        <div class="rounded-xl border border-champagne/15 bg-onyx/70 p-4">
+          <div class="font-heading text-[2rem] text-champagne font-light">15 Phút</div>
+          <div class="text-[11px] uppercase tracking-wider text-smoke mt-1">Từ lúc đến tới khi cất cánh</div>
+        </div>
+        <div class="rounded-xl border border-champagne/15 bg-onyx/70 p-4">
+          <div class="font-heading text-[2rem] text-champagne font-light">1,200+</div>
+          <div class="text-[11px] uppercase tracking-wider text-smoke mt-1">Nhà ga FBO tư nhân toàn cầu</div>
+        </div>
+        <div class="rounded-xl border border-champagne/15 bg-onyx/70 p-4">
+          <div class="font-heading text-[2rem] text-champagne font-light">100%</div>
+          <div class="text-[11px] uppercase tracking-wider text-smoke mt-1">Bảo mật thông tin hành trình</div>
+        </div>
+        <div class="rounded-xl border border-champagne/15 bg-onyx/70 p-4">
+          <div class="font-heading text-[2rem] text-champagne font-light">24/7/365</div>
+          <div class="text-[11px] uppercase tracking-wider text-smoke mt-1">Trợ lý chuyến bay thường trực</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Masonry Images Grid -->
+  <section class="px-5 py-16 md:px-[6vw] md:py-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      {conciergeImages.map((img, idx) => (
+        <figure class="group relative overflow-hidden rounded-[16px] border border-champagne/15 bg-onyx transition-all duration-500 hover:border-champagne/60 hover:shadow-[0_25px_60px_rgba(0,0,0,0.8)]" itemprop="associatedMedia" itemscope itemtype="https://schema.org/ImageObject">
+          <div class="relative aspect-[16/10] w-full overflow-hidden cursor-pointer js-open-photo" data-idx={idx}>
+            <img src={img.src} alt={img.alt} loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" itemprop="contentUrl" />
+            <div class="absolute inset-0 bg-linear-to-t from-obsidian/85 via-transparent to-transparent opacity-60"></div>
+            <div class="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-obsidian/80 backdrop-blur-md border border-champagne/30 text-champagne opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+          </div>
+          <figcaption class="p-6">
+            <h3 class="font-heading text-[1.5rem] font-normal text-ivory group-hover:text-champagne transition-colors" itemprop="name">
+              {img.title}
+            </h3>
+            <p class="mt-2 text-[13px] leading-relaxed text-smoke" itemprop="description">
+              {img.caption}
+            </p>
+            <div class="mt-4 flex items-center justify-between border-t border-champagne/10 pt-3 text-[11px] text-champagne/80">
+              <span>{img.meta}</span>
+              <button type="button" class="underline underline-offset-4 js-open-photo hover:text-champagne" data-idx={idx}>Mở ảnh lớn</button>
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <!-- Interactive Lightbox Dialog -->
+  <dialog id="photo-dialog" class="fixed inset-0 m-0 h-full w-full max-h-none max-w-none bg-obsidian/95 p-4 md:p-8 backdrop-blur-xl backdrop:bg-black/90 text-ivory">
+    <div class="flex h-full flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <span class="font-heading text-[1.4rem] tracking-[0.2em] text-champagne">AERIVE RAMP & CONCIERGE</span>
+        <button type="button" id="dialog-close" class="flex size-11 items-center justify-center rounded-full border border-champagne/20 text-champagne hover:bg-champagne hover:text-obsidian">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+      </div>
+      <div class="flex flex-1 items-center justify-center p-4">
+        <img id="dialog-img" src="" alt="" class="max-h-[75vh] max-w-[90vw] object-contain rounded-[8px]" />
+      </div>
+      <div class="mx-auto max-w-xl text-center">
+        <h4 id="dialog-title" class="font-heading text-[1.6rem] text-champagne"></h4>
+        <p id="dialog-desc" class="mt-1 text-[13px] text-smoke"></p>
+      </div>
+    </div>
+  </dialog>
+
+  <script is:inline define:vars={{ conciergeImages }}>
+    const dialog = document.getElementById('photo-dialog');
+    const dImg = document.getElementById('dialog-img');
+    const dTitle = document.getElementById('dialog-title');
+    const dDesc = document.getElementById('dialog-desc');
+    const dClose = document.getElementById('dialog-close');
+
+    document.querySelectorAll('.js-open-photo').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-idx') || '0', 10);
+        const item = conciergeImages[idx];
+        if (item && dialog) {
+          dImg.src = item.src;
+          dImg.alt = item.alt;
+          dTitle.textContent = item.title;
+          dDesc.textContent = item.caption;
+          dialog.showModal();
+        }
+      });
+    });
+
+    dClose?.addEventListener('click', () => dialog?.close());
+    dialog?.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+  </script>
+
+  <Footer />
+  <BookingModal />
+</Layout>

@@ -1,0 +1,100 @@
+---
+// Header.astro
+---
+
+<!-- Fixed Header Bar -->
+<header class="fixed inset-x-0 top-0 z-50 transition-opacity duration-1000 pointer-events-none opacity-0">
+  <div class="flex h-16 items-center justify-between px-5 md:h-20 md:px-10 lg:px-14">
+    <!-- Desktop Navigation -->
+    <nav aria-label="Main" class="hidden items-center gap-9 md:flex">
+      <a href="#about" class="group relative py-2 text-[11px] uppercase tracking-[0.24em] text-[var(--header-ink-soft)] transition-colors duration-500 hover:text-[var(--header-ink)] focus-visible:outline-none focus-visible:text-[var(--header-ink)]">
+        Giới thiệu
+        <span class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[var(--header-ink)] transition-transform duration-500 group-hover:scale-x-100 group-focus-visible:scale-x-100"></span>
+      </a>
+      <a href="#fleet" class="group relative py-2 text-[11px] uppercase tracking-[0.24em] text-[var(--header-ink-soft)] transition-colors duration-500 hover:text-[var(--header-ink)] focus-visible:outline-none focus-visible:text-[var(--header-ink)]">
+        Hạm đội
+        <span class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[var(--header-ink)] transition-transform duration-500 group-hover:scale-x-100 group-focus-visible:scale-x-100"></span>
+      </a>
+      <a href="#gallery" class="group relative py-2 text-[11px] uppercase tracking-[0.24em] text-[var(--header-ink-soft)] transition-colors duration-500 hover:text-[var(--header-ink)] focus-visible:outline-none focus-visible:text-[var(--header-ink)]">
+        Showroom 4K
+        <span class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[var(--header-ink)] transition-transform duration-500 group-hover:scale-x-100 group-focus-visible:scale-x-100"></span>
+      </a>
+      <a href="/archive" class="group relative py-2 text-[11px] uppercase tracking-[0.24em] text-champagne font-medium transition-colors duration-500 hover:text-[var(--header-ink)] focus-visible:outline-none focus-visible:text-[var(--header-ink)]">
+        Kho Thư Viện
+        <span class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[var(--header-ink)] transition-transform duration-500 group-hover:scale-x-100 group-focus-visible:scale-x-100"></span>
+      </a>
+      <a href="#advantages" class="group relative py-2 text-[11px] uppercase tracking-[0.24em] text-[var(--header-ink-soft)] transition-colors duration-500 hover:text-[var(--header-ink)] focus-visible:outline-none focus-visible:text-[var(--header-ink)]">
+        Đặc quyền
+        <span class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[var(--header-ink)] transition-transform duration-500 group-hover:scale-x-100 group-focus-visible:scale-x-100"></span>
+      </a>
+      <a href="#global" class="group relative py-2 text-[11px] uppercase tracking-[0.24em] text-[var(--header-ink-soft)] transition-colors duration-500 hover:text-[var(--header-ink)] focus-visible:outline-none focus-visible:text-[var(--header-ink)]">
+        Toàn cầu
+        <span class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[var(--header-ink)] transition-transform duration-500 group-hover:scale-x-100 group-focus-visible:scale-x-100"></span>
+      </a>
+    </nav>
+
+    <span class="md:hidden"></span>
+
+    <!-- Action Button -->
+    <div class="flex items-center gap-3">
+      <span class="hidden md:inline-flex">
+        <button type="button" class="inline-flex h-11 items-center gap-2 rounded-full border border-[var(--header-line)] px-5 text-[11px] uppercase tracking-[0.22em] text-[var(--header-ink)] transition-colors duration-500 hover:border-champagne hover:bg-champagne hover:text-obsidian focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne">
+          Đặt chuyến bay
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right size-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+        </button>
+      </span>
+
+      <!-- Mobile Hamburger Button -->
+      <button type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" class="flex size-11 items-center justify-center rounded-full border border-[var(--header-line)] text-[var(--header-ink)] transition-colors duration-500 md:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu size-5"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden class="fixed inset-0 z-[65] flex-col bg-obsidian px-6 pb-10 pt-5 animate-in fade-in duration-300 md:hidden [&:not([hidden])]:flex">
+  <div class="flex items-center justify-between">
+    <span class="pl-[0.32em] font-heading text-[1.4rem] font-medium tracking-[0.32em] text-champagne">AERIVE</span>
+    <button type="button" aria-label="Close menu" class="flex size-11 items-center justify-center rounded-full border border-champagne/30 text-champagne">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x size-5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+  </div>
+  <nav aria-label="Mobile" class="mt-16 flex flex-col gap-2">
+    <a href="#about" class="flex items-baseline justify-between border-b border-champagne/15 py-4 font-heading text-[2.6rem] font-light leading-none text-ivory">
+      Giới thiệu
+      <span class="font-sans text-[11px] tracking-[0.2em] text-smoke">01</span>
+    </a>
+    <a href="#fleet" class="flex items-baseline justify-between border-b border-champagne/15 py-4 font-heading text-[2.6rem] font-light leading-none text-ivory">
+      Hạm đội
+      <span class="font-sans text-[11px] tracking-[0.2em] text-smoke">02</span>
+    </a>
+    <a href="#gallery" class="flex items-baseline justify-between border-b border-champagne/15 py-4 font-heading text-[2.6rem] font-light leading-none text-ivory">
+      Showroom 4K
+      <span class="font-sans text-[11px] tracking-[0.2em] text-smoke">03</span>
+    </a>
+    <a href="/archive" class="flex items-baseline justify-between border-b border-champagne/15 py-4 font-heading text-[2.6rem] font-light leading-none text-champagne">
+      Kho Thư Viện
+      <span class="font-sans text-[11px] tracking-[0.2em] text-smoke">04</span>
+    </a>
+    <a href="#advantages" class="flex items-baseline justify-between border-b border-champagne/15 py-4 font-heading text-[2.6rem] font-light leading-none text-ivory">
+      Đặc quyền
+      <span class="font-sans text-[11px] tracking-[0.2em] text-smoke">04</span>
+    </a>
+    <a href="#global" class="flex items-baseline justify-between border-b border-champagne/15 py-4 font-heading text-[2.6rem] font-light leading-none text-ivory">
+      Toàn cầu
+      <span class="font-sans text-[11px] tracking-[0.2em] text-smoke">05</span>
+    </a>
+  </nav>
+  <button type="button" class="mt-auto inline-flex h-14 items-center justify-center gap-3 rounded-full bg-champagne text-[12px] uppercase tracking-[0.22em] text-obsidian">
+    Đặt chuyến bay
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right size-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+  </button>
+</div>
+
+<!-- Flying Wordmark AERIVE (Animates from center to header on scroll) -->
+<div data-flying-wordmark="true" class="pointer-events-none fixed inset-x-0 top-1/2 z-[60] -mt-[0.5em] flex justify-center text-[clamp(1.9rem,3.4vw,3.6rem)] leading-none will-change-transform">
+  <a href="#hero" aria-label="AERIVE, về đầu trang" class="pointer-events-auto pl-[0.32em] font-heading font-medium tracking-[0.32em] text-[var(--header-ink)] transition-colors duration-500 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-8 focus-visible:outline-champagne">
+    AERIVE
+  </a>
+</div>

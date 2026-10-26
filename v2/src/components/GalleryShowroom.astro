@@ -1,0 +1,474 @@
+---
+// GalleryShowroom.astro - Luxury Private Jet Showroom & Image Gallery with Full SEO Schema
+const galleryImages = [
+  {
+    id: "flagship-jet",
+    src: "/images/aerive/jet-top.png",
+    thumb: "/images/aerive/jet-top.png",
+    title: "Chuyên Cơ Siêu Tầm Xa AERIVE Flagship",
+    enTitle: "AERIVE Ultra Long Range Flagship Jet",
+    category: "exterior",
+    categoryName: "Chuyên cơ",
+    aspectRatio: "16/9",
+    width: 3840,
+    height: 2160,
+    alt: "Góc nhìn toàn cảnh từ trên cao của chuyên cơ tư nhân siêu tầm xa AERIVE màu đen sang trọng viền vàng champagne",
+    caption: "Chuyên cơ siêu tầm xa với sải cánh khí động học, có khả năng bay liên lục địa không cần dừng tiếp nhiên liệu.",
+    meta: "Tầm bay: 14,200 km | Sức chứa: 14-19 khách | Tốc độ: Mach 0.885"
+  },
+  {
+    id: "vip-ramp-access",
+    src: "/images/aerive/advantage-boarding.png",
+    thumb: "/images/aerive/advantage-boarding.png",
+    title: "Đón Tiễn Riêng Tận Cửa Thang Máy Bay",
+    enTitle: "Effortless Ramp & Tarmac Boarding",
+    category: "service",
+    categoryName: "Dịch vụ",
+    aspectRatio: "4/5",
+    width: 1920,
+    height: 2400,
+    alt: "Xe sang đỗ ngay cạnh cửa thang chuyên cơ tư nhân AERIVE trong buổi hoàng hôn không cần qua nhà ga công cộng",
+    caption: "Xe hơi riêng lăn bánh tới tận chân cầu thang máy bay. Không hàng đợi, không thủ tục phức tạp, tối đa sự bảo mật.",
+    meta: "Thời gian lên tàu: 5 phút | Bảo mật tuyệt đối | Lối đi riêng FBO"
+  },
+  {
+    id: "fine-dining-altitude",
+    src: "/images/aerive/advantage-dining-2.png",
+    thumb: "/images/aerive/advantage-dining-2.png",
+    title: "Ẩm Thực Thượng Hạng Ở Độ Cao 40,000 Feet",
+    enTitle: "Curated Onboard Haute Cuisine",
+    category: "dining",
+    categoryName: "Ẩm thực",
+    aspectRatio: "4/5",
+    width: 1920,
+    height: 2400,
+    alt: "Bàn tiệc cà phê và bánh ngọt cao cấp phục vụ trên bàn gỗ sơn mài đen bóng bên trong cabin máy bay tư nhân",
+    caption: "Mỗi bữa ăn được các đầu bếp chuẩn bị tươi ngon theo khẩu vị riêng của bạn, kết hợp cùng rượu vang hảo hạng.",
+    meta: "Thực đơn thiết kế riêng | Bếp trưởng quốc tế | Rượu vang lưu trữ chuẩn"
+  },
+  {
+    id: "pet-friendly-cabin",
+    src: "/images/aerive/advantage-pets-2.png",
+    thumb: "/images/aerive/advantage-pets-2.png",
+    title: "Khoang Khách VIP Thân Thiện Với Thú Cưng",
+    enTitle: "Pets In Cabin Luxury Travel",
+    category: "cabin",
+    categoryName: "Khoang VIP",
+    aspectRatio: "4/5",
+    width: 1920,
+    height: 2400,
+    alt: "Mèo cưng nằm ngủ êm ái trên ghế bọc da cao cấp bên cạnh cửa sổ máy bay ngắm hoàng hôn",
+    caption: "Thú cưng đồng hành cùng bạn ngay tại khoang khách với đầy đủ tiện nghi, giấy tờ kiểm dịch và sự nâng niu tối đa.",
+    meta: "Không nhốt khoang hàng | Đầy đủ tiện ích chăm sóc | Bác sĩ thú y hỗ trợ"
+  },
+  {
+    id: "24-7-concierge",
+    src: "/images/aerive/advantage-concierge.png",
+    thumb: "/images/aerive/advantage-concierge.png",
+    title: "Quản Gia Hàng Không 24/7 Toàn Cầu",
+    enTitle: "Dedicated 24/7 Flight Concierge",
+    category: "service",
+    categoryName: "Dịch vụ",
+    aspectRatio: "4/5",
+    width: 1920,
+    height: 2400,
+    alt: "Chuyên viên quản gia đang gọi điện điều phối chuyến bay trong phòng chờ VIP đêm với máy bay chờ sẵn ngoài đường băng",
+    caption: "Một đầu mối liên hệ duy nhất cho mọi nhu cầu: máy bay, trực thăng nối chuyến, khách sạn và vệ sĩ hộ tống.",
+    meta: "Phản hồi dưới 15 phút | Kết nối mọi múi giờ | Đội ngũ quản gia đa ngôn ngữ"
+  },
+  {
+    id: "sky-sunset-cruise",
+    src: "/images/aerive/sky-dusk.png",
+    thumb: "/images/aerive/sky-dusk.png",
+    title: "Khung Cảnh Hoàng Hôn Tầng Bình Lưu",
+    enTitle: "Stratosphere Sunset Vista",
+    category: "exterior",
+    categoryName: "Chuyên cơ",
+    aspectRatio: "16/9",
+    width: 3840,
+    height: 2160,
+    alt: "Bầu trời hoàng hôn rực rỡ với dải sáng vàng tím trên tầng mây nhìn từ buồng lái máy bay",
+    caption: "Tận hưởng sự tĩnh lặng tuyệt đối trên tầng bình lưu, nơi thời tiết xấu nằm lại phía dưới hành trình của bạn.",
+    meta: "Độ cao bay: 45,000 - 51,000 ft | Áp suất cabin tương đương mặt đất"
+  },
+  {
+    id: "cloud-silence",
+    src: "/images/aerive/cloud-wisps.png",
+    thumb: "/images/aerive/cloud-wisps.png",
+    title: "Không Gian Tĩnh Lặng Trên Những Tầng Mây",
+    enTitle: "Above The Weather Serenity",
+    category: "cabin",
+    categoryName: "Khoang VIP",
+    aspectRatio: "16/9",
+    width: 3840,
+    height: 1800,
+    alt: "Vệt mây trắng mờ ảo trôi êm ả dưới ánh chiều tà tạo cảm giác tĩnh mịch êm đềm",
+    caption: "Hệ thống giảm âm chủ động thế hệ mới giúp cabin duy trì độ ồn dưới 48 dBA, lý tưởng cho giấc ngủ sâu.",
+    meta: "Độ ồn cabin: <48 dBA | Giường phẳng đôi | Chăn lụa Cashmere cao cấp"
+  },
+  {
+    id: "panoramic-window",
+    src: "/images/aerive/window.png",
+    thumb: "/images/aerive/window.png",
+    title: "Cửa Sổ Bầu Dục Toàn Cảnh Khổ Lớn",
+    enTitle: "Oversized Panoramic Oval Windows",
+    category: "cabin",
+    categoryName: "Khoang VIP",
+    aspectRatio: "16/9",
+    width: 2752,
+    height: 1536,
+    alt: "Cửa sổ máy bay hình bầu dục siêu lớn hướng ra bầu trời ngập tràn ánh sáng thiên nhiên",
+    caption: "16 cửa sổ toàn cảnh đón ánh sáng tự nhiên tràn ngập cabin, tối ưu tầm nhìn bao quát mọi kỳ quan thiên nhiên.",
+    meta: "16 cửa sổ Panoramic | Kính lọc UV 99.9% | Màn chắn điện tử thông minh"
+  },
+  {
+    id: "global-network",
+    src: "/images/aerive/globe.png",
+    thumb: "/images/aerive/globe.png",
+    title: "Mạng Lưới Sân Bay Tư Nhân Toàn Cầu",
+    enTitle: "Worldwide Private Aviation Network",
+    category: "exterior",
+    categoryName: "Chuyên cơ",
+    aspectRatio: "1/1",
+    width: 2000,
+    height: 2000,
+    alt: "Quả địa cầu đen viền vàng kim hiển thị các đường bay quốc tế kết nối các thủ phủ xa xỉ",
+    caption: "Tiếp cận hơn 5,000 sân bay nhỏ và đường băng tư nhân gần điểm đến của bạn nhất mà máy bay thương mại không thể tới.",
+    meta: "Hơn 5,000 sân bay | Cấp phép bay ưu tiên | Miễn kiểm tra công cộng"
+  }
+];
+
+// JSON-LD structured data for Google Image Search & Rich Snippets
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "AERIVE Private Aviation Luxury Showroom & Fleet Gallery",
+  "description": "Bộ sưu tập hình ảnh chi tiết chuyên cơ tư nhân tầm xa, khoang nội thất thượng lưu và dịch vụ hàng không VIP của AERIVE.",
+  "url": "https://aerive-template.modulify.website/gallery",
+  "provider": {
+    "@type": "Organization",
+    "name": "AERIVE Private Aviation House",
+    "logo": "https://aerive.cdn.modulify.website/images/share/aerive-share.jpg"
+  },
+  "associatedMedia": galleryImages.map((img) => ({
+    "@type": "ImageObject",
+    "contentUrl": img.src,
+    "thumbnailUrl": img.thumb,
+    "name": img.title,
+    "alternateName": img.enTitle,
+    "description": img.caption,
+    "width": `${img.width} px`,
+    "height": `${img.height} px`,
+    "encodingFormat": "image/png"
+  }))
+};
+---
+
+<section id="gallery" aria-labelledby="gallery-title" class="relative z-10 bg-onyx px-5 py-24 text-ivory md:px-[6vw] md:py-36 border-t border-champagne/15">
+  <!-- SEO Structured Data Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <div class="max-w-7xl mx-auto">
+    <!-- Header / Breadcrumbs -->
+    <div class="flex items-center justify-between border-b border-champagne/20 pb-5">
+      <div class="flex items-center gap-3">
+        <span class="size-2 rounded-full bg-champagne animate-pulse"></span>
+        <p class="text-[11px] uppercase tracking-[0.25em] text-champagne">Fleet & Experience Showroom</p>
+      </div>
+      <p class="text-[11px] uppercase tracking-[0.25em] text-smoke hidden sm:block">Ultra High-Res 4K Gallery</p>
+    </div>
+
+    <!-- Title and SEO Lead -->
+    <div class="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:items-end">
+      <div>
+        <h2 id="gallery-title" class="font-heading text-[clamp(2.8rem,6.5vw,6rem)] font-light leading-[0.95] tracking-[-0.015em]">
+          Không gian thượng lưu.<br />
+          <span class="text-champagne">Từng chi tiết đỉnh cao.</span>
+        </h2>
+      </div>
+      <div>
+        <p class="text-[15px] leading-relaxed text-ivory/75">
+          Khám phá trọn vẹn bộ sưu tập hình ảnh thực tế về chuyên cơ siêu tầm xa, trải nghiệm khoang khách bọc da thủ công, dịch vụ ẩm thực fine-dining và tiêu chuẩn riêng tư tối thượng của AERIVE.
+        </p>
+      </div>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="mt-12 flex flex-wrap items-center gap-2 border-b border-champagne/15 pb-6">
+      <button type="button" data-filter="all" class="filter-btn active inline-flex h-9 items-center rounded-full border border-champagne px-5 text-[11px] uppercase tracking-[0.2em] bg-champagne text-obsidian transition-all">
+        Tất cả ({galleryImages.length})
+      </button>
+      <button type="button" data-filter="exterior" class="filter-btn inline-flex h-9 items-center rounded-full border border-champagne/25 px-5 text-[11px] uppercase tracking-[0.2em] text-ivory/80 hover:border-champagne hover:text-champagne transition-all">
+        Chuyên cơ ngoại thất
+      </button>
+      <button type="button" data-filter="cabin" class="filter-btn inline-flex h-9 items-center rounded-full border border-champagne/25 px-5 text-[11px] uppercase tracking-[0.2em] text-ivory/80 hover:border-champagne hover:text-champagne transition-all">
+        Khoang VIP & Giường nằm
+      </button>
+      <button type="button" data-filter="dining" class="filter-btn inline-flex h-9 items-center rounded-full border border-champagne/25 px-5 text-[11px] uppercase tracking-[0.2em] text-ivory/80 hover:border-champagne hover:text-champagne transition-all">
+        Ẩm thực 5 sao
+      </button>
+      <button type="button" data-filter="service" class="filter-btn inline-flex h-9 items-center rounded-full border border-champagne/25 px-5 text-[11px] uppercase tracking-[0.2em] text-ivory/80 hover:border-champagne hover:text-champagne transition-all">
+        Dịch vụ đón tiễn
+      </button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div id="gallery-grid" class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {galleryImages.map((img, index) => (
+        <figure
+          class="gallery-item group relative overflow-hidden rounded-[14px] border border-champagne/15 bg-obsidian transition-all duration-500 hover:border-champagne/60 hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
+          data-category={img.category}
+          data-index={index}
+          itemprop="associatedMedia"
+          itemscope
+          itemtype="https://schema.org/ImageObject"
+        >
+          <!-- Image Container -->
+          <div class="relative aspect-[4/3] w-full overflow-hidden bg-obsidian cursor-pointer js-gallery-open" data-index={index}>
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              width={img.width}
+              height={img.height}
+              class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              itemprop="contentUrl"
+            />
+            <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-obsidian/90 via-obsidian/20 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40"></div>
+            
+            <!-- Category Tag Badge -->
+            <span class="absolute left-4 top-4 rounded-full bg-obsidian/80 backdrop-blur-md border border-champagne/30 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-champagne">
+              {img.categoryName}
+            </span>
+
+            <!-- Zoom Button Indicator -->
+            <div class="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-obsidian/75 backdrop-blur-md border border-champagne/30 text-champagne opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 hover:bg-champagne hover:text-obsidian">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize-2">
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <polyline points="9 21 3 21 3 15"></polyline>
+                <line x1="21" y1="3" x2="14" y2="10"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+            </div>
+
+            <!-- Hover overlay text -->
+            <div class="absolute inset-x-0 bottom-0 p-5 translate-y-1 transition-transform duration-300 group-hover:translate-y-0">
+              <p class="text-[10px] uppercase tracking-[0.24em] text-champagne">{img.enTitle}</p>
+              <h3 class="mt-1 font-heading text-[1.4rem] font-normal leading-tight text-ivory group-hover:text-champagne transition-colors" itemprop="name">
+                {img.title}
+              </h3>
+            </div>
+          </div>
+
+          <!-- SEO Caption & Specs -->
+          <figcaption class="p-5 pt-3 border-t border-champagne/10 text-ash text-[13px] leading-relaxed">
+            <p itemprop="description">{img.caption}</p>
+            <div class="mt-3 flex items-center justify-between border-t border-champagne/10 pt-3 text-[11px] text-smoke">
+              <span>{img.meta}</span>
+              <button type="button" class="inline-flex items-center gap-1.5 text-champagne hover:text-champagne-soft transition-colors js-gallery-open" data-index={index}>
+                <span>Mở xem</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+              </button>
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <!-- Callout Banner to Dedicated Archive Subpage -->
+    <div class="mt-20 rounded-[22px] border border-champagne/30 bg-gradient-to-r from-obsidian via-onyx to-obsidian p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+      <div class="max-w-2xl">
+        <span class="inline-flex items-center gap-2 rounded-full bg-champagne/10 border border-champagne/30 px-3.5 py-1 text-[10px] uppercase tracking-[0.22em] text-champagne">
+          <span class="size-1.5 rounded-full bg-champagne animate-pulse"></span>
+          Tuyển Tập 4 Thư Viện Chuyên Đề • AERIVE Archive
+        </span>
+        <h3 class="mt-3 font-heading text-[clamp(1.8rem,3vw,2.6rem)] font-light text-ivory">
+          Khám Phá Các Trang Thư Viện Chuyên Sâu
+        </h3>
+        <p class="mt-2 text-[14px] leading-relaxed text-smoke">
+          Mở trang kho lưu trữ (Archive) để xem từng thư viện chuyên đề với tiêu đề và mô tả chi tiết: Nội thất VIP Cabin & Suites, Ẩm thực sao Michelin 45,000ft, và Đặc quyền đón tiễn FBO tận đường băng.
+        </p>
+      </div>
+      <a
+        href="/archive"
+        class="shrink-0 inline-flex h-13 items-center gap-3 rounded-full bg-champagne px-8 text-[11px] uppercase tracking-[0.22em] text-obsidian font-semibold transition-all hover:bg-champagne-soft hover:shadow-[0_0_35px_rgba(206,178,142,0.4)]"
+      >
+        <span>Mở Kho Thư Viện (Archive)</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Interactive Lightbox Modal -->
+  <dialog id="gallery-lightbox" aria-label="Xem ảnh chất lượng cao" class="lightbox-dialog fixed inset-0 m-0 h-full w-full max-h-none max-w-none bg-obsidian/95 p-0 backdrop-blur-xl backdrop:bg-black/90">
+    <div class="relative flex h-full w-full flex-col justify-between p-4 md:p-8">
+      <!-- Lightbox Top Bar -->
+      <div class="flex items-center justify-between z-20">
+        <div class="flex items-center gap-4">
+          <span class="pl-2 font-heading text-[1.3rem] font-medium tracking-[0.3em] text-champagne">AERIVE</span>
+          <span class="h-4 w-px bg-champagne/30"></span>
+          <span id="lb-counter" class="text-[12px] uppercase tracking-[0.22em] text-smoke">01 / 09</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <a id="lb-download" href="#" download class="inline-flex size-11 items-center justify-center rounded-full border border-champagne/25 text-champagne transition-colors hover:bg-champagne hover:text-obsidian" title="Tải ảnh gốc về máy">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </a>
+          <button type="button" id="lb-close" class="inline-flex size-11 items-center justify-center rounded-full border border-champagne/25 text-champagne transition-colors hover:bg-champagne hover:text-obsidian focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne" aria-label="Đóng xem ảnh">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Lightbox Main Image Stage -->
+      <div class="relative flex flex-1 items-center justify-center overflow-hidden py-4">
+        <!-- Navigation Prev -->
+        <button type="button" id="lb-prev" class="absolute left-2 md:left-6 z-20 flex size-12 items-center justify-center rounded-full border border-champagne/20 bg-obsidian/70 text-champagne transition-all hover:bg-champagne hover:text-obsidian" aria-label="Ảnh trước">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left size-6"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+
+        <!-- Image Container with Transition -->
+        <div class="relative max-h-[75vh] max-w-[88vw] overflow-hidden rounded-[8px]">
+          <img id="lb-image" src="" alt="" class="max-h-[75vh] w-auto max-w-[88vw] object-contain transition-opacity duration-300" />
+        </div>
+
+        <!-- Navigation Next -->
+        <button type="button" id="lb-next" class="absolute right-2 md:right-6 z-20 flex size-12 items-center justify-center rounded-full border border-champagne/20 bg-obsidian/70 text-champagne transition-all hover:bg-champagne hover:text-obsidian" aria-label="Ảnh tiếp theo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right size-6"><path d="m9 18 6-6-6-6"></path></svg>
+        </button>
+      </div>
+
+      <!-- Lightbox Bottom Caption Bar -->
+      <div class="mx-auto max-w-2xl text-center z-20">
+        <h3 id="lb-title" class="font-heading text-[1.6rem] font-normal text-champagne leading-tight"></h3>
+        <p id="lb-caption" class="mt-2 text-[13px] leading-relaxed text-ivory/80"></p>
+        <p id="lb-meta" class="mt-2 text-[11px] uppercase tracking-[0.2em] text-smoke"></p>
+      </div>
+    </div>
+  </dialog>
+</section>
+
+<!-- Client-side script for Filter & Lightbox -->
+<script is:inline define:vars={{ galleryImages }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Filtering logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.gallery-item');
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        filterBtns.forEach((b) => {
+          b.classList.remove('active', 'bg-champagne', 'text-obsidian');
+          b.classList.add('text-ivory/80');
+        });
+        btn.classList.add('active', 'bg-champagne', 'text-obsidian');
+        btn.classList.remove('text-ivory/80');
+
+        items.forEach((item) => {
+          const cat = item.getAttribute('data-category');
+          if (filter === 'all' || cat === filter) {
+            item.style.display = 'block';
+            item.style.opacity = '1';
+          } else {
+            item.style.display = 'none';
+            item.style.opacity = '0';
+          }
+        });
+      });
+    });
+
+    // 2. Lightbox logic
+    const dialog = document.getElementById('gallery-lightbox');
+    const lbImg = document.getElementById('lb-image');
+    const lbTitle = document.getElementById('lb-title');
+    const lbCaption = document.getElementById('lb-caption');
+    const lbMeta = document.getElementById('lb-meta');
+    const lbCounter = document.getElementById('lb-counter');
+    const lbDownload = document.getElementById('lb-download');
+    const closeBtn = document.getElementById('lb-close');
+    const prevBtn = document.getElementById('lb-prev');
+    const nextBtn = document.getElementById('lb-next');
+
+    let currentIndex = 0;
+
+    function renderImage(index) {
+      if (index < 0) index = galleryImages.length - 1;
+      if (index >= galleryImages.length) index = 0;
+      currentIndex = index;
+
+      const data = galleryImages[currentIndex];
+      lbImg.style.opacity = '0';
+
+      setTimeout(() => {
+        lbImg.src = data.src;
+        lbImg.alt = data.alt;
+        lbTitle.textContent = data.title;
+        lbCaption.textContent = data.caption;
+        lbMeta.textContent = data.meta;
+        lbCounter.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${String(galleryImages.length).padStart(2, '0')}`;
+        lbDownload.href = data.src;
+        lbDownload.setAttribute('download', `${data.id}-aerive.png`);
+        lbImg.style.opacity = '1';
+      }, 150);
+    }
+
+    function openLightbox(index) {
+      renderImage(index);
+      dialog?.showModal();
+      document.body.style.overflow = 'hidden';
+      if (window.lenis) window.lenis.stop();
+    }
+
+    function closeLightbox() {
+      dialog?.close();
+      document.body.style.overflow = '';
+      if (window.lenis) window.lenis.start();
+    }
+
+    // Open triggers
+    document.querySelectorAll('.js-gallery-open').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const idx = parseInt(el.getAttribute('data-index') || '0', 10);
+        openLightbox(idx);
+      });
+    });
+
+    closeBtn?.addEventListener('click', closeLightbox);
+    prevBtn?.addEventListener('click', () => renderImage(currentIndex - 1));
+    nextBtn?.addEventListener('click', () => renderImage(currentIndex + 1));
+
+    // Keyboard shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (!dialog || !dialog.open) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') renderImage(currentIndex - 1);
+      if (e.key === 'ArrowRight') renderImage(currentIndex + 1);
+    });
+
+    // Close on backdrop click
+    dialog?.addEventListener('click', (e) => {
+      if (e.target === dialog) closeLightbox();
+    });
+  });
+</script>
+
+<style>
+  dialog.lightbox-dialog {
+    border: none;
+    outline: none;
+  }
+  dialog.lightbox-dialog::backdrop {
+    background-color: rgba(6, 6, 8, 0.92);
+    backdrop-filter: blur(12px);
+  }
+</style>

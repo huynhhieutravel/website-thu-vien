@@ -1,0 +1,398 @@
+---
+// v2/src/pages/archive.astro
+// Trang con: Kho Thư Viện (Archive) mở ra các thư viện chuyên đề với mô tả và tiêu đề từng trang
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import BookingModal from '../components/BookingModal.astro';
+
+const libraries = [
+  {
+    id: "01",
+    tag: "CINEMATIC 3D & EXPERIENTIAL",
+    badge: "★ THƯ VIỆN GỐC (TRANG CHỦ AERIVE)",
+    isOriginal: true,
+    title: "AERIVE Flagship Aviation — Chuyên Cơ Siêu Tầm Xa & Trải Nghiệm 3D Đỉnh Cao",
+    desc: "Thư viện tương tác đa giác quan nguyên bản trên Trang Chủ AERIVE. Chiêm ngưỡng mô hình chuyên cơ 3D xoay góc nhìn chim bay, trải nghiệm hiệu ứng lướt xuyên khung cửa sổ tầng bình lưu với thuật toán xóa phông Chroma-key thời gian thực, bóc tách sơ đồ mặt bằng kỹ thuật động cơ khí học, và khám phá quả cầu bay toàn cầu 3D với các tuyến đường bay liên lục địa.",
+    features: [
+      "Chuyên cơ 3D & hiệu ứng lướt mây chân thực",
+      "Thuật toán Canvas Chroma-Key xóa phông thời gian thực",
+      "Sơ đồ kỹ thuật mặt phẳng động với thông số kỹ thuật",
+      "Quả cầu 3D trực quan hóa mạng lưới đường bay toàn cầu"
+    ],
+    cover: "/images/aerive/jet-top.png",
+    url: "/",
+    cta: "Mở Trải Nghiệm 3D (Trang Chủ)",
+    count: "Toàn bộ trải nghiệm 3D + Showroom ảnh 4K"
+  },
+  {
+    id: "02",
+    tag: "INTERIOR SANCTUARY",
+    badge: "NỘI THẤT KHOANG VIP",
+    isOriginal: false,
+    title: "VIP Cabin & Suite Interiors — Nghệ Thuật Không Gian Sống Tầng Bình Lưu",
+    desc: "Bộ sưu tập hình ảnh 4K độ nét cao ghi lại không gian sống 3 gian độc lập ở độ cao 45,000 feet. Chiêm ngưỡng 16 ô cửa sổ bầu dục toàn cảnh đón trọn ánh nắng ban mai, nệm lông vũ và da bọc thủ công Thụy Sĩ có thể xoay 360 độ hoặc ngả phẳng thành giường ngủ đôi, cùng công nghệ khử ồn chủ động duy trì độ ồn dưới 48 dBA — tĩnh lặng như phòng đọc sách tại gia.",
+    features: [
+      "16 Ô cửa sổ bầu dục toàn cảnh chống 99.9% tia cực tím",
+      "Giường phẳng đôi 180° bọc da bò tự nhiên vùng núi Alps",
+      "Độ ồn cabin <48 dBA (Êm ái nhất trong các dòng chuyên cơ)",
+      "Hệ thống lọc khí HEPA & bơm oxy tươi mỗi 2 phút"
+    ],
+    cover: "/images/aerive/window.png",
+    url: "/galleries/cabin-suites",
+    cta: "Mở Thư Viện Cabin & Suites",
+    count: "4 tác phẩm 4K + Lightbox tương tác"
+  },
+  {
+    id: "03",
+    tag: "HAUTE GASTRONOMY",
+    badge: "ẨM THỰC TINH HOA",
+    isOriginal: false,
+    title: "Haute Cuisine & Altitude Cellar — Ẩm Thực Sao Michelin Giữa Bầu Trời",
+    desc: "Thư viện chuyên đề về nghệ thuật ẩm thực và hầm rượu vang tầng bình lưu. Nhờ công nghệ điều áp cabin tương đương độ cao 3,000 feet, vị giác của hành khách được bảo toàn trọn vẹn 100%. Tận hưởng bữa tối riêng tư với thực đơn thiết kế bởi các đầu bếp hàng đầu thế giới, dao nĩa bạc Christofle, ly pha lê Riedel Áo và các chai vang Grand Cru Classé quý hiếm.",
+    features: [
+      "Thực đơn may đo riêng biệt 100% theo khẩu vị của bạn",
+      "Hầm vang Grand Cru & Vintage Champagne Dom Pérignon",
+      "Bộ dao nĩa bạc Christofle & ly pha lê Riedel Áo thủ công",
+      "Áp suất sinh học 3,000ft giúp giữ trọn 100% độ nhạy vị giác"
+    ],
+    cover: "/images/aerive/advantage-dining-2.png",
+    url: "/galleries/haute-cuisine",
+    cta: "Mở Thư Viện Ẩm Thực & Hầm Vang",
+    count: "4 tác phẩm 4K + Lightbox tương tác"
+  },
+  {
+    id: "04",
+    tag: "EXCLUSIVE GROUND ACCESS",
+    badge: "MẶT ĐẤT & BẢO MẬT",
+    isOriginal: false,
+    title: "Ramp Access & VIP FBO Concierge — Đặc Quyền Đón Tiễn & Bảo Mật Tuyệt Đối",
+    desc: "Bộ sưu tập hình ảnh về quy trình mặt đất tối mật và đẳng cấp FBO riêng biệt. Khách hàng được xe limousine đưa đón thẳng ra tận chân cầu thang chuyên cơ trên đường băng riêng, khởi hành chỉ trong 15 phút mà không phải qua sảnh chờ công cộng. Đội ngũ chuyên viên điều phối chuyến bay túc trực 24/7/365 đảm bảo mọi hành trình luôn kín đáo và an toàn tuyệt đối.",
+    features: [
+      "Đưa đón tận chân cầu thang máy bay bằng Limousine cao cấp",
+      "Khởi hành chỉ sau 15 phút có mặt tại đường băng",
+      "Mạng lưới 1,200+ nhà ga FBO tư nhân biệt lập toàn cầu",
+      "Bảo mật danh tính & hành trình cá nhân tuyệt đối 100%"
+    ],
+    cover: "/images/aerive/advantage-boarding.png",
+    url: "/galleries/ramp-concierge",
+    cta: "Mở Thư Viện Đón Tiễn & Concierge",
+    count: "4 tác phẩm 4K + Lightbox tương tác"
+  }
+];
+
+const archiveSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Kho Thư Viện Chuyên Cơ Tư Nhân AERIVE (Archive)",
+  "description": "Trang tổng hợp kho lưu trữ đa phương tiện gồm 4 thư viện chuyên đề độc quyền về chuyên cơ AERIVE.",
+  "url": "https://aerive-template.modulify.website/archive",
+  "hasPart": libraries.map((lib) => ({
+    "@type": "ImageGallery",
+    "name": lib.title,
+    "description": lib.desc,
+    "url": `https://aerive-template.modulify.website${lib.url}`
+  }))
+};
+---
+
+<Layout
+  title="Kho Thư Viện Chuyên Đề (Archive) — AERIVE Aviation House"
+  description="Trang con tổng hợp các thư viện chuyên đề AERIVE: Trải nghiệm Flagship 3D (Trang chủ), Nội thất Cabin VIP, Ẩm thực sao Michelin 45,000ft và Đặc quyền đón tiễn FBO với tiêu đề và mô tả chi tiết."
+  ogImage="/images/aerive/jet-top.png"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(archiveSchema)} />
+
+  <!-- Fixed Subpage Header Bar -->
+  <header class="fixed inset-x-0 top-0 z-50 bg-obsidian/95 backdrop-blur-md border-b border-champagne/15 transition-all">
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
+      <!-- Breadcrumb link back to Home -->
+      <div class="flex items-center gap-3 text-[11px] uppercase tracking-[0.2em]">
+        <a href="/" class="text-champagne hover:text-ivory transition-colors flex items-center gap-1.5 font-medium">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Trang Chủ AERIVE</span>
+        </a>
+        <span class="text-smoke">/</span>
+        <span class="text-ivory/80">Kho Thư Viện (Archive)</span>
+      </div>
+
+      <!-- Quick Nav for Libraries -->
+      <nav aria-label="Archive Nav" class="hidden md:flex items-center gap-6 text-[11px] uppercase tracking-[0.2em] text-smoke">
+        <a href="/" class="hover:text-champagne transition-colors">01. Trang Chủ 3D</a>
+        <a href="/galleries/cabin-suites" class="hover:text-champagne transition-colors">02. Cabin & Suites</a>
+        <a href="/galleries/haute-cuisine" class="hover:text-champagne transition-colors">03. Haute Cuisine</a>
+        <a href="/galleries/ramp-concierge" class="hover:text-champagne transition-colors">04. Ramp Concierge</a>
+      </nav>
+
+      <!-- Booking CTA -->
+      <button
+        type="button"
+        onclick="document.querySelector('.booking-dialog')?.showModal()"
+        class="inline-flex h-9 items-center gap-2 rounded-full border border-champagne/40 bg-champagne/10 px-4 text-[10px] uppercase tracking-[0.2em] text-champagne hover:bg-champagne hover:text-obsidian transition-colors"
+      >
+        Đặt Chuyến Bay
+      </button>
+    </div>
+  </header>
+
+  <main class="relative pt-24 md:pt-32">
+    <!-- Archive Subpage Hero -->
+    <section class="relative px-5 pb-16 md:px-8 lg:px-12 border-b border-champagne/15">
+      <div class="mx-auto max-w-5xl text-center">
+        <span class="inline-flex items-center gap-2 rounded-full bg-champagne/10 border border-champagne/30 px-4 py-1.5 text-[11px] uppercase tracking-[0.25em] text-champagne">
+          <span class="size-1.5 rounded-full bg-champagne animate-pulse"></span>
+          Kho Lưu Trữ Thư Viện • AERIVE Archive Directory
+        </span>
+
+        <h1 class="mt-8 font-heading text-[clamp(2.5rem,6.5vw,5rem)] font-light leading-[1.02] text-ivory">
+          Tuyển Tập Các Thư Viện<br />
+          <span class="text-champagne">Chuyên Cơ Siêu Tầm Xa</span>
+        </h1>
+
+        <p class="mx-auto mt-6 max-w-3xl text-[15px] md:text-[16px] leading-relaxed text-ivory/75">
+          Trang tổng hợp kho thư viện chuyên sâu của AERIVE. Khám phá từng không gian sống và đặc quyền dịch vụ qua <strong>4 thư viện chuyên đề</strong> được biên soạn công phu với thông số kỹ thuật, hình ảnh 4K độ phân giải cao và công nghệ 3D tương tác.
+        </p>
+
+        <!-- Stats Bar -->
+        <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-4xl mx-auto text-left">
+          <div class="rounded-2xl border border-champagne/20 bg-onyx/80 backdrop-blur-sm p-5 hover:border-champagne/50 transition-colors">
+            <div class="text-[11px] uppercase tracking-widest text-champagne">Thư viện</div>
+            <div class="mt-2 font-heading text-[2.6rem] font-light text-ivory leading-none">04</div>
+            <div class="mt-1 text-[12px] text-smoke">Chuyên đề độc lập</div>
+          </div>
+          <div class="rounded-2xl border border-champagne/20 bg-onyx/80 backdrop-blur-sm p-5 hover:border-champagne/50 transition-colors">
+            <div class="text-[11px] uppercase tracking-widest text-champagne">Hình ảnh</div>
+            <div class="mt-2 font-heading text-[2.6rem] font-light text-ivory leading-none">4K</div>
+            <div class="mt-1 text-[12px] text-smoke">Độ phân giải siêu cao</div>
+          </div>
+          <div class="rounded-2xl border border-champagne/20 bg-onyx/80 backdrop-blur-sm p-5 hover:border-champagne/50 transition-colors">
+            <div class="text-[11px] uppercase tracking-widest text-champagne">Công nghệ</div>
+            <div class="mt-2 font-heading text-[2.6rem] font-light text-ivory leading-none">3D</div>
+            <div class="mt-1 text-[12px] text-smoke">Chroma-Key & Mô hình</div>
+          </div>
+          <div class="rounded-2xl border border-champagne/20 bg-onyx/80 backdrop-blur-sm p-5 hover:border-champagne/50 transition-colors">
+            <div class="text-[11px] uppercase tracking-widest text-champagne">Cấu trúc</div>
+            <div class="mt-2 font-heading text-[2.6rem] font-light text-ivory leading-none">SEO</div>
+            <div class="mt-1 text-[12px] text-smoke">Schema.org Rich Snippet</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Libraries Directory (Showcase Section) -->
+    <section id="libraries" class="px-5 py-20 md:px-8 lg:px-12">
+      <div class="mx-auto max-w-7xl">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-16 pb-6 border-b border-champagne/15 gap-4">
+          <div>
+            <span class="text-[11px] uppercase tracking-[0.25em] text-champagne">Danh mục kho lưu trữ</span>
+            <h2 class="mt-2 font-heading text-[clamp(2.2rem,4vw,3.5rem)] font-light text-ivory">
+              Khám Phá Các Thư Viện Chuyên Đề
+            </h2>
+          </div>
+          <p class="max-w-md text-[13px] leading-relaxed text-smoke">
+            Bấm vào từng thư viện bên dưới để mở trang chi tiết với đầy đủ hình ảnh độ phân giải cao, mô tả kỹ thuật và trải nghiệm tương tác.
+          </p>
+        </div>
+
+        <!-- 4 Library Showcase Cards -->
+        <div class="flex flex-col gap-12">
+          {libraries.map((lib) => (
+            <article class={`group relative overflow-hidden rounded-[24px] border ${lib.isOriginal ? 'border-champagne/50 bg-gradient-to-br from-onyx via-obsidian to-onyx shadow-[0_20px_70px_rgba(206,178,142,0.08)]' : 'border-champagne/20 bg-onyx/80'} p-6 md:p-10 transition-all duration-500 hover:border-champagne hover:shadow-[0_30px_90px_rgba(0,0,0,0.85)]`}>
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Text Column (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col justify-between">
+                  <div>
+                    <!-- Badge & Number -->
+                    <div class="flex flex-wrap items-center gap-3">
+                      <span class="font-mono text-[13px] tracking-wider text-champagne font-semibold">
+                        LIB {lib.id}
+                      </span>
+                      <span class="text-smoke/40">/</span>
+                      <span class="rounded-full bg-champagne/10 border border-champagne/30 px-3 py-0.5 text-[10px] uppercase tracking-[0.2em] text-champagne">
+                        {lib.badge}
+                      </span>
+                      <span class="text-[11px] uppercase tracking-[0.2em] text-smoke hidden sm:inline">
+                        {lib.tag}
+                      </span>
+                    </div>
+
+                    <!-- Title -->
+                    <h3 class="mt-4 font-heading text-[clamp(1.8rem,3vw,2.5rem)] font-light leading-[1.1] text-ivory group-hover:text-champagne transition-colors">
+                      <a href={lib.url} class="focus:outline-none">
+                        {lib.title}
+                      </a>
+                    </h3>
+
+                    <!-- Rich Description -->
+                    <p class="mt-4 text-[14px] leading-relaxed text-ivory/75">
+                      {lib.desc}
+                    </p>
+
+                    <!-- Feature Bullet Points -->
+                    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-6 border-t border-champagne/10">
+                      {lib.features.map((feat) => (
+                        <div class="flex items-start gap-2 text-[12px] text-smoke">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check text-champagne shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <!-- CTA Button & Meta Info -->
+                  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-champagne/10">
+                    <a
+                      href={lib.url}
+                      class="inline-flex h-12 items-center gap-3 rounded-full bg-champagne px-7 text-[11px] uppercase tracking-[0.22em] text-obsidian font-medium transition-all hover:bg-champagne-soft hover:shadow-[0_0_30px_rgba(206,178,142,0.4)]"
+                    >
+                      <span>{lib.cta}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <span class="text-[11px] text-smoke">
+                      {lib.count}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Media Preview Column (5 cols) -->
+                <div class="lg:col-span-5">
+                  <a href={lib.url} class="block relative aspect-[16/11] w-full overflow-hidden rounded-[18px] border border-champagne/25 group/img">
+                    <img
+                      src={lib.cover}
+                      alt={lib.title}
+                      loading="lazy"
+                      decoding="async"
+                      class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover/img:scale-108"
+                    />
+                    <div class="absolute inset-0 bg-linear-to-t from-obsidian/90 via-obsidian/20 to-transparent"></div>
+                    
+                    <!-- Overlay Badge -->
+                    <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] text-ivory">
+                      <span class="rounded-full bg-obsidian/80 backdrop-blur-md border border-champagne/20 px-3 py-1">
+                        Xem chi tiết thư viện
+                      </span>
+                      <span class="flex size-9 items-center justify-center rounded-full bg-champagne text-obsidian group-hover/img:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+                      </span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison & Architectural Matrix -->
+    <section class="px-5 py-20 md:px-8 lg:px-12 border-t border-champagne/15 bg-onyx/40">
+      <div class="mx-auto max-w-7xl">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+          <span class="text-[11px] uppercase tracking-[0.25em] text-champagne">Bảng đối chiếu tổng quan</span>
+          <h2 class="mt-2 font-heading text-[clamp(2rem,3.5vw,3rem)] font-light text-ivory">
+            Thông Số Kỹ Thuật Các Thư Viện
+          </h2>
+          <p class="mt-3 text-[13px] text-smoke">
+            Tổng hợp tính năng, mục tiêu trải nghiệm và cấu trúc kỹ thuật của từng thư viện trong hệ thống AERIVE.
+          </p>
+        </div>
+
+        <div class="overflow-x-auto rounded-[18px] border border-champagne/20 bg-onyx">
+          <table class="w-full text-left text-[13px] border-collapse min-w-[700px]">
+            <thead>
+              <tr class="border-b border-champagne/20 bg-obsidian/60 text-[11px] uppercase tracking-[0.2em] text-champagne">
+                <th class="p-4 pl-6">Thư viện</th>
+                <th class="p-4">Chủ đề chính</th>
+                <th class="p-4">Công nghệ hiển thị</th>
+                <th class="p-4">Cấu trúc SEO</th>
+                <th class="p-4 pr-6 text-right">Hành động</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-champagne/10 text-ivory/80">
+              <tr class="hover:bg-champagne/5 transition-colors">
+                <td class="p-4 pl-6 font-medium text-champagne">
+                  01. AERIVE Flagship
+                  <span class="block text-[10px] uppercase tracking-wider text-smoke">Trang Chủ AERIVE (Gốc)</span>
+                </td>
+                <td class="p-4">Mô hình chuyên cơ, cửa sổ bay, sơ đồ kỹ thuật</td>
+                <td class="p-4">Canvas Chroma-Key, GSAP 3D, SVG Animation</td>
+                <td class="p-4">AviationService, Organization, ImageGallery</td>
+                <td class="p-4 pr-6 text-right">
+                  <a href="/" class="text-champagne underline underline-offset-4 hover:text-ivory">Mở Trang Chủ →</a>
+                </td>
+              </tr>
+              <tr class="hover:bg-champagne/5 transition-colors">
+                <td class="p-4 pl-6 font-medium text-ivory">
+                  02. Cabin & Suites
+                  <span class="block text-[10px] uppercase tracking-wider text-smoke">Không gian nội thất</span>
+                </td>
+                <td class="p-4">16 Cửa sổ toàn cảnh, giường phẳng đôi, ghế Thụy Sĩ</td>
+                <td class="p-4">4K Masonry Grid, Interactive HTML5 Dialog Lightbox</td>
+                <td class="p-4">ImageGallery Schema, figure semantic, EXIF alt</td>
+                <td class="p-4 pr-6 text-right">
+                  <a href="/galleries/cabin-suites" class="text-champagne underline underline-offset-4 hover:text-ivory">Khám phá →</a>
+                </td>
+              </tr>
+              <tr class="hover:bg-champagne/5 transition-colors">
+                <td class="p-4 pl-6 font-medium text-ivory">
+                  03. Haute Cuisine
+                  <span class="block text-[10px] uppercase tracking-wider text-smoke">Ẩm thực & Hầm rượu</span>
+                </td>
+                <td class="p-4">Bàn tiệc sao Michelin, Grand Cru Classé, ly Riedel</td>
+                <td class="p-4">4K Photography, Altitude Metrics, Dialog Modal</td>
+                <td class="p-4">ImageGallery Schema, associatedMedia metadata</td>
+                <td class="p-4 pr-6 text-right">
+                  <a href="/galleries/haute-cuisine" class="text-champagne underline underline-offset-4 hover:text-ivory">Khám phá →</a>
+                </td>
+              </tr>
+              <tr class="hover:bg-champagne/5 transition-colors">
+                <td class="p-4 pl-6 font-medium text-ivory">
+                  04. Ramp Concierge
+                  <span class="block text-[10px] uppercase tracking-wider text-smoke">Mặt đất & Đón tiễn</span>
+                </td>
+                <td class="p-4">Đón tiễn tận chân thang Limousine, 1,200+ FBO riêng</td>
+                <td class="p-4">High-Speed Ground Metrics, Lightbox Dialog 4K</td>
+                <td class="p-4">ImageGallery Schema, Priority slots metadata</td>
+                <td class="p-4 pr-6 text-right">
+                  <a href="/galleries/ramp-concierge" class="text-champagne underline underline-offset-4 hover:text-ivory">Khám phá →</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="px-5 py-24 md:px-8 text-center border-t border-champagne/15">
+      <div class="max-w-3xl mx-auto">
+        <span class="text-[11px] uppercase tracking-[0.25em] text-champagne">Trải nghiệm đỉnh cao</span>
+        <h2 class="mt-4 font-heading text-[clamp(2.4rem,4.5vw,4.2rem)] font-light text-ivory leading-tight">
+          Sẵn Sàng Cho Chuyến Bay<br />
+          <span class="text-champagne">Của Riêng Bạn?</span>
+        </h2>
+        <p class="mt-4 text-[15px] leading-relaxed text-smoke max-w-xl mx-auto">
+          Đội ngũ trợ lý hàng không của AERIVE luôn sẵn sàng tư vấn lộ trình bay, tùy biến thực đơn và đón tiễn bạn trực tiếp tại đường băng.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <button
+            type="button"
+            onclick="document.querySelector('.booking-dialog')?.showModal()"
+            class="inline-flex h-14 items-center gap-3 rounded-full bg-champagne px-9 text-[12px] uppercase tracking-[0.22em] text-obsidian font-semibold transition-all hover:bg-champagne-soft hover:shadow-[0_0_40px_rgba(206,178,142,0.4)]"
+          >
+            <span>Đặt Chuyến Bay Ngay</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+          </button>
+          <a
+            href="/"
+            class="inline-flex h-14 items-center gap-3 rounded-full border border-champagne/30 px-8 text-[12px] uppercase tracking-[0.22em] text-ivory hover:border-champagne hover:text-champagne transition-colors"
+          >
+            <span>Về Lại Trang Chủ 3D</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <BookingModal />
+</Layout>

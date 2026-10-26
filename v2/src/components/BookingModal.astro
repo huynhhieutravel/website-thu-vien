@@ -1,0 +1,82 @@
+---
+// BookingModal.astro - Native HTML5 dialog modal with validation
+---
+
+<!-- Loader Status Screen -->
+<div role="status" aria-label="Loading AERIVE" class="fixed inset-0 z-[55] bg-obsidian">
+  <div class="absolute left-1/2 top-[calc(50%+2.75rem)] -ml-20 h-px w-40 overflow-hidden bg-champagne/20">
+    <div class="h-full w-full origin-left bg-champagne" style="transform:scaleX(0.08)"></div>
+  </div>
+</div>
+
+<!-- Film Grain Cinematic Overlay -->
+<div class="film-grain hidden md:block" aria-hidden="true"></div>
+
+<!-- Booking Modal Dialog -->
+<dialog aria-labelledby="booking-title" data-lenis-prevent="true" class="booking-dialog m-auto max-h-[92svh] w-[min(94vw,760px)] overflow-y-auto rounded-[20px] border border-champagne/20 bg-onyx p-0 text-ivory shadow-[0_40px_120px_rgba(0,0,0,0.6)]">
+  <div class="relative px-6 pb-8 pt-7 md:px-12 md:pb-12 md:pt-11">
+    <button type="button" aria-label="Close" class="absolute right-4 top-4 flex size-11 items-center justify-center rounded-full border border-champagne/20 text-champagne transition-colors hover:bg-champagne hover:text-obsidian focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne md:right-6 md:top-6">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x size-5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+    <p class="text-[11px] uppercase tracking-[0.25em] text-champagne">Đặt chuyến bay</p>
+    <h2 id="booking-title" class="mt-3 max-w-[16ch] pr-10 font-heading text-[clamp(2.2rem,5vw,3.4rem)] font-light leading-[1.02]">
+      Bạn muốn tới đâu trên thế giới?
+    </h2>
+    <p class="mt-4 max-w-md text-[14px] leading-relaxed text-ivory/65">
+      Chia sẻ những thông tin cơ bản và chúng tôi sẽ liên hệ riêng với bạn. Các trường không có ghi chú là bắt buộc.
+    </p>
+    <form novalidate class="mt-9 grid gap-x-8 gap-y-7 md:grid-cols-2">
+      <div class="flex flex-col gap-1.5">
+        <label for="booking-fullName" class="text-[11px] uppercase tracking-[0.2em] text-smoke">Họ và tên</label>
+        <input id="booking-fullName" autocomplete="name" aria-invalid="false" class="h-12 w-full border-0 border-b border-champagne/25 bg-transparent px-0 text-[15px] text-ivory placeholder:text-smoke/70 transition-colors focus:border-champagne focus:outline-none aria-[invalid=true]:border-[#e39a8c]" placeholder="Tên của bạn" name="fullName" value="" />
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label for="booking-email" class="text-[11px] uppercase tracking-[0.2em] text-smoke">Email</label>
+        <input id="booking-email" type="email" autocomplete="email" aria-invalid="false" class="h-12 w-full border-0 border-b border-champagne/25 bg-transparent px-0 text-[15px] text-ivory placeholder:text-smoke/70 transition-colors focus:border-champagne focus:outline-none aria-[invalid=true]:border-[#e39a8c]" placeholder="email@example.com" name="email" value="" />
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label for="booking-phone" class="text-[11px] uppercase tracking-[0.2em] text-smoke">Số điện thoại<span class="ml-2 normal-case tracking-normal text-smoke/70">(tùy chọn)</span></label>
+        <input id="booking-phone" type="tel" autocomplete="tel" aria-invalid="false" class="h-12 w-full border-0 border-b border-champagne/25 bg-transparent px-0 text-[15px] text-ivory placeholder:text-smoke/70 transition-colors focus:border-champagne focus:outline-none aria-[invalid=true]:border-[#e39a8c]" placeholder="Bao gồm mã quốc gia (+84...)" name="phone" value="" />
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label for="booking-passengers" class="text-[11px] uppercase tracking-[0.2em] text-smoke">Số lượng khách</label>
+        <select id="booking-passengers" name="passengers" aria-invalid="false" class="h-12 w-full border-0 border-b border-champagne/25 px-0 text-[15px] text-ivory placeholder:text-smoke/70 transition-colors focus:border-champagne focus:outline-none aria-[invalid=true]:border-[#e39a8c] cursor-pointer appearance-none bg-onyx">
+          <option value="1">1 hành khách</option>
+          <option value="2" selected>2 hành khách</option>
+          <option value="3">3 hành khách</option>
+          <option value="4">4 hành khách</option>
+          <option value="5">5 hành khách</option>
+          <option value="6">6 hành khách</option>
+          <option value="7">7 hành khách</option>
+          <option value="8">8 hành khách</option>
+          <option value="9">9 hành khách</option>
+          <option value="10">10-14 hành khách</option>
+          <option value="15">15-19 hành khách</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label for="booking-departure" class="text-[11px] uppercase tracking-[0.2em] text-smoke">Khởi hành từ</label>
+        <input id="booking-departure" aria-invalid="false" class="h-12 w-full border-0 border-b border-champagne/25 bg-transparent px-0 text-[15px] text-ivory placeholder:text-smoke/70 transition-colors focus:border-champagne focus:outline-none aria-[invalid=true]:border-[#e39a8c]" placeholder="Thành phố hoặc sân bay" name="departure" value="" />
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label for="booking-destination" class="text-[11px] uppercase tracking-[0.2em] text-smoke">Bay tới</label>
+        <input id="booking-destination" aria-invalid="false" class="h-12 w-full border-0 border-b border-champagne/25 bg-transparent px-0 text-[15px] text-ivory placeholder:text-smoke/70 transition-colors focus:border-champagne focus:outline-none aria-[invalid=true]:border-[#e39a8c]" placeholder="Thành phố hoặc sân bay" name="destination" value="" />
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label for="booking-travelDate" class="text-[11px] uppercase tracking-[0.2em] text-smoke">Ngày bay</label>
+        <input id="booking-travelDate" type="date" aria-invalid="false" class="h-12 w-full border-0 border-b border-champagne/25 bg-transparent px-0 text-[15px] text-ivory placeholder:text-smoke/70 transition-colors focus:border-champagne focus:outline-none aria-[invalid=true]:border-[#e39a8c] field-date [color-scheme:dark]" name="travelDate" value="" />
+      </div>
+      <div class="flex flex-col gap-1.5 md:col-span-2">
+        <label for="booking-notes" class="text-[11px] uppercase tracking-[0.2em] text-smoke">Ghi chú thêm<span class="ml-2 normal-case tracking-normal text-smoke/70">(tùy chọn)</span></label>
+        <textarea id="booking-notes" name="notes" rows="3" class="w-full border-0 border-b border-champagne/25 bg-transparent px-0 text-[15px] text-ivory placeholder:text-smoke/70 transition-colors focus:border-champagne focus:outline-none aria-[invalid=true]:border-[#e39a8c] h-auto resize-none py-3 leading-relaxed" placeholder="Ngày về, thú cưng, khẩu vị đặc biệt, đưa đón trực thăng..."></textarea>
+      </div>
+      <div class="flex flex-col gap-4 md:col-span-2 md:flex-row md:items-center md:justify-between">
+        <p class="max-w-sm text-[12px] leading-relaxed text-smoke">Thông tin của bạn được bảo mật tuyệt đối theo chuẩn hàng không VIP.</p>
+        <button type="submit" class="inline-flex h-14 items-center justify-center gap-3 rounded-full bg-champagne px-8 text-[12px] uppercase tracking-[0.22em] text-obsidian transition-colors hover:bg-champagne-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne disabled:cursor-wait disabled:opacity-70">
+          Gửi yêu cầu
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right size-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</dialog>

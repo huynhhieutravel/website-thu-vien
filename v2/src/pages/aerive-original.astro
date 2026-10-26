@@ -1,0 +1,45 @@
+---
+// v2/src/pages/aerive-original.astro - Mục 01: Bản clone gốc nguyên bản từ modulify.website
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Fleet from '../components/Fleet.astro';
+import Advantages from '../components/Advantages.astro';
+import Global from '../components/Global.astro';
+import Inquiries from '../components/Inquiries.astro';
+import Footer from '../components/Footer.astro';
+import BookingModal from '../components/BookingModal.astro';
+---
+
+<Layout
+  title="AERIVE — Original Clone (Bản Clone Gốc A-Z)"
+  description="Bản clone nguyên mẫu A-Z từ website https://aerive-template.modulify.website/ với Canvas Chroma-Key và GSAP."
+>
+  <!-- Top Navigation Bar quay lại Trang Chủ -->
+  <aside class="fixed top-0 inset-x-0 z-[70] bg-obsidian/95 backdrop-blur-md border-b border-champagne/20 px-5 py-2.5 flex items-center justify-between text-[11px] uppercase tracking-[0.2em]">
+    <a href="/" class="text-champagne hover:text-ivory transition-colors flex items-center gap-2 font-medium">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <span>← Về Trang Chủ Thư Viện</span>
+    </a>
+    <span class="rounded-full bg-champagne/15 border border-champagne/30 px-3 py-0.5 text-champagne text-[10px]">
+      Mục 01: Bản Clone Gốc (HTML / JS)
+    </span>
+  </aside>
+
+  <div class="pt-10">
+    <Header />
+
+    <main class="relative">
+      <Hero />
+      <About />
+      <Fleet />
+      <Advantages />
+      <Global />
+      <Inquiries />
+    </main>
+
+    <Footer />
+    <BookingModal />
+  </div>
+</Layout>

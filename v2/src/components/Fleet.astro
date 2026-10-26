@@ -1,0 +1,108 @@
+---
+// Fleet.astro - Flagship Jet & Floor Plan SVG
+---
+
+<div data-light-zone="true" class="relative z-10 bg-ivory">
+  <section id="fleet" aria-labelledby="fleet-title" class="relative">
+    <div class="stage relative isolate w-full overflow-hidden bg-ivory text-obsidian">
+      <div class="stage-safe absolute inset-x-0 top-0">
+        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_58%,rgba(255,255,255,0.75)_0%,rgba(243,236,224,0)_62%)]"></div>
+
+        <!-- Big Fleet Heading -->
+        <h2 id="fleet-title" class="pointer-events-none absolute inset-x-5 top-[13%] font-heading text-[clamp(4rem,14vw,15rem)] font-light leading-[0.84] tracking-[-0.02em] text-obsidian md:inset-x-[6vw] md:top-[14%]">
+          <span data-fleet-line="true" class="block">Fly the</span>
+          <span data-fleet-line="true" class="block text-right">flagship</span>
+        </h2>
+
+        <!-- Flagship Jet Box -->
+        <div class="jet-box absolute left-1/2 top-1/2 mix-blend-multiply will-change-transform" style="margin-left:calc(var(--jw) * -0.5);margin-top:calc(var(--jw) * -0.6207)">
+          <div class="absolute inset-0">
+            <img
+              alt="The AERIVE flagship, a black long range jet with a champagne line, seen from above"
+              loading="eager"
+              decoding="async"
+              class="object-contain"
+              style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent"
+              src="/images/aerive/jet-top.png"
+            />
+          </div>
+
+          <!-- Interactive Floor Plan SVG Strokes -->
+          <svg data-floor-plan="true" viewBox="0 0 1856 2304" aria-hidden="true" class="invisible absolute inset-0 h-full w-full text-gilt-deep opacity-0" fill="none">
+            <path data-plan-stroke="true" d="M 928 290 C 962 330 996 404 1002 522 L 1002 1340 C 1000 1600 976 1850 944 1996 Q 928 2024 912 1996 C 880 1850 856 1600 854 1340 L 854 522 C 860 404 894 330 928 290 Z" pathLength="1" stroke="currentColor" stroke-width="4" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 884 424 Q 928 396 972 424" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 862 482 L 994 482" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 956 494 H 982 Q 988 494 988 500 V 566 Q 988 572 982 572 H 956 Q 950 572 950 566 V 500 Q 950 494 956 494 Z" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 958 512 L 980 512" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 958 532 L 980 532" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 876 496 H 894 Q 900 496 900 502 V 518 Q 900 524 894 524 H 876 Q 870 524 870 518 V 502 Q 870 496 876 496 Z" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 874 536 H 900 Q 906 536 906 542 V 572 Q 906 578 900 578 H 874 Q 868 578 868 572 V 542 Q 868 536 874 536 Z" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 878 557 A 9 9 0 1 0 896 557 A 9 9 0 1 0 878 557 Z" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 862 592 L 906 592" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 950 592 L 994 592" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 875 608 H 899 Q 906 608 906 615 V 641 Q 906 648 899 648 H 875 Q 868 648 868 641 V 615 Q 868 608 875 608 Z" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 872 615 L 902 615" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 957 608 H 981 Q 988 608 988 615 V 641 Q 988 648 981 648 H 957 Q 950 648 950 641 V 615 Q 950 608 957 608 Z" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 954 615 L 984 615" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 876 658 H 898 Q 902 658 902 662 V 684 Q 902 688 898 688 H 876 Q 872 688 872 684 V 662 Q 872 658 876 658 Z" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 958 658 H 980 Q 984 658 984 662 V 684 Q 984 688 980 688 H 958 Q 954 688 954 684 V 662 Q 954 658 958 658 Z" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 875 700 H 899 Q 906 700 906 707 V 733 Q 906 740 899 740 H 875 Q 868 740 868 733 V 707 Q 868 700 875 700 Z" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 872 733 L 902 733" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 957 700 H 981 Q 988 700 988 707 V 733 Q 988 740 981 740 H 957 Q 950 740 950 733 V 707 Q 950 700 957 700 Z" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <path data-plan-stroke="true" d="M 954 733 L 984 733" pathLength="1" stroke="currentColor" stroke-width="3" stroke-linejoin="round" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+          </svg>
+        </div>
+
+        <!-- Left Specs List -->
+        <div class="absolute inset-x-5 bottom-[12%] md:bottom-auto md:left-[6vw] md:right-auto md:top-[15%] md:w-[26vw] md:max-w-[26rem]">
+          <p data-fleet-item="true" class="invisible text-[11px] uppercase tracking-[0.25em] text-umber opacity-0">The AERIVE flagship</p>
+          <p data-fleet-item="true" class="invisible mt-3 font-heading text-[clamp(2.4rem,4.4vw,4.6rem)] font-light leading-[0.95] opacity-0">Ultra long range</p>
+          <dl data-fleet-item="true" class="invisible mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-obsidian/15 pt-5 opacity-0 md:mt-10 md:gap-y-6 md:pt-7">
+            <div>
+              <dt class="text-[10px] uppercase tracking-[0.22em] text-ash">Hạng máy bay</dt>
+              <dd class="mt-1.5 text-[13px] font-medium leading-snug text-obsidian md:text-[14px]">Siêu tầm xa</dd>
+            </div>
+            <div>
+              <dt class="text-[10px] uppercase tracking-[0.22em] text-ash">Tầm bay</dt>
+              <dd class="mt-1.5 text-[13px] font-medium leading-snug text-obsidian md:text-[14px]">Liên lục địa, thẳng cánh</dd>
+            </div>
+            <div>
+              <dt class="text-[10px] uppercase tracking-[0.22em] text-ash">Cabin</dt>
+              <dd class="mt-1.5 text-[13px] font-medium leading-snug text-obsidian md:text-[14px]">3 khu sinh hoạt</dd>
+            </div>
+            <div>
+              <dt class="text-[10px] uppercase tracking-[0.22em] text-ash">Nghỉ ngơi</dt>
+              <dd class="mt-1.5 text-[13px] font-medium leading-snug text-obsidian md:text-[14px]">Giường phẳng hoàn toàn</dd>
+            </div>
+            <div>
+              <dt class="text-[10px] uppercase tracking-[0.22em] text-ash">Ánh sáng</dt>
+              <dd class="mt-1.5 text-[13px] font-medium leading-snug text-obsidian md:text-[14px]">Cửa sổ bầu dục toàn cảnh</dd>
+            </div>
+            <div>
+              <dt class="text-[10px] uppercase tracking-[0.22em] text-ash">Ẩm thực</dt>
+              <dd class="mt-1.5 text-[13px] font-medium leading-snug text-obsidian md:text-[14px]">Bếp nấu trọn gói</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Right Description -->
+        <div class="absolute right-[6vw] top-[15%] hidden w-[23vw] max-w-[22rem] md:block">
+          <p data-fleet-item="true" class="invisible font-heading text-[clamp(1.7rem,2.3vw,2.4rem)] font-normal leading-[1.1] opacity-0">
+            Kiến tạo cho những chuyến bay xuyên nửa vòng trái đất, trong sự tiện nghi tuyệt đối.
+          </p>
+          <span data-fleet-item="true" class="invisible my-7 block h-px w-full bg-obsidian/15 opacity-0"></span>
+          <p data-fleet-item="true" class="invisible text-[10px] uppercase tracking-[0.24em] text-umber opacity-0">Không gian ẩm thực, làm việc & nghỉ ngơi</p>
+          <p data-fleet-item="true" class="invisible mt-4 text-[14px] leading-[1.75] text-ash opacity-0">
+            Cabin tĩnh lặng chia làm ba không gian sống độc lập. Những ô cửa sổ rộng mở ngập tràn ánh dương, và căn bếp đầy đủ giúp mọi bữa ăn được chế biến tươi nóng ngay trên máy bay.
+          </p>
+          <div data-fleet-item="true" class="invisible mt-8 opacity-0">
+            <button type="button" class="inline-flex h-11 items-center gap-2 rounded-full border border-obsidian/25 px-5 text-[11px] uppercase tracking-[0.22em] text-obsidian transition-colors hover:bg-obsidian hover:text-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-obsidian">
+              Trải nghiệm chuyên cơ
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right size-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

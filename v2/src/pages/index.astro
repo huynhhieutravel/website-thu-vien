@@ -1,0 +1,346 @@
+---
+// v2/src/pages/index.astro
+// Trang Chủ Thư Viện: 1 Post duy nhất cho Website AERIVE với 2 nút xem chi tiết (Bản Gốc & Bản Astro Code)
+// Bố cục chuẩn grid 3 cột (width rộng 1240px), ảnh thumbnail 16:9, không bị tràn chữ.
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Website Archive Hub — Danh Mục Website Đã Clone & Chuyển Đổi</title>
+    <meta name="description" content="Danh mục các website clone nguyên mẫu và chuyển đổi mã nguồn tối ưu Astro." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #f8fafc;
+        color: #0f172a;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Container RỘNG HƠN (1240px) & CĂN GIỮA ĐẸP MẮT (KHÔNG FULL-WIDTH) */
+      .page-container {
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 44px 28px 72px;
+      }
+
+      /* Top Header */
+      .top-title {
+        font-size: 28px;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.02em;
+      }
+      .top-subtitle {
+        font-size: 14px;
+        color: #64748b;
+        margin-top: 6px;
+      }
+
+      /* Filter Pills Row */
+      .filter-pills {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 24px;
+        margin-bottom: 32px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+      }
+      .pill-btn {
+        border-radius: 9999px;
+        padding: 8px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        color: #475569;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        white-space: nowrap;
+        font-family: inherit;
+      }
+      .pill-btn:hover {
+        border-color: #cbd5e1;
+        color: #0f172a;
+      }
+      .pill-btn.active {
+        background: #0f172a;
+        color: #ffffff;
+        border-color: #0f172a;
+      }
+
+      /* Cards Grid (Chuẩn hệ thống 3 cột trên 1 hàng) */
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 26px;
+      }
+      @media (max-width: 1060px) {
+        .cards-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 680px) {
+        .cards-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Card Item */
+      .card-item {
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      }
+      .card-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+        border-color: #cbd5e1;
+      }
+
+      /* Thumbnail 16:9 Chuẩn Tuyệt Đối */
+      .card-thumb-wrap {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        position: relative;
+        background: #f1f5f9;
+        flex-shrink: 0;
+      }
+      .card-thumb-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.45s ease;
+      }
+      .card-item:hover .card-thumb-img {
+        transform: scale(1.05);
+      }
+
+      /* Card Body */
+      .card-body {
+        padding: 22px 22px 14px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+      .card-tag {
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: #94a3b8;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .card-title-wrap {
+        margin: 0;
+        padding: 0;
+      }
+      .card-title {
+        font-size: 17.5px;
+        font-weight: 700;
+        color: #0f172a;
+        line-height: 1.4;
+        text-decoration: none;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 48px;
+        transition: color 0.2s ease;
+      }
+      .card-title:hover {
+        color: #e0533c;
+      }
+      .card-desc {
+        font-size: 13.5px;
+        color: #64748b;
+        line-height: 1.55;
+        margin-top: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 62px;
+      }
+
+      /* Card Footer */
+      .card-footer {
+        padding: 0 24px 26px;
+        margin-top: auto;
+      }
+      .meta-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding-top: 18px;
+        margin-bottom: 20px;
+        border-top: 1px solid #f1f5f9;
+      }
+      .meta-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #94a3b8;
+      }
+      .meta-value {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: #e0533c;
+      }
+
+      /* Nhóm 2 Nút Xem Chi Tiết - KHOẢNG CÁCH RÕ RÀNG, THOÁNG ĐÃNG */
+      .btn-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .btn-detail {
+        width: 100%;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border-radius: 12px;
+        border: 1.5px solid #e0533c;
+        color: #e0533c;
+        background: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        font-family: inherit;
+      }
+      .btn-detail:hover {
+        background: #e0533c;
+        color: #ffffff;
+        box-shadow: 0 4px 14px rgba(224, 83, 60, 0.22);
+      }
+
+      .btn-arrow {
+        font-size: 15px;
+        transition: transform 0.2s ease;
+      }
+      .btn-detail:hover .btn-arrow {
+        transform: translateX(4px);
+      }
+
+      /* Clean Footer */
+      .page-footer {
+        margin-top: auto;
+        padding: 24px;
+        text-align: center;
+        font-size: 12px;
+        color: #94a3b8;
+        border-top: 1px solid #e2e8f0;
+        background: #ffffff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Main Center Container (1240px RỘNG RÃI, KHÔNG FULL-WIDTH) -->
+    <div class="page-container">
+      <!-- Title Heading -->
+      <h1 class="top-title">Tìm thấy 1 Website (2 Phiên Bản)</h1>
+      <p class="top-subtitle">Danh mục các trang web đã được clone nguyên mẫu và chuyển đổi mã nguồn Astro.</p>
+
+      <!-- Filter Pills -->
+      <div class="filter-pills">
+        <button type="button" class="pill-btn active">Tất cả (1)</button>
+        <button type="button" class="pill-btn">Private Aviation</button>
+        <button type="button" class="pill-btn">Astro 5 Ready</button>
+      </div>
+
+      <!-- Grid Bố Cục (1 Post Card duy nhất, đặt trong hệ 3 cột sẵn sàng mở rộng) -->
+      <div class="cards-grid">
+        <!-- Post 01: Website AERIVE -->
+        <article class="card-item">
+          <!-- Thumbnail 16:9 sắc nét -->
+          <a href="/aerive" class="card-thumb-wrap" title="Xem Website AERIVE">
+            <img
+              src="/images/aerive/thumb-window-16x9.png"
+              alt="AERIVE Luxury Aviation Website"
+              class="card-thumb-img"
+              loading="lazy"
+            />
+          </a>
+
+          <!-- Nội Dung Tiêu Đề & Mô Tả -->
+          <div class="card-body">
+            <span class="card-tag">Website 01 • Private Aviation</span>
+            <div class="card-title-wrap">
+              <a href="/aerive" class="card-title">
+                AERIVE — Luxury Private Jet & Aviation Charter
+              </a>
+            </div>
+            <p class="card-desc">
+              Website hàng không tư nhân siêu sang, tích hợp Canvas Chroma-Key xóa phông 3D, hiệu ứng mượt mà và tối ưu hóa SEO với Astro 5 component hóa.
+            </p>
+          </div>
+
+          <!-- Footer với ĐỦ 2 NÚT BẢN GỐC & BẢN ASTRO CODE -->
+          <div class="card-footer">
+            <div class="meta-row">
+              <span class="meta-label">PHIÊN BẢN CÓ SẴN</span>
+              <span class="meta-value">Bản Gốc & Astro Code</span>
+            </div>
+
+            <div class="btn-stack">
+              <!-- Nút 1: Bản Astro Code -->
+              <a href="/aerive" class="btn-detail btn-astro" title="Xem Chi Tiết Bản Astro Code">
+                <span>Xem Chi Tiết (Bản Astro code)</span>
+                <span class="btn-arrow">→</span>
+              </a>
+
+              <!-- Nút 2: Bản Gốc -->
+              <a href="/aerive-original" class="btn-detail btn-original" title="Xem Chi Tiết Bản Gốc">
+                <span>Xem Chi Tiết (Bản gốc)</span>
+                <span class="btn-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Clean Footer -->
+    <footer class="page-footer">
+      <span>Website Archive Hub — Cổng danh mục các website clone & chuyển đổi</span>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+---
+// Advantages.astro - Interactive Accordion & Realtime Local Clock
+---
+
+<section id="advantages" aria-labelledby="advantages-title" class="relative bg-ivory px-5 pb-12 pt-24 text-obsidian md:px-[6vw] md:pb-16 md:pt-36">
+  <div data-reveal="true" class="flex items-center justify-between border-t border-obsidian/15 pt-5">
+    <p class="text-[11px] uppercase tracking-[0.25em] text-umber">Phương thức bay ưu việt</p>
+    <p class="text-[11px] uppercase tracking-[0.25em] text-ash">Đặc quyền</p>
+  </div>
+
+  <div class="advantages-grid mt-14 md:mt-20">
+    <div class="[grid-area:head]">
+      <h2 id="advantages-title" data-reveal="true" class="font-heading text-[clamp(3rem,5.6vw,6rem)] font-light leading-[0.92] tracking-[-0.01em]">
+        Mọi chi tiết,<br />đều được chu toàn
+      </h2>
+      <p data-reveal="true" class="mt-6 max-w-md text-[15px] leading-relaxed text-ash">
+        Sự khác biệt nằm ở những phần của chuyến đi mà ít ai khác nghĩ tới.
+      </p>
+    </div>
+
+    <!-- Media Cross-fader Container -->
+    <div data-advantage-media="true" class="relative aspect-[4/5] w-full self-start overflow-hidden rounded-[4px] bg-onyx [grid-area:media]">
+      <div class="absolute inset-0 transition-[opacity,transform] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] opacity-100" style="transform:scale(1)" aria-hidden="false">
+        <img alt="Mèo cưng nằm nghỉ thảnh thơi trên ghế bọc da cao cấp" loading="lazy" decoding="async" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="/images/aerive/advantage-pets-2.png" />
+      </div>
+      <div class="absolute inset-0 transition-[opacity,transform] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] opacity-0" style="transform:scale(1.08)" aria-hidden="true">
+        <img alt="Quản gia túc trực điều phối chuyến bay trong phòng chờ VIP đêm" loading="lazy" decoding="async" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="/images/aerive/advantage-concierge.png" />
+      </div>
+      <div class="absolute inset-0 transition-[opacity,transform] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] opacity-0" style="transform:scale(1.08)" aria-hidden="true">
+        <img alt="Bàn tiệc cà phê và điểm tâm thượng hạng phục vụ tại độ cao 40,000 feet" loading="lazy" decoding="async" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="/images/aerive/advantage-dining-2.png" />
+      </div>
+      <div class="absolute inset-0 transition-[opacity,transform] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] opacity-0" style="transform:scale(1.08)" aria-hidden="true">
+        <img alt="Xe hơi riêng đỗ cạnh cầu thang máy bay chuyên cơ tư nhân lúc hoàng hôn" loading="lazy" decoding="async" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="/images/aerive/advantage-boarding.png" />
+      </div>
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-obsidian/45 to-transparent"></div>
+      <p class="absolute bottom-5 left-5 text-[10px] uppercase tracking-[0.25em] text-ivory/85">Thân thiện thú cưng</p>
+    </div>
+
+    <!-- Accordion Tabs -->
+    <div class="[grid-area:list] lg:mt-14">
+      <div data-reveal="true" class="border-t border-obsidian/15">
+        <!-- Item 1: Pets -->
+        <div class="border-b border-obsidian/15">
+          <h3>
+            <button type="button" id="advantage-pets" aria-expanded="true" aria-controls="advantage-panel-pets" class="group flex w-full items-center justify-between gap-6 py-5 text-left focus-visible:outline-none md:py-6">
+              <span class="font-heading text-[1.9rem] font-normal leading-none transition-colors duration-500 md:text-[2.2rem] text-obsidian">Thân thiện thú cưng</span>
+              <span class="flex size-9 shrink-0 items-center justify-center rounded-full border border-obsidian/20 text-obsidian transition-colors group-hover:bg-obsidian group-hover:text-ivory group-focus-visible:bg-obsidian group-focus-visible:text-ivory">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus size-4"><path d="M5 12h14"></path></svg>
+              </span>
+            </button>
+          </h3>
+          <div id="advantage-panel-pets" role="region" aria-labelledby="advantage-pets" data-open="true" class="accordion-panel">
+            <div class="overflow-hidden">
+              <p class="max-w-md pb-7 pr-12 text-[15px] leading-relaxed text-ash">
+                Thú cưng đi cùng bạn ngay trong cabin, không bao giờ phải nằm dưới khoang hàng. Chúng tôi sắp xếp giấy phép, tiện ích êm ái và góc riêng tĩnh lặng cho bạn đồng hành.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2: Concierge -->
+        <div class="border-b border-obsidian/15">
+          <h3>
+            <button type="button" id="advantage-concierge" aria-expanded="false" aria-controls="advantage-panel-concierge" class="group flex w-full items-center justify-between gap-6 py-5 text-left focus-visible:outline-none md:py-6">
+              <span class="font-heading text-[1.9rem] font-normal leading-none transition-colors duration-500 md:text-[2.2rem] text-obsidian/55 group-hover:text-obsidian group-focus-visible:text-obsidian">Quản gia 24/7</span>
+              <span class="flex size-9 shrink-0 items-center justify-center rounded-full border border-obsidian/20 text-obsidian transition-colors group-hover:bg-obsidian group-hover:text-ivory group-focus-visible:bg-obsidian group-focus-visible:text-ivory">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus size-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+              </span>
+            </button>
+          </h3>
+          <div id="advantage-panel-concierge" role="region" aria-labelledby="advantage-concierge" data-open="false" class="accordion-panel">
+            <div class="overflow-hidden">
+              <p class="max-w-md pb-7 pr-12 text-[15px] leading-relaxed text-ash">
+                Một đội ngũ túc trực mọi giờ giấc, mọi múi giờ. Một cuộc gọi duy nhất bao trọn chuyến bay, xe đón tiễn, đặt bàn và khách sạn, kể cả trong những tình huống khẩn cấp nhất.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3: Dining -->
+        <div class="border-b border-obsidian/15">
+          <h3>
+            <button type="button" id="advantage-dining" aria-expanded="false" aria-controls="advantage-panel-dining" class="group flex w-full items-center justify-between gap-6 py-5 text-left focus-visible:outline-none md:py-6">
+              <span class="font-heading text-[1.9rem] font-normal leading-none transition-colors duration-500 md:text-[2.2rem] text-obsidian/55 group-hover:text-obsidian group-focus-visible:text-obsidian">Ẩm thực trên khoang</span>
+              <span class="flex size-9 shrink-0 items-center justify-center rounded-full border border-obsidian/20 text-obsidian transition-colors group-hover:bg-obsidian group-hover:text-ivory group-focus-visible:bg-obsidian group-focus-visible:text-ivory">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus size-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+              </span>
+            </button>
+          </h3>
+          <div id="advantage-panel-dining" role="region" aria-labelledby="advantage-dining" data-open="false" class="accordion-panel">
+            <div class="overflow-hidden">
+              <p class="max-w-md pb-7 pr-12 text-[15px] leading-relaxed text-ash">
+                Thực đơn được thiết kế quanh khẩu vị và tuyến đường bay của bạn, từ bữa sáng nhẹ nhàng đến bữa tiệc nếm thử tinh tế, phối hợp hoàn hảo ở độ cao ngàn thước.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4: Boarding -->
+        <div class="border-b border-obsidian/15">
+          <h3>
+            <button type="button" id="advantage-boarding" aria-expanded="false" aria-controls="advantage-panel-boarding" class="group flex w-full items-center justify-between gap-6 py-5 text-left focus-visible:outline-none md:py-6">
+              <span class="font-heading text-[1.9rem] font-normal leading-none transition-colors duration-500 md:text-[2.2rem] text-obsidian/55 group-hover:text-obsidian group-focus-visible:text-obsidian">Lên tàu nhanh chóng</span>
+              <span class="flex size-9 shrink-0 items-center justify-center rounded-full border border-obsidian/20 text-obsidian transition-colors group-hover:bg-obsidian group-hover:text-ivory group-focus-visible:bg-obsidian group-focus-visible:text-ivory">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus size-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+              </span>
+            </button>
+          </h3>
+          <div id="advantage-panel-boarding" role="region" aria-labelledby="advantage-boarding" data-open="false" class="accordion-panel">
+            <div class="overflow-hidden">
+              <p class="max-w-md pb-7 pr-12 text-[15px] leading-relaxed text-ash">
+                Mọi nơi sân bay cho phép, xe đón riêng đưa bạn đến sát thềm cửa máy bay. Không nhà ga, không xếp hàng, chỉ vài bước chân từ cửa xe tới chỗ ngồi êm ái.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Realtime Local Clock Section -->
+  <div data-reveal="true" class="mt-24 grid grid-cols-2 gap-y-8 border-t border-obsidian/15 pt-6 md:mt-32 md:grid-cols-3">
+    <div>
+      <p class="text-[10px] uppercase tracking-[0.24em] text-ash">Dịch vụ quản gia</p>
+      <p class="mt-2 text-[14px] font-medium text-obsidian">Túc trực 24/7</p>
+    </div>
+    <div>
+      <p class="text-[10px] uppercase tracking-[0.24em] text-ash">Phạm vi phục vụ</p>
+      <p class="mt-2 text-[14px] font-medium text-obsidian">Toàn cầu</p>
+    </div>
+    <div class="col-span-2 flex items-end justify-between md:col-span-1 md:block md:text-right">
+      <p class="text-[10px] uppercase tracking-[0.24em] text-ash">Giờ địa phương của bạn</p>
+      <p class="font-heading text-[2.6rem] font-light leading-none tabular-nums text-obsidian md:mt-1">&nbsp;</p>
+    </div>
+  </div>
+</section>

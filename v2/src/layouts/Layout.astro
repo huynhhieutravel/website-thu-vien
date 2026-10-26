@@ -1,0 +1,284 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "AERIVE — Dịch Vụ Chuyên Cơ Tư Nhân Hạng Sang Quốc Tế",
+  description = "AERIVE là hãng hàng không tư nhân cao cấp. Các chuyến bay bằng chuyên cơ riêng được lên kế hoạch chính xác theo lịch trình, bảo mật và sự tiện nghi tuyệt đối của bạn.",
+  ogImage = "/images/aerive/jet-top.png"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://aerive-template.modulify.website");
+
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://aerive-template.modulify.website/#organization",
+      "name": "AERIVE Private Aviation",
+      "url": "https://aerive-template.modulify.website",
+      "logo": "https://aerive-template.modulify.website/favicon.svg",
+      "description": description,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Zurich",
+        "addressCountry": "Switzerland"
+      }
+    },
+    {
+      "@type": "AviationService",
+      "name": "Dịch Vụ Bay Chuyên Cơ Tư Nhân AERIVE",
+      "serviceType": "Private Jet Charter & VIP Aviation",
+      "provider": {
+        "@id": "https://aerive-template.modulify.website/#organization"
+      },
+      "areaServed": "Worldwide",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "AERIVE Fleet Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Intercontinental Nonstop Flight"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "VIP Ramp Access & 24/7 Concierge"
+            }
+          }
+        ]
+      }
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="vi" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0b0b0c" />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="AERIVE" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD SEO Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body class="min-h-full flex flex-col bg-obsidian text-ivory font-sans antialiased">
+    <slot />
+
+    <!-- Client-side Animation Orchestrator -->
+    <script>
+      import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      import {
+        initSmoothScroll,
+        smoothScrollTo,
+        renderWindowCanvas,
+        initHeroAnimations,
+        initFleetAnimations,
+        initAdvantagesAccordion,
+        initGlobalAnimations,
+        initBookingModal,
+      } from '../lib/index.js';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      window.addEventListener('DOMContentLoaded', () => {
+        // 1. Smooth scroll
+        const lenis = initSmoothScroll();
+        window.lenis = lenis;
+
+        // 2. Window Canvas & Hero
+        const canvas = document.querySelector('#hero canvas');
+        if (canvas) {
+          const isMobile = window.innerWidth < 768;
+          renderWindowCanvas('/images/aerive/window-clear.png', canvas, isMobile ? 2048 : 2752);
+        }
+
+        const heroAnim = initHeroAnimations();
+
+        // 3. Loader
+        const loaderEl = document.querySelector('[role="status"][aria-label="Loading AERIVE"]');
+        const progressLine = loaderEl?.querySelector('.bg-champagne');
+
+        if (progressLine && loaderEl) {
+          const loaderTL = gsap.timeline({
+            onComplete: () => {
+              loaderEl.remove();
+              heroAnim?.playIntro();
+            },
+          });
+          loaderTL
+            .to(progressLine, { scaleX: 1, duration: 0.7, ease: 'power2.out' })
+            .to(progressLine.parentElement, { autoAlpha: 0, duration: 0.35 }, '+=0.1')
+            .to(loaderEl, { autoAlpha: 0, duration: 1.2, ease: 'power2.inOut' }, '<');
+        } else {
+          loaderEl?.remove();
+          heroAnim?.playIntro();
+        }
+
+        // 4. Reveal items
+        document.querySelectorAll('#about [data-reveal], #inquiries [data-reveal]').forEach((item) => {
+          gsap.fromTo(
+            item,
+            { autoAlpha: 0, y: 50, filter: 'blur(8px)' },
+            {
+              autoAlpha: 1,
+              y: 0,
+              filter: 'blur(0px)',
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: item,
+                start: 'top 92%',
+                end: 'top 60%',
+                scrub: 1,
+              },
+            }
+          );
+        });
+
+        // 5. Cloud rise & Light Zone
+        const cloudRiseEl = document.querySelector('[data-cloud-rise]');
+        const lightZoneEl = document.querySelector('[data-light-zone]');
+        const globalSection = document.querySelector('#global');
+        const skyRoot = document.querySelector('[data-sky-root]');
+        const cloudBank = document.querySelector('[data-sky="bank"]');
+        const whisper = document.querySelector('[data-sky="whisper"]');
+        const veil = document.querySelector('[data-sky="veil"]');
+
+        if (cloudRiseEl && cloudBank && whisper && veil) {
+          const cloudTL = gsap.timeline({
+            defaults: { ease: 'none' },
+            scrollTrigger: {
+              trigger: cloudRiseEl,
+              start: 'top bottom',
+              end: 'bottom bottom',
+              scrub: 1,
+              refreshPriority: 8,
+            },
+          });
+
+          cloudTL
+            .fromTo(cloudBank, { yPercent: 105, scale: 1, autoAlpha: 1 }, { yPercent: -8, scale: 1.45, ease: 'power1.out', duration: 6 }, 0)
+            .fromTo(whisper, { autoAlpha: 0, y: 40, filter: 'blur(8px)' }, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1.6 }, 2.2)
+            .to(whisper, { autoAlpha: 0, y: -30, filter: 'blur(6px)', duration: 1.2 }, 4.4)
+            .fromTo(veil, { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.8 }, 4.4);
+        }
+
+        if (cloudRiseEl && globalSection) {
+          ScrollTrigger.create({
+            trigger: cloudRiseEl,
+            start: () => `bottom-=${Math.round(0.2 * window.innerHeight)} bottom`,
+            endTrigger: globalSection,
+            end: 'top 40px',
+            refreshPriority: -1,
+            onToggle: (self) => {
+              document.documentElement.dataset.headerTheme = self.isActive ? 'light' : 'dark';
+            },
+          });
+        }
+
+        if (lightZoneEl && skyRoot) {
+          ScrollTrigger.create({
+            trigger: lightZoneEl,
+            start: 'top top',
+            end: 'bottom top',
+            refreshPriority: -1,
+            toggleClass: { targets: skyRoot, className: 'is-covered' },
+          });
+        }
+
+        // 6. Component animations
+        initFleetAnimations();
+        initAdvantagesAccordion();
+        initGlobalAnimations();
+        initBookingModal();
+
+        // 7. Navigation
+        const menuBtn = document.querySelector('button[aria-label="Open menu"]');
+        const closeMenuBtn = document.querySelector('button[aria-label="Close menu"]');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn?.addEventListener('click', () => {
+          mobileMenu?.removeAttribute('hidden');
+          lenis?.stop();
+        });
+
+        closeMenuBtn?.addEventListener('click', () => {
+          mobileMenu?.setAttribute('hidden', '');
+          lenis?.start();
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach((link) => {
+          link.addEventListener('click', (e) => {
+            const targetId = link.getAttribute('href');
+            if (targetId && targetId !== '#') {
+              const targetEl = document.querySelector(targetId);
+              if (targetEl) {
+                e.preventDefault();
+                mobileMenu?.setAttribute('hidden', '');
+                smoothScrollTo(targetEl);
+              }
+            }
+          });
+        });
+
+        document.querySelectorAll('button').forEach((btn) => {
+          if (btn.textContent?.trim().toLowerCase().includes('back to the window')) {
+            btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              smoothScrollTo(0);
+            });
+          }
+        });
+
+        window.addEventListener('load', () => {
+          ScrollTrigger.refresh();
+        });
+      });
+    </script>
+  </body>
+</html>

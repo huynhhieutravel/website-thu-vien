@@ -1,0 +1,197 @@
+---
+// v2/src/pages/galleries/haute-cuisine.astro
+// Thư viện 03: Haute Cuisine & Altitude Cellar
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import BookingModal from '../../components/BookingModal.astro';
+
+const cuisineImages = [
+  {
+    src: "/images/aerive/advantage-dining-2.png",
+    thumb: "/images/aerive/advantage-dining-2.png",
+    title: "Bàn Tiệc Riêng Tư & Ẩm Thực Sao Michelin (Private Haute Dining)",
+    alt: "Bàn tiệc sang trọng trên chuyên cơ với các món ăn tinh hoa được chuẩn bị riêng",
+    caption: "Mỗi thực đơn được thiết kế riêng bởi các đầu bếp danh tiếng thế giới, điều chỉnh công thức gia vị tối ưu cho độ cao 45,000 feet.",
+    meta: "Thực đơn tùy biến 100% | Dao nĩa bạc Christofle | Ly pha lê Riedel Áo"
+  },
+  {
+    src: "/images/aerive/sky-dusk.png",
+    thumb: "/images/aerive/sky-dusk.png",
+    title: "Hoàng Hôn Tầng Bình Lưu Cùng Rượu Vang Grand Cru (Vintage Cellar)",
+    alt: "Bầu trời hoàng hôn rực rỡ nhìn từ bàn tiệc rượu trên tầng bình lưu máy bay",
+    caption: "Bộ sưu tập vang hiếm Grand Cru Classé và Champagne tuyển chọn từ các niên vụ xuất sắc nhất, phục vụ ở nhiệt độ hoàn hảo.",
+    meta: "Hầm rượu điều áp kiểm soát nhiệt | Champagne Dom Pérignon & Krug | Phục vụ 24/7"
+  },
+  {
+    src: "/images/aerive/window.png",
+    thumb: "/images/aerive/window.png",
+    title: "Bữa Sáng Ánh Dương & Cà Phê Specialty (Skyline Breakfast)",
+    alt: "Khung cảnh ánh nắng ban mai chiếu rọi bàn cà phê bên cửa sổ máy bay tư nhân",
+    caption: "Đón bình minh trên đỉnh núi Alps hay bờ biển Địa Trung Hải với bữa sáng ấm nóng và cà phê specialty pha chế theo yêu cầu.",
+    meta: "Máy pha espresso áp suất cao | Bánh sừng bò nướng tươi | Nước ép hữu cơ lạnh"
+  },
+  {
+    src: "/images/aerive/cloud-bank.png",
+    thumb: "/images/aerive/cloud-bank.png",
+    title: "Không Gian Trà Chiều Trên Biển Mây (Altitude High Tea)",
+    alt: "Biển mây trắng xóa bồng bềnh làm phông nền cho buổi thưởng trà tĩnh lặng",
+    caption: "Trải nghiệm trà chiều thượng hạng với các loại trà trắng cổ thụ, trà ô long Đài Loan và bánh ngọt Pháp tinh tế giữa biển mây.",
+    meta: "Trà thu hoạch thủ công | Nước tinh khiết đun chuẩn nhiệt | Bánh macaron cao cấp"
+  }
+];
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Thư Viện Ẩm Thực Thượng Hạng & Hầm Rượu Tầng Bình Lưu AERIVE",
+  "description": "Hình ảnh ẩm thực đẳng cấp sao Michelin, bộ sưu tập rượu vang quý và dịch vụ ẩm thực riêng biệt trên chuyên cơ AERIVE.",
+  "url": "https://aerive-template.modulify.website/galleries/haute-cuisine",
+  "associatedMedia": cuisineImages.map((img) => ({
+    "@type": "ImageObject",
+    "contentUrl": img.src,
+    "name": img.title,
+    "description": img.caption,
+    "encodingFormat": "image/png"
+  }))
+};
+---
+
+<Layout
+  title="Thư Viện 03: Haute Cuisine & Altitude Cellar — Ẩm Thực Sao Michelin Độ Cao 45,000ft | AERIVE"
+  description="Bộ sưu tập hình ảnh ẩm thực tinh hoa, hầm rượu vang Grand Cru và nghệ thuật phục vụ bàn tiệc riêng tư trên chuyên cơ tư nhân AERIVE."
+  ogImage="/images/aerive/advantage-dining-2.png"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <!-- Top Breadcrumb Bar -->
+  <header class="sticky top-0 z-50 bg-obsidian/95 backdrop-blur-md border-b border-champagne/15 px-5 py-3 flex items-center justify-between text-[11px] uppercase tracking-[0.2em]">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-smoke hover:text-champagne transition-colors">Trang Chủ</a>
+      <span class="text-smoke/40">/</span>
+      <a href="/archive" class="text-champagne hover:text-ivory transition-colors flex items-center gap-1.5">
+        <span>Kho Thư Viện</span>
+      </a>
+      <span class="text-smoke/40">/</span>
+      <span class="text-ivory/80">Thư viện 03: Haute Cuisine</span>
+    </div>
+    <div class="flex items-center gap-4 text-smoke text-[10px]">
+      <a href="/galleries/cabin-suites" class="hover:text-champagne transition-colors hidden sm:inline">← Cabin & Suites</a>
+      <span class="hidden sm:inline">|</span>
+      <a href="/galleries/ramp-concierge" class="hover:text-champagne transition-colors hidden sm:inline">Ramp Access →</a>
+    </div>
+  </header>
+
+  <!-- Gallery Header Hero -->
+  <section class="relative px-5 pt-20 pb-16 md:px-[6vw] md:pt-28 md:pb-20 border-b border-champagne/15">
+    <div class="max-w-5xl">
+      <span class="rounded-full bg-champagne/10 border border-champagne/30 px-3.5 py-1 text-[11px] uppercase tracking-[0.22em] text-champagne">
+        Thư viện chuyên đề • 03
+      </span>
+      <h1 class="mt-6 font-heading text-[clamp(2.8rem,7vw,5.5rem)] font-light leading-[0.95] text-ivory">
+        Haute Cuisine & Cellar<br />
+        <span class="text-champagne">Ẩm thực sao Michelin giữa bầu trời không giới hạn.</span>
+      </h1>
+      <p class="mt-6 max-w-2xl text-[15px] leading-relaxed text-ivory/75">
+        Ở độ cao 45,000 feet, áp suất cabin được duy trì như ở độ cao 3,000 feet giúp giữ trọn vẹn vị giác tự nhiên. Từng món ăn là một tác phẩm nghệ thuật, kết hợp hoàn hảo cùng hầm vang niên vụ quý hiếm.
+      </p>
+
+      <!-- Key Metrics -->
+      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-3xl">
+        <div class="rounded-xl border border-champagne/15 bg-onyx/70 p-4">
+          <div class="font-heading text-[2rem] text-champagne font-light">3,000 ft</div>
+          <div class="text-[11px] uppercase tracking-wider text-smoke mt-1">Áp suất sinh học tối ưu vị giác</div>
+        </div>
+        <div class="rounded-xl border border-champagne/15 bg-onyx/70 p-4">
+          <div class="font-heading text-[2rem] text-champagne font-light">100%</div>
+          <div class="text-[11px] uppercase tracking-wider text-smoke mt-1">Thực đơn đặt may đo riêng</div>
+        </div>
+        <div class="rounded-xl border border-champagne/15 bg-onyx/70 p-4">
+          <div class="font-heading text-[2rem] text-champagne font-light">Grand Cru</div>
+          <div class="text-[11px] uppercase tracking-wider text-smoke mt-1">Bộ sưu tập vang vintage</div>
+        </div>
+        <div class="rounded-xl border border-champagne/15 bg-onyx/70 p-4">
+          <div class="font-heading text-[2rem] text-champagne font-light">Riedel</div>
+          <div class="text-[11px] uppercase tracking-wider text-smoke mt-1">Pha lê Áo thổi thủ công</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Masonry Images Grid -->
+  <section class="px-5 py-16 md:px-[6vw] md:py-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      {cuisineImages.map((img, idx) => (
+        <figure class="group relative overflow-hidden rounded-[16px] border border-champagne/15 bg-onyx transition-all duration-500 hover:border-champagne/60 hover:shadow-[0_25px_60px_rgba(0,0,0,0.8)]" itemprop="associatedMedia" itemscope itemtype="https://schema.org/ImageObject">
+          <div class="relative aspect-[16/10] w-full overflow-hidden cursor-pointer js-open-photo" data-idx={idx}>
+            <img src={img.src} alt={img.alt} loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" itemprop="contentUrl" />
+            <div class="absolute inset-0 bg-linear-to-t from-obsidian/85 via-transparent to-transparent opacity-60"></div>
+            <div class="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-obsidian/80 backdrop-blur-md border border-champagne/30 text-champagne opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize-2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+          </div>
+          <figcaption class="p-6">
+            <h3 class="font-heading text-[1.5rem] font-normal text-ivory group-hover:text-champagne transition-colors" itemprop="name">
+              {img.title}
+            </h3>
+            <p class="mt-2 text-[13px] leading-relaxed text-smoke" itemprop="description">
+              {img.caption}
+            </p>
+            <div class="mt-4 flex items-center justify-between border-t border-champagne/10 pt-3 text-[11px] text-champagne/80">
+              <span>{img.meta}</span>
+              <button type="button" class="underline underline-offset-4 js-open-photo hover:text-champagne" data-idx={idx}>Mở ảnh lớn</button>
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <!-- Interactive Lightbox Dialog -->
+  <dialog id="photo-dialog" class="fixed inset-0 m-0 h-full w-full max-h-none max-w-none bg-obsidian/95 p-4 md:p-8 backdrop-blur-xl backdrop:bg-black/90 text-ivory">
+    <div class="flex h-full flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <span class="font-heading text-[1.4rem] tracking-[0.2em] text-champagne">AERIVE HAUTE CUISINE</span>
+        <button type="button" id="dialog-close" class="flex size-11 items-center justify-center rounded-full border border-champagne/20 text-champagne hover:bg-champagne hover:text-obsidian">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+      </div>
+      <div class="flex flex-1 items-center justify-center p-4">
+        <img id="dialog-img" src="" alt="" class="max-h-[75vh] max-w-[90vw] object-contain rounded-[8px]" />
+      </div>
+      <div class="mx-auto max-w-xl text-center">
+        <h4 id="dialog-title" class="font-heading text-[1.6rem] text-champagne"></h4>
+        <p id="dialog-desc" class="mt-1 text-[13px] text-smoke"></p>
+      </div>
+    </div>
+  </dialog>
+
+  <script is:inline define:vars={{ cuisineImages }}>
+    const dialog = document.getElementById('photo-dialog');
+    const dImg = document.getElementById('dialog-img');
+    const dTitle = document.getElementById('dialog-title');
+    const dDesc = document.getElementById('dialog-desc');
+    const dClose = document.getElementById('dialog-close');
+
+    document.querySelectorAll('.js-open-photo').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-idx') || '0', 10);
+        const item = cuisineImages[idx];
+        if (item && dialog) {
+          dImg.src = item.src;
+          dImg.alt = item.alt;
+          dTitle.textContent = item.title;
+          dDesc.textContent = item.caption;
+          dialog.showModal();
+        }
+      });
+    });
+
+    dClose?.addEventListener('click', () => dialog?.close());
+    dialog?.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+  </script>
+
+  <Footer />
+  <BookingModal />
+</Layout>

@@ -1,0 +1,170 @@
+---
+// Hero.astro
+---
+
+<!-- Fixed Background Sky & Clouds -->
+<div data-sky-root="true" aria-hidden="true" class="sky-root pointer-events-none fixed inset-0 z-0 isolate overflow-hidden bg-obsidian">
+  <div data-sky="zoom" class="absolute inset-0 will-change-transform">
+    <div data-sky="parallax" class="absolute -inset-[3%]">
+      <img
+        alt="Bầu trời hoàng hôn nhìn từ cửa sổ máy bay"
+        decoding="async"
+        class="object-cover object-[50%_46%]"
+        style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent"
+        src="/images/aerive/sky-dusk.png"
+      />
+    </div>
+  </div>
+  <div data-sky="drift" class="absolute inset-x-0 top-[14%] h-[48%] opacity-60 mix-blend-screen">
+    <div class="sky-drift-track absolute inset-y-0 left-0 flex w-[400vw]">
+      <div class="relative h-full w-[100vw]">
+        <img alt="" loading="eager" decoding="async" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="/images/aerive/cloud-wisps.png" />
+      </div>
+      <div class="relative h-full w-[100vw]">
+        <img alt="" loading="eager" decoding="async" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent;transform:scaleX(-1)" src="/images/aerive/cloud-wisps.png" />
+      </div>
+      <div class="relative h-full w-[100vw]">
+        <img alt="" loading="eager" decoding="async" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="/images/aerive/cloud-wisps.png" />
+      </div>
+      <div class="relative h-full w-[100vw]">
+        <img alt="" loading="eager" decoding="async" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent;transform:scaleX(-1)" src="/images/aerive/cloud-wisps.png" />
+      </div>
+    </div>
+  </div>
+  <div data-sky="sweep" class="absolute -left-[40%] top-[8%] h-[84%] w-[180%] opacity-0 mix-blend-screen">
+    <img alt="" loading="eager" decoding="async" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="/images/aerive/cloud-wisps.png" />
+  </div>
+  <div data-sky="scrim" class="absolute inset-0 bg-linear-to-b from-obsidian/35 via-obsidian/45 to-obsidian/75 opacity-0"></div>
+  <div data-sky="bank" class="absolute -left-[15%] bottom-0 h-[118%] w-[130%] opacity-0 mix-blend-screen">
+    <img alt="" loading="eager" decoding="async" class="object-cover object-top" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="/images/aerive/cloud-bank.png" />
+  </div>
+  <div data-sky="veil" class="absolute inset-0 bg-ivory opacity-0"></div>
+  <p data-sky="whisper" class="absolute inset-x-6 top-1/2 -mt-[0.6em] text-center font-heading text-[clamp(2.2rem,5vw,4.8rem)] font-light leading-[1.05] text-obsidian opacity-0">
+    Above the weather, the world goes quiet.
+  </p>
+</div>
+
+<!-- Main Hero Pinned Stage -->
+<section id="hero" aria-label="AERIVE private aviation" class="relative z-10">
+  <div class="stage relative w-full overflow-hidden">
+    <!-- Window Frame Canvas Box -->
+    <div class="window-box will-change-transform">
+      <div class="absolute inset-0">
+        <div class="window-band window-band-top"></div>
+        <div class="window-band window-band-bottom"></div>
+        <div class="window-band window-band-left"></div>
+        <div class="window-band window-band-right"></div>
+        <canvas aria-hidden="true" class="absolute inset-0 h-full w-full"></canvas>
+      </div>
+    </div>
+
+    <!-- Safe Foreground Content Area -->
+    <div class="stage-safe absolute inset-x-0 top-0">
+      <div class="absolute inset-0 will-change-transform">
+        <!-- Lead Title (Left) -->
+        <h1 data-hero-lead="true" class="absolute left-5 top-[15%] font-heading text-[clamp(3.1rem,7.6vw,8.8rem)] font-normal leading-[0.88] tracking-[-0.01em] text-ivory md:left-[6vw] md:top-[15%]">
+          <span class="sr-only">Precision in motion</span>
+          <span aria-hidden="true" class="block">
+            <span class="inline-block whitespace-nowrap">
+              <span data-char="true" class="inline-block">P</span>
+              <span data-char="true" class="inline-block">r</span>
+              <span data-char="true" class="inline-block">e</span>
+              <span data-char="true" class="inline-block">c</span>
+              <span data-char="true" class="inline-block">i</span>
+              <span data-char="true" class="inline-block">s</span>
+              <span data-char="true" class="inline-block">i</span>
+              <span data-char="true" class="inline-block">o</span>
+              <span data-char="true" class="inline-block">n</span>
+            </span>
+          </span>
+          <span aria-hidden="true" class="block pl-[0.55em]">
+            <span class="inline-block whitespace-nowrap">
+              <span data-char="true" class="inline-block">i</span>
+              <span data-char="true" class="inline-block">n</span>
+            </span>
+            <span class="inline-block whitespace-nowrap">
+              <span data-char="true" class="inline-block">m</span>
+              <span data-char="true" class="inline-block">o</span>
+              <span data-char="true" class="inline-block">t</span>
+              <span data-char="true" class="inline-block">i</span>
+              <span data-char="true" class="inline-block">o</span>
+              <span data-char="true" class="inline-block">n</span>
+            </span>
+          </span>
+        </h1>
+
+        <!-- Counter Title (Right) -->
+        <p data-hero-counter="true" class="absolute bottom-[21%] right-5 text-right font-heading text-[clamp(3.1rem,7.6vw,8.8rem)] font-normal leading-[0.88] tracking-[-0.01em] text-ivory md:bottom-[16%] md:right-[6vw]">
+          <span class="sr-only">Discretion at altitude</span>
+          <span aria-hidden="true" class="block pr-[0.55em]">
+            <span class="inline-block whitespace-nowrap">
+              <span data-char="true" class="inline-block">D</span>
+              <span data-char="true" class="inline-block">i</span>
+              <span data-char="true" class="inline-block">s</span>
+              <span data-char="true" class="inline-block">c</span>
+              <span data-char="true" class="inline-block">r</span>
+              <span data-char="true" class="inline-block">e</span>
+              <span data-char="true" class="inline-block">t</span>
+              <span data-char="true" class="inline-block">i</span>
+              <span data-char="true" class="inline-block">o</span>
+              <span data-char="true" class="inline-block">n</span>
+            </span>
+          </span>
+          <span aria-hidden="true" class="block">
+            <span class="inline-block whitespace-nowrap">
+              <span data-char="true" class="inline-block">a</span>
+              <span data-char="true" class="inline-block">t</span>
+            </span>
+            <span class="inline-block whitespace-nowrap">
+              <span data-char="true" class="inline-block">a</span>
+              <span data-char="true" class="inline-block">l</span>
+              <span data-char="true" class="inline-block">t</span>
+              <span data-char="true" class="inline-block">i</span>
+              <span data-char="true" class="inline-block">t</span>
+              <span data-char="true" class="inline-block">u</span>
+              <span data-char="true" class="inline-block">d</span>
+              <span data-char="true" class="inline-block">e</span>
+            </span>
+          </span>
+        </p>
+
+        <!-- Bottom Left Note -->
+        <div class="absolute bottom-[9%] left-[6vw] hidden max-w-[19rem] md:block">
+          <p class="text-[17px] font-medium leading-[1.25] text-ivory">
+            Khởi hành tùy ý,<br />đến nơi an yên
+          </p>
+          <span class="my-5 block h-px w-8 bg-champagne"></span>
+          <p class="text-[13px] leading-relaxed text-ivory/75">
+            Mỗi chuyến bay được kiến tạo quanh lịch trình, sự riêng tư và tiện nghi trọn vẹn của bạn, để điều duy nhất bạn cần làm là bước tới và tận hưởng.
+          </p>
+        </div>
+      </div>
+
+      <!-- Scroll cue button -->
+      <div class="absolute inset-x-5 bottom-24 md:bottom-[9%] md:left-auto md:right-[6vw] md:w-[26vw]">
+        <div>
+          <span class="mb-4 block h-px w-full bg-champagne/40"></span>
+          <button type="button" class="flex w-full items-center justify-between text-[10px] uppercase tracking-[0.24em] text-ivory/85 transition-colors hover:text-champagne focus-visible:outline-none focus-visible:text-champagne">
+            <span class="flex items-center gap-3">
+              <span class="flex flex-col -space-y-2.5 text-champagne">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down scroll-cue-chevron size-4"><path d="m6 9 6 6 6-6"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down scroll-cue-chevron size-4"><path d="m6 9 6 6 6-6"></path></svg>
+              </span>
+              Cuộn để lên tàu
+            </span>
+            <span class="hidden sm:inline">Khởi đầu hành trình</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quote Overlay (appears upon window zoom) -->
+      <div class="invisible absolute inset-0 flex items-center justify-center px-6 opacity-0 md:px-[8vw]">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(8,8,10,0.62)_0%,rgba(8,8,10,0.28)_45%,rgba(8,8,10,0)_72%)]"></div>
+        <p class="relative max-w-[60rem] text-center font-heading text-[clamp(1.9rem,3.7vw,3.7rem)] font-light leading-[1.14] text-ivory [text-shadow:0_2px_24px_rgba(0,0,0,0.35)]">
+          <span class="pr-[0.2em] font-medium tracking-[0.2em] text-champagne">AERIVE</span>
+          là hãng hàng không tư nhân dành cho những ai đo lường hành trình bằng từng khoảnh khắc, không phải dặm bay.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
