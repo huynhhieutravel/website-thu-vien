@@ -1,0 +1,20 @@
+/* Common stylesheet for Every Joule supplementary pages */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f6f0e3;
+  color: #1c2433;
+  font-family: Georgia, serif;
+}
+.skip {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: #273463;
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 100;
+}
+.skip:focus {
+  top: 16px;
+}

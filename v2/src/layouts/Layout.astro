@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title?: string;
   description?: string;
@@ -102,9 +104,6 @@ const siteSchema = {
 
     <!-- JSON-LD SEO Schema -->
     <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
-
-    <!-- Global CSS -->
-    <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
   <body class="min-h-full flex flex-col bg-obsidian text-ivory font-sans antialiased">
     <slot />
