@@ -262,137 +262,372 @@ const {
         if (backdrop) backdrop.addEventListener('click', closeMenu);
         navLinks.forEach(link => link.addEventListener('click', closeMenu));
 
-        // 4. Hero Logistics Radar & Arcs Canvas Animation
-        const canvas = document.querySelector('#hero canvas');
-        if (canvas) {
+        // 4. Original 3D Earth Globe Canvas Animation (Faithfully Ported to Native Astro)
+        const heroTrack = document.getElementById('hero');
+        const heroStage = heroTrack?.querySelector('.sticky');
+        const canvas = heroTrack?.querySelector('canvas');
+
+        if (heroTrack && heroStage && canvas) {
           const ctx = canvas.getContext('2d');
-          let animationFrameId;
-          let width = (canvas.width = window.innerWidth);
-          let height = (canvas.height = window.innerHeight);
+          if (ctx) {
+            const DEG = Math.PI / 180;
+            const clamp = (val, min = 0, max = 1) => Math.min(max, Math.max(min, val));
+            const lerp = (start, end, progress) => start + (end - start) * progress;
+            const smoothStep = (edge0, edge1, x) => {
+              const t = clamp((x - edge0) / (edge1 - edge0));
+              return t * t * (3 - 2 * t);
+            };
+            const toXYZ = (lon, lat) => {
+              const radLon = lon * DEG;
+              const radLat = lat * DEG;
+              return [
+                Math.cos(radLat) * Math.sin(radLon),
+                Math.sin(radLat),
+                Math.cos(radLat) * Math.cos(radLon)
+              ];
+            };
 
-          const resize = () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-          };
-          window.addEventListener('resize', resize);
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const monoFont = getComputedStyle(document.documentElement).getPropertyValue('--font-app-mono').trim() || 'ui-monospace, monospace';
 
-          // Logistics hub coordinates mapped across viewport
-          const hubs = [
-            { code: 'SYD', xRatio: 0.85, yRatio: 0.78, name: 'Sydney' },
-            { code: 'SIN', xRatio: 0.68, yRatio: 0.58, name: 'Singapore' },
-            { code: 'HKG', xRatio: 0.72, yRatio: 0.45, name: 'Hong Kong' },
-            { code: 'HND', xRatio: 0.82, yRatio: 0.38, name: 'Tokyo' },
-            { code: 'DXB', xRatio: 0.52, yRatio: 0.42, name: 'Dubai' },
-            { code: 'FRA', xRatio: 0.44, yRatio: 0.32, name: 'Frankfurt' },
-            { code: 'LAX', xRatio: 0.22, yRatio: 0.38, name: 'Los Angeles' },
-            { code: 'JFK', xRatio: 0.28, yRatio: 0.34, name: 'New York' },
-          ];
+            const routeHub = { name: "Melbourne", lon: 144.96, lat: -37.81 };
+            const hubXYZ = toXYZ(routeHub.lon, routeHub.lat);
 
-          const routes = [
-            [0, 1], [1, 2], [2, 3], [1, 4], [4, 5], [5, 7], [7, 6], [3, 6], [0, 6]
-          ];
+            const routeDestinations = [
+              { name: "Germany", lon: 8.68, lat: 50.11 },
+              { name: "Spain", lon: -3.7, lat: 40.42 },
+              { name: "Italy", lon: 9.19, lat: 45.46 },
+              { name: "Turkey", lon: 28.98, lat: 41.01 },
+              { name: "Egypt", lon: 31.24, lat: 30.04 },
+              { name: "Qatar", lon: 51.53, lat: 25.29 },
+              { name: "Saudi Arabia", lon: 46.68, lat: 24.71 },
+              { name: "Kenya", lon: 36.82, lat: -1.29 },
+              { name: "South Africa", lon: 28.05, lat: -26.2 },
+              { name: "USA", lon: -118.24, lat: 34.05 },
+              { name: "Canada", lon: -123.12, lat: 49.28 },
+              { name: "Mexico", lon: -99.13, lat: 19.43 },
+              { name: "Brazil", lon: -46.63, lat: -23.55 },
+              { name: "Argentina", lon: -58.38, lat: -34.6 },
+              { name: "Colombia", lon: -74.07, lat: 4.71 },
+              { name: "Chile", lon: -70.67, lat: -33.45 },
+              { name: "Japan", lon: 139.69, lat: 35.69 },
+              { name: "Hong Kong", lon: 114.17, lat: 22.32 },
+              { name: "Thailand", lon: 100.5, lat: 13.76 },
+              { name: "Singapore", lon: 103.82, lat: 1.35 },
+              { name: "Australia", lon: 151.21, lat: -33.87 },
+              { name: "New Zealand", lon: 174.76, lat: -36.85 },
+              { name: "China", lon: 121.47, lat: 31.23 }
+            ];
 
-          // Particles along routes
-          const particles = routes.map(([fromIdx, toIdx], i) => ({
-            fromIdx,
-            toIdx,
-            progress: (i * 0.15) % 1,
-            speed: 0.002 + (i % 3) * 0.001
-          }));
+            const destCount = routeDestinations.length;
+            const destinations = routeDestinations.map((dest, idx) => {
+              const startXYZ = toXYZ(routeHub.lon, routeHub.lat);
+              const endXYZ = toXYZ(dest.lon, dest.lat);
+              const dot = clamp(startXYZ[0] * endXYZ[0] + startXYZ[1] * endXYZ[1] + startXYZ[2] * endXYZ[2], -1, 1);
+              const angle = Math.acos(dot);
+              const sinAngle = Math.sin(angle);
+              const arcAltitude = 0.05 + (angle / Math.PI) * 0.22;
+              const points = new Float32Array(72 * 3);
 
-          let time = 0;
+              for (let i = 0; i < 72; i++) {
+                const t = i / 71;
+                const o = sinAngle < 1e-6 ? 1 - t : Math.sin((1 - t) * angle) / sinAngle;
+                const d = sinAngle < 1e-6 ? t : Math.sin(t * angle) / sinAngle;
+                const altMultiplier = 1 + arcAltitude * Math.sin(Math.PI * t);
+                points[3 * i] = (o * startXYZ[0] + d * endXYZ[0]) * altMultiplier;
+                points[3 * i + 1] = (o * startXYZ[1] + d * endXYZ[1]) * altMultiplier;
+                points[3 * i + 2] = (o * startXYZ[2] + d * endXYZ[2]) * altMultiplier;
+              }
 
-          const render = () => {
-            time += 0.015;
-            ctx.clearRect(0, 0, width, height);
-
-            // Draw connecting bezier arcs
-            ctx.lineWidth = 1;
-            routes.forEach(([fromIdx, toIdx]) => {
-              const h1 = hubs[fromIdx];
-              const h2 = hubs[toIdx];
-              const x1 = h1.xRatio * width;
-              const y1 = h1.yRatio * height;
-              const x2 = h2.xRatio * width;
-              const y2 = h2.yRatio * height;
-
-              const midX = (x1 + x2) / 2;
-              const midY = (y1 + y2) / 2 - Math.min(Math.hypot(x2 - x1, y2 - y1) * 0.2, 80);
-
-              const grad = ctx.createLinearGradient(x1, y1, x2, y2);
-              grad.addColorStop(0, 'rgba(56, 189, 248, 0.1)');
-              grad.addColorStop(0.5, 'rgba(56, 189, 248, 0.3)');
-              grad.addColorStop(1, 'rgba(56, 189, 248, 0.1)');
-
-              ctx.strokeStyle = grad;
-              ctx.setLineDash([4, 6]);
-              ctx.lineDashOffset = -time * 15;
-              ctx.beginPath();
-              ctx.moveTo(x1, y1);
-              ctx.quadraticCurveTo(midX, midY, x2, y2);
-              ctx.stroke();
+              return {
+                name: dest.name.toUpperCase(),
+                points,
+                end: endXYZ,
+                delay: (((7 * idx) % destCount) / destCount) * 0.5,
+                speed: 0.09 + ((3 * idx) % 5) * 0.025,
+                offset: (0.173 * idx) % 1
+              };
             });
 
-            ctx.setLineDash([]);
+            let landPoints = new Float32Array(0);
+            let screenPoints = new Float32Array(0);
+            let landLoadedTime = 0;
+            let stageWidth = 0;
+            let stageHeight = 0;
+            let dpr = 1;
+            let animId = 0;
+            let isIntersecting = true;
+            let isDestroyed = false;
 
-            // Draw traveling packet cargo dots
-            particles.forEach((p) => {
-              p.progress += p.speed;
-              if (p.progress > 1) p.progress = 0;
+            let rotX = 0, rotY = 0, rotZ = 0;
+            let cosQ = 1, sinQ = 0, cosD = 1, sinD = 0;
+            const startTime = performance.now();
 
-              const h1 = hubs[p.fromIdx];
-              const h2 = hubs[p.toIdx];
-              const x1 = h1.xRatio * width;
-              const y1 = h1.yRatio * height;
-              const x2 = h2.xRatio * width;
-              const y2 = h2.yRatio * height;
-              const midX = (x1 + x2) / 2;
-              const midY = (y1 + y2) / 2 - Math.min(Math.hypot(x2 - x1, y2 - y1) * 0.2, 80);
+            const project = (x, y, z) => {
+              const lx = x * cosQ - z * sinQ;
+              const lz = x * sinQ + z * cosQ;
+              rotX = lx;
+              rotY = y * cosD - lz * sinD;
+              rotZ = y * sinD + lz * cosD;
+            };
 
-              const t = p.progress;
-              const px = (1 - t) * (1 - t) * x1 + 2 * (1 - t) * t * midX + t * t * x2;
-              const py = (1 - t) * (1 - t) * y1 + 2 * (1 - t) * t * midY + t * t * y2;
+            const render = (now) => {
+              animId = 0;
+              if (isDestroyed) return;
 
-              ctx.fillStyle = '#38bdf8';
+              const elapsedSec = prefersReducedMotion ? 0 : (now - startTime) / 1000;
+              const trackRect = heroTrack.getBoundingClientRect();
+              const maxScroll = Math.max(trackRect.height - window.innerHeight, 1);
+              const heroProgress = prefersReducedMotion ? 1 : clamp(-trackRect.top / maxScroll);
+              heroStage.style.setProperty('--hero-progress', heroProgress.toFixed(3));
+
+              // Cubic easing for scroll physics
+              const tNorm = clamp(heroProgress / 0.8);
+              const p = tNorm < 0.5 ? 4 * tNorm * tNorm * tNorm : 1 - Math.pow(-2 * tNorm + 2, 3) / 2;
+
+              const isDesktop = stageWidth >= 1024;
+              const initialRadius = 1.3 * Math.max(stageWidth, stageHeight);
+              const targetRadius = isDesktop ? Math.min(0.38 * stageHeight, 0.26 * stageWidth) : Math.min(0.8 * stageWidth, 0.42 * stageHeight);
+              const targetX = isDesktop ? 0.73 * stageWidth : stageWidth / 2;
+              const targetY = isDesktop ? 0.5 * stageHeight : 0.72 * stageHeight + 0.5 * targetRadius;
+
+              const G = lerp(initialRadius, targetRadius, p);
+              const Z = lerp(stageWidth / 2, targetX, p);
+              const U = lerp(0.8 * stageHeight + initialRadius, targetY, p);
+
+              const angleQ = (140 + 55 * Math.sin(0.12 * elapsedSec) + (1 - p) * 40) * DEG;
+              const angleD = -10 * DEG;
+              cosQ = Math.cos(angleQ);
+              sinQ = Math.sin(angleQ);
+              cosD = Math.cos(angleD);
+              sinD = Math.sin(angleD);
+
+              ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+              ctx.clearRect(0, 0, stageWidth, stageHeight);
+
+              // 1. Atmosphere Radial Gradient Glow
+              const B = 36 + 0.05 * G;
+              const X = (0.03 * G) / (0.03 * G + B);
+              const atmosphereGrad = ctx.createRadialGradient(Z, U, 0.97 * G, Z, U, G + B);
+              atmosphereGrad.addColorStop(0, "rgba(35, 64, 255, 0)");
+              atmosphereGrad.addColorStop(X, "rgba(74, 99, 255, 0.55)");
+              atmosphereGrad.addColorStop(1, "rgba(35, 64, 255, 0)");
+              ctx.fillStyle = atmosphereGrad;
               ctx.beginPath();
-              ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+              ctx.arc(Z, U, G + B, 0, 2 * Math.PI);
               ctx.fill();
 
-              ctx.fillStyle = 'rgba(56, 189, 248, 0.3)';
+              // 2. Planet Sphere Body Gradient
+              const sphereGrad = ctx.createRadialGradient(Z - 0.3 * G, U - 0.35 * G, 0.1 * G, Z, U, G);
+              sphereGrad.addColorStop(0, "#0d1236");
+              sphereGrad.addColorStop(0.75, "#05060f");
+              sphereGrad.addColorStop(0.965, "#0a1250");
+              sphereGrad.addColorStop(1, "#4a63ff");
+              ctx.fillStyle = sphereGrad;
               ctx.beginPath();
-              ctx.arc(px, py, 6, 0, Math.PI * 2);
+              ctx.arc(Z, U, G, 0, 2 * Math.PI);
               ctx.fill();
+
+              // 3. Earth Land Points
+              if (landPoints.length > 0) {
+                const fadeIn = (prefersReducedMotion ? 1 : clamp((now - landLoadedTime) / 900)) * (0.35 + 0.65 * smoothStep(0, 0.55, heroProgress));
+                const dotSize = clamp(G / 280, 0.9, 1.7);
+                const halfSize = dotSize / 2;
+                let visibleCount = 0;
+
+                for (let i = 0; i < landPoints.length; i += 3) {
+                  project(landPoints[i], landPoints[i + 1], landPoints[i + 2]);
+                  if (rotZ <= 0) continue;
+                  const sx = Z + rotX * G;
+                  const sy = U - rotY * G;
+                  if (sx < -2 || sy < -2 || sx > stageWidth + 2 || sy > stageHeight + 2) continue;
+                  screenPoints[3 * visibleCount] = sx;
+                  screenPoints[3 * visibleCount + 1] = sy;
+                  screenPoints[3 * visibleCount + 2] = rotZ;
+                  visibleCount++;
+                }
+
+                ctx.fillStyle = "#cdd6ff";
+                const depthLayers = [
+                  [0, 0.35, 0.28],
+                  [0.35, 0.7, 0.6],
+                  [0.7, 1.01, 1.0]
+                ];
+                for (const [zMin, zMax, layerAlpha] of depthLayers) {
+                  ctx.beginPath();
+                  for (let i = 0; i < visibleCount; i++) {
+                    const zVal = screenPoints[3 * i + 2];
+                    if (zVal < zMin || zVal >= zMax) continue;
+                    ctx.rect(screenPoints[3 * i] - halfSize, screenPoints[3 * i + 1] - halfSize, dotSize, dotSize);
+                  }
+                  ctx.globalAlpha = layerAlpha * fadeIn;
+                  ctx.fill();
+                }
+                ctx.globalAlpha = 1;
+              }
+
+              // 4. Arcs & Routes
+              const arcVisibility = prefersReducedMotion ? 1 : smoothStep(0.3, 0.92, heroProgress);
+              const showLabels = isDesktop && G < 520;
+              ctx.lineCap = "round";
+              ctx.font = `500 10px ${monoFont}`;
+
+              for (const dest of destinations) {
+                const progressFraction = prefersReducedMotion ? 1 : clamp((arcVisibility - dest.delay) / 0.5);
+                if (progressFraction <= 0) continue;
+
+                const stepLimit = Math.max(1, Math.floor(71 * progressFraction));
+                let isDrawing = false;
+                ctx.beginPath();
+
+                for (let i = 0; i <= stepLimit; i++) {
+                  project(dest.points[3 * i], dest.points[3 * i + 1], dest.points[3 * i + 2]);
+                  if (rotZ <= 0 && rotX * rotX + rotY * rotY <= 1) {
+                    isDrawing = false;
+                    continue;
+                  }
+                  const sx = Z + rotX * G;
+                  const sy = U - rotY * G;
+                  if (isDrawing) ctx.lineTo(sx, sy);
+                  else ctx.moveTo(sx, sy);
+                  isDrawing = true;
+                }
+
+                ctx.strokeStyle = "rgba(140, 155, 255, 0.55)";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                if (progressFraction >= 1) {
+                  if (!prefersReducedMotion) {
+                    const pulseIndex = Math.floor(((elapsedSec * dest.speed + dest.offset) % 1) * 71);
+                    const tailIndex = Math.max(0, pulseIndex - 10);
+                    let isPulseDrawing = false;
+                    let lastHeadX = 0, lastHeadY = 0;
+                    let isFrontVisible = false;
+
+                    ctx.beginPath();
+                    for (let s = tailIndex; s <= pulseIndex; s++) {
+                      project(dest.points[3 * s], dest.points[3 * s + 1], dest.points[3 * s + 2]);
+                      isFrontVisible = rotZ > 0 || rotX * rotX + rotY * rotY > 1;
+                      if (!isFrontVisible) {
+                        isPulseDrawing = false;
+                        continue;
+                      }
+                      lastHeadX = Z + rotX * G;
+                      lastHeadY = U - rotY * G;
+                      if (isPulseDrawing) ctx.lineTo(lastHeadX, lastHeadY);
+                      else ctx.moveTo(lastHeadX, lastHeadY);
+                      isPulseDrawing = true;
+                    }
+
+                    ctx.strokeStyle = "rgba(255, 255, 255, 0.85)";
+                    ctx.lineWidth = 1.6;
+                    ctx.stroke();
+
+                    if (isFrontVisible) {
+                      ctx.fillStyle = "rgba(140, 155, 255, 0.3)";
+                      ctx.beginPath();
+                      ctx.arc(lastHeadX, lastHeadY, 5, 0, 2 * Math.PI);
+                      ctx.fill();
+
+                      ctx.fillStyle = "#ffffff";
+                      ctx.beginPath();
+                      ctx.arc(lastHeadX, lastHeadY, 1.8, 0, 2 * Math.PI);
+                      ctx.fill();
+                    }
+                  }
+
+                  // Destination Hub Marker
+                  project(dest.end[0], dest.end[1], dest.end[2]);
+                  if (rotZ > 0.05) {
+                    const dx = Z + rotX * G;
+                    const dy = U - rotY * G;
+                    ctx.fillStyle = "#8c9bff";
+                    ctx.fillRect(dx - 1.5, dy - 1.5, 3, 3);
+                    if (showLabels && rotZ > 0.2) {
+                      ctx.globalAlpha = clamp((rotZ - 0.2) * 4);
+                      ctx.fillStyle = "#ffffff";
+                      ctx.fillText(dest.name, dx + 7, dy + 3);
+                      ctx.globalAlpha = 1;
+                    }
+                  }
+                }
+              }
+
+              // 5. Melbourne Origin Hub Marker & Pulse
+              project(hubXYZ[0], hubXYZ[1], hubXYZ[2]);
+              if (rotZ > 0) {
+                const mx = Z + rotX * G;
+                const my = U - rotY * G;
+                const pulseNorm = prefersReducedMotion ? 0.4 : (elapsedSec % 2.4) / 2.4;
+                ctx.strokeStyle = `rgba(110, 132, 255, ${(1 - pulseNorm) * 0.9})`;
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.arc(mx, my, 4 + 16 * pulseNorm, 0, 2 * Math.PI);
+                ctx.stroke();
+
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(mx - 2.5, my - 2.5, 5, 5);
+
+                if (showLabels && arcVisibility > 0) {
+                  ctx.globalAlpha = arcVisibility;
+                  ctx.fillStyle = "#8c9bff";
+                  ctx.fillText("MELBOURNE HUB", mx + 10, my + 4);
+                  ctx.globalAlpha = 1;
+                }
+              }
+
+              if (!prefersReducedMotion && isIntersecting) {
+                animId = window.requestAnimationFrame(render);
+              }
+            };
+
+            const requestFrame = () => {
+              if (!animId && !isDestroyed) {
+                animId = window.requestAnimationFrame(render);
+              }
+            };
+
+            const resize = () => {
+              const rect = heroStage.getBoundingClientRect();
+              stageWidth = rect.width;
+              stageHeight = rect.height;
+              dpr = Math.min(window.devicePixelRatio || 1, 2);
+              canvas.width = Math.max(1, Math.round(stageWidth * dpr));
+              canvas.height = Math.max(1, Math.round(stageHeight * dpr));
+              requestFrame();
+            };
+
+            const resizeObserver = new ResizeObserver(resize);
+            const intersectObserver = new IntersectionObserver(([entry]) => {
+              isIntersecting = !!entry?.isIntersecting;
+              if (isIntersecting) requestFrame();
             });
 
-            // Draw Hubs with pulsing radar rings
-            hubs.forEach((hub, idx) => {
-              const x = hub.xRatio * width;
-              const y = hub.yRatio * height;
-              const pulse = (Math.sin(time * 2 + idx) + 1) / 2;
+            resize();
+            resizeObserver.observe(heroStage);
+            intersectObserver.observe(heroTrack);
 
-              // Outer pulse ring
-              ctx.strokeStyle = `rgba(56, 189, 248, ${0.4 - pulse * 0.3})`;
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.arc(x, y, 6 + pulse * 14, 0, Math.PI * 2);
-              ctx.stroke();
+            window.addEventListener('scroll', requestFrame, { passive: true });
 
-              // Inner solid node
-              ctx.fillStyle = '#ffffff';
-              ctx.beginPath();
-              ctx.arc(x, y, 3, 0, Math.PI * 2);
-              ctx.fill();
-
-              // Hub Code Label
-              ctx.font = '10px "JetBrains Mono", monospace';
-              ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
-              ctx.fillText(hub.code, x + 8, y + 3);
-            });
-
-            animationFrameId = requestAnimationFrame(render);
-          };
-
-          render();
+            // Load precomputed 3D land points
+            fetch('/images/meridian/land-points.bin')
+              .then((res) => {
+                if (!res.ok) throw new Error('Status ' + res.status);
+                return res.arrayBuffer();
+              })
+              .then((buffer) => {
+                if (!isDestroyed) {
+                  landPoints = new Float32Array(buffer);
+                  screenPoints = new Float32Array(landPoints.length);
+                  landLoadedTime = performance.now();
+                  requestFrame();
+                }
+              })
+              .catch((err) => {
+                console.warn('Could not load land-points.bin:', err);
+              });
+          }
         }
       });
     </script>
