@@ -2,6 +2,12 @@ self.__BUILD_MANIFEST = {
   "/": [
     "static/chunks/0x2h1_jkf6~-r.js"
   ],
+  "/orvane": [
+    "static/chunks/0x2h1_jkf6~-r.js"
+  ],
+  "/orvane-original": [
+    "static/chunks/0x2h1_jkf6~-r.js"
+  ],
   "/404": [
     "static/chunks/183apks-o8i4j.js"
   ],
@@ -18,6 +24,8 @@ self.__BUILD_MANIFEST = {
   },
   "sortedPages": [
     "/",
+    "/orvane",
+    "/orvane-original",
     "/404",
     "/500",
     "/_app",

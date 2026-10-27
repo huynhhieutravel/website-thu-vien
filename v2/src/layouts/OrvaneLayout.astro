@@ -14,16 +14,16 @@ const {
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" data-next-head="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" data-next-head="" />
     <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="description" content={description} data-next-head="" />
+    <meta property="og:title" content={title} data-next-head="" />
+    <meta property="og:description" content={description} data-next-head="" />
+    <meta property="og:type" content="website" data-next-head="" />
+    <meta name="twitter:card" content="summary_large_image" data-next-head="" />
+    <meta name="twitter:title" content={title} data-next-head="" />
+    <meta name="twitter:description" content={description} data-next-head="" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#f6f8f8" />
 
@@ -34,13 +34,17 @@ const {
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link as="font" crossorigin="anonymous" href="/_next/static/media/ab57efd000576a30-s.p.0.xyi-bdzzdcz.woff2" rel="preload" type="font/woff2" />
-    <link as="font" crossorigin="anonymous" href="/_next/static/media/70bc3e132a0a741e-s.p.1409xf.ylxg8g.woff2" rel="preload" type="font/woff2" />
+    <link as="font" crossorigin="anonymous" data-next-font="size-adjust" href="/_next/static/media/ab57efd000576a30-s.p.0.xyi-bdzzdcz.woff2" rel="preload" type="font/woff2" />
+    <link as="font" crossorigin="anonymous" data-next-font="size-adjust" href="/_next/static/media/70bc3e132a0a741e-s.p.1409xf.ylxg8g.woff2" rel="preload" type="font/woff2" />
 
     <link as="style" href="/_next/static/chunks/0hrl7a-ajzz6g.css" rel="preload" />
-    <link href="/_next/static/chunks/0hrl7a-ajzz6g.css" rel="stylesheet" />
+    <link data-n-g="" href="/_next/static/chunks/0hrl7a-ajzz6g.css" rel="stylesheet" />
 
     <script is:inline>document.documentElement.classList.add('js')</script>
+    <script is:inline>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+    
+    <!-- Orvane Native Scrollytelling & Interactive Engine -->
+    <script is:inline src="/scripts/orvane-scrollytelling.js"></script>
 
     <style is:global>
       :root {
@@ -61,19 +65,10 @@ const {
       [data-modulify-badge] {
         display: none !important;
       }
-      html {
-        scroll-behavior: smooth;
-      }
     </style>
   </head>
 
   <body class="h-full bg-mist font-sans text-ink antialiased selection:bg-[#5fbfd0]/30 selection:text-ink">
-    <div id="__next">
-      <div class="h-full font-sans">
-        <slot />
-      </div>
-    </div>
-
     <!-- Top Bar Navigation quay lại Thư Viện -->
     <aside style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(9,11,14,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.1);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:0.18em;font-family:sans-serif;">
       <a href="/" style="color:#00d984;text-decoration:none;display:flex;align-items:center;gap:6px;font-weight:600;">
@@ -89,71 +84,11 @@ const {
       </div>
     </aside>
 
-    <!-- Astro Native Interactive Script for Solutions Tabs & Scrollytelling -->
-    <script is:inline>
-      (function() {
-        // Solutions Tabs Interactivity
-        const solutionsSec = document.getElementById('solutions');
-        if (solutionsSec) {
-          const tabList = solutionsSec.querySelector('[role="tablist"]');
-          if (tabList) {
-            const tabs = tabList.querySelectorAll('button[role="tab"]');
-            const indicator = tabList.querySelector('span[aria-hidden="true"]');
-            const stepCounter = solutionsSec.querySelector('.label-mono.hidden.text-haze span');
-            
-            const textCols = solutionsSec.querySelectorAll('.grid.content-start > div');
-            const panelCanvases = solutionsSec.querySelectorAll('[data-anchor="solutions-panel"] canvas');
-            const panelLabels = solutionsSec.querySelectorAll('[data-anchor="solutions-panel"] .grid span.label-mono');
-            const tagLists = solutionsSec.querySelectorAll('.flex.min-h-0.flex-col > .grid > ul');
+    <div id="__next">
+      <div class="h-full font-sans">
+        <slot />
+      </div>
+    </div>
 
-            function selectTab(index) {
-              tabs.forEach((tab, i) => {
-                const isSelected = (i === index);
-                tab.setAttribute('aria-selected', String(isSelected));
-                tab.style.color = isSelected ? '#1d2a31' : '#9aa3a8';
-                if (isSelected && indicator) {
-                  indicator.style.width = tab.offsetWidth + 'px';
-                  indicator.style.transform = `translateX(${tab.offsetLeft}px)`;
-                  indicator.style.transition = 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), width 0.4s cubic-bezier(0.22, 1, 0.36, 1)';
-                }
-              });
-
-              if (stepCounter) {
-                stepCounter.textContent = `0${index + 1}`;
-              }
-
-              textCols.forEach((el, i) => {
-                el.style.opacity = (i === index) ? '1' : '0';
-                el.style.transition = 'opacity 0.4s ease';
-              });
-
-              panelCanvases.forEach((el, i) => {
-                el.style.clipPath = (i === index) ? 'none' : 'inset(100% 0% 0% 0%)';
-                el.style.transition = 'clip-path 0.5s cubic-bezier(0.65, 0, 0.35, 1)';
-              });
-
-              panelLabels.forEach((el, i) => {
-                el.style.opacity = (i === index) ? '1' : '0';
-                el.style.transition = 'opacity 0.35s ease';
-              });
-
-              tagLists.forEach((el, i) => {
-                el.style.opacity = (i === index) ? '1' : '0';
-                el.style.transition = 'opacity 0.35s ease';
-              });
-            }
-
-            tabs.forEach((tab, index) => {
-              tab.addEventListener('click', () => selectTab(index));
-            });
-
-            // Initialize indicator position
-            setTimeout(() => {
-              selectTab(0);
-            }, 500);
-          }
-        }
-      })();
-    </script>
   </body>
 </html>
