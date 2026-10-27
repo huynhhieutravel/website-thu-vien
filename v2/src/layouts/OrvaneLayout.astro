@@ -43,8 +43,17 @@ const {
     <script is:inline>document.documentElement.classList.add('js')</script>
     <script is:inline>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
     
-    <!-- Orvane Native Scrollytelling & Interactive Engine -->
-    <script is:inline src="/scripts/orvane-scrollytelling.js"></script>
+    
+    <!-- Three.js 3D WebGL Drone Stage Runtime -->
+    <script is:inline src="/_next/static/chunks/turbopack-0db-dn8_ug3n..js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/10cczt~50scth.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0gkpr.jrv0.2d.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0tcltbvz695lz.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/07hb.czss9cjk.js" defer=""></script>
+    <script is:inline src="/scripts/orvane-3d-launcher.js" defer=""></script>
+
+    <!-- Orvane Native Scrollytelling Engine -->
+    <script is:inline src="/scripts/orvane-scrollytelling.js" defer=""></script>
 
     <style is:global>
       :root {
@@ -84,11 +93,11 @@ const {
       </div>
     </aside>
 
-    <div id="__next">
-      <div class="h-full font-sans">
-        <slot />
-      </div>
-    </div>
+    <!-- Standalone Three.js 3D Drone Viewport Canvas -->
+    <canvas aria-hidden="true" class="pointer-events-none fixed left-0 top-0 z-20 block" id="orvane-3d-stage"></canvas>
 
+    <div class="h-full font-sans">
+      <slot />
+    </div>
   </body>
 </html>
