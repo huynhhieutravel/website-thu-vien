@@ -2,4 +2,55 @@
 // v2/src/components/norrvik/Preloader.astro - Preloader with Point Registration
 ---
 
-<div class="preloader fixed inset-0 z-[100] bg-background" aria-hidden="true"><canvas class="absolute inset-0 h-full w-full"></canvas><div class="absolute left-gutter top-6"><p class="hud text-ink">Fig. 00 / Norrvik / Loading model</p><p class="hud text-mute">Registering points</p></div><span class="absolute bottom-8 right-gutter font-mono text-[44px] leading-none tracking-[0.04em] tabular-nums text-ink">000</span><span class="hud absolute bottom-9 left-gutter text-mute">Stockholm / Lisbon</span></div>
+<div id="norrvik-preloader" class="preloader fixed inset-0 z-[100] bg-background transition-opacity duration-700 ease-out" aria-hidden="true">
+  <canvas class="absolute inset-0 h-full w-full opacity-40"></canvas>
+  <div class="absolute left-gutter top-6">
+    <p class="hud text-ink">Fig. 00 / Norrvik / Loading model</p>
+    <p class="hud text-mute">Registering points</p>
+  </div>
+  <span id="norrvik-counter" class="absolute bottom-8 right-gutter font-mono text-[44px] leading-none tracking-[0.04em] tabular-nums text-ink">000</span>
+  <span class="hud absolute bottom-9 left-gutter text-mute">Stockholm / Lisbon</span>
+</div>
+
+<script is:inline>
+  (function() {
+    const preloader = document.getElementById('norrvik-preloader');
+    const counter = document.getElementById('norrvik-counter');
+    const html = document.documentElement;
+
+    let count = 0;
+    const target = 318;
+    const duration = 1600;
+    const start = performance.now();
+
+    function step(now) {
+      const p = Math.min(1, (now - start) / duration);
+      count = Math.floor(p * target);
+      if (counter) counter.textContent = String(count).padStart(3, '0');
+
+      if (p < 1) {
+        requestAnimationFrame(step);
+      } else {
+        setTimeout(dismiss, 300);
+      }
+    }
+
+    function dismiss() {
+      if (!preloader) return;
+      preloader.style.opacity = '0';
+      preloader.style.pointerEvents = 'none';
+
+      html.removeAttribute('data-intro');
+      html.removeAttribute('data-intro-stage');
+      html.removeAttribute('data-intro-compact');
+
+      setTimeout(() => {
+        if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+      }, 750);
+    }
+
+    requestAnimationFrame(step);
+    // Failsafe
+    setTimeout(dismiss, 2800);
+  })();
+</script>
