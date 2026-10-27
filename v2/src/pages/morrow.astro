@@ -1,0 +1,27 @@
+---
+// v2/src/pages/morrow.astro - Website 12: Morrow Golf Park (Phiên Bản Astro Code Native)
+import MorrowLayout from '../layouts/MorrowLayout.astro';
+import Header from '../components/morrow/Header.astro';
+import SiteMenu from '../components/morrow/SiteMenu.astro';
+import Preloader from '../components/morrow/Preloader.astro';
+import Hero from '../components/morrow/Hero.astro';
+import CourseIntro from '../components/morrow/CourseIntro.astro';
+import AerialFairway from '../components/morrow/AerialFairway.astro';
+import CourseMap from '../components/morrow/CourseMap.astro';
+import SignatureHoles from '../components/morrow/SignatureHoles.astro';
+import Clubhouse from '../components/morrow/Clubhouse.astro';
+import Academy from '../components/morrow/Academy.astro';
+import Membership from '../components/morrow/Membership.astro';
+import Dining from '../components/morrow/Dining.astro';
+import Events from '../components/morrow/Events.astro';
+import Nature from '../components/morrow/Nature.astro';
+import Gallery from '../components/morrow/Gallery.astro';
+import Visit from '../components/morrow/Visit.astro';
+import Footer from '../components/morrow/Footer.astro';
+import TransitionOverlay from '../components/morrow/TransitionOverlay.astro';
+---
+
+<MorrowLayout
+  title="Morrow Golf Park — Championship 18-Hole Coast Golf | Astro Native"
+  description="An eighteen-hole golf park on the Alentejo coast: a championship course shaped by dune, pine and heath, a clubhouse built from the land, an academy, dining, lodges and membership."
+><div class="flex min-h-screen flex-col"><Header /><SiteMenu /><main class="relative flex-1" id="main"><div><Preloader /><Hero /><CourseIntro /><AerialFairway /><CourseMap /><SignatureHoles /><Clubhouse /><Academy /><Membership /><Dining /><Events /><Nature /><Gallery /><Visit /></div></main><Footer /></div><TransitionOverlay /></MorrowLayout>
