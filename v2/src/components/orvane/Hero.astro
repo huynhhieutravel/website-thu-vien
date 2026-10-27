@@ -14,6 +14,16 @@
       </span>
     </div>
 
+    <!-- Authentic 3D LiDAR Drone Centerpiece -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 flex items-center justify-center z-10 pt-4 md:pt-8">
+      <img
+        src="/images/orvane-drone-retina.png"
+        alt="Orvane L4 Autonomous LiDAR Drone"
+        class="h-auto w-[clamp(320px,40vw,560px)] object-contain select-none drone-subtle-float"
+        loading="eager"
+      />
+    </div>
+
     <!-- Crosshair Markers -->
     <svg aria-hidden="true" class="absolute left-5 top-5 size-4" viewBox="0 0 16 16">
       <path d="M8 0v16M0 8h16" stroke="#b9c3c8" stroke-width="1"></path>
@@ -56,3 +66,19 @@
     </div>
   </div>
 </section>
+
+<style>
+  @keyframes droneSubtleFloat {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .drone-subtle-float {
+    animation: droneSubtleFloat 6s ease-in-out infinite;
+    will-change: transform;
+  }
+</style>
