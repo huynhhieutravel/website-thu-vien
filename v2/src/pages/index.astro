@@ -47,6 +47,17 @@
       }
 
       /* Top Header */
+      .top-header-row {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .top-title-group {
+        flex: 1;
+        min-width: 280px;
+      }
       .top-title {
         font-size: 28px;
         font-weight: 800;
@@ -57,6 +68,53 @@
         font-size: 14px;
         color: #64748b;
         margin-top: 6px;
+      }
+      .modulify-ref-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #0f172a;
+        color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 9999px;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1px solid #1e293b;
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        white-space: nowrap;
+      }
+      .modulify-ref-btn:hover {
+        background: #1e293b;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+        color: #38bdf8;
+      }
+      .modulify-ref-btn .badge-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #10b981;
+        display: inline-block;
+      }
+      .modulify-ref-btn .btn-arrow {
+        font-size: 14px;
+        transition: transform 0.2s ease;
+      }
+      .modulify-ref-btn:hover .btn-arrow {
+        transform: translate(2px, -2px);
+      }
+      .pill-btn-modulify {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+        color: #0f172a;
+        font-weight: 700;
+      }
+      .pill-btn-modulify:hover {
+        background: #e2e8f0;
+        border-color: #94a3b8;
       }
 
       /* Filter Pills Row */
@@ -276,12 +334,38 @@
   <body>
     <!-- Main Center Container (1240px RỘNG RÃI, KHÔNG FULL-WIDTH) -->
     <div class="page-container">
-      <!-- Title Heading -->
-      <h1 class="top-title">Tìm thấy 12 Website</h1>
-      <p class="top-subtitle">Danh mục các trang web đã được clone lưu trữ trong thư viện.</p>
+      <!-- Top Header Row -->
+      <div class="top-header-row">
+        <div class="top-title-group">
+          <h1 class="top-title">Tìm thấy 12 Website</h1>
+          <p class="top-subtitle">Danh mục các trang web đã được clone lưu trữ trong thư viện.</p>
+        </div>
+
+        <!-- Nút Tham Khảo Kho Mẫu Modulify -->
+        <a
+          href="https://modulify.ai/templates"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="modulify-ref-btn"
+          title="Mở kho template gốc Modulify.ai để tham khảo nhanh"
+        >
+          <span class="badge-dot"></span>
+          <span>Kho Mẫu Gốc Modulify.ai</span>
+          <span class="btn-arrow">↗</span>
+        </a>
+      </div>
 
       <!-- Filter Pills -->
       <div class="filter-pills">
+        <a
+          href="https://modulify.ai/templates"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="pill-btn pill-btn-modulify"
+          title="Mở kho template gốc Modulify.ai"
+        >
+          ⚡ Modulify Templates ↗
+        </a>
         <button type="button" class="pill-btn active">Tất cả (12)</button>
         <button type="button" class="pill-btn">Private Aviation</button>
         <button type="button" class="pill-btn">Game 3D Three.js</button>
