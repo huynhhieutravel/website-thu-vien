@@ -1,5 +1,7 @@
 # 0001 - Orvane Standalone Three.js 3D Stage on Astro Native
 
+## Status: Implemented & Verified (2026-10-27)
+
 ## Context
 The original Orvane site features an interactive 3D WebGL drone stage (`class ea` in Three.js) rendered on a viewport-fixed canvas. When migrating to Astro native components (`/orvane`), running the full Next.js/React 18 hydration caused text mismatch errors (`Minified React error #418`) due to Astro's compiler stripping inline whitespace and comment nodes (`<!-- -->`). Completely removing Next.js scripts eliminated the error but inadvertently removed the 3D drone engine.
 
