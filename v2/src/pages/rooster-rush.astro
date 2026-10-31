@@ -1,0 +1,31 @@
+---
+// v2/src/pages/rooster-rush.astro - Website 20: Rooster Rush Playable 3D Hero (Astro Native Component Hóa)
+import RoosterRushLayout from '../layouts/RoosterRushLayout.astro';
+import BackgroundLighting from '../components/rooster-rush/BackgroundLighting.astro';
+import GameCanvas from '../components/rooster-rush/GameCanvas.astro';
+import RoosterDialog from '../components/rooster-rush/RoosterDialog.astro';
+import HeroStory from '../components/rooster-rush/HeroStory.astro';
+import ProgressTrack from '../components/rooster-rush/ProgressTrack.astro';
+import Scoreboard from '../components/rooster-rush/Scoreboard.astro';
+import GameModals from '../components/rooster-rush/GameModals.astro';
+import TouchControls from '../components/rooster-rush/TouchControls.astro';
+---
+
+<RoosterRushLayout
+  title="Playable hero | Rooster Rush"
+  description="A chunky 3D rooster lost his job to AI. Run, jump, stomp and collect 10,000 points to earn him an interview."
+>
+  <main class="h-dvh w-full overflow-hidden">
+    <section id="rooster-rush" class="relative h-dvh w-full overflow-hidden">
+      <BackgroundLighting />
+      <GameCanvas />
+      <RoosterDialog />
+      <HeroStory />
+      <ProgressTrack />
+      <Scoreboard />
+      <GameModals />
+      <TouchControls />
+    </section>
+  </main>
+</RoosterRushLayout>
+

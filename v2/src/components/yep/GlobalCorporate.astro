@@ -1,0 +1,527 @@
+---
+// v2/src/components/yep/GlobalCorporate.astro
+// Tour Doanh Nghiệp Nước Ngoài của FIT TOUR (Kế thừa từ Aerive Global)
+---
+
+<section id="global-corporate" aria-labelledby="global-corporate-title" class="global-section">
+  <div class="global-stage">
+    <div class="global-stage-safe">
+      <div class="global-scrim"></div>
+
+      <!-- Watermark Background Typography -->
+      <h2 id="global-corporate-title" class="global-watermark">
+        Worldwide
+      </h2>
+
+      <!-- 3D Globe with Orbit Arcs -->
+      <div class="global-globe-box">
+        <div class="globe-inner">
+          <img
+            alt="Quả địa cầu đen viền vàng hiển thị mạng lưới tour doanh nghiệp quốc tế của FIT TOUR"
+            loading="eager"
+            decoding="async"
+            src="/images/aerive/globe.png"
+            class="globe-img"
+          />
+        </div>
+
+        <!-- 3 Orbiting Flight Path Arcs -->
+        <svg viewBox="0 0 1000 1000" aria-hidden="true" class="globe-arcs">
+          <g transform="rotate(-14 500 500)">
+            <path data-gc-arc d="M -60 500 A 560 140 0 0 0 1060 500" pathLength="1" fill="none" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.6" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <circle data-gc-dot cx="-60" cy="500" r="5" fill="currentColor" opacity="0.85"></circle>
+          </g>
+          <g transform="rotate(17 500 500)">
+            <path data-gc-arc d="M -20 500 A 520 196 0 0 0 1020 500" pathLength="1" fill="none" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.6" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <circle data-gc-dot cx="-20" cy="500" r="5" fill="currentColor" opacity="0.85"></circle>
+          </g>
+          <g transform="rotate(-33 500 500)">
+            <path data-gc-arc d="M -110 500 A 610 104 0 0 0 1110 500" pathLength="1" fill="none" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.6" style="stroke-dasharray:1;stroke-dashoffset:0"></path>
+            <circle data-gc-dot cx="-110" cy="500" r="5" fill="currentColor" opacity="0.85"></circle>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Destination Switcher & Narrative (Left) -->
+      <div class="global-copy-pane">
+        <div data-gc-item class="dest-ticker-wrapper">
+          <span class="dest-ticker-label">Hành trình quốc tế</span>
+          <span class="dest-ticker-line">
+            <i></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg>
+            <i></i>
+          </span>
+          <span class="dest-ticker-city-box">
+            <span id="gc-city-target" class="dest-ticker-city">Mông Cổ</span>
+          </span>
+        </div>
+
+        <h3 data-gc-item class="global-lead-heading">
+          Nâng tầm vị thế doanh nghiệp qua những hành trình quốc tế độc bản.
+        </h3>
+
+        <p data-gc-item class="global-lead-desc">
+          Không chỉ dừng lại ở các sự kiện trong nước, FIT TOUR mở rộng biên độ trải nghiệm cho các đoàn doanh nghiệp với các chương trình <strong>Incentive Travel, Company Trip & Hội nghị Quốc Tế</strong> được may đo riêng theo đúng văn hóa và mục tiêu của bạn.
+        </p>
+
+        <div data-gc-item class="global-features-grid">
+          <div>
+            <strong>Điểm đến khác biệt</strong>
+            <span>Mông Cổ, Ladakh, Tây Tạng, Bhutan, Silk Road, Tân Cương, Bắc Cực...</span>
+          </div>
+          <div>
+            <strong>Chu toàn A — Z</strong>
+            <span>Visa, chuyến bay, khách sạn cao cấp, kịch bản gala & đội ngũ dẫn đoàn am tường bản địa.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Luxury Boarding Pass Card (Right) -->
+      <div data-gc-pass class="global-pass-wrapper">
+        <div class="boarding-card">
+          <div class="card-top">
+            <div class="card-brand">
+              <span class="brand-name">FIT TOUR</span>
+              <span class="brand-type">GLOBAL INCENTIVE PASS</span>
+            </div>
+            <div class="card-route">
+              <div>
+                <p class="route-lbl">Điểm đi</p>
+                <p class="route-val">Việt Nam (SGN / HAN)</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="route-plane"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg>
+              <div class="text-right">
+                <p class="route-lbl">Điểm đến</p>
+                <p class="route-val">Nơi Bạn Chọn</p>
+              </div>
+            </div>
+            <div class="card-meta">
+              <div>
+                <p class="meta-lbl">Đoàn khách</p>
+                <p class="meta-val">Doanh nghiệp bạn</p>
+              </div>
+              <div>
+                <p class="meta-lbl">Khởi hành</p>
+                <p class="meta-val">Lịch trình riêng</p>
+              </div>
+              <div>
+                <p class="meta-lbl">Tiêu chuẩn</p>
+                <p class="meta-val">May đo VIP</p>
+              </div>
+            </div>
+          </div>
+          <!-- Notched divider with dashed line -->
+          <div class="card-divider">
+            <span class="notch notch-left"></span>
+            <span class="dash-line"></span>
+            <span class="notch notch-right"></span>
+          </div>
+          <div class="card-bottom">
+            <!-- Simulated Barcode SVG -->
+            <svg viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true" class="barcode-svg">
+              <rect x="0" y="0" width="3" height="20" fill="currentColor"></rect>
+              <rect x="4" y="0" width="1" height="20" fill="currentColor"></rect>
+              <rect x="7" y="0" width="2" height="20" fill="currentColor"></rect>
+              <rect x="10" y="0" width="2" height="20" fill="currentColor"></rect>
+              <rect x="13" y="0" width="3" height="20" fill="currentColor"></rect>
+              <rect x="18" y="0" width="1" height="20" fill="currentColor"></rect>
+              <rect x="21" y="0" width="3" height="20" fill="currentColor"></rect>
+              <rect x="25" y="0" width="2" height="20" fill="currentColor"></rect>
+              <rect x="28" y="0" width="2" height="20" fill="currentColor"></rect>
+              <rect x="31" y="0" width="3" height="20" fill="currentColor"></rect>
+              <rect x="36" y="0" width="3" height="20" fill="currentColor"></rect>
+              <rect x="40" y="0" width="1" height="20" fill="currentColor"></rect>
+              <rect x="43" y="0" width="1" height="20" fill="currentColor"></rect>
+              <rect x="46" y="0" width="3" height="20" fill="currentColor"></rect>
+              <rect x="50" y="0" width="3" height="20" fill="currentColor"></rect>
+              <rect x="55" y="0" width="2" height="20" fill="currentColor"></rect>
+              <rect x="58" y="0" width="3" height="20" fill="currentColor"></rect>
+              <rect x="62" y="0" width="1" height="20" fill="currentColor"></rect>
+              <rect x="65" y="0" width="2" height="20" fill="currentColor"></rect>
+              <rect x="68" y="0" width="2" height="20" fill="currentColor"></rect>
+              <rect x="72" y="0" width="1" height="20" fill="currentColor"></rect>
+              <rect x="75" y="0" width="3" height="20" fill="currentColor"></rect>
+              <rect x="79" y="0" width="1" height="20" fill="currentColor"></rect>
+              <rect x="82" y="0" width="3" height="20" fill="currentColor"></rect>
+              <rect x="86" y="0" width="1" height="20" fill="currentColor"></rect>
+              <rect x="89" y="0" width="1" height="20" fill="currentColor"></rect>
+              <rect x="91" y="0" width="1" height="20" fill="currentColor"></rect>
+              <rect x="94" y="0" width="2" height="20" fill="currentColor"></rect>
+              <rect x="97" y="0" width="1" height="20" fill="currentColor"></rect>
+            </svg>
+            <span class="card-footer-label">TOUR DOANH NGHIỆP<br />NƯỚC NGOÀI · FIT TOUR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Destination Ticker Loop
+  const cities = [
+    'Mông Cổ',
+    'Ladakh (Ấn Độ)',
+    'Tây Tạng',
+    'Bhutan',
+    'Con Đường Tơ Lụa',
+    'Tân Cương',
+    'Lệ Giang (Trung Quốc)',
+    'Sri Lanka',
+    'Iceland',
+    'Nam Phi',
+    'Alaska',
+  ];
+  let idx = 0;
+  const cityTarget = document.getElementById('gc-city-target');
+  if (cityTarget) {
+    setInterval(() => {
+      idx = (idx + 1) % cities.length;
+      cityTarget.style.opacity = '0';
+      cityTarget.style.transform = 'translateY(10px)';
+      setTimeout(() => {
+        cityTarget.textContent = cities[idx];
+        cityTarget.style.opacity = '1';
+        cityTarget.style.transform = 'translateY(0)';
+      }, 300);
+    }, 2400);
+  }
+</script>
+
+<style is:global>
+  .global-section {
+    position: relative;
+    z-index: 10;
+    background: #0d120e;
+    color: var(--cream);
+    overflow: hidden;
+  }
+  .global-stage {
+    height: 100svh;
+    min-height: 750px;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 60%, #172419 0%, #0d120e 70%);
+  }
+  .global-stage-safe {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .global-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(13, 18, 14, 0.4) 0%, transparent 40%, rgba(13, 18, 14, 0.95) 100%);
+    pointer-events: none;
+  }
+
+  /* Huge Watermark Title */
+  .global-watermark {
+    position: absolute;
+    top: 6%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: Cormorant, Georgia, serif;
+    font-size: clamp(6rem, 23vw, 24rem);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: transparent;
+    background: linear-gradient(180deg, rgba(188, 164, 125, 0.45) 0%, rgba(188, 164, 125, 0.08) 60%, transparent 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    pointer-events: none;
+    user-select: none;
+    margin: 0;
+  }
+
+  /* Globe Box */
+  .global-globe-box {
+    position: absolute;
+    left: 50%;
+    top: 26%;
+    width: min(580px, 72vw);
+    height: min(580px, 72vw);
+    margin-left: calc(min(580px, 72vw) * -0.5);
+    border-radius: 50%;
+    will-change: transform;
+    pointer-events: none;
+  }
+  .globe-inner {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 0 90px rgba(188, 164, 125, 0.18);
+  }
+  .globe-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.06);
+    filter: brightness(0.95) contrast(1.05);
+  }
+  .globe-arcs {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    color: var(--gold);
+  }
+
+  /* Left Narrative */
+  .global-copy-pane {
+    position: absolute;
+    left: 6vw;
+    bottom: 11%;
+    width: min(480px, 86vw);
+    z-index: 5;
+  }
+  .dest-ticker-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    white-space: nowrap;
+  }
+  .dest-ticker-label {
+    font-family: Cormorant, Georgia, serif;
+    font-size: 19px;
+    color: var(--cream);
+    white-space: nowrap;
+  }
+  .dest-ticker-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold);
+  }
+  .dest-ticker-line i {
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: rgba(188, 164, 125, 0.5);
+  }
+  .dest-ticker-city-box {
+    overflow: hidden;
+    display: inline-flex;
+    height: 28px;
+    align-items: center;
+    min-width: 150px;
+  }
+  .dest-ticker-city {
+    font-family: Cormorant, Georgia, serif;
+    font-size: 19px;
+    color: var(--gold);
+    display: inline-block;
+    white-space: nowrap;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .global-lead-heading {
+    font-family: Cormorant, Georgia, serif;
+    font-size: clamp(28px, 2.6vw, 42px);
+    line-height: 1.15;
+    font-weight: 400;
+    color: var(--cream);
+    margin: 0 0 18px 0;
+  }
+  .global-lead-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin: 0 0 24px 0;
+  }
+  .global-lead-desc strong {
+    color: var(--cream);
+    font-weight: 500;
+  }
+  .global-features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    border-top: 1px solid rgba(188, 164, 125, 0.25);
+    padding-top: 18px;
+  }
+  .global-features-grid strong {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .global-features-grid span {
+    font-size: 11px;
+    line-height: 1.6;
+    color: #c9c7bb;
+  }
+
+  /* Right Boarding Pass */
+  .global-pass-wrapper {
+    position: absolute;
+    right: 6vw;
+    bottom: 11%;
+    width: min(360px, 86vw);
+    z-index: 5;
+  }
+  .boarding-card {
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 18px;
+    box-shadow: 0 35px 80px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+  }
+  .card-top {
+    padding: 26px 26px 20px;
+  }
+  .card-brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(32, 41, 31, 0.12);
+    padding-bottom: 14px;
+  }
+  .brand-name {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+  }
+  .brand-type {
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    color: #7b694e;
+    font-weight: 600;
+  }
+  .card-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .route-lbl {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #7b694e;
+    margin: 0 0 6px 0;
+  }
+  .route-val {
+    font-family: Cormorant, Georgia, serif;
+    font-size: 22px;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .route-plane {
+    color: #8c7350;
+    flex-shrink: 0;
+  }
+  .card-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    border-top: 1px solid rgba(32, 41, 31, 0.12);
+    margin-top: 22px;
+    padding-top: 14px;
+  }
+  .meta-lbl {
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #7b694e;
+    margin: 0 0 5px 0;
+  }
+  .meta-val {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  /* Notched Divider */
+  .card-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 24px;
+    background: transparent;
+  }
+  .card-divider .notch {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0d120e;
+  }
+  .card-divider .notch-left {
+    left: -10px;
+  }
+  .card-divider .notch-right {
+    right: -10px;
+  }
+  .card-divider .dash-line {
+    margin-inline: 18px;
+    flex-grow: 1;
+    border-top: 1px dashed rgba(32, 41, 31, 0.25);
+  }
+  .card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 26px 22px;
+    gap: 20px;
+  }
+  .barcode-svg {
+    height: 34px;
+    max-width: 170px;
+    flex-grow: 1;
+    color: var(--ink);
+  }
+  .card-footer-label {
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.5;
+    color: #7b694e;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .global-stage {
+      height: auto;
+      min-height: auto;
+      padding: 120px 24px 80px;
+    }
+    .global-stage-safe {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+    .global-watermark {
+      font-size: 22vw;
+      top: 30px;
+    }
+    .global-globe-box {
+      position: relative;
+      left: auto;
+      top: auto;
+      width: 70vw;
+      height: 70vw;
+      margin: 0 auto;
+    }
+    .global-copy-pane,
+    .global-pass-wrapper {
+      position: static;
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,429 @@
+---
+// v2/src/components/atelier/Desktop.astro - Master macOS Interactive Desktop Component
+import MenuBar from './MenuBar.astro';
+import DesktopTiles from './DesktopTiles.astro';
+import Dock from './Dock.astro';
+import Windows from './Windows.astro';
+---
+
+<div class="geist_ef09c865-module__Gk2seG__variable geist_mono_66039167-module__O0reuq__variable h-full font-sans antialiased overflow-hidden select-none">
+  <main aria-label="Alex Morgan — interactive desktop portfolio" class="relative isolate w-full overflow-hidden bg-[#1a1612]" style="height: calc(100vh - 36px); font-family:var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif)">
+    <h1 class="sr-only">Alex Morgan — Independent Product and Brand Designer</h1>
+
+    <!-- 1. Wallpapers (Day & Night) -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <div id="wallpaper-light" class="absolute inset-0 bg-cover bg-center transition-opacity duration-500 ease-out opacity-100" style="background-image:url(/atelier/Wallpaper%20v2.jpg); background-position:center 38%;"></div>
+      <div id="wallpaper-dark" class="absolute inset-0 bg-cover bg-center transition-opacity duration-500 ease-out opacity-0" style="background-image:url(/atelier/wallpaperv2_dark.jpg); background-position:center 38%;"></div>
+    </div>
+
+    <!-- 2. Radial Ambient Vignette Overlay -->
+    <div class="pointer-events-none absolute inset-0 z-[1]" style="background:radial-gradient(120% 90% at 50% 30%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 70%, rgba(0,0,0,0.35) 100%)"></div>
+
+    <!-- 3. Top macOS MenuBar -->
+    <MenuBar />
+
+    <!-- 4. Interactive Desktop Icons / Tiles -->
+    <DesktopTiles />
+
+    <!-- 5. Interactive macOS Windows -->
+    <Windows />
+
+    <!-- 6. Bottom macOS Dock -->
+    <Dock />
+  </main>
+</div>
+
+<!-- Client-side Interactive Window Manager & Drag Controller -->
+<script is:inline>
+(function() {
+  const projectData = {
+    "noir-leather": {
+      "id": "noir-leather",
+      "title": "Noir Leather Collection",
+      "category": "Brand Identity",
+      "positioning": "A heritage leather house, stripped to silhouette and shadow.",
+      "description": "Identity, lookbook, and campaign system for a small-batch leather house cutting jackets in a converted Florentine workshop. Built around a single high-contrast silhouette and a wordmark sharp enough to stamp into hide.",
+      "brief": {
+        "challenge": "Sell craft without lapsing into nostalgia. The category is crowded with brown patina and serif logos.",
+        "direction": "Black on white. One jacket, one mark, one story per drop. A typographic system that lets the leather do the talking.",
+        "outcome": "Sell-through on the launch jacket inside 11 days. Wholesale orders from three independent boutiques in Tokyo and Paris."
+      },
+      "gallerySrcs": [
+        "/atelier/projects/kestrel-outerwear.jpg",
+        "/atelier/projects/lume-eyewear.jpg",
+        "/atelier/projects/pulp-press.jpg"
+      ]
+    },
+    "kestrel-outerwear": {
+      "id": "kestrel-outerwear",
+      "title": "Kestrel Outerwear FW",
+      "category": "Campaign",
+      "positioning": "Technical outerwear for people who actually go outside.",
+      "description": "A fall-winter campaign and art direction for a technical outerwear label. Shot cold, lit hard, and built on a single repeating grid so the garments stay the loudest thing on every page.",
+      "brief": {
+        "challenge": "Make performance gear feel designed, not just engineered. The category defaults to mannequins and spec sheets.",
+        "direction": "One model, one location, weather as a co-star. A rigid editorial grid that lets each piece breathe.",
+        "outcome": "Campaign ran across six markets. Pre-orders on the flagship parka cleared the first production run in a week."
+      },
+      "gallerySrcs": [
+        "/atelier/projects/lume-eyewear.jpg",
+        "/atelier/projects/pulp-press.jpg",
+        "/atelier/projects/solenne-womenswear.jpg"
+      ]
+    },
+    "lume-eyewear": {
+      "id": "lume-eyewear",
+      "title": "Lume Eyewear Launch",
+      "category": "Product Design",
+      "positioning": "Eyewear that reads as an object first, a product second.",
+      "description": "Naming, packaging, and launch system for an independent eyewear house. Every frame ships in a fold-flat case designed to sit on a shelf like a small sculpture.",
+      "brief": {
+        "challenge": "Stand out in a category owned by two conglomerates and a thousand lookalikes.",
+        "direction": "Lead with the silhouette. Strip the packaging to one colour and one line of type. Let the lens do the talking.",
+        "outcome": "Sold through the launch colourway in three weeks. Picked up by two concept stores in Copenhagen."
+      },
+      "gallerySrcs": [
+        "/atelier/projects/pulp-press.jpg",
+        "/atelier/projects/solenne-womenswear.jpg",
+        "/atelier/projects/quiet-quarterly.jpg"
+      ]
+    },
+    "pulp-press": {
+      "id": "pulp-press",
+      "title": "Pulp Cold-Press Identity",
+      "category": "Brand Identity",
+      "positioning": "Cold-pressed, loudly.",
+      "description": "Identity and bottle system for a cold-press juicery. Built on a screaming colour palette and a wordmark you can read from across the room.",
+      "brief": {
+        "challenge": "Wellness branding is a sea of beige and lowercase. Be the opposite without being gimmicky.",
+        "direction": "Pantone-bright colour blocking, a fat grotesque wordmark, and labels that match the juice inside.",
+        "outcome": "Shelf turnover up sharply in the first month. Three cafes switched their house juice to the line."
+      },
+      "gallerySrcs": [
+        "/atelier/projects/solenne-womenswear.jpg",
+        "/atelier/projects/quiet-quarterly.jpg",
+        "/atelier/projects/bloom-sneaker.jpg"
+      ]
+    },
+    "solenne-womenswear": {
+      "id": "solenne-womenswear",
+      "title": "Solenne Womenswear",
+      "category": "Web Design",
+      "positioning": "A quiet-luxury label, given a quiet-luxury website.",
+      "description": "Art direction and digital flagship redesign for Paris-based label Solenne. Emphasizes clean draping, heavy wools, and sculptural proportions.",
+      "brief": {
+        "challenge": "Most fashion commerce feels like a spreadsheet with photos. Make browsing feel like turning pages.",
+        "direction": "Full-bleed imagery, type that gets out of the way, and a checkout that never breaks the spell.",
+        "outcome": "Average session time more than doubled. Return rate on first orders dropped sharply."
+      },
+      "gallerySrcs": [
+        "/atelier/projects/quiet-quarterly.jpg",
+        "/atelier/projects/bloom-sneaker.jpg",
+        "/atelier/projects/kew-botanical.jpg"
+      ]
+    },
+    "quiet-quarterly": {
+      "id": "quiet-quarterly",
+      "title": "Quiet Quarterly · Issue 04",
+      "category": "Editorial",
+      "positioning": "A print quarterly about doing less, on purpose.",
+      "description": "Creative direction and editorial layout for an ad-free 192-page quarterly published out of Edinburgh and printed on Munken Lynx.",
+      "brief": {
+        "challenge": "Hold a reader's attention in print without shouting, and without 200 pages.",
+        "direction": "One typeface, three weights, a strict baseline grid. Let the photography and the margins carry the rhythm.",
+        "outcome": "Issue 04 sold out its print run. Now stocked in eleven independent bookshops."
+      },
+      "gallerySrcs": [
+        "/atelier/projects/bloom-sneaker.jpg",
+        "/atelier/projects/kew-botanical.jpg",
+        "/atelier/projects/poppy-press.jpg"
+      ]
+    },
+    "bloom-sneaker": {
+      "id": "bloom-sneaker",
+      "title": "Bloom Sneaker Campaign",
+      "category": "Campaign",
+      "positioning": "A sneaker launch that behaves like a flower opening.",
+      "description": "Global launch campaign, video teasers, and 3D product visualization for sustainable footwear pioneer Bloom.",
+      "brief": {
+        "challenge": "Launch a colourway, not a shoe, and make it feel like an event.",
+        "direction": "Build everything around one blooming gesture. Loud colour, clean product, no clutter.",
+        "outcome": "Drop sold out in under an hour. The hero loop crossed a million plays in the first week."
+      },
+      "gallerySrcs": [
+        "/atelier/projects/kew-botanical.jpg",
+        "/atelier/projects/poppy-press.jpg",
+        "/atelier/projects/saffron-issue.jpg"
+      ]
+    },
+    "kew-botanical": {
+      "id": "kew-botanical",
+      "title": "Kew Botanical Skincare",
+      "category": "Brand Identity",
+      "positioning": "Botanical skincare with a botanist's restraint.",
+      "description": "Brand identity, packaging architecture, and e-commerce experience for a luxury botanical apothecary.",
+      "brief": {
+        "challenge": "Look scientific and natural at once, without tipping into either pharmacy or farmers' market.",
+        "direction": "Herbarium typography, a single sage tone, and labels that read like specimen cards.",
+        "outcome": "Launched into a national retailer. Reordered twice in the first quarter."
+      },
+      "gallerySrcs": [
+        "/atelier/projects/poppy-press.jpg",
+        "/atelier/projects/saffron-issue.jpg",
+        "/atelier/projects/noir-leather.jpg"
+      ]
+    },
+    "poppy-press": {
+      "id": "poppy-press",
+      "title": "Poppy Press — Spring Issue",
+      "category": "Editorial",
+      "positioning": "A spring issue that smells like the page.",
+      "description": "Complete publication design and print production oversight for a limited-run photographic monograph.",
+      "brief": {
+        "challenge": "Make a seasonal issue feel special without resetting the magazine's whole identity.",
+        "direction": "Let spring into the type. Pressed botanicals, a warmer paper stock, a cover that earns a second look.",
+        "outcome": "Best-selling issue of the year on the newsstand. The cover was reprinted as a limited poster."
+      },
+      "gallerySrcs": [
+        "/atelier/projects/saffron-issue.jpg",
+        "/atelier/projects/noir-leather.jpg",
+        "/atelier/projects/kestrel-outerwear.jpg"
+      ]
+    },
+    "saffron-issue": {
+      "id": "saffron-issue",
+      "title": "Saffron — A Yellow Issue",
+      "category": "Editorial",
+      "positioning": "One colour, one issue, all the way through.",
+      "description": "Hardcover monograph documenting saffron harvesting from Kashmir to Castile. Screen-printed linen cover with gold foil stamping.",
+      "brief": {
+        "challenge": "Sustain a single-colour concept across 90 pages without exhausting the reader.",
+        "direction": "Treat yellow as the grid, not the decoration. Shift temperature and saturation to mark each section.",
+        "outcome": "Picked up two editorial design awards. The most shared issue in the title's history."
+      },
+      "gallerySrcs": [
+        "/atelier/projects/noir-leather.jpg",
+        "/atelier/projects/kestrel-outerwear.jpg",
+        "/atelier/projects/lume-eyewear.jpg"
+      ]
+    }
+  };
+
+  let topZ = 120;
+  function bringToFront(win) {
+    topZ++;
+    win.style.zIndex = topZ;
+  }
+
+  function openWindow(winId) {
+    const win = document.getElementById(winId);
+    if (!win) return;
+    win.classList.remove('hidden');
+    win.style.display = 'flex';
+    win.style.visibility = 'visible';
+    win.style.opacity = '1';
+    bringToFront(win);
+  }
+
+  function closeWindow(winId) {
+    const win = document.getElementById(winId);
+    if (!win) return;
+    win.classList.add('hidden');
+    win.style.display = 'none';
+  }
+
+  function openLightbox(src) {
+    const lb = document.getElementById('gallery-lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    if (lb && lbImg) {
+      lbImg.src = src;
+      lb.classList.remove('hidden');
+      lb.style.display = 'flex';
+      lb.style.zIndex = '300';
+    }
+  }
+
+  const lb = document.getElementById('gallery-lightbox');
+  if (lb) {
+    lb.addEventListener('click', (e) => {
+      if (e.target.id === 'gallery-lightbox' || e.target.id === 'lightbox-close') {
+        lb.classList.add('hidden');
+        lb.style.display = 'none';
+      }
+    });
+  }
+
+  // Open Project Details modal
+  function openProjectModal(tileId) {
+    const p = projectData[tileId];
+    if (!p) return;
+
+    const titleEl = document.getElementById('proj-title');
+    const catEl = document.getElementById('proj-category');
+    const posEl = document.getElementById('proj-positioning');
+    const descEl = document.getElementById('proj-desc');
+    const barEl = document.getElementById('proj-titlebar');
+    const chalEl = document.getElementById('proj-challenge');
+    const dirEl = document.getElementById('proj-direction');
+    const outEl = document.getElementById('proj-outcome');
+
+    if (titleEl) titleEl.textContent = p.title;
+    if (catEl) catEl.textContent = p.category;
+    if (posEl) posEl.textContent = p.positioning;
+    if (descEl) descEl.textContent = p.description;
+    if (barEl) barEl.textContent = p.title;
+    if (chalEl) chalEl.textContent = p.brief.challenge;
+    if (dirEl) dirEl.textContent = p.brief.direction;
+    if (outEl) outEl.textContent = p.brief.outcome;
+
+    // Render Gallery Images
+    const galleryGrid = document.getElementById('proj-gallery-grid');
+    if (galleryGrid) {
+      galleryGrid.innerHTML = '';
+      (p.gallerySrcs || []).slice(0, 3).forEach((src, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'group aspect-square overflow-hidden rounded-[8px] bg-black/5 border border-black/10 outline-none cursor-pointer';
+        btn.onclick = () => openLightbox(src);
+        btn.innerHTML = `<img src="${src}" alt="${p.title} gallery ${idx+1}" class="size-full object-cover transition-transform duration-300 group-hover:scale-105" draggable="false" />`;
+        galleryGrid.appendChild(btn);
+      });
+    }
+
+    openWindow('window-project');
+  }
+
+  // Project tile click AND double-click handlers
+  document.querySelectorAll('[data-atelier-tile]').forEach(tile => {
+    const trigger = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const tileId = tile.getAttribute('data-tile-id');
+      if (tileId === 'dont-open') {
+        openWindow('window-dont-open');
+      } else {
+        openProjectModal(tileId);
+      }
+    };
+
+    tile.addEventListener('click', trigger);
+    tile.addEventListener('dblclick', trigger);
+  });
+
+  // Dock buttons click (Covers ALL 7 macOS apps)
+  document.querySelectorAll('[data-dock-app]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const app = btn.getAttribute('data-dock-app');
+      if (app === 'notes') {
+        openWindow('window-notes');
+      } else if (app === 'photos') {
+        openWindow('window-photos');
+      } else if (app === 'x') {
+        openWindow('window-x');
+      } else if (app === 'mail') {
+        openWindow('window-mail');
+      } else if (app === 'trash') {
+        openWindow('window-trash');
+      } else if (app === 'claude') {
+        openWindow('window-claude');
+      } else if (app === 'figma') {
+        openWindow('window-figma');
+      }
+    });
+  });
+
+  // Universal Close buttons inside any window
+  document.addEventListener('click', (e) => {
+    // 1. Close by data-close-window attribute
+    const closeBtn = e.target.closest('[data-close-window]');
+    if (closeBtn) {
+      const winKey = closeBtn.getAttribute('data-close-window');
+      closeWindow(`window-${winKey}`);
+      return;
+    }
+
+    // 2. Traffic-light red close button
+    const redTrafficBtn = e.target.closest('button[aria-label="Close"], button[class*="bg-[#ff5f57]"], button[class*="bg-red-"]');
+    if (redTrafficBtn) {
+      const win = redTrafficBtn.closest('.atelier-window, [role="dialog"]');
+      if (win) {
+        win.classList.add('hidden');
+        win.style.display = 'none';
+      }
+    }
+  });
+
+  // Click on window brings to front
+  document.querySelectorAll('.atelier-window, [role="dialog"]').forEach(win => {
+    win.addEventListener('mousedown', () => bringToFront(win));
+    win.addEventListener('touchstart', () => bringToFront(win), { passive: true });
+  });
+
+  // Photos App: Click on any photo to open lightbox
+  const photosWin = document.getElementById('window-photos');
+  if (photosWin) {
+    photosWin.querySelectorAll('img').forEach(img => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', () => {
+        openLightbox(img.src);
+      });
+    });
+  }
+
+  // Draggable Windows via Titlebar
+  document.querySelectorAll('.window-titlebar, [class*="titlebar"], [class*="h-10"][class*="border-b"]').forEach(bar => {
+    bar.addEventListener('mousedown', (e) => {
+      if (e.target.closest('button') || e.target.closest('input') || e.target.closest('a')) return;
+      const win = bar.closest('.atelier-window, [role="dialog"]');
+      if (!win) return;
+      bringToFront(win);
+
+      let startX = e.clientX;
+      let startY = e.clientY;
+      const rect = win.getBoundingClientRect();
+      let initLeft = rect.left;
+      let initTop = rect.top;
+
+      win.style.transform = 'none';
+      win.style.left = `${initLeft}px`;
+      win.style.top = `${initTop}px`;
+
+      function onMouseMove(ev) {
+        const dx = ev.clientX - startX;
+        const dy = ev.clientY - startY;
+        win.style.left = `${initLeft + dx}px`;
+        win.style.top = `${Math.max(28, initTop + dy)}px`;
+      }
+
+      function onMouseUp() {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+  });
+
+  // Global ESC key to close active window
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const openWins = Array.from(document.querySelectorAll('.atelier-window:not(.hidden), [role="dialog"]:not(.hidden)'));
+      if (openWins.length > 0) {
+        // Close topmost window
+        openWins.sort((a, b) => (parseInt(b.style.zIndex || '0') - parseInt(a.style.zIndex || '0')));
+        openWins[0].classList.add('hidden');
+        openWins[0].style.display = 'none';
+      }
+      const lb = document.getElementById('gallery-lightbox');
+      if (lb) {
+        lb.classList.add('hidden');
+        lb.style.display = 'none';
+      }
+    }
+  });
+
+})();
+</script>

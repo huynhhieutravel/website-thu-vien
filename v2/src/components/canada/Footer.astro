@@ -1,0 +1,15 @@
+---
+// v2/src/components/canada/Footer.astro
+import rawFooter from '../../raw/canada-footer.html?raw';
+
+const footerHtml = rawFooter
+  .replace('href="/"', 'href="/canada"')
+  .replace('href="/projects"', 'href="/canada/projects"')
+  .replace('href="/blog"', 'href="/canada/blog"')
+  .replace('href="/about"', 'href="/canada/about"')
+  .replace('href="/shop"', 'href="/canada/shop"')
+  .replace('href="/contact"', 'href="/canada/contact"');
+---
+
+<Fragment set:html={footerHtml} />
+

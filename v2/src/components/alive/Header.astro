@@ -1,0 +1,12 @@
+---
+// v2/src/components/alive/Header.astro
+interface Props {
+  current?: 'home' | 'work' | 'contact';
+}
+
+const { current = 'home' } = Astro.props;
+
+const headerHtml = `<header class="fixed inset-x-0 top-0 z-50 flex items-center justify-end border-b border-border/60 bg-background/70 px-4 py-2.5 backdrop-blur-md animate-in fade-in slide-in-from-top-3 duration-700 ease-out md:px-6 md:py-3"><nav class="flex items-center gap-4 md:gap-5"><a style="font-family:var(--font-bricolage);font-weight:500;letter-spacing:-0.01em" class="hidden text-[13px] transition-colors sm:inline-block ${current === 'home' ? 'text-foreground' : 'text-foreground/70 hover:text-foreground'}" href="/alive">Home</a><a style="font-family:var(--font-bricolage);font-weight:500;letter-spacing:-0.01em" class="hidden text-[13px] transition-colors sm:inline-block ${current === 'work' ? 'text-foreground' : 'text-foreground/70 hover:text-foreground'}" href="/alive/work">Work</a><a style="font-family:var(--font-bricolage);font-weight:600;letter-spacing:-0.01em" class="group inline-flex items-center gap-1 rounded-full border border-foreground/20 text-foreground px-3 py-1 text-[11px] transition-colors hover:border-foreground hover:bg-foreground hover:text-background md:px-3.5 md:text-[12px] ${current === 'contact' ? 'bg-foreground text-background' : ''}" href="/alive/contact"><span class="md:hidden">Contact</span><span class="hidden md:inline">Start a Project</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></nav></header>`;
+---
+
+<Fragment set:html={headerHtml} />

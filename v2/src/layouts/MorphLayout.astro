@@ -1,0 +1,142 @@
+---
+// v2/src/layouts/MorphLayout.astro - Dedicated Layout for Morph Landscape Photography (Astro Native)
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Morph — Landscape and Aerial Photography | Astro Native",
+  description = "Morph is a landscape and aerial photographic practice working at the edges of coastlines, ice and open ground.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <script is:inline>
+      (function(){
+        try {
+          var d = document.documentElement;
+          var t = localStorage.getItem('morph-theme');
+          d.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+          d.setAttribute('data-anim', 'on');
+        } catch(e) {}
+      })();
+
+      (function() {
+        function cleanUrl(val) {
+          if (typeof val === "string" && val.includes("/_next/image?url=")) {
+            if (val.includes(",")) {
+              return val.replace(/\/_next\/image\?url=([%a-zA-Z0-9_\-\.\/]+)(?:&amp;|&)[^,\s>]+/g, function(m, u) {
+                return decodeURIComponent(u);
+              });
+            }
+            var m = val.match(/url=([^&]+)/);
+            if (m) {
+              return decodeURIComponent(m[1]);
+            }
+          }
+          return val;
+        }
+
+        var origSetAttr = Element.prototype.setAttribute;
+        Element.prototype.setAttribute = function(name, val) {
+          if (name === "src" || name === "srcset" || name === "imagesrcset" || name === "href") {
+            val = cleanUrl(val);
+          }
+          return origSetAttr.call(this, name, val);
+        };
+
+        var srcDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+        if (srcDesc && srcDesc.set) {
+          Object.defineProperty(HTMLImageElement.prototype, "src", {
+            get: srcDesc.get,
+            set: function(val) { return srcDesc.set.call(this, cleanUrl(val)); },
+            configurable: true, enumerable: true
+          });
+        }
+
+        var srcsetDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "srcset");
+        if (srcsetDesc && srcsetDesc.set) {
+          Object.defineProperty(HTMLImageElement.prototype, "srcset", {
+            get: srcsetDesc.get,
+            set: function(val) { return srcsetDesc.set.call(this, cleanUrl(val)); },
+            configurable: true, enumerable: true
+          });
+        }
+      })();
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:site_name" content="Morph" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/morph-thumb-16x9.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/images/morph-thumb-16x9.jpg" />
+    <link rel="icon" href="/favicon-morph.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#e9e7e1" />
+
+    <!-- Fonts Preload -->
+    <link rel="preload" href="/_next/static/media/fabcf92ba1ccea36-s.p.0lwj123ije5i..woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+    <link rel="preload" href="/_next/static/media/0c89a48fa5027cee-s.p.0rd3rjvnnhw7n.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+    <link rel="preload" href="/_next/static/media/797e433ab948586e-s.p.08e28id.o-okb.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+
+    <!-- Morph Design System CSS -->
+    <link rel="stylesheet" href="/_next/static/chunks/0li~gum5lnmxn.css" />
+
+    <!-- Next.js Client Runtime Chunks for 3D Interactive Exhibition & Gallery Controls -->
+    <script is:inline src="/_next/static/chunks/08c.bg9i0k-r5.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0hfmyr2v~c6wl.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0gbob~i-ldsan.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/15aajb2~23blg.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/turbopack-0utg2uq27bc.i.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/12huqq5u800tn.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/turbopack-0~js0tp_x-9hi.js" defer=""></script>
+    <script is:inline src="/_next/static/R4b5L9yHR_m_tCpbeYQ4O/_buildManifest.js" defer=""></script>
+    <script is:inline src="/_next/static/R4b5L9yHR_m_tCpbeYQ4O/_ssgManifest.js" defer=""></script>
+    <script is:inline src="/_next/static/R4b5L9yHR_m_tCpbeYQ4O/_clientMiddlewareManifest.js" defer=""></script>
+
+    <style is:global>
+      :root {
+        --font-app-sans: 'Space Grotesk', 'Space Grotesk Fallback', sans-serif;
+        --font-app-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+        --font-app-heading: 'Bebas Neue', 'Bebas Neue Fallback', sans-serif;
+      }
+      header.mo-header {
+        top: 40px !important;
+      }
+      [data-modulify-badge] {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-full flex flex-col antialiased">
+    <!-- Top Bar Navigation quay lại Thư Viện -->
+    <aside style="position:fixed;top:0;left:0;right:0;z-index:99999;background:rgba(23,23,20,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.12);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:0.18em;font-family:sans-serif;color:#e9e7e1;">
+      <a href="/" style="color:#e9e7e1;text-decoration:none;display:flex;align-items:center;gap:6px;font-weight:600;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>← Về Trang Chủ Thư Viện</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);padding:3px 12px;border-radius:9999px;color:#e9e7e1;font-size:10px;font-weight:700;">
+          Phiên Bản: Astro Code Native (Component Hóa)
+        </span>
+        <a href="/morph-original" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:10px;border-left:1px solid rgba(255,255,255,0.2);padding-left:12px;" title="Xem Bản Gốc">
+          Xem Bản Gốc ↗
+        </a>
+      </div>
+    </aside>
+
+    <div id="__next"><div class="h-full font-sans"><slot /></div></div>
+
+    <script is:inline id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/","query":{},"buildId":"R4b5L9yHR_m_tCpbeYQ4O","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script>
+  </body>
+</html>

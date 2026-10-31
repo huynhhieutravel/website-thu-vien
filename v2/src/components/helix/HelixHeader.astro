@@ -1,0 +1,56 @@
+---
+// v2/src/components/helix/HelixHeader.astro
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/helix' } = Astro.props;
+
+const isIndex = currentPath === '/helix' || currentPath === '/helix/';
+const isAbout = currentPath.startsWith('/helix/about');
+const isContact = currentPath.startsWith('/helix/contact');
+---
+
+<header class="pointer-events-none fixed inset-x-0 z-[5000]" style="top: 36px;">
+  <div class="flex items-baseline justify-between px-[clamp(18px,4vw,46px)] py-[clamp(15px,2.6vh,26px)] transition-[background-color,border-color,backdrop-filter] duration-700 border-b border-transparent">
+    <a class="pointer-events-auto flex items-baseline gap-3 outline-none" aria-label="Helix, back to the index" href="/helix">
+      <span class="text-[13px] font-medium uppercase leading-none tracking-[0.42em] text-ink">Helix</span>
+      <span class="micro-wide hidden text-ink/30 sm:block">Thirty frames, one coil</span>
+    </a>
+    <nav aria-label="Primary" class="flex items-baseline gap-[clamp(16px,3vw,34px)]">
+      <a
+        aria-current={isIndex ? "page" : undefined}
+        class={`micro group pointer-events-auto relative pb-1 transition-colors duration-500 ${isIndex ? "text-ink" : "text-ink/45 hover:text-ink"}`}
+        href="/helix"
+      >
+        Index
+        <span
+          aria-hidden="true"
+          class={`absolute inset-x-0 bottom-0 h-px origin-left bg-ember transition-transform duration-500 ease-out ${isIndex ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
+        ></span>
+      </a>
+      <a
+        aria-current={isAbout ? "page" : undefined}
+        class={`micro group pointer-events-auto relative pb-1 transition-colors duration-500 ${isAbout ? "text-ink" : "text-ink/45 hover:text-ink"}`}
+        href="/helix/about"
+      >
+        About
+        <span
+          aria-hidden="true"
+          class={`absolute inset-x-0 bottom-0 h-px origin-left bg-ember transition-transform duration-500 ease-out ${isAbout ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
+        ></span>
+      </a>
+      <a
+        aria-current={isContact ? "page" : undefined}
+        class={`micro group pointer-events-auto relative pb-1 transition-colors duration-500 ${isContact ? "text-ink" : "text-ink/45 hover:text-ink"}`}
+        href="/helix/contact"
+      >
+        Contact
+        <span
+          aria-hidden="true"
+          class={`absolute inset-x-0 bottom-0 h-px origin-left bg-ember transition-transform duration-500 ease-out ${isContact ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
+        ></span>
+      </a>
+    </nav>
+  </div>
+</header>

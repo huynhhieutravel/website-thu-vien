@@ -1,0 +1,112 @@
+---
+// v2/src/components/marathon/MarathonFooter.astro
+---
+
+<footer class="border-t border-white/10 bg-[#0b0b0d]">
+  <div class="mx-auto max-w-7xl px-5 py-16 sm:px-8">
+    <div class="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]">
+      <!-- Brand & Mission -->
+      <div>
+        <div class="flex items-center gap-2.5 text-white">
+          <svg aria-hidden="true" class="h-5 w-5" fill="none" viewBox="0 0 24 24">
+            <path
+              d="M4 19 C 6 14, 9 13, 11 11 C 13 9, 12 6, 15 5 C 17.5 4.2, 19 5, 20 3"
+              fill="none"
+              stroke="#E94E1B"
+              stroke-linecap="round"
+              stroke-width="2.2"
+            ></path>
+            <circle cx="4" cy="19" fill="#E94E1B" r="2.2"></circle>
+            <circle cx="20" cy="3" fill="#E94E1B" r="2.2"></circle>
+          </svg>
+          <span class="text-sm font-bold tracking-[0.22em]">MARATHON</span>
+        </div>
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-white/50">
+          Run with intention. Track every mile, train smarter, and find your pack.
+        </p>
+        <div class="mt-6 flex gap-3">
+          <a
+            aria-label="Social link Instagram"
+            class="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-white/30 hover:text-white"
+            href="#"
+          >
+            <svg class="h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+              <rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+          </a>
+          <a
+            aria-label="Social link Twitter"
+            class="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-white/30 hover:text-white"
+            href="#"
+          >
+            <svg class="h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+            </svg>
+          </a>
+          <a
+            aria-label="Social link YouTube"
+            class="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-white/30 hover:text-white"
+            href="#"
+          >
+            <svg class="h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+              <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
+              <path d="m10 15 5-3-5-3z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 1: Product -->
+      <div>
+        <h3 class="text-[11px] font-bold tracking-[0.18em] text-white/70">PRODUCT</h3>
+        <ul class="mt-5 flex flex-col gap-3">
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="/marathon">Features</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="/marathon">Training plans</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="/marathon">Community</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="/marathon">Pricing</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="/marathon">Download</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Company -->
+      <div>
+        <h3 class="text-[11px] font-bold tracking-[0.18em] text-white/70">COMPANY</h3>
+        <ul class="mt-5 flex flex-col gap-3">
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="/marathon/about">About</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="#">Careers</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="#">Press</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Resources -->
+      <div>
+        <h3 class="text-[11px] font-bold tracking-[0.18em] text-white/70">RESOURCES</h3>
+        <ul class="mt-5 flex flex-col gap-3">
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="#">Help center</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="#">Runner guides</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="#">Status</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="/marathon/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Legal -->
+      <div>
+        <h3 class="text-[11px] font-bold tracking-[0.18em] text-white/70">LEGAL</h3>
+        <ul class="mt-5 flex flex-col gap-3">
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="#">Privacy</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="#">Terms</a></li>
+          <li><a class="text-sm text-white/50 transition-colors hover:text-white" href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
+      <p class="text-xs text-white/40">© 2026 Marathon. All rights reserved.</p>
+      <p class="text-xs text-white/40">Made for runners, everywhere.</p>
+    </div>
+  </div>
+</footer>

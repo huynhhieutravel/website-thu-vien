@@ -1,0 +1,134 @@
+---
+// v2/src/layouts/MarathonLayout.astro
+import MarathonHeader from '../components/marathon/MarathonHeader.astro';
+import MarathonFooter from '../components/marathon/MarathonFooter.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  activePage?: 'home' | 'about' | 'contact';
+}
+
+const {
+  title = "Marathon",
+  description = "Marathon is the running companion that turns every mile into momentum, with live tracking, heart rate zones, and adaptive coaching built for runners who want more.",
+  activePage = 'home'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#0b0b0d] text-white">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Core Marathon Stylesheet -->
+    <link rel="stylesheet" href="/_next/static/chunks/0-8v84sem~boy.css" />
+    <link rel="stylesheet" href="/_next/static/chunks/0.153jf2e137..css" />
+
+    <style is:global>
+      /* Ensure proper padding for Top Bar */
+      body {
+        padding-top: 36px !important;
+        margin: 0;
+        background-color: #0b0b0d;
+        color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Top Bar */
+      #marathon-top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 36px;
+        background: #0d0f12;
+        color: #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        z-index: 999999;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      #marathon-top-bar a.back-btn {
+        color: #94a3b8;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: color 0.2s;
+      }
+      #marathon-top-bar a.back-btn:hover {
+        color: #fff;
+      }
+
+      #marathon-top-bar .orig-btn {
+        background: #e94e1b;
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        transition: opacity 0.2s;
+      }
+      #marathon-top-bar .orig-btn:hover {
+        opacity: 0.88;
+      }
+
+      .glass {
+        background: rgba(15, 18, 22, 0.32);
+        backdrop-filter: blur(18px) saturate(140%);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+      }
+
+      @keyframes route-dash {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes marathon-pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.6); opacity: 0.4; }
+      }
+    </style>
+  </head>
+  <body class="min-h-full flex flex-col bg-[#0b0b0d] text-white">
+    <!-- Top Bar -->
+    <header id="marathon-top-bar">
+      <a href="/" class="back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+        <span>← Quay lại Thư viện</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#e94e1b;"></span>
+        <span style="color:#f8fafc;font-weight:600;letter-spacing:0.02em;">MARATHON — ASTRO NATIVE COMPONENT-BASED</span>
+      </div>
+      <a href="/marathon-original" class="orig-btn">
+        XEM BẢN GỐC 1-TO-1 →
+      </a>
+    </header>
+
+    <div class="page-root min-h-screen flex flex-col justify-between">
+      <MarathonHeader activePage={activePage} />
+      <slot />
+      <MarathonFooter />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+---
+// v2/src/components/frieze/Header.astro - Frieze Navigation Header & Mobile Overlay (Astro Native)
+interface Props {
+  current?: 'work' | 'about' | 'contact';
+}
+
+const { current = 'work' } = Astro.props;
+---
+
+<header class="fixed inset-x-0 top-0 z-[70] transition-[background-color,border-color] duration-500 border-b border-transparent" style="background:transparent;border-bottom-color:transparent">
+  <div class="pointer-events-none flex items-center justify-between px-6 py-5 sm:px-12 sm:py-7" style="padding-top:max(1.25rem, env(safe-area-inset-top))">
+    <a class="pointer-events-auto font-serif text-[19px] leading-none tracking-[-0.01em] transition-opacity duration-300 hover:opacity-60" href="/frieze" style="color:var(--fz-ink)">
+      Frieze
+    </a>
+    <nav aria-label="Primary" class="pointer-events-auto hidden items-center gap-9 sm:flex">
+      <a
+        aria-current={current === 'work' ? 'page' : undefined}
+        class="text-[11px] uppercase tracking-[0.24em] leading-none pb-1 transition-colors duration-300"
+        href="/frieze"
+        style={current === 'work' ? 'color:var(--fz-ink);border-bottom:1px solid;border-bottom-color:var(--fz-rule-on)' : 'color:var(--fz-faint);border-bottom:1px solid;border-bottom-color:transparent'}
+      >
+        Work
+      </a>
+      <a
+        aria-current={current === 'about' ? 'page' : undefined}
+        class="text-[11px] uppercase tracking-[0.24em] leading-none pb-1 transition-colors duration-300"
+        href="/frieze/about"
+        style={current === 'about' ? 'color:var(--fz-ink);border-bottom:1px solid;border-bottom-color:var(--fz-rule-on)' : 'color:var(--fz-faint);border-bottom:1px solid;border-bottom-color:transparent'}
+      >
+        About
+      </a>
+      <a
+        aria-current={current === 'contact' ? 'page' : undefined}
+        class="text-[11px] uppercase tracking-[0.24em] leading-none pb-1 transition-colors duration-300"
+        href="/frieze/contact"
+        style={current === 'contact' ? 'color:var(--fz-ink);border-bottom:1px solid;border-bottom-color:var(--fz-rule-on)' : 'color:var(--fz-faint);border-bottom:1px solid;border-bottom-color:transparent'}
+      >
+        Contact
+      </a>
+      <span aria-hidden="true" class="h-3 w-px" style="background:var(--fz-rule)"></span>
+      <button id="fz-theme-btn" class="text-[11px] uppercase tracking-[0.24em] leading-none pb-1 transition-colors duration-300 hover:opacity-100" style="color:var(--fz-faint)" type="button">
+        Light
+      </button>
+    </nav>
+    <button id="fz-menu-btn" aria-expanded="false" class="text-[11px] uppercase tracking-[0.24em] leading-none pointer-events-auto sm:hidden" style="color:var(--fz-faint)" type="button">
+      Menu
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div id="fz-mobile-menu" aria-hidden="true" class="fixed inset-0 z-[80] flex flex-col justify-between px-6 py-5 transition-opacity duration-500 sm:hidden pointer-events-none opacity-0" style="background:var(--fz-bg);padding-top:max(1.25rem, env(safe-area-inset-top))">
+  <div class="flex items-center justify-between">
+    <span class="font-serif text-[19px] leading-none tracking-[-0.01em]" style="color:var(--fz-ink)">
+      Frieze
+    </span>
+    <button id="fz-close-btn" class="text-[11px] uppercase tracking-[0.24em] leading-none" style="color:var(--fz-faint)" tabindex="-1" type="button">
+      Close
+    </button>
+  </div>
+  <nav aria-label="Mobile" class="flex flex-col gap-1 pb-4">
+    <a class="font-serif leading-[1.08] tracking-[-0.02em] transition-all duration-500" href="/frieze" style={`font-size:clamp(2.75rem, 15vw, 4.5rem);color:${current === 'work' ? 'var(--fz-ink)' : 'var(--fz-sub)'};`} tabindex="-1">
+      Work
+    </a>
+    <a class="font-serif leading-[1.08] tracking-[-0.02em] transition-all duration-500" href="/frieze/about" style={`font-size:clamp(2.75rem, 15vw, 4.5rem);color:${current === 'about' ? 'var(--fz-ink)' : 'var(--fz-sub)'};`} tabindex="-1">
+      About
+    </a>
+    <a class="font-serif leading-[1.08] tracking-[-0.02em] transition-all duration-500" href="/frieze/contact" style={`font-size:clamp(2.75rem, 15vw, 4.5rem);color:${current === 'contact' ? 'var(--fz-ink)' : 'var(--fz-sub)'};`} tabindex="-1">
+      Contact
+    </a>
+  </nav>
+  <div class="flex items-center justify-between pb-2">
+    <span class="text-[11px] uppercase tracking-[0.24em] leading-none" style="color:var(--fz-faint)">
+      Est. 2016
+    </span>
+    <button id="fz-theme-btn-mobile" class="text-[11px] uppercase tracking-[0.24em] leading-none" style="color:var(--fz-faint)" tabindex="-1" type="button">
+      Light
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  // Mobile drawer & Theme toggle functionality
+  (function() {
+    const menuBtn = document.getElementById('fz-menu-btn');
+    const closeBtn = document.getElementById('fz-close-btn');
+    const drawer = document.getElementById('fz-mobile-menu');
+
+    function toggleMenu(open) {
+      if (!drawer) return;
+      if (open) {
+        drawer.classList.remove('pointer-events-none', 'opacity-0');
+        drawer.classList.add('pointer-events-auto', 'opacity-100');
+        drawer.setAttribute('aria-hidden', 'false');
+      } else {
+        drawer.classList.remove('pointer-events-auto', 'opacity-100');
+        drawer.classList.add('pointer-events-none', 'opacity-0');
+        drawer.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', () => toggleMenu(true));
+    if (closeBtn) closeBtn.addEventListener('click', () => toggleMenu(false));
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      const btns = [document.getElementById('fz-theme-btn'), document.getElementById('fz-theme-btn-mobile')];
+      btns.forEach(b => {
+        if (b) b.textContent = next === 'dark' ? 'Light' : 'Dark';
+      });
+    }
+
+    const tBtn1 = document.getElementById('fz-theme-btn');
+    const tBtn2 = document.getElementById('fz-theme-btn-mobile');
+    if (tBtn1) tBtn1.addEventListener('click', toggleTheme);
+    if (tBtn2) tBtn2.addEventListener('click', toggleTheme);
+  })();
+</script>
+

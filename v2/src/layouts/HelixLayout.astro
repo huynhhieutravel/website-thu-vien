@@ -1,0 +1,102 @@
+---
+// v2/src/layouts/HelixLayout.astro - Website 28: Helix
+import '../../src/styles/global.css';
+import HelixHeader from '../components/helix/HelixHeader.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentPath?: string;
+}
+
+const {
+  title = "Index | Helix",
+  description = "Thirty prints wound onto a single vertical coil. Hover, drag or scroll to wind the strand; the frame you settle on turns to the centre and names itself.",
+  currentPath = "/helix"
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" class="h-full bg-void">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preload" href="/_next/static/media/caa3a2e1cccd8315-s.p.09~u27dqhyhd6.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+  <link rel="preload" href="/_next/static/media/a218039a3287bcfd-s.p.17-1enzs_j91b.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+  <link rel="preload" href="/_next/static/media/8e6fa89aa22d24ec-s.p.0uvzar8hswo3p.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+  <link rel="preload" href="/_next/static/media/e2334d715941921e-s.p.12skym0rqknxy.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+  <link rel="stylesheet" href="/_next/static/chunks/04kltxcis1.xf.css" />
+  <script src="/scripts/gsap.min.js" is:inline></script>
+  <style is:global>
+    :root {
+      --color-void: #0d0b0a;
+      --color-ink: #f4f2ee;
+      --color-ember: #c8a86a;
+      --font-heading: 'Poppins', 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    body {
+      background-color: var(--color-void);
+      color: var(--color-ink);
+      font-family: var(--font-heading);
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col bg-void text-ink font-heading antialiased">
+  <!-- Top Bar Navigation quay lại Thư Viện -->
+  <aside style="position:fixed;top:0;left:0;right:0;height:36px;z-index:999999;background:rgba(10,9,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.08);padding:0 20px;display:flex;align-items:center;justify-content:space-between;font-size:11px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:#f6efe2;">
+    <a href="/" style="color:#f6efe2;text-decoration:none;display:flex;align-items:center;gap:6px;font-weight:600;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <span>← Về Trang Chủ Thư Viện</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);padding:3px 12px;border-radius:9999px;font-weight:700;color:#f6efe2;font-size:10px;">
+        Phiên bản: Astro Code Native (Component Hóa)
+      </span>
+      <a href="/helix-original" style="color:rgba(246,239,226,0.7);text-decoration:none;font-size:10px;border-left:1px solid rgba(255,255,255,0.18);padding-left:12px;" title="Xem Bản Gốc 1-to-1">
+        Xem Bản Gốc ↗
+      </a>
+    </div>
+  </aside>
+
+  <HelixHeader currentPath={currentPath} />
+
+  <slot />
+
+  <script>
+    function initReveals() {
+      const reveals = Array.from(document.querySelectorAll('[data-reveal]'));
+      if (!reveals.length) return;
+
+      if (typeof IntersectionObserver === 'undefined') {
+        reveals.forEach(el => el.setAttribute('data-revealed', 'true'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.setAttribute('data-revealed', 'true');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px 50px 0px' });
+
+      reveals.forEach(el => observer.observe(el));
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initReveals);
+    } else {
+      initReveals();
+    }
+  </script>
+</body>
+</html>

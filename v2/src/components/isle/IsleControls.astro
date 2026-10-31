@@ -1,0 +1,278 @@
+---
+// v2/src/components/isle/IsleControls.astro
+---
+
+<!-- Toggle Button (Left Side) -->
+<button
+  id="isle-cfg-toggle"
+  type="button"
+  aria-label="Open glass controls"
+  aria-expanded="false"
+  class="isl-cfg-btn isl-cfg-in absolute left-[18px] top-1/2 z-[4] flex h-[44px] w-[44px] -translate-y-1/2 items-center justify-center rounded-full text-white/85 select-none transition-transform hover:scale-105 active:scale-95"
+  style="background:rgba(8,12,20,0.32);backdrop-filter:blur(12px) saturate(1.5);-webkit-backdrop-filter:blur(12px) saturate(1.5);box-shadow:0 10px 26px rgba(3,7,14,0.30), inset 0 1px 0 rgba(255,255,255,0.16), inset 0 0 0 0.6px rgba(255,255,255,0.10);"
+>
+  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+    <line x1="3" y1="5" x2="17" y2="5"></line>
+    <circle cx="7" cy="5" r="2.2" fill="#0c101a"></circle>
+    <line x1="3" y1="10" x2="17" y2="10"></line>
+    <circle cx="13" cy="10" r="2.2" fill="#0c101a"></circle>
+    <line x1="3" y1="15" x2="17" y2="15"></line>
+    <circle cx="8" cy="15" r="2.2" fill="#0c101a"></circle>
+  </svg>
+</button>
+
+<!-- Slide-out Glass Controls Panel -->
+<div
+  id="isle-cfg-panel"
+  class="isl-cfg-panel absolute left-[18px] top-1/2 z-[10] hidden w-[270px] -translate-y-1/2 overflow-hidden rounded-2xl select-none transition-all duration-300"
+  style="backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);background:rgba(10,14,22,0.65);box-shadow:0 20px 48px rgba(3,7,14,0.5), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 0 0 0.6px rgba(255,255,255,0.10);"
+>
+  <!-- Bevel Highlights -->
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="border-radius:inherit;padding:1.4px;-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;mix-blend-mode:screen;background:linear-gradient(135deg, rgba(255,255,255,0) 6%, rgba(255,255,255,0.12) 34%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.1) 66%, rgba(255,255,255,0) 94%);"
+  ></div>
+
+  <div class="relative px-4 pb-4 pt-3.5">
+    <!-- Panel Header -->
+    <div class="flex items-center justify-between pb-3 border-b border-white/10">
+      <span class="isl-ink text-[11px] font-semibold uppercase tracking-[0.14em]">Glass controls</span>
+      <div class="flex items-center gap-1.5">
+        <button
+          id="cfg-reset"
+          type="button"
+          class="isl-cfg-btn isl-ink-2 rounded-full px-2 py-0.5 text-[10px] tracking-[0.06em] border border-white/10 hover:border-white/25"
+        >
+          Reset
+        </button>
+        <button
+          id="cfg-close"
+          type="button"
+          aria-label="Close glass controls"
+          class="isl-cfg-btn isl-ink-2 flex h-[22px] w-[22px] items-center justify-center rounded-full hover:text-white"
+        >
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <line x1="3" y1="3" x2="11" y2="11"></line>
+            <line x1="11" y1="3" x2="3" y2="11"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Sliders List -->
+    <div class="mt-3 flex flex-col gap-2.5">
+      <!-- 1. Refraction -->
+      <div>
+        <div class="flex items-baseline justify-between">
+          <span class="isl-ink-2 text-[10px] uppercase tracking-[0.13em]">Refraction</span>
+          <span id="val-refraction" class="isl-ink text-[10.5px] tabular-nums">200%</span>
+        </div>
+        <input
+          id="slider-refraction"
+          type="range"
+          min="0"
+          max="3"
+          step="0.05"
+          value="2"
+          class="w-full accent-white/80 cursor-pointer h-1 bg-white/15 rounded-lg appearance-none mt-1"
+        />
+      </div>
+
+      <!-- 2. Rim width -->
+      <div>
+        <div class="flex items-baseline justify-between">
+          <span class="isl-ink-2 text-[10px] uppercase tracking-[0.13em]">Rim width</span>
+          <span id="val-bezel" class="isl-ink text-[10.5px] tabular-nums">80%</span>
+        </div>
+        <input
+          id="slider-bezel"
+          type="range"
+          min="0.5"
+          max="1.6"
+          step="0.05"
+          value="0.8"
+          class="w-full accent-white/80 cursor-pointer h-1 bg-white/15 rounded-lg appearance-none mt-1"
+        />
+      </div>
+
+      <!-- 3. Frost -->
+      <div>
+        <div class="flex items-baseline justify-between">
+          <span class="isl-ink-2 text-[10px] uppercase tracking-[0.13em]">Frost</span>
+          <span id="val-frost" class="isl-ink text-[10.5px] tabular-nums">60%</span>
+        </div>
+        <input
+          id="slider-frost"
+          type="range"
+          min="0"
+          max="3"
+          step="0.1"
+          value="0.6"
+          class="w-full accent-white/80 cursor-pointer h-1 bg-white/15 rounded-lg appearance-none mt-1"
+        />
+      </div>
+
+      <!-- 4. Dispersion -->
+      <div>
+        <div class="flex items-baseline justify-between">
+          <span class="isl-ink-2 text-[10px] uppercase tracking-[0.13em]">Dispersion</span>
+          <span id="val-dispersion" class="isl-ink text-[10.5px] tabular-nums">160%</span>
+        </div>
+        <input
+          id="slider-dispersion"
+          type="range"
+          min="0"
+          max="3"
+          step="0.1"
+          value="1.6"
+          class="w-full accent-white/80 cursor-pointer h-1 bg-white/15 rounded-lg appearance-none mt-1"
+        />
+      </div>
+
+      <!-- 5. Saturation -->
+      <div>
+        <div class="flex items-baseline justify-between">
+          <span class="isl-ink-2 text-[10px] uppercase tracking-[0.13em]">Saturation</span>
+          <span id="val-saturation" class="isl-ink text-[10.5px] tabular-nums">1.65</span>
+        </div>
+        <input
+          id="slider-saturation"
+          type="range"
+          min="0.8"
+          max="2.2"
+          step="0.05"
+          value="1.65"
+          class="w-full accent-white/80 cursor-pointer h-1 bg-white/15 rounded-lg appearance-none mt-1"
+        />
+      </div>
+
+      <!-- 6. Rim light -->
+      <div>
+        <div class="flex items-baseline justify-between">
+          <span class="isl-ink-2 text-[10px] uppercase tracking-[0.13em]">Rim light</span>
+          <span id="val-rim" class="isl-ink text-[10.5px] tabular-nums">60%</span>
+        </div>
+        <input
+          id="slider-rim"
+          type="range"
+          min="0"
+          max="1.6"
+          step="0.05"
+          value="0.6"
+          class="w-full accent-white/80 cursor-pointer h-1 bg-white/15 rounded-lg appearance-none mt-1"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initControls() {
+    const toggle = document.getElementById('isle-cfg-toggle');
+    const panel = document.getElementById('isle-cfg-panel');
+    const btnClose = document.getElementById('cfg-close');
+    const btnReset = document.getElementById('cfg-reset');
+    const puck = document.getElementById('isle-puck');
+
+    if (!toggle || !panel) return;
+
+    let isOpen = false;
+
+    function openPanel() {
+      isOpen = true;
+      toggle.style.display = 'none';
+      panel.classList.remove('hidden');
+    }
+
+    function closePanel() {
+      isOpen = false;
+      panel.classList.add('hidden');
+      toggle.style.display = 'flex';
+    }
+
+    toggle.addEventListener('click', openPanel);
+    if (btnClose) btnClose.addEventListener('click', closePanel);
+
+    // Sliders
+    const sliders: Record<string, { el: HTMLInputElement | null; val: HTMLElement | null; def: number; fmt: (v: number) => string }> = {
+      refraction: {
+        el: document.getElementById('slider-refraction') as HTMLInputElement,
+        val: document.getElementById('val-refraction'),
+        def: 2.0,
+        fmt: (v) => `${Math.round(v * 100)}%`
+      },
+      bezel: {
+        el: document.getElementById('slider-bezel') as HTMLInputElement,
+        val: document.getElementById('val-bezel'),
+        def: 0.8,
+        fmt: (v) => `${Math.round(v * 100)}%`
+      },
+      frost: {
+        el: document.getElementById('slider-frost') as HTMLInputElement,
+        val: document.getElementById('val-frost'),
+        def: 0.6,
+        fmt: (v) => `${Math.round(v * 100)}%`
+      },
+      dispersion: {
+        el: document.getElementById('slider-dispersion') as HTMLInputElement,
+        val: document.getElementById('val-dispersion'),
+        def: 1.6,
+        fmt: (v) => `${Math.round(v * 100)}%`
+      },
+      saturation: {
+        el: document.getElementById('slider-saturation') as HTMLInputElement,
+        val: document.getElementById('val-saturation'),
+        def: 1.65,
+        fmt: (v) => v.toFixed(2)
+      },
+      rim: {
+        el: document.getElementById('slider-rim') as HTMLInputElement,
+        val: document.getElementById('val-rim'),
+        def: 0.6,
+        fmt: (v) => `${Math.round(v * 100)}%`
+      }
+    };
+
+    function updatePuckFilter() {
+      if (!puck) return;
+      const ref = parseFloat(sliders.refraction.el?.value || '2');
+      const frost = parseFloat(sliders.frost.el?.value || '0.6');
+      const sat = parseFloat(sliders.saturation.el?.value || '1.65');
+      const rim = parseFloat(sliders.rim.el?.value || '0.6');
+
+      puck.style.backdropFilter = `blur(${(frost * 12).toFixed(1)}px) saturate(${sat.toFixed(2)}) brightness(1.08)`;
+      puck.style.setProperty('--isl-rimi', rim.toFixed(3));
+    }
+
+    Object.keys(sliders).forEach((key) => {
+      const s = sliders[key];
+      if (s.el && s.val) {
+        s.el.addEventListener('input', () => {
+          const val = parseFloat(s.el!.value);
+          s.val!.textContent = s.fmt(val);
+          updatePuckFilter();
+        });
+      }
+    });
+
+    if (btnReset) {
+      btnReset.addEventListener('click', () => {
+        Object.keys(sliders).forEach((key) => {
+          const s = sliders[key];
+          if (s.el && s.val) {
+            s.el.value = String(s.def);
+            s.val.textContent = s.fmt(s.def);
+          }
+        });
+        updatePuckFilter();
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initControls);
+  } else {
+    initControls();
+  }
+</script>
+

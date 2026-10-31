@@ -1,0 +1,13 @@
+---
+// v2/src/pages/lightroom.astro - Website 17: Lightroom Selected Photographic Work by Marlo Vance (Astro Native Component Hóa)
+import LightroomLayout from '../layouts/LightroomLayout.astro';
+import GalleryScroll from '../components/lightroom/GalleryScroll.astro';
+import Fades from '../components/lightroom/Fades.astro';
+import Header from '../components/lightroom/Header.astro';
+import ChromeOverlay from '../components/lightroom/ChromeOverlay.astro';
+---
+
+<LightroomLayout
+  title="Lightroom — The endless index of selected photographic work by Marlo Vance"
+  description="Lightroom — the endless index of selected photographic work by Marlo Vance. Seven shoots, forty-three frames."
+><section class="lr-section relative w-full overflow-hidden" style="--lr-bg:#e9e8e5;--lr-ink:#14130f;--lr-dim:#c7c5bf;--lr-meta:#a7a49d;--lr-cap:#33322d;--lr-line:rgba(20,19,15,0.12);--lr-line-strong:rgba(20,19,15,0.26);--lr-thumb:#dcdad4;--lr-card:#f4f3f0;--lr-fade:233,232,229;height:100dvh;background:var(--lr-bg);color:var(--lr-ink);transition:background 0.4s ease, color 0.4s ease" aria-label="Index of selected photographic work"><GalleryScroll /><Fades /><div class="lr-chrome pointer-events-none fixed inset-0 z-[4] select-none"><Header /><ChromeOverlay /></div></section></LightroomLayout>

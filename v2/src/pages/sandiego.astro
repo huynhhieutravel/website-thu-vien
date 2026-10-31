@@ -1,0 +1,20 @@
+---
+// v2/src/pages/sandiego.astro
+import SanDiegoLayout from '../layouts/SanDiegoLayout.astro';
+import SanDiegoHero from '../components/sandiego/SanDiegoHero.astro';
+import SanDiegoOverview from '../components/sandiego/SanDiegoOverview.astro';
+import SanDiegoFeatures from '../components/sandiego/SanDiegoFeatures.astro';
+import SanDiegoShowcase from '../components/sandiego/SanDiegoShowcase.astro';
+import SanDiegoPricing from '../components/sandiego/SanDiegoPricing.astro';
+---
+
+<SanDiegoLayout title="Home | San Diego" activePage="home">
+  <main>
+    <SanDiegoHero />
+    <SanDiegoOverview />
+    <SanDiegoFeatures />
+    <SanDiegoShowcase />
+    <SanDiegoPricing />
+  </main>
+</SanDiegoLayout>
+

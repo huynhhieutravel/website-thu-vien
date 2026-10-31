@@ -1,0 +1,427 @@
+---
+// v2/src/components/isle/IsleIsland.astro
+---
+
+<!-- Dynamic Island Container -->
+<div
+  id="isle-island"
+  class="isl-island-pos absolute left-1/2 z-[5] select-none cursor-pointer overflow-hidden transition-all duration-500"
+  style="top:108px;width:218px;height:54px;border-radius:27px;transform:translateX(-50%);backdrop-filter:blur(14px) saturate(1.5) brightness(1.08);-webkit-backdrop-filter:blur(14px) saturate(1.5) brightness(1.08);background:rgba(10,14,22,0.45);box-shadow:0 18px 44px rgba(3,7,14,0.35), 0 2px 8px rgba(3,7,14,0.2), inset 0 0 0 0.6px rgba(255,255,255,0.16);touch-action:none;will-change:width,height,border-radius,transform;"
+  role="button"
+  aria-label="Dynamic Island player"
+  aria-expanded="false"
+  tabindex="0"
+>
+  <!-- Glass Rim Highlights -->
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="border-radius:inherit;padding:1.4px;-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;mix-blend-mode:screen;background:linear-gradient(135deg, rgba(255,255,255,0) 6%, rgba(255,255,255,0.15) 34%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.12) 66%, rgba(255,255,255,0) 94%);"
+  ></div>
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="border-radius:inherit;padding:1.4px;-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;mix-blend-mode:overlay;background:linear-gradient(135deg, rgba(255,255,255,0) 6%, rgba(255,255,255,0.1) 34%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.08) 66%, rgba(255,255,255,0) 94%);"
+  ></div>
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="border-radius:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,0.17), inset 0 -1px 0 rgba(255,255,255,0.05), inset 0 0 0 0.6px rgba(255,255,255,0.12);"
+  ></div>
+
+  <!-- 1. Collapsed Pill View -->
+  <div
+    id="island-pill-view"
+    class="pointer-events-none absolute left-1/2 top-0 flex h-full w-[218px] max-w-full -translate-x-1/2 items-center justify-between px-[13px] transition-opacity duration-300"
+    style="opacity:1;"
+  >
+    <!-- Artwork miniature -->
+    <div
+      id="pill-art"
+      aria-hidden="true"
+      class="h-[27px] w-[27px] shrink-0 rounded-[8px] transition-all duration-300"
+      style="background:conic-gradient(from 210deg at 32% 28%, #19e3b1, #4f8dff 28%, #a96bff 52%, #ff8a5c 78%, #19e3b1);box-shadow:0 1px 4px rgba(0,0,0,0.4);"
+    ></div>
+
+    <!-- Center camera lens dot -->
+    <div
+      aria-hidden="true"
+      class="relative h-[11px] w-[11px] shrink-0 rounded-full"
+      style="background:#04060a;box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.18);"
+    >
+      <div
+        class="absolute left-[2.5px] top-[2.5px] h-[3px] w-[3px] rounded-full"
+        style="background:rgba(92,134,255,0.85);"
+      ></div>
+    </div>
+
+    <!-- Soundwave equalizer bars -->
+    <div aria-hidden="true" class="flex h-[20px] shrink-0 items-end gap-[2.5px]">
+      <span class="isl-ink-bg eq-bar w-[3px] rounded-full" style="height:13.5px;transform:scaleY(0.7);transform-origin:center bottom;"></span>
+      <span class="isl-ink-bg eq-bar w-[3px] rounded-full" style="height:13.5px;transform:scaleY(0.35);transform-origin:center bottom;"></span>
+      <span class="isl-ink-bg eq-bar w-[3px] rounded-full" style="height:13.5px;transform:scaleY(0.85);transform-origin:center bottom;"></span>
+      <span class="isl-ink-bg eq-bar w-[3px] rounded-full" style="height:13.5px;transform:scaleY(0.5);transform-origin:center bottom;"></span>
+      <span class="isl-ink-bg eq-bar w-[3px] rounded-full" style="height:13.5px;transform:scaleY(0.9);transform-origin:center bottom;"></span>
+    </div>
+  </div>
+
+  <!-- 2. Expanded Player View -->
+  <div
+    id="island-player-view"
+    class="isl-player pointer-events-none absolute inset-0 flex h-full w-full flex-col px-5 pb-4 pt-[18px] transition-all duration-300"
+    style="opacity:0;transform:scale(0.94);"
+  >
+    <!-- Header row: artwork, title, eq, collapse button -->
+    <div class="flex items-center gap-4">
+      <div
+        id="player-art"
+        aria-hidden="true"
+        class="shrink-0 transition-all duration-300"
+        style="width:72px;height:72px;min-width:72px;min-height:72px;border-radius:16px;background:conic-gradient(from 210deg at 32% 28%, #19e3b1, #4f8dff 28%, #a96bff 52%, #ff8a5c 78%, #19e3b1);box-shadow:0 4px 14px rgba(0,0,0,0.35);"
+      ></div>
+
+      <div class="isl-track-pop min-w-0 flex-1">
+        <p id="player-title" class="isl-ink truncate text-[16px] font-semibold leading-tight">
+          Refraction
+        </p>
+        <p id="player-artist" class="isl-ink-2 truncate text-[13px] leading-snug">
+          Glasshouse
+        </p>
+      </div>
+
+      <!-- Player equalizer bars -->
+      <div aria-hidden="true" class="flex h-[24px] items-end gap-[3px] pr-7">
+        <span class="isl-ink-bg eq-bar w-[3.5px] rounded-full" style="height:16.5px;transform:scaleY(0.7);transform-origin:center bottom;"></span>
+        <span class="isl-ink-bg eq-bar w-[3.5px] rounded-full" style="height:16.5px;transform:scaleY(0.35);transform-origin:center bottom;"></span>
+        <span class="isl-ink-bg eq-bar w-[3.5px] rounded-full" style="height:16.5px;transform:scaleY(0.85);transform-origin:center bottom;"></span>
+        <span class="isl-ink-bg eq-bar w-[3.5px] rounded-full" style="height:16.5px;transform:scaleY(0.5);transform-origin:center bottom;"></span>
+        <span class="isl-ink-bg eq-bar w-[3.5px] rounded-full" style="height:16.5px;transform:scaleY(0.9);transform-origin:center bottom;"></span>
+      </div>
+
+      <!-- Collapse chevron button -->
+      <button
+        id="btn-collapse"
+        type="button"
+        aria-label="Collapse island"
+        class="isl-ink-2 absolute right-5 top-[18px] p-1 transition-transform hover:scale-110 active:scale-95"
+      >
+        <svg aria-hidden="true" fill="none" height="13" viewBox="0 0 14 14" width="13">
+          <path d="M3 8.6 7 4.8l4 3.8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Scrubber Slider -->
+    <div class="mt-5">
+      <div
+        id="player-scrubber"
+        aria-label="Track position"
+        role="slider"
+        class="isl-slider group relative h-[22px] cursor-pointer"
+      >
+        <div class="isl-track-bg absolute inset-x-0 top-1/2 h-[5px] -translate-y-1/2 rounded-full">
+          <div id="scrubber-bar" class="isl-ink-bg absolute left-0 top-0 h-full rounded-full" style="width:12%;"></div>
+        </div>
+        <div
+          id="scrubber-thumb"
+          class="isl-thumb absolute top-1/2 h-[13px] w-[13px] rounded-full"
+          style="left:12%;transform:translate(-50%, -50%);"
+        ></div>
+      </div>
+      <div class="isl-ink-2 -mt-0.5 flex justify-between text-[10.5px] tabular-nums tracking-wide">
+        <span id="time-current">0:27</span>
+        <span id="time-total">3:48</span>
+      </div>
+    </div>
+
+    <!-- Controls Row -->
+    <div class="mt-auto flex items-center gap-3">
+      <div class="flex flex-1 items-center justify-center gap-2">
+        <!-- Previous -->
+        <button
+          id="btn-prev"
+          type="button"
+          aria-label="Previous track"
+          class="isl-btn isl-ink flex items-center justify-center rounded-full"
+          style="width:40px;height:40px;min-width:40px;min-height:40px;"
+        >
+          <svg aria-hidden="true" fill="currentColor" height="17" style="transform:scaleX(-1);" viewBox="0 0 18 18" width="17">
+            <path d="M2.6 4.3c0-.8.9-1.3 1.6-.9l6 3.9c.6.4.6 1.3 0 1.7l-6 3.9c-.7.4-1.6-.1-1.6-.9V4.3z"></path>
+            <rect height="11.6" rx="1.2" width="2.6" x="12.6" y="3.2"></rect>
+          </svg>
+        </button>
+
+        <!-- Play / Pause -->
+        <button
+          id="btn-play-pause"
+          type="button"
+          aria-label="Pause"
+          class="isl-btn isl-btn-primary isl-ink flex items-center justify-center rounded-full"
+          style="width:50px;height:50px;min-width:50px;min-height:50px;"
+        >
+          <svg id="icon-pause" aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 20 20" width="20">
+            <rect height="13.2" rx="1.4" width="3.8" x="4.6" y="3.4"></rect>
+            <rect height="13.2" rx="1.4" width="3.8" x="11.6" y="3.4"></rect>
+          </svg>
+          <svg id="icon-play" class="hidden" aria-hidden="true" fill="currentColor" height="20" viewBox="0 0 20 20" width="20">
+            <path d="M6 4.5c0-.8.9-1.3 1.6-.9l9 5.5c.6.4.6 1.3 0 1.7l-9 5.5c-.7.4-1.6-.1-1.6-.9V4.5z"></path>
+          </svg>
+        </button>
+
+        <!-- Next -->
+        <button
+          id="btn-next"
+          type="button"
+          aria-label="Next track"
+          class="isl-btn isl-ink flex items-center justify-center rounded-full"
+          style="width:40px;height:40px;min-width:40px;min-height:40px;"
+        >
+          <svg aria-hidden="true" fill="currentColor" height="17" viewBox="0 0 18 18" width="17">
+            <path d="M2.6 4.3c0-.8.9-1.3 1.6-.9l6 3.9c.6.4.6 1.3 0 1.7l-6 3.9c-.7.4-1.6-.1-1.6-.9V4.3z"></path>
+            <rect height="11.6" rx="1.2" width="2.6" x="12.6" y="3.2"></rect>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Volume -->
+      <div class="flex w-[124px] items-center gap-2">
+        <span class="isl-ink-2 shrink-0">
+          <svg aria-hidden="true" fill="currentColor" height="15" viewBox="0 0 16 16" width="15">
+            <path d="M2 6.2v3.6c0 .6.4 1 1 1h1.8l3 2.6c.6.6 1.7.1 1.7-.8V3.4c0-.9-1.1-1.4-1.7-.8l-3 2.6H3c-.6 0-1 .4-1 1z"></path>
+            <path d="M11.5 5.5c.9.9.9 4.1 0 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.4"></path>
+          </svg>
+        </span>
+        <div
+          id="player-volume"
+          aria-label="Volume"
+          role="slider"
+          class="isl-slider relative h-[22px] flex-1 cursor-pointer"
+        >
+          <div class="isl-track-bg absolute inset-x-0 top-1/2 h-[4px] -translate-y-1/2 rounded-full">
+            <div id="volume-bar" class="isl-ink-bg absolute left-0 top-0 h-full rounded-full" style="width:70%;"></div>
+          </div>
+          <div
+            id="volume-thumb"
+            class="isl-thumb absolute top-1/2 h-[12px] w-[12px] rounded-full"
+            style="left:70%;transform:translate(-50%, -50%);"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Island hint tooltip -->
+<div
+  id="isle-hint-island"
+  class="pointer-events-none absolute left-1/2 z-[4] -translate-x-1/2 rounded-full px-3 py-1.5 text-[11px] tracking-[0.08em] text-white/75 transition-opacity duration-300"
+  style="top:174px;background:rgba(8,12,20,0.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);"
+>
+  tap the island
+</div>
+
+<script>
+  function initIsland() {
+    const island = document.getElementById('isle-island');
+    const pillView = document.getElementById('island-pill-view');
+    const playerView = document.getElementById('island-player-view');
+    const hint = document.getElementById('isle-hint-island');
+    const btnCollapse = document.getElementById('btn-collapse');
+    const btnPlayPause = document.getElementById('btn-play-pause');
+    const iconPause = document.getElementById('icon-pause');
+    const iconPlay = document.getElementById('icon-play');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const pillArt = document.getElementById('pill-art');
+    const playerArt = document.getElementById('player-art');
+    const playerTitle = document.getElementById('player-title');
+    const playerArtist = document.getElementById('player-artist');
+    const timeCurrent = document.getElementById('time-current');
+    const timeTotal = document.getElementById('time-total');
+    const scrubberBar = document.getElementById('scrubber-bar');
+    const scrubberThumb = document.getElementById('scrubber-thumb');
+    const playerScrubber = document.getElementById('player-scrubber');
+    const playerVolume = document.getElementById('player-volume');
+    const volumeBar = document.getElementById('volume-bar');
+    const volumeThumb = document.getElementById('volume-thumb');
+    const eqBars = document.querySelectorAll('.eq-bar');
+
+    if (!island || !pillView || !playerView) return;
+
+    let isExpanded = false;
+    let isPlaying = true;
+    let currentTrackIdx = 0;
+    let currentTimeSec = 27;
+
+    const tracks = [
+      {
+        title: "Refraction",
+        artist: "Glasshouse",
+        duration: 228,
+        art: "conic-gradient(from 210deg at 32% 28%, #19e3b1, #4f8dff 28%, #a96bff 52%, #ff8a5c 78%, #19e3b1)"
+      },
+      {
+        title: "Caustics",
+        artist: "Night Tide",
+        duration: 252,
+        art: "conic-gradient(from 40deg at 68% 30%, #56ccf2, #2f80ed 34%, #101c3f 60%, #9b51e0 82%, #56ccf2)"
+      },
+      {
+        title: "Prism Drift",
+        artist: "Soft Static",
+        duration: 201,
+        art: "conic-gradient(from 120deg at 40% 70%, #ffd166, #ef476f 30%, #7b2cbf 58%, #06d6a0 85%, #ffd166)"
+      }
+    ];
+
+    function fmt(sec: number) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${String(s).padStart(2, '0')}`;
+    }
+
+    function expand() {
+      if (isExpanded) return;
+      isExpanded = true;
+      island.setAttribute('aria-expanded', 'true');
+      island.style.width = '424px';
+      island.style.height = '210px';
+      island.style.borderRadius = '28px';
+
+      pillView.style.opacity = '0';
+      playerView.style.opacity = '1';
+      playerView.style.pointerEvents = 'auto';
+      playerView.style.transform = 'scale(1)';
+      if (hint) hint.style.opacity = '0';
+    }
+
+    function collapse() {
+      if (!isExpanded) return;
+      isExpanded = false;
+      island.setAttribute('aria-expanded', 'false');
+      island.style.width = '218px';
+      island.style.height = '54px';
+      island.style.borderRadius = '27px';
+
+      pillView.style.opacity = '1';
+      playerView.style.opacity = '0';
+      playerView.style.pointerEvents = 'none';
+      playerView.style.transform = 'scale(0.94)';
+      if (hint) hint.style.opacity = '1';
+    }
+
+    island.addEventListener('click', (e) => {
+      // If clicking inside player controls when expanded, don't collapse
+      if (isExpanded && (e.target as HTMLElement).closest('.isl-player')) return;
+      if (!isExpanded) {
+        expand();
+      }
+    });
+
+    if (btnCollapse) {
+      btnCollapse.addEventListener('click', (e) => {
+        e.stopPropagation();
+        collapse();
+      });
+    }
+
+    // Play / Pause toggle
+    if (btnPlayPause) {
+      btnPlayPause.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isPlaying = !isPlaying;
+        if (isPlaying) {
+          iconPause?.classList.remove('hidden');
+          iconPlay?.classList.add('hidden');
+        } else {
+          iconPause?.classList.add('hidden');
+          iconPlay?.classList.remove('hidden');
+        }
+      });
+    }
+
+    // Next track
+    function setTrack(idx: number) {
+      currentTrackIdx = (idx + tracks.length) % tracks.length;
+      const tr = tracks[currentTrackIdx];
+      currentTimeSec = 0;
+      if (pillArt) pillArt.style.background = tr.art;
+      if (playerArt) playerArt.style.background = tr.art;
+      if (playerTitle) playerTitle.textContent = tr.title;
+      if (playerArtist) playerArtist.textContent = tr.artist;
+      if (timeTotal) timeTotal.textContent = fmt(tr.duration);
+      if (timeCurrent) timeCurrent.textContent = fmt(0);
+      if (scrubberBar) scrubberBar.style.width = '0%';
+      if (scrubberThumb) scrubberThumb.style.left = '0%';
+    }
+
+    if (btnNext) {
+      btnNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setTrack(currentTrackIdx + 1);
+      });
+    }
+
+    if (btnPrev) {
+      btnPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setTrack(currentTrackIdx - 1);
+      });
+    }
+
+    // Scrubber click/drag
+    if (playerScrubber) {
+      playerScrubber.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const rect = playerScrubber.getBoundingClientRect();
+        const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        const tr = tracks[currentTrackIdx];
+        currentTimeSec = Math.round(pct * tr.duration);
+        if (scrubberBar) scrubberBar.style.width = `${pct * 100}%`;
+        if (scrubberThumb) scrubberThumb.style.left = `${pct * 100}%`;
+        if (timeCurrent) timeCurrent.textContent = fmt(currentTimeSec);
+      });
+    }
+
+    // Volume click
+    if (playerVolume) {
+      playerVolume.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const rect = playerVolume.getBoundingClientRect();
+        const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        if (volumeBar) volumeBar.style.width = `${pct * 100}%`;
+        if (volumeThumb) volumeThumb.style.left = `${pct * 100}%`;
+      });
+    }
+
+    // EQ bars & time ticker
+    let tickCount = 0;
+    setInterval(() => {
+      if (!isPlaying) {
+        eqBars.forEach((b) => ((b as HTMLElement).style.transform = 'scaleY(0.2)'));
+        return;
+      }
+      tickCount++;
+      eqBars.forEach((b, i) => {
+        const val = 0.25 + 0.7 * Math.abs(Math.sin((tickCount * 0.4) + i * 1.2));
+        (b as HTMLElement).style.transform = `scaleY(${val.toFixed(2)})`;
+      });
+
+      if (tickCount % 5 === 0) {
+        const tr = tracks[currentTrackIdx];
+        if (currentTimeSec < tr.duration) {
+          currentTimeSec++;
+          const pct = (currentTimeSec / tr.duration) * 100;
+          if (scrubberBar) scrubberBar.style.width = `${pct}%`;
+          if (scrubberThumb) scrubberThumb.style.left = `${pct}%`;
+          if (timeCurrent) timeCurrent.textContent = fmt(currentTimeSec);
+        } else {
+          setTrack(currentTrackIdx + 1);
+        }
+      }
+    }, 200);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initIsland);
+  } else {
+    initIsland();
+  }
+</script>

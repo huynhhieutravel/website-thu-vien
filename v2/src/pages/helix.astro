@@ -1,0 +1,16 @@
+---
+// v2/src/pages/helix.astro - Website 28: Helix (Index - 3D Coil Native)
+import HelixLayout from '../layouts/HelixLayout.astro';
+import HelixStrand from '../components/helix/HelixStrand.astro';
+---
+
+<HelixLayout
+  title="Index | Helix"
+  description="Thirty prints wound onto a single vertical coil. Hover, drag or scroll to wind the strand; the frame you settle on turns to the centre and names itself."
+  currentPath="/helix"
+>
+  <main id="index" class="relative h-[100dvh] w-full overflow-hidden bg-void">
+    <HelixStrand />
+  </main>
+</HelixLayout>
+

@@ -1,0 +1,660 @@
+---
+// v2/src/components/marathon/MarathonHeroScene.astro
+---
+
+<div id="marathon-hero-root" class="relative w-full overflow-hidden bg-black select-none" style="height: calc(100svh - 36px); min-height: 640px;">
+  <!-- Loading & ThreeJS Canvas Container -->
+  <div id="marathon-three-container" class="absolute inset-0 z-0">
+    <canvas id="marathon-canvas" class="w-full h-full block"></canvas>
+  </div>
+
+  <!-- Background Dynamic Tint / Ambient Glow -->
+  <div id="marathon-ambient-glow" class="pointer-events-none absolute inset-0 z-[1] transition-all duration-1000" style="background: radial-gradient(circle at 50% 50%, rgba(233,78,27,0.18) 0%, rgba(0,0,0,0.85) 75%);"></div>
+
+  <!-- Main Hero Interactive Overlays (DOM Replica) -->
+  <div id="marathon-dom-overlay" class="relative z-10 w-full h-full flex flex-col justify-between pointer-events-none">
+    
+    <!-- Top Left Watermark -->
+    <div class="absolute top-6 left-8 z-10 hidden sm:flex items-center gap-2 text-[11px] font-bold tracking-[0.22em] text-white/50 pointer-events-auto">
+      <span class="inline-block w-2 h-2 rounded-full bg-[#E94E1B] animate-pulse"></span>
+      <span>STRIDE RUNNING ENGINE</span>
+    </div>
+
+    <!-- Top Right Brand Icon -->
+    <div class="absolute top-6 right-8 z-10 flex items-center gap-2.5 text-[11px] font-bold tracking-[0.28em] text-white pointer-events-auto">
+      <svg width="18" height="18" viewBox="0 0 18 18">
+        <path d="M3 14 C 4.5 11, 6.5 8.5, 9 7 C 11.5 5.5, 13.5 4, 15 1" stroke="#E94E1B" stroke-width="2" fill="none" stroke-linecap="round"></path>
+        <circle cx="3" cy="14" r="1.6" fill="#E94E1B"></circle>
+        <circle cx="15" cy="1" r="1.6" fill="#E94E1B"></circle>
+      </svg>
+      <span>STRIDE</span>
+    </div>
+
+    <!-- Left Content / Text Block -->
+    <div class="marathon-text-block absolute left-8 top-1/2 -translate-y-1/2 max-w-md pointer-events-auto z-20">
+      <div id="hero-eyebrow" class="text-[11px] font-bold tracking-[0.24em] text-[#E94E1B] transition-colors duration-500">
+        STRIDE — RUNNING APP, IN MOTION
+      </div>
+      <h2 id="hero-title" class="font-display text-5xl sm:text-6xl font-medium tracking-tight text-white mt-3 leading-[1.05] transition-all duration-500">
+        On&nbsp;the&nbsp;Run
+      </h2>
+      <p id="hero-subtitle" class="text-sm sm:text-base text-white/60 mt-4 leading-relaxed max-w-sm transition-all duration-500">
+        Live route, pace, heart rate. Your run, breathing through the screen.
+      </p>
+
+      <!-- Mini Chart Panel -->
+      <div class="marathon-data-panel-wrap mt-6 p-4 rounded-2xl glass border border-white/10 max-w-xs shadow-xl shadow-black/40">
+        <div class="flex items-center justify-between text-xs font-bold tracking-wider text-white/70">
+          <span id="hero-panel-tag" class="text-[#E94E1B]">LIVE · 4.7 KM</span>
+          <span id="hero-panel-time" class="text-white font-mono">23:47</span>
+        </div>
+        <!-- Route / Wave SVG -->
+        <div class="mt-3 relative h-10 w-full overflow-hidden">
+          <svg class="w-full h-full" viewBox="0 0 240 36" fill="none">
+            <path id="hero-panel-svg-path" d="M 4 26 C 30 24 50 8 78 12 S 120 30 150 22 S 200 6 236 14" stroke="#E94E1B" stroke-width="2.5" stroke-linecap="round" fill="none"></path>
+            <!-- Animated runner dot -->
+            <circle id="hero-panel-runner" cx="78" cy="12" r="3.5" fill="#ffffff">
+              <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Eyebrow Pill Badge -->
+      <div id="hero-pill-badge" class="mt-4 inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full glass border border-white/15 text-[11px] font-bold tracking-[0.16em] text-white">
+        <span id="hero-pill-dot" class="w-2 h-2 rounded-full bg-[#E94E1B] shadow-[0_0_8px_#E94E1B]"></span>
+        <span id="hero-pill-text">MILE 4.7 · GOLDEN HOUR</span>
+      </div>
+    </div>
+
+    <!-- Center Phone Display / Interactive 3D Phone HUD -->
+    <div id="marathon-phone-stage" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto transition-transform duration-300 ease-out" style="width: 320px; height: 640px; max-height: 85svh;">
+      
+      <!-- Realistic iPhone Titanium Frame -->
+      <div id="phone-chassis" class="relative w-full h-full rounded-[48px] p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.15)] bg-gradient-to-b from-[#2a2a2c] via-[#1c1c1e] to-[#121214] border border-white/10 transition-transform duration-200">
+        
+        <!-- Screen Outer & Glass -->
+        <div class="relative w-full h-full rounded-[40px] overflow-hidden bg-black flex flex-col justify-between border border-white/5 shadow-inner">
+          
+          <!-- Dynamic Island Notch -->
+          <div class="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-40 flex items-center justify-between px-2 shadow-md">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#111] border border-white/10"></span>
+            <span class="w-2 h-2 rounded-full bg-blue-950/80"></span>
+          </div>
+
+          <!-- Status Bar -->
+          <div class="relative z-30 pt-3 px-6 flex items-center justify-between text-[11px] font-semibold text-white/90">
+            <span>9:41</span>
+            <div class="flex items-center gap-1.5">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.28 19.64 10.58 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
+              <svg width="14" height="10" viewBox="0 0 24 14" fill="currentColor"><rect width="20" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="2" y="2" width="14" height="10" rx="1.5"/><path d="M22 5v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+
+          <!-- ================= SLIDE 1: ON THE RUN ================= -->
+          <div id="screen-slide-1" class="screen-slide absolute inset-0 z-20 flex flex-col justify-between pt-10 pb-5 px-4 transition-opacity duration-500 opacity-100">
+            <!-- Screen Header -->
+            <div class="flex items-center justify-between px-2">
+              <div>
+                <div class="text-[10px] font-bold tracking-[0.18em] text-white/60">STRIDE · LIVE</div>
+                <div class="text-xl font-bold tracking-tight text-white mt-0.5">Sunset Trail</div>
+              </div>
+              <div class="w-9 h-9 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
+                <span class="w-2 h-2 rounded-full bg-[#E94E1B] shadow-[0_0_10px_#E94E1B]"></span>
+              </div>
+            </div>
+
+            <!-- Route Map Frame -->
+            <div class="relative my-3 flex-1 rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#2a1a0e] to-[#4a2c18] p-3 flex flex-col justify-between shadow-lg">
+              <div class="flex items-center justify-between text-[11px] font-bold">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur-md">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#E94E1B] animate-ping"></span>
+                  <span>LIVE</span>
+                </span>
+                <span class="px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur-md tracking-wider">4.7 km · +142m</span>
+              </div>
+
+              <!-- Route Path Graphic -->
+              <div class="relative w-full h-24 my-auto">
+                <svg class="w-full h-full" viewBox="0 0 200 80" fill="none">
+                  <path d="M 10 65 C 40 60 70 20 100 35 S 150 10 190 25" stroke="#E94E1B" stroke-width="3" stroke-linecap="round" fill="none"/>
+                  <path d="M 10 65 C 40 60 70 20 100 35 S 150 10 190 25" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="8 6" fill="none" opacity="0.6"/>
+                  <circle cx="100" cy="35" r="4.5" fill="#E94E1B" stroke="#ffffff" stroke-width="2"/>
+                </svg>
+              </div>
+
+              <!-- Pace & Heart Live -->
+              <div class="flex items-center justify-between text-xs font-bold">
+                <div class="px-3 py-1.5 rounded-xl bg-black/60 backdrop-blur-md">5:32 / km</div>
+                <div class="px-3 py-1.5 rounded-xl bg-black/60 backdrop-blur-md flex items-center gap-1.5 text-red-400">
+                  <svg class="w-3.5 h-3.5 fill-red-500 animate-pulse" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                  <span id="live-bpm-val">162</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Elapsed Time & LAP Controls -->
+            <div class="px-2 pt-1 pb-2">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-[10px] font-bold tracking-[0.18em] text-white/50">ELAPSED</span>
+                <span class="flex-1 h-px bg-white/10"></span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div id="live-elapsed-clock" class="text-4xl sm:text-5xl font-extralight tracking-tight font-mono text-white">
+                  23:47
+                </div>
+                <div class="flex gap-2">
+                  <button type="button" id="btn-pause-run" class="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-white hover:bg-white/20 transition-colors">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+                  </button>
+                  <button type="button" id="btn-lap-run" class="w-10 h-10 rounded-full bg-[#E94E1B] text-white font-bold text-xs tracking-wider shadow-lg shadow-[#E94E1B]/40 hover:scale-105 active:scale-95 transition-transform">
+                    LAP
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SLIDE 2: HEART & BREATH ================= -->
+          <div id="screen-slide-2" class="screen-slide absolute inset-0 z-20 flex flex-col justify-between pt-10 pb-5 px-4 transition-opacity duration-500 opacity-0 pointer-events-none">
+            <!-- Screen Header -->
+            <div class="px-2">
+              <div class="text-[10px] font-bold tracking-[0.2em] text-[#C42E5A]">STRIDE · CARDIO</div>
+              <div class="text-2xl font-bold tracking-tight text-white mt-0.5">Heart & Breath</div>
+            </div>
+
+            <!-- 5 Zone Bars -->
+            <div class="px-2 my-2 flex gap-1">
+              <div class="flex-1 h-1.5 rounded-full bg-white/10"></div>
+              <div class="flex-1 h-1.5 rounded-full bg-white/10"></div>
+              <div class="flex-1 h-1.5 rounded-full bg-white/10"></div>
+              <div class="flex-1 h-1.5 rounded-full bg-[#C42E5A] shadow-[0_0_8px_#C42E5A]"></div>
+              <div class="flex-1 h-1.5 rounded-full bg-white/10"></div>
+            </div>
+            <div class="px-2 flex items-baseline justify-between text-[10px] font-bold text-white/60">
+              <span class="text-[#C42E5A] tracking-wider">ZONE 4 · TEMPO</span>
+              <span>165 — 180 BPM</span>
+            </div>
+
+            <!-- Cardio Pulse Graphic -->
+            <div class="relative my-2 h-28 rounded-2xl bg-black/40 border border-white/10 p-3 flex flex-col justify-between overflow-hidden">
+              <div class="flex justify-between items-center text-[9px] font-bold tracking-widest text-[#C42E5A]">
+                <span>ECG · REALTIME</span>
+                <span class="text-white/40">25 mm/s</span>
+              </div>
+              <!-- Realtime ECG Wave Canvas -->
+              <canvas id="ecg-canvas" width="260" height="50" class="w-full h-12 block"></canvas>
+            </div>
+
+            <!-- 3 Stat Blocks -->
+            <div class="grid grid-cols-3 gap-2 px-2">
+              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10 text-center">
+                <div class="text-[9px] font-bold text-white/40">AVG</div>
+                <div class="text-sm font-bold text-white mt-0.5">152 <span class="text-[9px] text-white/50">bpm</span></div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10 text-center">
+                <div class="text-[9px] font-bold text-white/40">MAX</div>
+                <div class="text-sm font-bold text-white mt-0.5">178 <span class="text-[9px] text-white/50">bpm</span></div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-white/5 border border-white/10 text-center">
+                <div class="text-[9px] font-bold text-white/40">IN Z4</div>
+                <div class="text-sm font-bold text-[#C42E5A] mt-0.5">12:34</div>
+              </div>
+            </div>
+
+            <!-- Bottom Stats -->
+            <div class="grid grid-cols-3 gap-2 px-2 mt-1 pt-2 border-t border-white/10 text-center text-xs">
+              <div><span class="text-[9px] text-white/40 block">HRV</span><strong class="text-white">48 ms</strong></div>
+              <div><span class="text-[9px] text-white/40 block">BREATH</span><strong class="text-white">32 /min</strong></div>
+              <div><span class="text-[9px] text-white/40 block">VO2 MAX</span><strong class="text-white">52.1</strong></div>
+            </div>
+          </div>
+
+          <!-- ================= SLIDE 3: THIS WEEK ================= -->
+          <div id="screen-slide-3" class="screen-slide absolute inset-0 z-20 flex flex-col justify-between pt-10 pb-5 px-4 transition-opacity duration-500 opacity-0 pointer-events-none">
+            <!-- Screen Header -->
+            <div class="px-2">
+              <div class="text-[10px] font-bold tracking-[0.2em] text-[#168F4E]">STRIDE · WEEK 23</div>
+              <div class="flex items-baseline justify-between mt-0.5">
+                <div class="text-2xl font-bold tracking-tight text-white">This Week</div>
+                <div class="text-[10px] font-bold tracking-wider text-white/50">APR 22 — 28</div>
+              </div>
+            </div>
+
+            <!-- Highlight Card -->
+            <div class="my-2 rounded-2xl overflow-hidden relative border border-white/10 bg-gradient-to-t from-black via-black/40 to-transparent">
+              <img src="/images/run-city.jpg" alt="Sunrise Ridge" class="w-full h-24 object-cover opacity-75"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+              <div class="absolute bottom-2 left-3 right-3 flex items-baseline justify-between text-xs font-bold">
+                <span class="text-white tracking-wider">SUNRISE RIDGE</span>
+                <span class="text-[#168F4E]">SAT · 12.4 KM</span>
+              </div>
+            </div>
+
+            <!-- Big Stat -->
+            <div class="px-2 flex items-baseline justify-between">
+              <div>
+                <span class="text-4xl font-bold tracking-tight text-white font-mono">47.2</span>
+                <span class="text-xs font-bold text-white/50 ml-1">KM</span>
+              </div>
+              <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#168F4E]/20 text-[#168F4E] border border-[#168F4E]/30 text-[10px] font-bold">
+                ↑ 12% VS LAST
+              </span>
+            </div>
+
+            <!-- 7-Day Bar Chart -->
+            <div class="px-2 my-2">
+              <div class="flex justify-between text-[9px] font-bold text-white/40 mb-2">
+                <span>DAILY DISTANCE</span>
+                <span>KM</span>
+              </div>
+              <div class="flex items-end gap-2 h-16 pt-2">
+                <div class="flex-1 flex flex-col items-center gap-1">
+                  <div class="w-full bg-white/20 rounded-t" style="height: 48%;"></div>
+                  <span class="text-[9px] text-white/50">M</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1">
+                  <div class="w-full bg-white/20 rounded-t" style="height: 32%;"></div>
+                  <span class="text-[9px] text-white/50">T</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1">
+                  <div class="w-full bg-white/20 rounded-t" style="height: 64%;"></div>
+                  <span class="text-[9px] text-white/50">W</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1">
+                  <div class="w-full bg-white/20 rounded-t" style="height: 45%;"></div>
+                  <span class="text-[9px] text-white/50">T</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1">
+                  <div class="w-full bg-white/10 rounded-t" style="height: 8%;"></div>
+                  <span class="text-[9px] text-white/50">F</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1">
+                  <div class="w-full bg-[#168F4E] rounded-t shadow-[0_0_8px_#168F4E]" style="height: 96%;"></div>
+                  <span class="text-[9px] font-bold text-[#168F4E]">S</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1">
+                  <div class="w-full bg-white/30 rounded-t" style="height: 80%;"></div>
+                  <span class="text-[9px] text-white/50">S</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Badges -->
+            <div class="flex justify-between items-center px-2 pt-2 border-t border-white/10 text-xs">
+              <span class="text-white/50 text-[10px]">STREAK: <strong class="text-white">12 DAYS</strong></span>
+              <span class="text-white/50 text-[10px]">PR 5K: <strong class="text-white">21:18</strong></span>
+              <span class="text-[#168F4E] text-[10px] font-bold">3 NEW MEDALS</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Orbiting Floating 3D Chips -->
+    <div id="marathon-chips-container" class="absolute inset-0 z-20 pointer-events-none">
+      <div id="chip-1" class="marathon-chip absolute px-4 py-2.5 rounded-2xl glass border border-white/15 shadow-xl transition-all duration-500" style="left: calc(50% - 240px); top: 38%; animation: marathon-float 4s ease-in-out infinite;">
+        <div id="chip-1-label" class="text-[9px] font-bold tracking-[0.2em] text-white/50">PACE</div>
+        <div id="chip-1-val" class="text-lg font-bold text-white font-mono mt-0.5">5:32 /km</div>
+      </div>
+      <div id="chip-2" class="marathon-chip absolute px-4 py-2.5 rounded-2xl glass border border-white/15 shadow-xl transition-all duration-500" style="right: calc(50% - 240px); top: 32%; animation: marathon-float 4.5s ease-in-out 0.5s infinite;">
+        <div id="chip-2-label" class="text-[9px] font-bold tracking-[0.2em] text-white/50">ELEV</div>
+        <div id="chip-2-val" class="text-lg font-bold text-white font-mono mt-0.5">+142m</div>
+      </div>
+      <div id="chip-3" class="marathon-chip absolute px-4 py-2.5 rounded-2xl glass border border-white/15 shadow-xl transition-all duration-500" style="left: calc(50% - 220px); bottom: 25%; animation: marathon-float 4.2s ease-in-out 1s infinite;">
+        <div id="chip-3-label" class="text-[9px] font-bold tracking-[0.2em] text-white/50">CADENCE</div>
+        <div id="chip-3-val" class="text-lg font-bold text-white font-mono mt-0.5">172 spm</div>
+      </div>
+      <div id="chip-4" class="marathon-chip absolute px-4 py-2.5 rounded-2xl glass border border-white/15 shadow-xl transition-all duration-500" style="right: calc(50% - 220px); bottom: 28%; animation: marathon-float 4.8s ease-in-out 1.5s infinite;">
+        <div id="chip-4-label" class="text-[9px] font-bold tracking-[0.2em] text-white/50">BPM</div>
+        <div id="chip-4-val" class="text-lg font-bold text-white font-mono mt-0.5">162</div>
+      </div>
+    </div>
+
+    <!-- Bottom Left Vibe Tag -->
+    <div id="marathon-vibe-tag" class="absolute bottom-6 left-8 z-10 text-[11px] font-bold tracking-[0.22em] text-white/60 pointer-events-auto transition-colors duration-500">
+      STRIDE / 23:47
+    </div>
+
+    <!-- Right Side 01, 02, 03 Navigation Pips -->
+    <div class="marathon-pips absolute right-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3 p-3 pointer-events-auto">
+      <button type="button" data-slide="0" aria-label="Slide 1: On the Run" class="pip-btn flex items-center justify-end gap-3 w-16 p-2 text-white outline-none cursor-pointer">
+        <span class="pip-num text-[11px] font-bold tracking-[0.18em] transition-opacity duration-300 opacity-100">01</span>
+        <span class="pip-line w-7 h-[2px] bg-white rounded-full transition-all duration-400 opacity-100"></span>
+      </button>
+      <button type="button" data-slide="1" aria-label="Slide 2: Heart & Breath" class="pip-btn flex items-center justify-end gap-3 w-16 p-2 text-white outline-none cursor-pointer">
+        <span class="pip-num text-[11px] font-bold tracking-[0.18em] transition-opacity duration-300 opacity-40">02</span>
+        <span class="pip-line w-4 h-[2px] bg-white rounded-full transition-all duration-400 opacity-30"></span>
+      </button>
+      <button type="button" data-slide="2" aria-label="Slide 3: This Week" class="pip-btn flex items-center justify-end gap-3 w-16 p-2 text-white outline-none cursor-pointer">
+        <span class="pip-num text-[11px] font-bold tracking-[0.18em] transition-opacity duration-300 opacity-40">03</span>
+        <span class="pip-line w-4 h-[2px] bg-white rounded-full transition-all duration-400 opacity-30"></span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Custom Drag Cursor (80px) -->
+  <div id="marathon-drag-cursor" class="pointer-events-none fixed z-50 w-20 h-20 -ml-10 -mt-10 rounded-full border border-white/60 bg-white/5 backdrop-blur-md flex items-center justify-center text-white opacity-0 transition-opacity duration-200" style="transform: translate3d(-9999px, -9999px, 0);">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+      <path d="M9.5 9 L14 4.5 L18.5 9" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"></path>
+      <line x1="11" y1="13" x2="17" y2="13" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" opacity="0.55"></line>
+      <line x1="11" y1="15.5" x2="17" y2="15.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" opacity="0.55"></line>
+      <path d="M9.5 19.5 L14 24 L18.5 19.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"></path>
+    </svg>
+  </div>
+</div>
+
+<script is:inline>
+(function() {
+  // Slides Data
+  const slides = [
+    {
+      id: "live-run",
+      eyebrow: "STRIDE — RUNNING APP, IN MOTION",
+      title: "On the Run",
+      subtitle: "Live route, pace, heart rate. Your run, breathing through the screen.",
+      accent: "#E94E1B",
+      pillBadge: "MILE 4.7 · GOLDEN HOUR",
+      vibeTag: "STRIDE / 23:47",
+      panelTag: "LIVE · 4.7 KM",
+      panelTime: "23:47",
+      ambientGlow: "radial-gradient(circle at 50% 50%, rgba(233,78,27,0.25) 0%, rgba(0,0,0,0.88) 75%)",
+      chips: [
+        { label: "PACE", val: "5:32 /km" },
+        { label: "ELEV", val: "+142m" },
+        { label: "CADENCE", val: "172 spm" },
+        { label: "BPM", val: "162" }
+      ]
+    },
+    {
+      id: "heart-breath",
+      eyebrow: "STRIDE — CARDIO TELEMETRY",
+      title: "Heart & Breath",
+      subtitle: "Cardiovascular telemetry rendered as the horizon line.",
+      accent: "#C42E5A",
+      pillBadge: "ZONE 4 · TEMPO",
+      vibeTag: "PULSE / 168 BPM",
+      panelTag: "Z4 · 168 BPM",
+      panelTime: "12:34",
+      ambientGlow: "radial-gradient(circle at 50% 50%, rgba(196,46,90,0.25) 0%, rgba(0,0,0,0.88) 75%)",
+      chips: [
+        { label: "ZONE", val: "Z4 TEMPO" },
+        { label: "HRV", val: "48 ms" },
+        { label: "VO2", val: "52.1" },
+        { label: "BREATH", val: "32 /min" }
+      ]
+    },
+    {
+      id: "this-week",
+      eyebrow: "STRIDE — PROGRESS & CONSISTENCY",
+      title: "This Week",
+      subtitle: "Distance, streak, personal records, and the medals you earned.",
+      accent: "#168F4E",
+      pillBadge: "WEEK 23 · APRIL 22 — 28",
+      vibeTag: "TOTAL / 47.2 KM",
+      panelTag: "STREAK · 12 DAYS",
+      panelTime: "47.2 KM",
+      ambientGlow: "radial-gradient(circle at 50% 50%, rgba(22,143,78,0.25) 0%, rgba(0,0,0,0.88) 75%)",
+      chips: [
+        { label: "STREAK", val: "12 days" },
+        { label: "PR 5K", val: "21:18" },
+        { label: "BADGES", val: "3 NEW" },
+        { label: "VS LAST", val: "+12%" }
+      ]
+    }
+  ];
+
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+
+  // DOM Elements
+  const heroRoot = document.getElementById('marathon-hero-root');
+  const ambientGlow = document.getElementById('marathon-ambient-glow');
+  const heroEyebrow = document.getElementById('hero-eyebrow');
+  const heroTitle = document.getElementById('hero-title');
+  const heroSubtitle = document.getElementById('hero-subtitle');
+  const heroPillText = document.getElementById('hero-pill-text');
+  const heroPillDot = document.getElementById('hero-pill-dot');
+  const heroPanelTag = document.getElementById('hero-panel-tag');
+  const heroPanelTime = document.getElementById('hero-panel-time');
+  const heroPanelPath = document.getElementById('hero-panel-svg-path');
+  const vibeTag = document.getElementById('marathon-vibe-tag');
+  const pipBtns = document.querySelectorAll('.pip-btn');
+  const cursor = document.getElementById('marathon-drag-cursor');
+  const phoneChassis = document.getElementById('phone-chassis');
+
+  const chipLabels = [
+    document.getElementById('chip-1-label'),
+    document.getElementById('chip-2-label'),
+    document.getElementById('chip-3-label'),
+    document.getElementById('chip-4-label')
+  ];
+  const chipVals = [
+    document.getElementById('chip-1-val'),
+    document.getElementById('chip-2-val'),
+    document.getElementById('chip-3-val'),
+    document.getElementById('chip-4-val')
+  ];
+
+  const screenSlides = [
+    document.getElementById('screen-slide-1'),
+    document.getElementById('screen-slide-2'),
+    document.getElementById('screen-slide-3')
+  ];
+
+  // Switch Slide Function
+  function goToSlide(idx) {
+    if (idx < 0) idx = totalSlides - 1;
+    if (idx >= totalSlides) idx = 0;
+    currentSlide = idx;
+    const data = slides[idx];
+
+    // 1. Text & Colors
+    if (ambientGlow) ambientGlow.style.background = data.ambientGlow;
+    if (heroEyebrow) { heroEyebrow.innerText = data.eyebrow; heroEyebrow.style.color = data.accent; }
+    if (heroTitle) {
+      heroTitle.style.opacity = '0';
+      heroTitle.style.transform = 'translateY(10px)';
+      setTimeout(() => {
+        heroTitle.innerHTML = data.title;
+        heroTitle.style.opacity = '1';
+        heroTitle.style.transform = 'translateY(0)';
+      }, 150);
+    }
+    if (heroSubtitle) {
+      heroSubtitle.style.opacity = '0';
+      setTimeout(() => {
+        heroSubtitle.innerText = data.subtitle;
+        heroSubtitle.style.opacity = '1';
+      }, 150);
+    }
+    if (heroPillText) heroPillText.innerText = data.pillBadge;
+    if (heroPillDot) {
+      heroPillDot.style.background = data.accent;
+      heroPillDot.style.boxShadow = `0 0 8px ${data.accent}`;
+    }
+    if (heroPanelTag) {
+      heroPanelTag.innerText = data.panelTag;
+      heroPanelTag.style.color = data.accent;
+    }
+    if (heroPanelTime) heroPanelTime.innerText = data.panelTime;
+    if (heroPanelPath) heroPanelPath.setAttribute('stroke', data.accent);
+    if (vibeTag) vibeTag.innerText = data.vibeTag;
+
+    // 2. Chips
+    data.chips.forEach((c, i) => {
+      if (chipLabels[i]) chipLabels[i].innerText = c.label;
+      if (chipVals[i]) chipVals[i].innerText = c.val;
+    });
+
+    // 3. Screen Slides in Phone
+    screenSlides.forEach((el, i) => {
+      if (el) {
+        if (i === idx) {
+          el.style.opacity = '1';
+          el.style.pointerEvents = 'auto';
+        } else {
+          el.style.opacity = '0';
+          el.style.pointerEvents = 'none';
+        }
+      }
+    });
+
+    // 4. Pips
+    pipBtns.forEach((btn, i) => {
+      const num = btn.querySelector('.pip-num');
+      const line = btn.querySelector('.pip-line');
+      if (i === idx) {
+        if (num) num.style.opacity = '1';
+        if (line) { line.style.opacity = '1'; line.style.width = '28px'; line.style.background = data.accent; }
+      } else {
+        if (num) num.style.opacity = '0.35';
+        if (line) { line.style.opacity = '0.3'; line.style.width = '16px'; line.style.background = '#ffffff'; }
+      }
+    });
+  }
+
+  // Pips Click Event
+  pipBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const s = parseInt(btn.getAttribute('data-slide') || '0', 10);
+      goToSlide(s);
+    });
+  });
+
+  // Wheel / Scroll to Change Slide
+  let isThrottled = false;
+  heroRoot?.addEventListener('wheel', (e) => {
+    if (isThrottled) return;
+    if (Math.abs(e.deltaY) > 20) {
+      isThrottled = true;
+      if (e.deltaY > 0) {
+        goToSlide(currentSlide + 1);
+      } else {
+        goToSlide(currentSlide - 1);
+      }
+      setTimeout(() => { isThrottled = false; }, 700);
+    }
+  }, { passive: true });
+
+  // Touch / Drag to Change Slide
+  let touchStartY = 0;
+  heroRoot?.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  heroRoot?.addEventListener('touchend', (e) => {
+    const diff = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) goToSlide(currentSlide + 1);
+      else goToSlide(currentSlide - 1);
+    }
+  }, { passive: true });
+
+  // Keyboard Navigation
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+  });
+
+  // Custom Cursor & 3D Phone Tilt
+  if (heroRoot && cursor) {
+    heroRoot.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
+    heroRoot.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0';
+      if (phoneChassis) phoneChassis.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    });
+
+    heroRoot.addEventListener('mousemove', (e) => {
+      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+
+      if (phoneChassis) {
+        const rect = heroRoot.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        phoneChassis.style.transform = `perspective(1000px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`;
+      }
+    });
+  }
+
+  // Live Timer & BPM fluctuation for Slide 1
+  const clockEl = document.getElementById('live-elapsed-clock');
+  const bpmEl = document.getElementById('live-bpm-val');
+  let startTime = performance.now();
+  let baseSeconds = 1427; // 23:47
+
+  function updateClock() {
+    const elapsed = Math.floor((performance.now() - startTime) / 1000);
+    const totalSecs = baseSeconds + elapsed;
+    const mins = Math.floor(totalSecs / 60).toString().padStart(2, '0');
+    const secs = (totalSecs % 60).toString().padStart(2, '0');
+    if (clockEl) clockEl.innerText = `${mins}:${secs}`;
+
+    if (bpmEl) {
+      const t = (performance.now() - startTime) / 1000;
+      const bpm = 160 + Math.round(2 * Math.sin(0.7 * t) + 1.5 * Math.sin(1.3 * t));
+      bpmEl.innerText = String(bpm);
+    }
+    requestAnimationFrame(updateClock);
+  }
+  requestAnimationFrame(updateClock);
+
+  // LAP Button Click Effect
+  const lapBtn = document.getElementById('btn-lap-run');
+  if (lapBtn) {
+    lapBtn.addEventListener('click', () => {
+      baseSeconds += 60;
+      lapBtn.style.transform = 'scale(0.9)';
+      setTimeout(() => { lapBtn.style.transform = 'scale(1)'; }, 150);
+    });
+  }
+
+  // ECG Live Canvas for Slide 2
+  const ecgCanvas = document.getElementById('ecg-canvas');
+  if (ecgCanvas) {
+    const ctx = ecgCanvas.getContext('2d');
+    let ecgData = new Array(80).fill(0);
+    let ecgTime = performance.now();
+
+    function renderECG() {
+      if (currentSlide === 1 && ctx) {
+        const now = performance.now();
+        const t = (now - ecgTime) / 1000;
+        const cycle = (168 / 60 * t) % 1;
+        let val = 0;
+        if (cycle < 0.05) val = -0.1;
+        else if (cycle < 0.1) val = 0.9 * Math.sin((cycle - 0.05) * Math.PI * 20);
+        else if (cycle < 0.15) val = -0.3 * Math.sin((cycle - 0.1) * Math.PI * 20);
+        else val = 0.04 * Math.sin(12 * cycle) + (Math.random() - 0.5) * 0.03;
+
+        ecgData.shift();
+        ecgData.push(val);
+
+        ctx.clearRect(0, 0, ecgCanvas.width, ecgCanvas.height);
+        ctx.strokeStyle = '#C42E5A';
+        ctx.lineWidth = 2;
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+
+        const step = ecgCanvas.width / (ecgData.length - 1);
+        ecgData.forEach((v, idx) => {
+          const x = idx * step;
+          const y = (ecgCanvas.height / 2) - (v * 18);
+          if (idx === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+      }
+      requestAnimationFrame(renderECG);
+    }
+    requestAnimationFrame(renderECG);
+  }
+
+  // Init
+  goToSlide(0);
+})();
+</script>

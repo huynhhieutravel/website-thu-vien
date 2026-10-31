@@ -1,0 +1,30 @@
+---
+// v2/src/pages/canada/blog.astro
+import CanadaLayout from '../../layouts/CanadaLayout.astro';
+import Navbar from '../../components/canada/Navbar.astro';
+import Footer from '../../components/canada/Footer.astro';
+import CartDrawer from '../../components/canada/CartDrawer.astro';
+import Cursor from '../../components/canada/Cursor.astro';
+import rawContent from '../../raw/canada-blog-content.html?raw';
+
+const contentHtml = rawContent
+  .replace('href="/"', 'href="/canada"')
+  .replace(/href="\/contact/g, 'href="/canada/contact');
+---
+
+<CanadaLayout
+  title="Thoughts | Anny"
+  description="Insights on brand identity, motion craft, and modern web design."
+  activePath="/canada/blog"
+  pageName="/blog"
+  extraScripts={[
+    "/_next/static/chunks/0-46g69ns02o7.js"
+  ]}
+>
+  <Navbar />
+  <Fragment set:html={contentHtml} />
+  <Footer />
+  <CartDrawer />
+  <Cursor />
+</CanadaLayout>
+

@@ -1,0 +1,243 @@
+---
+// v2/src/components/isle/IslePuck.astro
+---
+
+<!-- Glass Lens SVG Dispersion Filter -->
+<svg class="pointer-events-none absolute -left-[9999px] -top-[9999px] h-0 w-0" aria-hidden="true">
+  <defs>
+    <filter id="isle-lens-filter" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="1" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G" scale="26" result="dr" />
+      <feColorMatrix in="dr" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cr" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G" scale="22" result="dg" />
+      <feColorMatrix in="dg" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cg" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G" scale="18" result="db" />
+      <feColorMatrix in="db" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="cb" />
+      <feBlend in="cr" in2="cg" mode="screen" result="rg" />
+      <feBlend in="rg" in2="cb" mode="screen" result="rgb" />
+    </filter>
+  </defs>
+</svg>
+
+<!-- The Draggable Glass Puck / Lens -->
+<div
+  id="isle-puck"
+  class="isl-lens absolute left-0 top-0 z-[6] select-none"
+  data-grabbed="false"
+  style="width:148px;height:148px;border-radius:50%;cursor:grab;touch-action:none;will-change:transform;backdrop-filter:blur(8px) saturate(1.5) brightness(1.08);-webkit-backdrop-filter:blur(8px) saturate(1.5) brightness(1.08);box-shadow:0 18px 44px rgba(3,7,14,0.35), 0 2px 8px rgba(3,7,14,0.2), inset 0 0 0 0.6px rgba(255,255,255,0.22);--isl-rim:135deg;--isl-rimi:0.540;--isl-gx:50%;--isl-gy:50%;--isl-go:0.4;transform:translate3d(calc(50vw - 74px), calc(50vh - 74px), 0);"
+>
+  <!-- Screen Rim Highlight Layer -->
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="border-radius:inherit;padding:1.4px;-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;mix-blend-mode:screen;background:linear-gradient(var(--isl-rim), rgba(255,255,255,0) 6%, rgba(255,255,255,calc(0.32 * var(--isl-rimi))) 34%, rgba(255,255,255,calc(0.9 * var(--isl-rimi))) 50%, rgba(255,255,255,calc(0.256 * var(--isl-rimi))) 66%, rgba(255,255,255,0) 94%);"
+  ></div>
+
+  <!-- Overlay Rim Highlight Layer -->
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="border-radius:inherit;padding:1.4px;-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;mix-blend-mode:overlay;background:linear-gradient(var(--isl-rim), rgba(255,255,255,0) 6%, rgba(255,255,255,calc(0.2 * var(--isl-rimi))) 34%, rgba(255,255,255,calc(0.5 * var(--isl-rimi))) 50%, rgba(255,255,255,calc(0.16 * var(--isl-rimi))) 66%, rgba(255,255,255,0) 94%);"
+  ></div>
+
+  <!-- Radial Glass Gradient -->
+  <div
+    class="pointer-events-none absolute inset-0 rounded-full"
+    style="background:radial-gradient(circle at 50% 36%, rgba(255,255,255,0.12), rgba(255,255,255,0) 46%), radial-gradient(circle at 50% 115%, rgba(3,7,14,0.18), rgba(3,7,14,0) 55%);"
+  ></div>
+
+  <!-- Dynamic Glare Highlight following cursor -->
+  <div
+    class="pointer-events-none absolute inset-0 rounded-full mix-blend-overlay"
+    style="background:radial-gradient(circle 80px at var(--isl-gx) var(--isl-gy), rgba(255,255,255,0.65), rgba(255,255,255,0) 70%);opacity:var(--isl-go);"
+  ></div>
+
+  <!-- Drag Me Hint -->
+  <div
+    id="puck-drag-hint"
+    class="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] tracking-[0.14em] text-white/70 transition-opacity duration-300"
+    style="background:rgba(8,12,20,0.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);"
+  >
+    drag me
+  </div>
+</div>
+
+<script>
+  function initPuck() {
+    const puck = document.getElementById('isle-puck');
+    const hint = document.getElementById('puck-drag-hint');
+    if (!puck) return;
+
+    const puckRadius = 74; // half of 148px
+    let px = window.innerWidth / 2;
+    let py = window.innerHeight / 2;
+    let vx = 0;
+    let vy = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let lastDragX = 0;
+    let lastDragY = 0;
+    let lastDragTime = 0;
+    let scaleVal = 1;
+    let scaleVelocity = 0;
+
+    let history: Array<{ x: number; y: number; t: number }> = [];
+
+    // Calculate initial centered position
+    function updateTransform() {
+      puck.style.transform = `translate3d(${px - puckRadius}px, ${py - puckRadius}px, 0) scale(${scaleVal.toFixed(4)})`;
+    }
+    updateTransform();
+
+    function onPointerDown(e: PointerEvent) {
+      isDragging = true;
+      puck.setAttribute('data-grabbed', 'true');
+      puck.style.cursor = 'grabbing';
+      if (hint) hint.style.opacity = '0';
+
+      dragStartX = e.clientX - px;
+      dragStartY = e.clientY - py;
+      lastDragX = e.clientX;
+      lastDragY = e.clientY;
+      lastDragTime = performance.now();
+      history = [{ x: e.clientX, y: e.clientY, t: lastDragTime }];
+
+      puck.setPointerCapture(e.pointerId);
+    }
+
+    function onPointerMove(e: PointerEvent) {
+      if (!isDragging) return;
+
+      px = e.clientX - dragStartX;
+      py = e.clientY - dragStartY;
+
+      const now = performance.now();
+      history.push({ x: e.clientX, y: e.clientY, t: now });
+      if (history.length > 5) history.shift();
+
+      // Dynamic glare tracking inside puck
+      const rect = puck.getBoundingClientRect();
+      const gx = `${(((e.clientX - rect.left) / rect.width) * 100).toFixed(1)}%`;
+      const gy = `${(((e.clientY - rect.top) / rect.height) * 100).toFixed(1)}%`;
+      puck.style.setProperty('--isl-gx', gx);
+      puck.style.setProperty('--isl-gy', gy);
+      puck.style.setProperty('--isl-go', '0.7');
+
+      // Rim light angle towards center
+      const angle = (Math.atan2(window.innerHeight / 2 - py, window.innerWidth / 2 - px) * 180) / Math.PI + 90;
+      puck.style.setProperty('--isl-rim', `${angle.toFixed(1)}deg`);
+    }
+
+    function onPointerUp(e: PointerEvent) {
+      if (!isDragging) return;
+      isDragging = false;
+      puck.setAttribute('data-grabbed', 'false');
+      puck.style.cursor = 'grab';
+      puck.style.setProperty('--isl-go', '0.4');
+
+      try {
+        puck.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+
+      // Calculate fling velocity
+      const now = performance.now();
+      if (history.length >= 2) {
+        const oldest = history[0];
+        const dt = Math.max(10, now - oldest.t) / 1000;
+        vx = (e.clientX - oldest.x) / dt;
+        vy = (e.clientY - oldest.y) / dt;
+
+        // Clamp max fling velocity
+        const maxV = 2200;
+        const mag = Math.hypot(vx, vy);
+        if (mag > maxV) {
+          vx = (vx / mag) * maxV;
+          vy = (vy / mag) * maxV;
+        }
+      }
+    }
+
+    puck.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    // Physics Animation Loop
+    let lastTime = performance.now();
+    let animTime = 0;
+
+    function loop(time: number) {
+      const dt = Math.min(0.05, (time - lastTime) / 1000);
+      lastTime = time;
+      animTime += dt;
+
+      const minX = puckRadius + 12;
+      const maxX = window.innerWidth - puckRadius - 12;
+      const minY = puckRadius + 48; // keep below top bar
+      const maxY = window.innerHeight - puckRadius - 56; // keep above bottom dock
+
+      if (!isDragging) {
+        // Friction / damping
+        const damp = Math.exp(-2.6 * dt);
+        vx *= damp;
+        vy *= damp;
+
+        px += vx * dt;
+        py += vy * dt;
+
+        // Wall collisions and rebound bounce
+        if (px < minX) {
+          px = minX;
+          vx = -0.55 * vx;
+          scaleVelocity -= 1.6;
+        } else if (px > maxX) {
+          px = maxX;
+          vx = -0.55 * vx;
+          scaleVelocity -= 1.6;
+        }
+
+        if (py < minY) {
+          py = minY;
+          vy = -0.55 * vy;
+          scaleVelocity -= 1.6;
+        } else if (py > maxY) {
+          py = maxY;
+          vy = -0.55 * vy;
+          scaleVelocity -= 1.6;
+        }
+
+        // Idle floating bob
+        if (Math.hypot(vx, vy) < 15) {
+          py += Math.sin(animTime * 1.8) * 0.4;
+        }
+
+        // Spring scale return to 1
+        const targetScale = 1.0;
+        const stiffness = 320;
+        const damping = 19;
+        const force = -stiffness * (scaleVal - targetScale) - damping * scaleVelocity;
+        scaleVelocity += force * dt;
+        scaleVal += scaleVelocity * dt;
+      } else {
+        // Grabbed scale up
+        scaleVal = 1.07;
+      }
+
+      updateTransform();
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+
+    window.addEventListener('resize', () => {
+      px = Math.max(puckRadius + 12, Math.min(window.innerWidth - puckRadius - 12, px));
+      py = Math.max(puckRadius + 48, Math.min(window.innerHeight - puckRadius - 56, py));
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPuck);
+  } else {
+    initPuck();
+  }
+</script>
+

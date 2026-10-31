@@ -1,0 +1,22 @@
+---
+// v2/src/pages/frieze.astro - Website 21: Frieze Design & Typeface Studio (Astro Native Component Hóa)
+import FriezeLayout from '../layouts/FriezeLayout.astro';
+import Header from '../components/frieze/Header.astro';
+import ProjectShowcase from '../components/frieze/ProjectShowcase.astro';
+---
+
+<FriezeLayout
+  title="Work | Frieze — Design & Typeface Studio"
+  description="Eight projects from Frieze — identity, typeface design, editorial, packaging and wayfinding."
+  activePath="/frieze"
+>
+  <div class="flex min-h-screen flex-col">
+    <Header current="work" />
+    <main class="flex-1">
+      <div class="relative h-[100svh] w-full overflow-hidden">
+        <ProjectShowcase />
+      </div>
+    </main>
+  </div>
+</FriezeLayout>
+

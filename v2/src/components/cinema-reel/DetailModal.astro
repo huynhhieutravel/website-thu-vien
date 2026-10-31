@@ -1,0 +1,132 @@
+---
+// v2/src/components/cinema-reel/DetailModal.astro
+---
+
+<!-- Modal Backdrop Blur Overlay -->
+<div
+  id="modal-backdrop"
+  data-no-drag="true"
+  aria-hidden="true"
+  class="absolute z-40 pointer-events-none opacity-0 select-none"
+  style="top:10dvh;height:80dvh;left:var(--cinema-pad-x);right:var(--cinema-pad-x);border-radius:48px;overflow:hidden;background-color:rgba(10,9,8,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);transition:background-color 600ms cubic-bezier(0.22, 1, 0.36, 1), backdrop-filter 600ms cubic-bezier(0.22, 1, 0.36, 1), -webkit-backdrop-filter 600ms cubic-bezier(0.22, 1, 0.36, 1), opacity 600ms ease;"
+></div>
+
+<!-- Slide-Out Film Detail Drawer -->
+<aside
+  id="modal-drawer"
+  data-no-drag="true"
+  aria-hidden="true"
+  class="absolute z-50 flex flex-col text-white w-[min(640px,52%)] max-sm:w-[calc(100vw_-_2*var(--cinema-pad-x))] pointer-events-none"
+  style="top:10dvh;height:80dvh;right:var(--cinema-pad-x);border-radius:48px;overflow:hidden;transform:translateX(calc(100% + var(--cinema-pad-x) + 2dvh));transition:transform 700ms cubic-bezier(0.22, 1, 0.36, 1);background:linear-gradient(180deg, rgba(18,16,14,0.88) 0%, rgba(10,9,8,0.95) 100%);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border:1px solid rgba(255,255,255,0.08);box-shadow:none;will-change:transform;"
+>
+  <!-- Scrollable Container -->
+  <div class="h-full w-full overflow-y-auto custom-scrollbar" style="overscroll-behavior:contain;touch-action:pan-y;">
+    <!-- Film Still Header -->
+    <div class="relative w-full overflow-hidden shrink-0" style="height:35dvh;">
+      <img
+        id="modal-img"
+        src=""
+        alt=""
+        draggable="false"
+        class="absolute inset-0 h-full w-full object-cover"
+      />
+      <div
+        class="absolute inset-x-0 bottom-0 h-1/2"
+        style="background:linear-gradient(180deg, rgba(10,9,8,0) 0%, rgba(10,9,8,0.85) 80%, rgba(10,9,8,1) 100%);"
+      ></div>
+    </div>
+
+    <!-- Content Details -->
+    <div class="px-[3.5dvh] pb-[4dvh] pt-[1dvh]">
+      <div id="modal-eyebrow" class="text-[10px] font-medium uppercase tracking-[0.36em] text-white/55">
+        TRUE/FALSE · TRUE LIFE FUND 2024
+      </div>
+
+      <h2
+        id="modal-title"
+        class="font-serif-cinema mt-3 font-semibold uppercase"
+        style="font-size:clamp(2.2rem, 4.6dvh, 4rem);line-height:0.95;letter-spacing:-0.015em;color:#f6efe2;"
+      >
+        BLUEPRINT<br />NO. 7
+      </h2>
+
+      <div class="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-[10.5px] font-medium uppercase tracking-[0.32em] text-white/75">
+        <span>
+          <span class="text-white/45">DIR.</span> <span id="modal-director" class="text-white/95">SAM BINNS</span>
+        </span>
+        <span class="text-white/30">·</span>
+        <span id="modal-year" class="text-white/95">2024</span>
+        <span class="text-white/30">·</span>
+        <span id="modal-category" class="text-white/75">HYBRID DOCUMENTARY</span>
+      </div>
+
+      <div class="my-6 h-px w-full bg-white/10"></div>
+
+      <p id="modal-description" class="font-serif-cinema text-[15.5px] leading-[1.65] text-white/85 italic">
+        An architect of the everyday traces seven anonymous lives across a single city block. Captured in long, unblinking takes, the film constructs an atlas of urban intimacy — strangers passing as a single organism, separated only by the gravity of their private orbits.
+      </p>
+
+      <div class="my-6 h-px w-full bg-white/10"></div>
+
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-3 gap-x-5 gap-y-5">
+        <div class="flex flex-col gap-1">
+          <div class="text-[9.5px] font-medium uppercase tracking-[0.32em] text-white/45">CRITICS</div>
+          <div class="font-serif-cinema text-[20px] leading-none text-white/95">
+            <span id="modal-stat-critics">94</span><span class="ml-0.5 text-[11px] text-white/55">%</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <div class="text-[9.5px] font-medium uppercase tracking-[0.32em] text-white/45">AUDIENCE</div>
+          <div class="font-serif-cinema text-[20px] leading-none text-white/95">
+            <span id="modal-stat-audience">81</span><span class="ml-0.5 text-[11px] text-white/55">%</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <div class="text-[9.5px] font-medium uppercase tracking-[0.32em] text-white/45">RUNTIME</div>
+          <div id="modal-stat-runtime" class="font-serif-cinema text-[20px] leading-none text-white/95">
+            1h 38m
+          </div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <div class="text-[9.5px] font-medium uppercase tracking-[0.32em] text-white/45">FORMAT</div>
+          <div id="modal-stat-format" class="font-serif-cinema text-[20px] leading-none text-white/95">
+            16MM
+          </div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <div class="text-[9.5px] font-medium uppercase tracking-[0.32em] text-white/45">COUNTRY</div>
+          <div id="modal-stat-country" class="font-serif-cinema text-[20px] leading-none text-white/95">
+            UK · GERMANY
+          </div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <div class="text-[9.5px] font-medium uppercase tracking-[0.32em] text-white/45">ASPECT</div>
+          <div id="modal-stat-aspect" class="font-serif-cinema text-[20px] leading-none text-white/95">
+            1.66:1
+          </div>
+        </div>
+      </div>
+
+      <div class="my-6 h-px w-full bg-white/10"></div>
+
+      <!-- Awards List -->
+      <div id="modal-awards" class="flex flex-col gap-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Close Button -->
+  <button
+    id="modal-close-btn"
+    type="button"
+    aria-label="Close details"
+    class="absolute right-[3dvh] top-[3dvh] z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/40 text-white/85 backdrop-blur-md transition-colors hover:bg-black/60 cursor-pointer"
+  >
+    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+      <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+    </svg>
+  </button>
+</aside>
+

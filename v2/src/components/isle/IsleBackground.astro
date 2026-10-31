@@ -1,0 +1,75 @@
+---
+// v2/src/components/isle/IsleBackground.astro
+---
+
+<div class="isl-bg-container pointer-events-none absolute inset-0 overflow-hidden select-none will-change-transform">
+  <!-- Scene 1: Aurora -->
+  <div
+    class="isl-scene isl-scene-aurora absolute inset-0 transition-opacity duration-700 ease-in-out"
+    style="opacity: 1; z-index: 1; background:linear-gradient(165deg, #04140f 0%, #0a3d33 38%, #115c43 55%, #0a1f33 100%);"
+    data-scene="aurora"
+  >
+    <video
+      class="absolute inset-0 h-full w-full object-cover scale-[1.03]"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+      poster="/isle/video-1.jpg"
+      src="/isle/video-1.webm"
+      draggable="false"
+    ></video>
+  </div>
+
+  <!-- Scene 2: Alpine -->
+  <div
+    class="isl-scene isl-scene-alpine absolute inset-0 transition-opacity duration-700 ease-in-out"
+    style="opacity: 0; z-index: 0; background:linear-gradient(165deg, #1a1430 0%, #4a2c4f 40%, #c66a4f 72%, #1d1326 100%);"
+    data-scene="alpine"
+  >
+    <video
+      class="absolute inset-0 h-full w-full object-cover scale-[1.03]"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+      poster="/isle/video-2.jpg"
+      src="/isle/video-2.webm"
+      draggable="false"
+    ></video>
+  </div>
+
+  <!-- Scene 3: Metro -->
+  <div
+    class="isl-scene isl-scene-metro absolute inset-0 transition-opacity duration-700 ease-in-out"
+    style="opacity: 0; z-index: 0; background:linear-gradient(165deg, #060a18 0%, #0d1f3c 45%, #27466b 70%, #060912 100%);"
+    data-scene="metro"
+  >
+    <video
+      class="absolute inset-0 h-full w-full object-cover scale-[1.03]"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+      poster="/isle/video-3.jpg"
+      src="/isle/video-3.webm"
+      draggable="false"
+    ></video>
+  </div>
+
+  <!-- Atmospheric Shadow Overlays -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-[1]">
+    <div class="absolute inset-x-0 top-0 h-44" style="background:linear-gradient(180deg, rgba(2,5,10,0.52), rgba(2,5,10,0));"></div>
+    <div class="absolute inset-x-0 bottom-0 h-[46%]" style="background:linear-gradient(0deg, rgba(2,5,10,0.72) 0%, rgba(2,5,10,0) 100%);"></div>
+  </div>
+
+  <!-- Noise Film Grain Overlay -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 z-[2] opacity-[0.05] mix-blend-overlay"
+    style="background-image:url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\");background-size:200px 200px;"
+  ></div>
+</div>

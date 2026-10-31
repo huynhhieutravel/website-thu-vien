@@ -1,0 +1,21 @@
+---
+// v2/src/pages/alive.astro - Website 23: Alive — Brand Studio That Feels Alive (Astro Native Component Hóa)
+import AliveLayout from '../layouts/AliveLayout.astro';
+import Header from '../components/alive/Header.astro';
+---
+
+<AliveLayout
+  title="We Create Brands That Feel Alive | OurRevolution"
+  description="OurRevolution is a brand studio for products people remember. Explore our work and see why brands come alive with us."
+  activePath="/alive"
+  pageName="/"
+  extraScripts={[
+    "/_next/static/chunks/0u.moi_rfs4d9.js",
+    "/_next/static/chunks/turbopack-070ekpha2_sd..js"
+  ]}
+>
+  <div class="flex min-h-screen flex-col">
+    <Header current="home" />
+    <main class="flex-1"></main>
+  </div>
+</AliveLayout>

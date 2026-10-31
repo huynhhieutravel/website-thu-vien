@@ -1,0 +1,30 @@
+---
+// v2/src/pages/canada/shop.astro
+import CanadaLayout from '../../layouts/CanadaLayout.astro';
+import Navbar from '../../components/canada/Navbar.astro';
+import Footer from '../../components/canada/Footer.astro';
+import CartDrawer from '../../components/canada/CartDrawer.astro';
+import Cursor from '../../components/canada/Cursor.astro';
+import rawContent from '../../raw/canada-shop-content.html?raw';
+
+const contentHtml = rawContent
+  .replace('href="/"', 'href="/canada"')
+  .replace(/href="\/contact/g, 'href="/canada/contact');
+---
+
+<CanadaLayout
+  title="Shop | Anny"
+  description="Design assets, studio apparel, and physical goods curated by Anny."
+  activePath="/canada/shop"
+  pageName="/shop"
+  extraScripts={[
+    "/_next/static/chunks/0wzho06bc6yzh.js"
+  ]}
+>
+  <Navbar />
+  <Fragment set:html={contentHtml} />
+  <Footer />
+  <CartDrawer />
+  <Cursor />
+</CanadaLayout>
+

@@ -1,0 +1,51 @@
+---
+// v2/src/pages/isle.astro - Website 29: Isle — Liquid Glass (Bản Astro Native Component Hóa)
+import IsleLayout from '../layouts/IsleLayout.astro';
+import IsleBackground from '../components/isle/IsleBackground.astro';
+import IsleIsland from '../components/isle/IsleIsland.astro';
+import IslePuck from '../components/isle/IslePuck.astro';
+import IsleDock from '../components/isle/IsleDock.astro';
+import IsleControls from '../components/isle/IsleControls.astro';
+---
+
+<IsleLayout
+  title="Isle — Liquid Glass"
+  description="An island of real glass that refracts the world behind it and springs open like a droplet. Bend the light."
+  currentPath="/isle"
+>
+  <main class="isle relative h-screen w-full select-none overflow-hidden bg-[#060810]">
+    <!-- Background Video Stack -->
+    <IsleBackground />
+
+    <!-- Center Hero Typography -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 z-[3] flex flex-col items-center justify-center px-6 text-center select-none"
+    >
+      <p class="mb-4 text-[11px] font-medium uppercase tracking-[0.32em] text-white/60">
+        Isle — Liquid Glass
+      </p>
+      <h1
+        class="font-semibold text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)] select-none"
+        style="font-size: clamp(48px, 8vw, 96px); line-height: 0.96; letter-spacing: -0.04em;"
+      >
+        Bend the light.
+      </h1>
+      <p class="mt-6 max-w-[50ch] text-[15px] leading-relaxed text-white/70 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+        An island of real glass — it refracts the world behind it and springs open like a droplet. Tap the island. Fling the lens. Swap the scene.
+      </p>
+    </div>
+
+    <!-- The Dynamic Island Player (Top) -->
+    <IsleIsland />
+
+    <!-- Floating Draggable Glass Puck / Lens -->
+    <IslePuck />
+
+    <!-- Bottom Scenes Switcher Dock -->
+    <IsleDock />
+
+    <!-- Side Glass Controls Panel -->
+    <IsleControls />
+  </main>
+</IsleLayout>

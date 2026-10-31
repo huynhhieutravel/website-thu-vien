@@ -1,0 +1,124 @@
+---
+// v2/src/pages/sandiego/contact.astro
+import SanDiegoLayout from '../../layouts/SanDiegoLayout.astro';
+---
+
+<SanDiegoLayout title="Contact | San Diego" activePage="contact">
+<main>
+ <div class="section-hero">
+  <div class="main-hero-container">
+   <div class="small-container">
+    <div class="text-center">
+     <div class="hero-link-holder">
+      <div class="text-hidden">
+       <div class="hero-top-content">
+        <a class="hero-link w-inline-block" href="/sandiego/features">
+         <div class="link-new-badge">
+          New
+         </div>
+         <div>
+          Introducing the Class app
+         </div>
+         <div class="hero-link-arrow">
+         </div>
+        </a>
+       </div>
+      </div>
+     </div>
+     <h1 class="main-heading">
+      Let us know if we
+      <span class="text-gradient">
+       can help
+      </span>
+      you
+     </h1>
+     <div class="w-layout-grid grid-10-columns">
+      <p class="hero-description">
+       Questions about features, pricing, or your account? Send us a note and our team will get back to you quickly.
+      </p>
+     </div>
+     <div class="download-buttons hero-download-buttons">
+      <div class="download-button">
+       <a class="button black-button w-inline-block" href="https://apple.com" rel="noreferrer" target="_blank">
+        <img alt="" class="download-button-icon" loading="lazy" src="/images/Apple-Icon.svg"/>
+        <div>
+         <span class="hide-on-mobile">
+          Download for
+         </span>
+         iOS
+        </div>
+       </a>
+      </div>
+      <div class="download-button">
+       <a class="button black-button w-inline-block" href="https://play.google.com/store/apps" rel="noreferrer" target="_blank">
+        <img alt="" class="download-button-icon" loading="lazy" src="/images/Android-Icon.svg"/>
+        <div>
+         <span class="hide-on-mobile">
+          Download for
+         </span>
+         Android
+        </div>
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="section">
+  <div class="container">
+   <div class="animation-on-page-load">
+    <div class="contact-grid-holder">
+     <div class="contact-left-side-holder contact-compact">
+      <div>
+       <h2 class="heading-3-style">
+        Contact
+       </h2>
+       <p class="contact-intro">
+        Reach out via email, or use the form below and we'll reply soon.
+       </p>
+      </div>
+      <div class="form-block w-form">
+       <form class="form">
+        <div class="contact-form-grid">
+         <div>
+          <label class="field-label" for="First-Name">
+           First name *
+          </label>
+          <input class="text-field w-input" id="First-Name" maxlength="256" name="First-Name" required="" type="text"/>
+         </div>
+         <div>
+          <label class="field-label" for="Last-Name">
+           Last name *
+          </label>
+          <input class="text-field w-input" id="Last-Name" maxlength="256" name="Last-Name" required="" type="text"/>
+         </div>
+         <div class="form-field-full">
+          <label class="field-label" for="Email">
+           Email *
+          </label>
+          <input class="text-field w-input" id="Email" maxlength="256" name="Email" required="" type="email"/>
+         </div>
+         <div class="form-field-full">
+          <label class="field-label" for="Message">
+           Message
+          </label>
+          <textarea class="text-area w-input" id="Message" maxlength="5000" name="Message" placeholder="How can we help?"></textarea>
+         </div>
+        </div>
+        <div>
+         <input class="button rounded-orage-button no-margin w-button" type="submit" value="Submit"/>
+        </div>
+       </form>
+      </div>
+     </div>
+     <div class="contact-right-side-holder">
+      <img alt="San Diego team" class="contact-image" loading="lazy" sizes="(max-width: 479px) 29vw, (max-width: 767px) 95vw, (max-width: 1279px) 32vw, 414.671875px" src="/images/About1.webp" srcset="/images/About1-p-500.jpg 500w, /images/About1-p-800.jpg 800w, /images/About1-p-1080.jpg 1080w, /images/About1-p-1600.jpg 1600w, /images/About1.webp 1968w"/>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</main>
+
+</SanDiegoLayout>

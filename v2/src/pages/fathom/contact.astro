@@ -1,0 +1,26 @@
+---
+// v2/src/pages/fathom/contact.astro - Fathom Contact Page (Astro Native)
+import FathomLayout from '../../layouts/FathomLayout.astro';
+import Header from '../../components/fathom/Header.astro';
+import ContactContent from '../../components/fathom/ContactContent.astro';
+import Footer from '../../components/fathom/Footer.astro';
+---
+
+<FathomLayout
+  title="Contact — Say Something | Fathom"
+  description="Prints, licensing, commissions, or a note about a frame you saw go past. Everything sent here lands in the archive's inbox."
+  activePath="/fathom/contact"
+  pageName="/contact"
+  extraScripts={[
+    "/_next/static/chunks/02tqaf2b3exn7.js",
+    "/_next/static/chunks/01bhz9qpfdy4g.js",
+    "/_next/static/chunks/turbopack-0kh~lwxk6t93w.js"
+  ]}
+>
+  <div class="flex min-h-screen flex-col">
+    <Header current="contact" />
+    <ContactContent />
+    <Footer />
+  </div>
+</FathomLayout>
+

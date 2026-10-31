@@ -1,0 +1,23 @@
+---
+// v2/src/pages/alive/contact.astro - Website 23: Alive — Contact (Astro Native Component Hóa)
+import AliveLayout from '../../layouts/AliveLayout.astro';
+import Header from '../../components/alive/Header.astro';
+import ContactForm from '../../components/alive/ContactForm.astro';
+---
+
+<AliveLayout
+  title="Start a Project | OurRevolution"
+  description="Tell us about your brand, product, or next big venture. We'd love to make it feel alive."
+  activePath="/alive/contact"
+  pageName="/contact"
+  extraScripts={[
+    "/_next/static/chunks/0crs2wd.~v7x3.js",
+    "/_next/static/chunks/turbopack-0nxvt7sfhmmv4.js"
+  ]}
+>
+  <div class="flex min-h-screen flex-col">
+    <Header current="contact" />
+    <ContactForm />
+  </div>
+</AliveLayout>
+

@@ -1,0 +1,123 @@
+---
+// v2/src/components/atelier/Dock.astro - macOS Dock Component with magnification & tooltips
+---
+
+<div class="dock-wrapper absolute inset-x-0 bottom-4 sm:bottom-5 z-30 flex justify-center select-none pointer-events-none">
+  <div
+    class="dock-container pointer-events-auto flex items-end gap-1.5 sm:gap-2 rounded-[26px] border border-white/25 bg-white/[0.15] px-3 pb-2.5 pt-2.5 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.55),0_1px_0_inset_rgba(255,255,255,0.32),0_-1px_0_inset_rgba(0,0,0,0.18)]"
+  >
+    <!-- Figma -->
+    <div class="group relative flex items-end">
+      <span class="pointer-events-none absolute -top-[42px] left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[6px] border border-white/20 bg-black/80 px-2.5 py-[4px] text-[11px] font-medium text-white opacity-0 backdrop-blur-md transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100 shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">
+        Figma
+        <span class="absolute left-1/2 top-full size-0 -translate-x-1/2 border-l-[5px] border-r-[5px] border-t-[5px] border-l-transparent border-r-transparent border-t-black/80"></span>
+      </span>
+      <button type="button" data-dock-app="figma" aria-label="Figma" class="dock-btn block outline-none transition-transform duration-150 hover:scale-125 active:scale-95">
+        <div class="size-11 sm:size-14 drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]" style="width: 56px; height: 56px;">
+          <img alt="Figma" draggable="false" class="size-full object-contain" src="/atelier/doc-icons/figma.png" />
+        </div>
+      </button>
+    </div>
+
+    <!-- Claude Code -->
+    <div class="group relative flex items-end">
+      <span class="pointer-events-none absolute -top-[42px] left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[6px] border border-white/20 bg-black/80 px-2.5 py-[4px] text-[11px] font-medium text-white opacity-0 backdrop-blur-md transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100 shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">
+        Claude Code
+        <span class="absolute left-1/2 top-full size-0 -translate-x-1/2 border-l-[5px] border-r-[5px] border-t-[5px] border-l-transparent border-r-transparent border-t-black/80"></span>
+      </span>
+      <button type="button" data-dock-app="claude" aria-label="Claude Code" class="dock-btn block outline-none transition-transform duration-150 hover:scale-125 active:scale-95">
+        <div class="size-11 sm:size-14 drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]" style="width: 56px; height: 56px;">
+          <img alt="Claude Code" draggable="false" class="size-full object-contain" src="/atelier/doc-icons/claude.png" />
+        </div>
+      </button>
+    </div>
+
+    <!-- Notes -->
+    <div class="group relative flex items-end">
+      <span class="pointer-events-none absolute -top-[42px] left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[6px] border border-white/20 bg-black/80 px-2.5 py-[4px] text-[11px] font-medium text-white opacity-0 backdrop-blur-md transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100 shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">
+        Notes
+        <span class="absolute left-1/2 top-full size-0 -translate-x-1/2 border-l-[5px] border-r-[5px] border-t-[5px] border-l-transparent border-r-transparent border-t-black/80"></span>
+      </span>
+      <button type="button" data-dock-app="notes" aria-label="Notes" class="dock-btn block outline-none transition-transform duration-150 hover:scale-125 active:scale-95">
+        <div class="size-11 sm:size-14 drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]" style="width: 56px; height: 56px;">
+          <img alt="Notes" draggable="false" class="size-full object-contain" src="/atelier/doc-icons/Notes.png" />
+        </div>
+      </button>
+    </div>
+
+    <!-- Photos -->
+    <div class="group relative flex items-end">
+      <span class="pointer-events-none absolute -top-[42px] left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[6px] border border-white/20 bg-black/80 px-2.5 py-[4px] text-[11px] font-medium text-white opacity-0 backdrop-blur-md transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100 shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">
+        Photos
+        <span class="absolute left-1/2 top-full size-0 -translate-x-1/2 border-l-[5px] border-r-[5px] border-t-[5px] border-l-transparent border-r-transparent border-t-black/80"></span>
+      </span>
+      <button type="button" data-dock-app="photos" aria-label="Photos" class="dock-btn block outline-none transition-transform duration-150 hover:scale-125 active:scale-95">
+        <div class="size-11 sm:size-14 drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]" style="width: 56px; height: 56px;">
+          <img alt="Photos" draggable="false" class="size-full object-contain" src="/atelier/doc-icons/photos.png" />
+        </div>
+      </button>
+    </div>
+
+    <!-- Divider -->
+    <span class="mx-0.5 my-2 w-px self-stretch bg-white/20" aria-hidden="true"></span>
+
+    <!-- X / Twitter -->
+    <div class="group relative flex items-end">
+      <span class="pointer-events-none absolute -top-[42px] left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[6px] border border-white/20 bg-black/80 px-2.5 py-[4px] text-[11px] font-medium text-white opacity-0 backdrop-blur-md transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100 shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">
+        X
+        <span class="absolute left-1/2 top-full size-0 -translate-x-1/2 border-l-[5px] border-r-[5px] border-t-[5px] border-l-transparent border-r-transparent border-t-black/80"></span>
+      </span>
+      <button type="button" data-dock-app="x" aria-label="X" class="dock-btn block outline-none transition-transform duration-150 hover:scale-125 active:scale-95">
+        <div class="size-11 sm:size-14 drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]" style="width: 56px; height: 56px;">
+          <img alt="X" draggable="false" class="size-full object-contain" src="/atelier/doc-icons/x.png" />
+        </div>
+      </button>
+    </div>
+
+    <!-- Mail -->
+    <div class="group relative flex items-end">
+      <span class="pointer-events-none absolute -top-[42px] left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[6px] border border-white/20 bg-black/80 px-2.5 py-[4px] text-[11px] font-medium text-white opacity-0 backdrop-blur-md transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100 shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">
+        Mail
+        <span class="absolute left-1/2 top-full size-0 -translate-x-1/2 border-l-[5px] border-r-[5px] border-t-[5px] border-l-transparent border-r-transparent border-t-black/80"></span>
+      </span>
+      <button type="button" data-dock-app="mail" aria-label="Mail" class="dock-btn block outline-none transition-transform duration-150 hover:scale-125 active:scale-95">
+        <div class="size-11 sm:size-14 drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]" style="width: 56px; height: 56px;">
+          <img alt="Mail" draggable="false" class="size-full object-contain" src="/atelier/doc-icons/mail.png" />
+        </div>
+      </button>
+    </div>
+
+    <!-- Divider -->
+    <span class="mx-0.5 my-2 w-px self-stretch bg-white/20" aria-hidden="true"></span>
+
+    <!-- Trash -->
+    <div class="group relative flex items-end">
+      <span class="pointer-events-none absolute -top-[42px] left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-[6px] border border-white/20 bg-black/80 px-2.5 py-[4px] text-[11px] font-medium text-white opacity-0 backdrop-blur-md transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100 shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">
+        Trash
+        <span class="absolute left-1/2 top-full size-0 -translate-x-1/2 border-l-[5px] border-r-[5px] border-t-[5px] border-l-transparent border-r-transparent border-t-black/80"></span>
+      </span>
+      <button type="button" data-dock-app="trash" aria-label="Trash" class="dock-btn block outline-none transition-transform duration-150 hover:scale-125 active:scale-95">
+        <div class="size-11 sm:size-14 drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]" style="width: 56px; height: 56px;">
+          <img alt="Trash" draggable="false" class="size-full object-contain" src="/atelier/doc-icons/Trash.png" />
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dock-wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+  }
+  .dock-container {
+    width: fit-content !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    height: 80px !important;
+  }
+</style>

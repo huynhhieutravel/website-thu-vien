@@ -1,0 +1,23 @@
+---
+// v2/src/pages/frieze/about.astro - Frieze Studio About Page (Astro Native)
+import FriezeLayout from '../../layouts/FriezeLayout.astro';
+import Header from '../../components/frieze/Header.astro';
+import AboutContent from '../../components/frieze/AboutContent.astro';
+---
+
+<FriezeLayout
+  title="About | Frieze — Design & Typeface Studio"
+  description="Frieze is a design studio working in identity, typeface design, editorial, packaging and wayfinding. We photograph most of it ourselves."
+  activePath="/frieze/about"
+  pageName="/about"
+  extraScripts={[
+    "/_next/static/chunks/0zi.i2.m_pato.js",
+    "/_next/static/chunks/turbopack-064jjodkb8~_5.js"
+  ]}
+>
+  <div class="flex min-h-screen flex-col">
+    <Header current="about" />
+    <AboutContent />
+  </div>
+</FriezeLayout>
+

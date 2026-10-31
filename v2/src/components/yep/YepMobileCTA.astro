@@ -1,0 +1,21 @@
+---
+const sections = [
+ {href:'#story', label:'Bối cảnh', number:'01'},
+ {href:'#experience', label:'Trải nghiệm', number:'02'},
+ {href:'#case-study', label:'Hồ sơ', number:'03'},
+ {href:'#moments', label:'Hình ảnh', number:'04'},
+];
+---
+<nav class="reading-dock" aria-label="Đi nhanh đến nội dung bài viết">
+ {sections.map(item=><a href={item.href}><span>{item.number}</span><strong>{item.label}</strong></a>)}
+</nav>
+<style>
+.reading-dock{display:none}
+@media(max-width:1024px){
+ .reading-dock{position:fixed;z-index:90;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:#141812f5;border-top:1px solid #bca47d55;backdrop-filter:blur(16px);font-family:Manrope,Arial,sans-serif;}
+ .reading-dock a{min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none;color:#eee8dc;border-radius:4px;}
+ .reading-dock span{font-size:10px;color:#bca47d;letter-spacing:.12em;}
+ .reading-dock strong{font-size:11px;font-weight:500;white-space:nowrap;}
+ .reading-dock a:hover,.reading-dock a:focus-visible{background:#bca47d18;color:#d7c29e;}
+}
+</style>

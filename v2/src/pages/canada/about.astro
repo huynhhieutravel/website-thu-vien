@@ -1,0 +1,30 @@
+---
+// v2/src/pages/canada/about.astro
+import CanadaLayout from '../../layouts/CanadaLayout.astro';
+import Navbar from '../../components/canada/Navbar.astro';
+import Footer from '../../components/canada/Footer.astro';
+import CartDrawer from '../../components/canada/CartDrawer.astro';
+import Cursor from '../../components/canada/Cursor.astro';
+import rawContent from '../../raw/canada-about-content.html?raw';
+
+const contentHtml = rawContent
+  .replace('href="/"', 'href="/canada"')
+  .replace(/href="\/contact/g, 'href="/canada/contact');
+---
+
+<CanadaLayout
+  title="About | Anny"
+  description="Elevating brand identities, systems, and apps through collaborative motion design."
+  activePath="/canada/about"
+  pageName="/about"
+  extraScripts={[
+    "/_next/static/chunks/0~4-gfkoth4av.js"
+  ]}
+>
+  <Navbar />
+  <Fragment set:html={contentHtml} />
+  <Footer />
+  <CartDrawer />
+  <Cursor />
+</CanadaLayout>
+

@@ -1,0 +1,28 @@
+---
+// v2/src/pages/hardback.astro - Website 26: Hardback (The Founders Shelf — Interactive 3D Bookshelf) (Astro Native)
+import HardbackLayout from '../layouts/HardbackLayout.astro';
+import Header from '../components/hardback/Header.astro';
+import DayNightToggle from '../components/hardback/DayNightToggle.astro';
+import Bookshelf from '../components/hardback/Bookshelf.astro';
+import BookDrawer from '../components/hardback/BookDrawer.astro';
+---
+
+<HardbackLayout
+  title="The Founders Shelf | Modulify Site"
+  description="An interactive 3D bookshelf of twelve essential reads on building, growing, and lasting companies. Pull one from the shelf and open it."
+>
+  <main class="flex-1 relative w-full h-screen overflow-hidden">
+    <!-- Day / Night Light Switch -->
+    <DayNightToggle />
+
+    <!-- 3D Header -->
+    <Header />
+
+    <!-- 3D Interactive Bookshelf Canvas -->
+    <Bookshelf />
+
+    <!-- Selected Book Details Drawer -->
+    <BookDrawer />
+  </main>
+</HardbackLayout>
+

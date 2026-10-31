@@ -1,0 +1,23 @@
+---
+// v2/src/pages/alive/work.astro - Website 23: Alive — Work (Astro Native Component Hóa)
+import AliveLayout from '../../layouts/AliveLayout.astro';
+import Header from '../../components/alive/Header.astro';
+import WorkGrid from '../../components/alive/WorkGrid.astro';
+---
+
+<AliveLayout
+  title="Our Work | OurRevolution"
+  description="A selection of brands, products, and campaigns OurRevolution has helped come alive."
+  activePath="/alive/work"
+  pageName="/work"
+  extraScripts={[
+    "/_next/static/chunks/0.fb-dth89pjt.js",
+    "/_next/static/chunks/turbopack-0g8gbff.954y3.js"
+  ]}
+>
+  <div class="flex min-h-screen flex-col">
+    <Header current="work" />
+    <WorkGrid />
+  </div>
+</AliveLayout>
+

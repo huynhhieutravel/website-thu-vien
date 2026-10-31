@@ -1,0 +1,434 @@
+---
+// CorporateFooter.astro - Footer chính thức của Tour Doanh Nghiệp / FIT TOUR
+// Chuẩn mực 5 cột: Brand, Tour & Thông tin, Tour Doanh Nghiệp, Quy định, Liên hệ & Legal
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="fittour-corp-footer" aria-label="Chân trang FIT TOUR">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <!-- Cột 1: Thương hiệu & Giới thiệu -->
+      <div class="footer-col col-brand">
+        <div class="brand-title">
+          <h2>FIT TOUR</h2>
+          <span class="reg-mark">&reg;</span>
+        </div>
+        <p class="brand-slogan">BEYOND ORDINARY JOURNEYS</p>
+        
+        <ul class="footer-links">
+          <li><a href="https://fittour.vn/gioi-thieu">Về chúng tôi</a></li>
+          <li><a href="https://fittour.vn/portfolio">Our Portfolio</a></li>
+          <li><a href="https://fittour.vn/our-team">Our Team</a></li>
+          <li><a href="https://fittour.vn/diem-den-fit-tour">Our Destinations and Projects</a></li>
+          <li><a href="https://fittour.vn/fit-team">Câu chuyện thương hiệu của FIT Tour</a></li>
+          <li><a href="https://fittour.vn/danh-gia-khach-hang-ve-fit-tour">Đánh giá của Khách hàng về FIT Tour</a></li>
+        </ul>
+      </div>
+
+      <!-- Cột 2: Tour & Thông tin -->
+      <div class="footer-col col-tours">
+        <div class="sub-group">
+          <p class="col-heading">Tour</p>
+          <ul class="footer-links">
+            <li><a href="https://fittour.vn/du-lich-nuoc-ngoai">Tour du lịch nước ngoài</a></li>
+            <li><a href="https://fittour.vn/motor-trip">Motor Trip nước ngoài</a></li>
+            <li><a href="https://fittour.vn/dich-vu-visa">Dịch vụ Visa</a></li>
+          </ul>
+        </div>
+        <div class="sub-group mt-group">
+          <p class="col-heading">Thông tin</p>
+          <ul class="footer-links">
+            <li><a href="https://fittour.vn/blog">Blog</a></li>
+            <li><a href="https://fittour.vn/emagazine">Emagazine</a></li>
+            <li><a href="https://fittour.vn/gallery">Hình ảnh du lịch</a></li>
+            <li><a href="https://fittour.vn/cau-chuyen-du-lich">Câu chuyện du lịch</a></li>
+            <li><a href="https://fittour.vn/kinh-nghiem-du-lich-nuoc-ngoai">Kinh nghiệm du lịch nước ngoài</a></li>
+            <li><a href="https://fittour.vn/tin-tuc-du-lich">Tin tức</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Cột 3: Tour Doanh Nghiệp (Trọng tâm) -->
+      <div class="footer-col col-corporate">
+        <p class="col-heading">Tour Doanh Nghiệp</p>
+        <ul class="footer-links">
+          <li><a href="https://fittour.vn/tour-doanh-nghiep" class="font-bold text-white">Tour Doanh Nghiệp</a></li>
+          <li><a href="https://fittour.vn/tour-incentive-travel-doanh-nghiep">— Incentive Travel</a></li>
+          <li><a href="https://fittour.vn/corporate-retreat">— Corporate Retreat</a></li>
+          <li><a href="https://fittour.vn/company-trip">— Company Trip</a></li>
+          <li><a href="https://fittour.vn/to-chuc-su-kien-cong-ty-cho-doanh-nghiep">— MICE &amp; Events</a></li>
+          <li><a href="https://fittour.vn/tour-cong-ty">Danh sách Tour Công Ty</a></li>
+          <li><a href="https://fittour.vn/hanh-trinh-doanh-nghiep">Hành trình Doanh Nghiệp</a></li>
+          <li><a href="https://fittour.vn/elite-brand-guidelines">Brand Guideline Elite FIT Tour</a></li>
+          <li><a href="https://fittour.vn/tour-doanh-nghiep/dang-ky" class="text-gold font-bold">Đăng Ký Tư Vấn Doanh Nghiệp</a></li>
+        </ul>
+      </div>
+
+      <!-- Cột 4: Quy định & Chính sách -->
+      <div class="footer-col col-policies">
+        <p class="col-heading">Xác nhận & Quy định</p>
+        <ul class="footer-links">
+          <li><a href="https://fittour.vn/lien-he">Liên hệ</a></li>
+          <li><a href="https://fittour.vn/chinh-sach-bao-mat">Chính sách bảo mật</a></li>
+          <li><a href="https://fittour.vn/dieu-khoan-dich-vu">Điều khoản dịch vụ</a></li>
+          <li><a href="https://fittour.vn/tai-khoan-thanh-toan">Tài khoản thanh toán</a></li>
+          <li><a href="https://fittour.vn/tuyen-dung">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- Cột 5: Thông tin Pháp lý & Hotline B2B Chuẩn -->
+      <div class="footer-col col-contact">
+        <p class="col-heading">Liên hệ</p>
+        <p class="company-name">CÔNG TY TNHH DU LỊCH QUỐC TẾ FIT TOUR</p>
+        
+        <div class="contact-details">
+          <div class="detail-item">
+            <svg class="detail-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>19 Lương Hữu Khánh, Phường Phạm Ngũ Lão, Quận 1, TP. HCM</span>
+          </div>
+          
+          <div class="detail-item">
+            <svg class="detail-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <a href="mailto:info@fittour.com.vn">info@fittour.com.vn</a>
+          </div>
+
+          <!-- Hotline Group -->
+          <div class="hotlines-block">
+            <p class="hotline-subheading">Hotlines:</p>
+            <div class="detail-item">
+              <svg class="detail-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <a href="tel:0836999909">Hotline 1: 0836 999 909</a>
+            </div>
+            <div class="detail-item">
+              <svg class="detail-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <a href="tel:0934888854">Hotline 2: 0934 888 854</a>
+            </div>
+            <div class="detail-item highlight-b2b">
+              <svg class="detail-icon icon-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <a href="tel:0932076186" class="link-b2b">Tư vấn B2B: <strong>0932 076 186</strong></a>
+            </div>
+          </div>
+
+          <!-- Legal Registration -->
+          <div class="legal-badge">
+            <p><strong>MST:</strong> 0316127669</p>
+            <p><strong>Travel License:</strong> 79-1318/2022/CDLQGVN-GP LHQT</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Strip -->
+    <div class="footer-bottom-strip">
+      <div class="bottom-inner">
+        <div class="bottom-brand">
+          <a href="https://fittour.vn" aria-label="FIT TOUR Trang chủ">
+            <img 
+              src="https://media.fittour.vn/uploads/logo-fittour-white.webp" 
+              alt="FIT TOUR" 
+              width="110" 
+              height="32" 
+              class="footer-logo" 
+              loading="lazy" 
+            />
+          </a>
+          <span class="sep-line"></span>
+          <span class="company-subtag">International Travel Company Fit Tour</span>
+        </div>
+        <div class="bottom-copy">
+          <p>Copyright &copy; {currentYear} FIT Tour. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative Signature Script -->
+  <div class="footer-signature" aria-hidden="true">
+    <p>See You On The Road!</p>
+  </div>
+</footer>
+
+<style>
+  .fittour-corp-footer {
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    background: #0a0a0a;
+    color: #ffffff;
+    padding-top: 64px;
+    padding-bottom: 48px;
+    border-top: 1px solid #1a1d24;
+    position: relative;
+    overflow: hidden;
+    font-family: Manrope, Arial, sans-serif;
+  }
+
+  .footer-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-inline: 24px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 36px 28px;
+  }
+
+  /* Brand Column */
+  .brand-title {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .brand-title h2 {
+    font-family: Cormorant, Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .reg-mark {
+    font-size: 10px;
+    color: #ffffff;
+  }
+
+  .brand-slogan {
+    font-family: Cormorant, Georgia, serif;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: #c5a365;
+    margin-top: 6px;
+    margin-bottom: 22px;
+  }
+
+  /* Links & Headings */
+  .col-heading {
+    font-family: Cormorant, Georgia, serif;
+    font-size: 18px;
+    color: #c5a365;
+    margin: 0 0 16px;
+    font-weight: 600;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-links li a {
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-block;
+  }
+
+  .footer-links li a:hover {
+    color: #c5a365;
+  }
+
+  .footer-links li a.text-gold {
+    color: #d7c29e;
+  }
+
+  .sub-group.mt-group {
+    margin-top: 24px;
+  }
+
+  /* Contact Column */
+  .company-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 16px;
+    line-height: 1.4;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.5;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .detail-item a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .detail-item a:hover {
+    color: #c5a365;
+  }
+
+  .detail-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 2px;
+  }
+
+  .icon-gold {
+    color: #c5a365;
+  }
+
+  .hotlines-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .hotline-subheading {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .detail-item.highlight-b2b .link-b2b {
+    color: #f3eee6;
+  }
+
+  .detail-item.highlight-b2b .link-b2b strong {
+    color: #f59e0b;
+  }
+
+  .legal-badge {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+  }
+
+  /* Bottom Strip */
+  .footer-bottom-strip {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid #1f242d;
+  }
+
+  .bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .bottom-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .sep-line {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .company-subtag {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .bottom-copy p {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+  }
+
+  /* Signature Script */
+  .footer-signature {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .footer-signature p {
+    font-family: Cormorant, Georgia, serif;
+    font-style: italic;
+    font-size: 84px;
+    color: #c5a365;
+    margin: 0;
+    line-height: 1;
+    white-space: nowrap;
+    transform: rotate(-4deg);
+  }
+
+  @media(max-width: 1200px) {
+    .footer-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media(max-width: 768px) {
+    .fittour-corp-footer {
+      padding-top: 48px;
+      padding-bottom: 36px;
+    }
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .bottom-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .footer-signature {
+      display: none;
+    }
+  }
+</style>
+

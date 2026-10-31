@@ -1,0 +1,10 @@
+---
+// v2/src/components/canada/FeaturedWork.astro
+import rawWork from '../../raw/canada-featured-work.html?raw';
+
+const workHtml = rawWork
+  .replace(/href="\/projects/g, 'href="/canada/projects');
+---
+
+<Fragment set:html={workHtml} />
+

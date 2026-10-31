@@ -1,0 +1,31 @@
+---
+// v2/src/pages/vektr.astro - Website 14: Vektr Electric Performance (Phiên Bản Astro Code Native)
+import VektrLayout from "../layouts/VektrLayout.astro";
+import Header from "../components/vektr/Header.astro";
+import Hero from "../components/vektr/Hero.astro";
+import StatsBar from "../components/vektr/StatsBar.astro";
+import Engineering from "../components/vektr/Engineering.astro";
+import RideModes from "../components/vektr/RideModes.astro";
+import Design from "../components/vektr/Design.astro";
+import Specs from "../components/vektr/Specs.astro";
+import TestRide from "../components/vektr/TestRide.astro";
+import Footer from "../components/vektr/Footer.astro";
+---
+
+<VektrLayout
+  title="Vektr — Electric Performance | The road, re-engineered | Astro Native"
+  description="Vektr 01 is an electric bike engineered around a 90 Nm hub motor, a carbon monocoque frame and a silent belt drive. The road, re-engineered."
+  ><div class="flex min-h-screen flex-col bg-ink text-foreground">
+    <a
+      class="sr-only z-[70] rounded-full bg-signal px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      href="#main">Skip to content</a
+    ><Header /><main class="flex-1" id="main">
+      <Hero /><StatsBar /><Engineering /><RideModes /><Design /><Specs
+      /><TestRide />
+    </main><Footer /><div
+      aria-hidden="true"
+      class="grain pointer-events-none fixed inset-0 z-[60]"
+    >
+    </div>
+  </div></VektrLayout
+>

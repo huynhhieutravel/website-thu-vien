@@ -1,0 +1,86 @@
+---
+// v2/src/components/hardback/DayNightToggle.astro
+---
+
+<button
+  id="day-night-toggle"
+  type="button"
+  data-no-drag="true"
+  aria-label="Switch to daytime light"
+  style="position: fixed; top: 48px; right: 24px; z-index: 999999; display: flex; width: 36px; height: 36px; align-items: center; justify-content: center; border-radius: 9999px; backdrop-filter: blur(12px); color: #fff; border: 1px solid rgba(255, 255, 255, 0.22); background-color: rgba(25, 20, 16, 0.55); cursor: pointer; transition: all 0.3s ease;"
+>
+  <!-- Sun Icon (shown in dark mode) -->
+  <svg
+    id="icon-sun"
+    class="size-[16px] transition-transform duration-300"
+    fill="none"
+    height="24"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="1.8"
+    viewBox="0 0 24 24"
+    width="24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2"></path>
+    <path d="M12 20v2"></path>
+    <path d="m4.93 4.93 1.41 1.41"></path>
+    <path d="m17.66 17.66 1.41 1.41"></path>
+    <path d="M2 12h2"></path>
+    <path d="M20 12h2"></path>
+    <path d="m6.34 17.66-1.41 1.41"></path>
+    <path d="m19.07 4.93-1.41 1.41"></path>
+  </svg>
+
+  <!-- Moon Icon (shown in light mode) -->
+  <svg
+    id="icon-moon"
+    class="size-[16px] hidden transition-transform duration-300"
+    fill="none"
+    height="24"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="1.8"
+    viewBox="0 0 24 24"
+    width="24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+</button>
+
+<script>
+  const toggleBtn = document.getElementById('day-night-toggle');
+  const sunIcon = document.getElementById('icon-sun');
+  const moonIcon = document.getElementById('icon-moon');
+  const dayBg = document.getElementById('day-bg-layer');
+
+  let isDark = true;
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      isDark = !isDark;
+      const html = document.documentElement;
+      
+      if (isDark) {
+        html.setAttribute('data-theme', 'dark');
+        toggleBtn.setAttribute('aria-label', 'Switch to daytime light');
+        sunIcon?.classList.remove('hidden');
+        moonIcon?.classList.add('hidden');
+        if (dayBg) dayBg.style.opacity = '0';
+        window.dispatchEvent(new CustomEvent('hardback:theme', { detail: { isDark: true } }));
+      } else {
+        html.setAttribute('data-theme', 'light');
+        toggleBtn.setAttribute('aria-label', 'Switch to evening lamp');
+        sunIcon?.classList.add('hidden');
+        moonIcon?.classList.remove('hidden');
+        if (dayBg) dayBg.style.opacity = '1';
+        window.dispatchEvent(new CustomEvent('hardback:theme', { detail: { isDark: false } }));
+      }
+    });
+  }
+</script>
+

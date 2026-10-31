@@ -1,0 +1,55 @@
+---
+// v2/src/components/fathom/Header.astro - Fathom Navigation Header (Astro Native)
+interface Props {
+  current?: 'index' | 'about' | 'contact';
+}
+
+const { current = 'index' } = Astro.props;
+---
+
+<header class="fixed inset-x-0 top-0 z-50">
+  <nav class="flex items-center justify-between gap-6 border-b border-white/10 bg-stage/40 px-5 py-4 backdrop-blur-md sm:px-9 sm:py-5">
+    <a class="font-display text-lg uppercase leading-none tracking-[0.04em] text-white/90 transition-colors duration-500 hover:text-white sm:text-xl" href="/fathom">
+      Fathom
+    </a>
+    <ul class="flex items-center gap-5 sm:gap-8">
+      <li>
+        <a
+          aria-current={current === 'index' ? 'page' : undefined}
+          class={`group flex items-baseline gap-1.5 font-mono text-[0.68rem] uppercase tracking-[0.14em] transition-colors duration-500 sm:text-[0.72rem] ${current === 'index' ? 'text-white/90' : 'text-white/50 hover:text-white/80'}`}
+          href="/fathom"
+        >
+          <span class="hidden text-white/30 transition-colors duration-500 group-hover:text-white/50 sm:inline">
+            01
+          </span>
+          Index
+        </a>
+      </li>
+      <li>
+        <a
+          aria-current={current === 'about' ? 'page' : undefined}
+          class={`group flex items-baseline gap-1.5 font-mono text-[0.68rem] uppercase tracking-[0.14em] transition-colors duration-500 sm:text-[0.72rem] ${current === 'about' ? 'text-white/90' : 'text-white/50 hover:text-white/80'}`}
+          href="/fathom/about"
+        >
+          <span class="hidden text-white/30 transition-colors duration-500 group-hover:text-white/50 sm:inline">
+            02
+          </span>
+          About
+        </a>
+      </li>
+      <li>
+        <a
+          aria-current={current === 'contact' ? 'page' : undefined}
+          class={`group flex items-baseline gap-1.5 font-mono text-[0.68rem] uppercase tracking-[0.14em] transition-colors duration-500 sm:text-[0.72rem] ${current === 'contact' ? 'text-white/90' : 'text-white/50 hover:text-white/80'}`}
+          href="/fathom/contact"
+        >
+          <span class="hidden text-white/30 transition-colors duration-500 group-hover:text-white/50 sm:inline">
+            03
+          </span>
+          Contact
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+

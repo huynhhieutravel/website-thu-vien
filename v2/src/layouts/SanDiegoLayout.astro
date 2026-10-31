@@ -1,0 +1,268 @@
+---
+// v2/src/layouts/SanDiegoLayout.astro
+import SanDiegoHeader from '../components/sandiego/SanDiegoHeader.astro';
+import SanDiegoFooter from '../components/sandiego/SanDiegoFooter.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  activePage?: string;
+}
+
+const {
+  title = "Home | San Diego",
+  description = "San Diego keeps your time, expenses, and tasks on-brand, on message, and on time. Effortless living made possible.",
+  activePage = ""
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
+    <link rel="apple-touch-icon" href="/images/webclip.png" />
+
+    <!-- Core San Diego Stylesheets -->
+    <link rel="stylesheet" href="/_next/static/chunks/0q04c~encff2a.css" />
+    <link rel="stylesheet" href="/_next/static/chunks/0-iasgj9vs-m..css" />
+    <link rel="stylesheet" href="/_next/static/chunks/0usfwpno_rn0u.css" />
+
+    <!-- Animation Libraries -->
+    <script src="/scripts/gsap.min.js" is:inline></script>
+    <script src="/scripts/ScrollTrigger.min.js" is:inline></script>
+
+    <style is:global>
+      /* Ensure proper padding for Top Bar */
+      body {
+        padding-top: 36px !important;
+        margin: 0;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: #f7f9fa;
+        color: #1a1a1a;
+      }
+      .main-nav {
+        top: 48px !important;
+      }
+      /* Top Bar */
+      #sandiego-top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 36px;
+        background: #0d0f12;
+        color: #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        z-index: 999999;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      #sandiego-top-bar a.back-btn {
+        color: #94a3b8;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: color 0.2s;
+      }
+      #sandiego-top-bar a.back-btn:hover {
+        color: #fff;
+      }
+      #sandiego-top-bar .orig-btn {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        transition: background 0.2s;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      #sandiego-top-bar .orig-btn:hover {
+        background: rgba(255, 255, 255, 0.22);
+      }
+      .w-dropdown-list.w--open {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Bar -->
+    <header id="sandiego-top-bar">
+      <a href="/" class="back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+        <span>← Quay lại Thư viện</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#3b82f6;"></span>
+        <span style="color:#f8fafc;font-weight:600;letter-spacing:0.02em;">SAN DIEGO — ASTRO NATIVE COMPONENT-BASED</span>
+      </div>
+      <a href="/sandiego-original" class="orig-btn">
+        XEM BẢN GỐC 1-TO-1 →
+      </a>
+    </header>
+
+    <div class="page-root">
+      <SanDiegoHeader activePage={activePage} />
+      <slot />
+      <SanDiegoFooter />
+    </div>
+  
+    <script is:inline>
+    (function() {
+      // 1. Global Parallax Engine for San Diego elements [data-parallax]
+      function initParallax() {
+        const parallaxElements = Array.from(document.querySelectorAll('[data-parallax]'));
+        if (!parallaxElements.length) return;
+
+        function parseRange(str) {
+          if (!str) return null;
+          const parts = str.split(',').map(s => parseFloat(s.trim()));
+          return parts.length === 2 ? parts : null;
+        }
+
+        const items = parallaxElements.map(el => {
+          const xRange = parseRange(el.getAttribute('data-parallax-x'));
+          const yRange = parseRange(el.getAttribute('data-parallax-y'));
+          const scaleRange = parseRange(el.getAttribute('data-parallax-scale'));
+          const opacityRange = parseRange(el.getAttribute('data-parallax-opacity'));
+          const isEndCenter = el.getAttribute('data-parallax-end') === 'center center';
+
+          return { el, xRange, yRange, scaleRange, opacityRange, isEndCenter };
+        });
+
+        function updateParallax() {
+          const windowH = window.innerHeight || 800;
+
+          items.forEach(item => {
+            const rect = item.el.getBoundingClientRect();
+            let totalDist = rect.height + windowH;
+            let currentDist = windowH - rect.top;
+
+            if (item.isEndCenter) {
+              totalDist = (rect.height + windowH) * 0.7;
+            }
+
+            let progress = currentDist / totalDist;
+            progress = Math.max(0, Math.min(1, progress));
+
+            let transform = '';
+            if (item.xRange) {
+              const x = item.xRange[0] + (item.xRange[1] - item.xRange[0]) * progress;
+              transform += ` translateX(${x}%)`;
+            }
+            if (item.yRange) {
+              const y = item.yRange[0] + (item.yRange[1] - item.yRange[0]) * progress;
+              transform += ` translateY(${y}%)`;
+            }
+            if (item.scaleRange) {
+              const s = item.scaleRange[0] + (item.scaleRange[1] - item.scaleRange[0]) * progress;
+              transform += ` scale(${s})`;
+            }
+            if (transform) {
+              item.el.style.transform = transform.trim();
+            }
+            if (item.opacityRange) {
+              const op = item.opacityRange[0] + (item.opacityRange[1] - item.opacityRange[0]) * progress;
+              item.el.style.opacity = String(op);
+            }
+          });
+        }
+
+        window.addEventListener('scroll', () => {
+          requestAnimationFrame(updateParallax);
+        }, { passive: true });
+
+        updateParallax();
+      }
+
+      // 2. Interactive Dark Mode Phone Click Toggle
+      function initDarkPhoneClick() {
+        const darkPhone = document.querySelector('.product-container.on-dark-section .product-phone-image-holder');
+        if (darkPhone) {
+          darkPhone.style.cursor = 'pointer';
+          darkPhone.title = 'Nhấp chuột để chuyển đổi màn hình';
+          let darkToggle = false;
+          darkPhone.addEventListener('click', () => {
+            darkToggle = !darkToggle;
+            const darkApp2 = darkPhone.querySelector('.product-phone-demo-image._2');
+            if (darkApp2) {
+              darkApp2.style.transition = 'transform 0.4s ease';
+              darkApp2.style.transform = darkToggle ? 'translateX(0%)' : 'translateX(100%)';
+            }
+          });
+        }
+      }
+
+      // 3. Dropdown Menu Pages Hover / Click
+      function initDropdown() {
+        const dropdown = document.querySelector('.nav-dropdown-parent');
+        const toggleBtn = document.querySelector('.nav-link-dropdown-btn');
+        const list = document.querySelector('.nav-dropdown-content-holder');
+
+        if (dropdown && list) {
+          let open = false;
+          function setOpen(val) {
+            open = val;
+            if (open) {
+              list.classList.add('w--open');
+              list.style.display = 'block';
+              list.style.opacity = '1';
+              list.style.visibility = 'visible';
+            } else {
+              list.classList.remove('w--open');
+              list.style.display = 'none';
+              list.style.opacity = '0';
+              list.style.visibility = 'hidden';
+            }
+          }
+
+          dropdown.addEventListener('mouseenter', () => setOpen(true));
+          dropdown.addEventListener('mouseleave', () => setOpen(false));
+
+          if (toggleBtn) {
+            toggleBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+              setOpen(!open);
+            });
+          }
+
+          document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target)) {
+              setOpen(false);
+            }
+          });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          initParallax();
+          initDarkPhoneClick();
+          initDropdown();
+        });
+      } else {
+        initParallax();
+        initDarkPhoneClick();
+        initDropdown();
+      }
+    })();
+    </script>
+  </body>
+</html>

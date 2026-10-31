@@ -1,0 +1,22 @@
+---
+// v2/src/pages/fathom.astro - Website 22: Fathom 3D Flythrough Suspended Photo Cards (Astro Native Component Hóa)
+import FathomLayout from '../layouts/FathomLayout.astro';
+import Header from '../components/fathom/Header.astro';
+import FlythroughCanvas from '../components/fathom/FlythroughCanvas.astro';
+import Footer from '../components/fathom/Footer.astro';
+---
+
+<FathomLayout
+  title="Fathom — 3D Flythrough of Suspended Photo Cards"
+  description="An endless three dimensional flythrough of suspended photo cards that drift toward the viewer as you scroll."
+  activePath="/fathom"
+>
+  <div class="flex min-h-screen flex-col">
+    <Header current="index" />
+    <main class="flex-1">
+      <FlythroughCanvas />
+    </main>
+    <Footer />
+  </div>
+</FathomLayout>
+

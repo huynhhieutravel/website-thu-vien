@@ -1,0 +1,215 @@
+---
+// v2/src/components/frieze/ProjectShowcase.astro - Frieze Interactive 3D Card Showcase (Astro Native)
+interface Project {
+  title: string;
+  subtitle: string;
+  image: string;
+  bgColor: string;
+  focus: string;
+}
+
+const projects: Project[] = [
+  {
+    title: "Northbank",
+    subtitle: "Wayfinding across nine transit stations",
+    image: "/images/northbank.jpg",
+    bgColor: "#1b3a5b",
+    focus: "50% 34%"
+  },
+  {
+    title: "Solvent",
+    subtitle: "Typeface design and specimen book",
+    image: "/images/solvent.jpg",
+    bgColor: "#5b4a2b",
+    focus: "50% 32%"
+  },
+  {
+    title: "Halcyon",
+    subtitle: "Packaging system and botanical identity",
+    image: "/images/halcyon.jpg",
+    bgColor: "#123a8a",
+    focus: "50% 30%"
+  },
+  {
+    title: "Kessler",
+    subtitle: "Variable display face cut in six widths",
+    image: "/images/kessler.jpg",
+    bgColor: "#4a2418",
+    focus: "50% 34%"
+  },
+  {
+    title: "Marlow",
+    subtitle: "Identity and spatial design for art fair",
+    image: "/images/marlow.jpg",
+    bgColor: "#2a3d36",
+    focus: "50% 40%"
+  },
+  {
+    title: "Meridian",
+    subtitle: "Type system for astronomical publisher",
+    image: "/images/meridian.jpg",
+    bgColor: "#20303f",
+    focus: "50% 38%"
+  },
+  {
+    title: "Aster",
+    subtitle: "Identity and editorial for furniture house",
+    image: "/images/aster.jpg",
+    bgColor: "#2c3a2c",
+    focus: "50% 36%"
+  },
+  {
+    title: "Verso",
+    subtitle: "Digital platform and reading experience",
+    image: "/images/verso.jpg",
+    bgColor: "#2c2c30",
+    focus: "50% 30%"
+  }
+];
+---
+
+<section aria-label="Frieze — Showcase" class="absolute inset-0 select-none overflow-hidden" style="background:var(--fz-bg);color:var(--fz-ink);touch-action:pan-y">
+  <!-- Chromatic Aberration SVG Filters -->
+  <svg aria-hidden="true" class="pointer-events-none absolute" focusable="false" height="0" width="0">
+    <defs>
+      <filter color-interpolation-filters="sRGB" height="160%" id="fz-ca-1" width="190%" x="-45%" y="-30%">
+        <feGaussianBlur in="SourceGraphic" result="b" stdDeviation="0.6153 0"></feGaussianBlur>
+        <feOffset dx="-0.5" dy="0" in="b" result="ro"></feOffset>
+        <feColorMatrix in="ro" result="r" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feOffset dx="0.5" dy="0" in="b" result="bo"></feOffset>
+        <feColorMatrix in="bo" result="bl" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"></feColorMatrix>
+        <feColorMatrix in="b" result="g" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feBlend in="r" in2="g" mode="screen" result="rg"></feBlend>
+        <feBlend in="rg" in2="bl" mode="screen"></feBlend>
+      </filter>
+      <filter color-interpolation-filters="sRGB" height="160%" id="fz-ca-2" width="190%" x="-45%" y="-30%">
+        <feGaussianBlur in="SourceGraphic" result="b" stdDeviation="1.3655 0"></feGaussianBlur>
+        <feOffset dx="-1.1095" dy="0" in="b" result="ro"></feOffset>
+        <feColorMatrix in="ro" result="r" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feOffset dx="1.1095" dy="0" in="b" result="bo"></feOffset>
+        <feColorMatrix in="bo" result="bl" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"></feColorMatrix>
+        <feColorMatrix in="b" result="g" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feBlend in="r" in2="g" mode="screen" result="rg"></feBlend>
+        <feBlend in="rg" in2="bl" mode="screen"></feBlend>
+      </filter>
+      <filter color-interpolation-filters="sRGB" height="160%" id="fz-ca-3" width="190%" x="-45%" y="-30%">
+        <feGaussianBlur in="SourceGraphic" result="b" stdDeviation="2.1767 0"></feGaussianBlur>
+        <feOffset dx="-1.7685" dy="0" in="b" result="ro"></feOffset>
+        <feColorMatrix in="ro" result="r" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feOffset dx="1.7685" dy="0" in="b" result="bo"></feOffset>
+        <feColorMatrix in="bo" result="bl" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"></feColorMatrix>
+        <feColorMatrix in="b" result="g" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feBlend in="r" in2="g" mode="screen" result="rg"></feBlend>
+        <feBlend in="rg" in2="bl" mode="screen"></feBlend>
+      </filter>
+      <filter color-interpolation-filters="sRGB" height="160%" id="fz-ca-4" width="190%" x="-45%" y="-30%">
+        <feGaussianBlur in="SourceGraphic" result="b" stdDeviation="3.0302 0"></feGaussianBlur>
+        <feOffset dx="-2.462" dy="0" in="b" result="ro"></feOffset>
+        <feColorMatrix in="ro" result="r" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feOffset dx="2.462" dy="0" in="b" result="bo"></feOffset>
+        <feColorMatrix in="bo" result="bl" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"></feColorMatrix>
+        <feColorMatrix in="b" result="g" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feBlend in="r" in2="g" mode="screen" result="rg"></feBlend>
+        <feBlend in="rg" in2="bl" mode="screen"></feBlend>
+      </filter>
+      <filter color-interpolation-filters="sRGB" height="160%" id="fz-ca-5" width="190%" x="-45%" y="-30%">
+        <feGaussianBlur in="SourceGraphic" result="b" stdDeviation="3.9167 0"></feGaussianBlur>
+        <feOffset dx="-3.1823" dy="0" in="b" result="ro"></feOffset>
+        <feColorMatrix in="ro" result="r" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feOffset dx="3.1823" dy="0" in="b" result="bo"></feOffset>
+        <feColorMatrix in="bo" result="bl" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"></feColorMatrix>
+        <feColorMatrix in="b" result="g" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feBlend in="r" in2="g" mode="screen" result="rg"></feBlend>
+        <feBlend in="rg" in2="bl" mode="screen"></feBlend>
+      </filter>
+      <filter color-interpolation-filters="sRGB" height="160%" id="fz-ca-6" width="190%" x="-45%" y="-30%">
+        <feGaussianBlur in="SourceGraphic" result="b" stdDeviation="4.8303 0"></feGaussianBlur>
+        <feOffset dx="-3.9248" dy="0" in="b" result="ro"></feOffset>
+        <feColorMatrix in="ro" result="r" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feOffset dx="3.9248" dy="0" in="b" result="bo"></feOffset>
+        <feColorMatrix in="bo" result="bl" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"></feColorMatrix>
+        <feColorMatrix in="b" result="g" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feBlend in="r" in2="g" mode="screen" result="rg"></feBlend>
+        <feBlend in="rg" in2="bl" mode="screen"></feBlend>
+      </filter>
+      <filter color-interpolation-filters="sRGB" height="160%" id="fz-ca-7" width="190%" x="-45%" y="-30%">
+        <feGaussianBlur in="SourceGraphic" result="b" stdDeviation="5.7663 0"></feGaussianBlur>
+        <feOffset dx="-4.6865" dy="0" in="b" result="ro"></feOffset>
+        <feColorMatrix in="ro" result="r" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feOffset dx="4.6865" dy="0" in="b" result="bo"></feOffset>
+        <feColorMatrix in="bo" result="bl" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"></feColorMatrix>
+        <feColorMatrix in="b" result="g" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feBlend in="r" in2="g" mode="screen" result="rg"></feBlend>
+        <feBlend in="rg" in2="bl" mode="screen"></feBlend>
+      </filter>
+      <filter color-interpolation-filters="sRGB" height="160%" id="fz-ca-8" width="190%" x="-45%" y="-30%">
+        <feGaussianBlur in="SourceGraphic" result="b" stdDeviation="6.7214 0"></feGaussianBlur>
+        <feOffset dx="-5.4646" dy="0" in="b" result="ro"></feOffset>
+        <feColorMatrix in="ro" result="r" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feOffset dx="5.4646" dy="0" in="b" result="bo"></feOffset>
+        <feColorMatrix in="bo" result="bl" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"></feColorMatrix>
+        <feColorMatrix in="b" result="g" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"></feColorMatrix>
+        <feBlend in="r" in2="g" mode="screen" result="rg"></feBlend>
+        <feBlend in="rg" in2="bl" mode="screen"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- 3D Perspective Card Container -->
+  <div class="absolute inset-0 z-10" style="perspective:1300px;perspective-origin:50% 52%;transform-style:preserve-3d">
+    {projects.map((p) => (
+      <button
+        aria-label={p.title}
+        class="absolute left-0 top-0 block p-0 outline-none"
+        data-fz-card="true"
+        style={`background:${p.bgColor};opacity:0;overflow:visible;will-change:transform, opacity;-webkit-tap-highlight-color:transparent;--fz-focus:${p.focus}`}
+        type="button"
+      >
+        <img
+          alt={p.title}
+          class="block h-full w-full object-cover [object-position:var(--fz-focus)]"
+          draggable="false"
+          loading="eager"
+          src={p.image}
+        />
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:var(--fz-bg);opacity:0"></span>
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0" style="box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08)"></span>
+      </button>
+    ))}
+    <button aria-hidden="true" class="absolute left-0 top-0 block cursor-pointer p-0 outline-none" style="display:none;z-index:500;will-change:transform;--fz-focus:50% 50%" tabindex="-1" type="button"></button>
+  </div>
+
+  <!-- Active Project Info Overlay -->
+  <div class="pointer-events-none absolute left-6 top-[76px] z-30 max-w-[min(78vw,520px)] sm:left-12 sm:top-16" style="opacity:0;padding-top:env(safe-area-inset-top)">
+    <h2 class="font-serif font-normal leading-none" style="font-size:clamp(2rem, 3.6vw, 3.25rem);letter-spacing:-0.01em;color:var(--fz-ink)">
+      Northbank
+    </h2>
+    <p class="mt-[10px] text-[13px]" style="letter-spacing:0.02em;color:var(--fz-sub)">
+      Wayfinding across nine transit stations
+    </p>
+  </div>
+
+  <!-- Bottom Indicators -->
+  <div class="pointer-events-none absolute bottom-4 left-8 z-30 text-[11px] tabular-nums sm:left-12" style="opacity:0;letter-spacing:0.24em;color:var(--fz-faint)">
+    01 / 08
+  </div>
+  <div class="pointer-events-none absolute bottom-4 right-8 z-30 text-[11px] uppercase sm:right-12" style="opacity:0;letter-spacing:0.24em;color:var(--fz-faint)">
+    Scroll or drag
+  </div>
+  <div aria-hidden="true" class="pointer-events-none absolute bottom-0 left-0 right-0 z-30 h-px" style="opacity:0;background:var(--fz-rule)">
+    <div class="h-full w-full origin-left" style="background:var(--fz-rule-on);transform:scaleX(0.04)"></div>
+  </div>
+
+  <!-- Close Detail Button -->
+  <button class="absolute right-8 top-7 z-40 rounded-full px-4 py-1.5 text-[11px] uppercase sm:right-12 sm:top-10" style="opacity:0;pointer-events:none;letter-spacing:0.22em;border:1px solid var(--fz-close-border);color:var(--fz-close-ink)" type="button">
+    Close
+  </button>
+
+  <!-- Interactive Custom Cursor -->
+  <div aria-hidden="true" class="pointer-events-none absolute left-0 top-0 z-50 items-center justify-center rounded-full" style="display:none;width:75px;height:75px;background:rgba(255,255,255,0.04);box-shadow:inset 0 1px 1.5px rgba(255,255,255,0.7), inset 0 -2px 3px rgba(255,255,255,0.15), inset 0 0 0 1px rgba(255,255,255,0.28), 0 6px 20px rgba(0,0,0,0.45);backdrop-filter:blur(5px) saturate(1.5) brightness(1.05);-webkit-backdrop-filter:blur(5px) saturate(1.5) brightness(1.05)">
+    <span class="text-[9px] font-semibold uppercase" style="letter-spacing:0.2em;color:rgba(255,255,255,0.95);text-shadow:0 1px 3px rgba(0,0,0,0.6)">
+      View
+    </span>
+  </div>
+</section>
+

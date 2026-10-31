@@ -1,0 +1,82 @@
+---
+// v2/src/layouts/CinemaReelLayout.astro - Website 27: Cinema Reel Layout
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Cinema Reel | Modulify Site",
+  description = "Six fictional festival films in a cinematic vertical reel. Scroll, drag, and explore each entry."
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#0a0908]">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="stylesheet" href="/_next/static/chunks/0vpv~rumwd~8z.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <script src="/scripts/gsap.min.js" is:inline></script>
+  <style is:global>
+    :root {
+      --cinema-bg: #0a0908;
+      --cinema-fg: #f6efe2;
+      --cinema-accent: #f1e7d2;
+      --font-playfair: 'Playfair Display', Georgia, serif;
+    }
+    body {
+      background-color: var(--cinema-bg);
+      color: var(--cinema-fg);
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .font-serif-cinema {
+      font-family: var(--font-playfair);
+    }
+    /* Custom thin scrollbar for detail modal */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col font-sans antialiased">
+  <!-- Top Bar Navigation quay lại Thư Viện -->
+  <aside style="position:fixed;top:0;left:0;right:0;height:36px;z-index:999999;background:rgba(10,9,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.08);padding:0 20px;display:flex;align-items:center;justify-content:space-between;font-size:11px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:#f6efe2;">
+    <a href="/" style="color:#f6efe2;text-decoration:none;display:flex;align-items:center;gap:6px;font-weight:600;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <span>← Về Trang Chủ Thư Viện</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);padding:3px 12px;border-radius:9999px;font-weight:700;color:#f6efe2;font-size:10px;">
+        Phiên bản: Astro Code Native (Component Hóa)
+      </span>
+      <a href="/cinema-reel-original" style="color:rgba(246,239,226,0.7);text-decoration:none;font-size:10px;border-left:1px solid rgba(255,255,255,0.18);padding-left:12px;" title="Xem Bản Gốc 1-to-1">
+        Xem Bản Gốc ↗
+      </a>
+    </div>
+  </aside>
+
+  <slot />
+</body>
+</html>
+

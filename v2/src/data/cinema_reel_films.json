@@ -1,0 +1,153 @@
+[
+  {
+    "id": "blueprint-no-seven",
+    "eyebrow": "TRUE/FALSE · TRUE LIFE FUND 2024",
+    "category": "HYBRID DOCUMENTARY",
+    "titleLines": ["BLUEPRINT", "NO. 7"],
+    "year": "2024",
+    "director": "SAM BINNS",
+    "image": "/images/cinema-reel/blueprint-no-seven.jpg",
+    "imageId": "1610847455028-9e55e62bac33",
+    "awards": [
+      { "stars": 5, "label": "TRUE LIFE FUND", "quote": "A PORTRAIT OF NOW" },
+      { "stars": 4, "label": "BEST FIRST FEATURE", "quote": "RAW & UNNERVING" },
+      { "stars": 5, "label": "CRITICS PRIZE", "quote": "ESSENTIAL VIEWING" }
+    ],
+    "description": "An architect of the everyday traces seven anonymous lives across a single city block. Captured in long, unblinking takes, the film constructs an atlas of urban intimacy — strangers passing as a single organism, separated only by the gravity of their private orbits.",
+    "stats": {
+      "critics": 94,
+      "audience": 81,
+      "runtime": "1h 38m",
+      "format": "16MM",
+      "country": "UK · GERMANY",
+      "language": "ENGLISH",
+      "aspect": "1.66:1"
+    }
+  },
+  {
+    "id": "atlas-unfolds",
+    "eyebrow": "BERLINALE · ENCOUNTERS 2023",
+    "category": "ESSAY FILM",
+    "titleLines": ["ATLAS", "UNFOLDS"],
+    "year": "2023",
+    "director": "ELIAS NORÉN",
+    "image": "/images/cinema-reel/atlas-unfolds.jpg",
+    "imageId": "1596956708072-8ca0c2973887",
+    "awards": [
+      { "stars": 5, "label": "BEST CINEMATOGRAPHY", "quote": "AN OPULENT CANVAS" },
+      { "stars": 4, "label": "ENCOUNTERS PRIZE", "quote": "STUNNING IN RESTRAINT" },
+      { "stars": 5, "label": "FIPRESCI PRIZE", "quote": "A QUIET MASTERWORK" }
+    ],
+    "description": "A four-year journey across the high passes of Central Asia, charted entirely on foot. Norén trades narration for breath and footstep — the sky is the protagonist, the path is the verse, and what unfolds is less a documentary than an epic poem to scale.",
+    "stats": {
+      "critics": 96,
+      "audience": 87,
+      "runtime": "2h 12m",
+      "format": "65MM",
+      "country": "SWEDEN · KAZAKHSTAN",
+      "language": "SILENT",
+      "aspect": "2.20:1"
+    }
+  },
+  {
+    "id": "the-long-quiet",
+    "eyebrow": "TIFF DOCS · PLATFORM 2024",
+    "category": "OBSERVATIONAL",
+    "titleLines": ["THE LONG", "QUIET"],
+    "year": "2024",
+    "director": "AMARA OKAFOR",
+    "image": "/images/cinema-reel/the-long-quiet.jpg",
+    "imageId": "1633885274919-04b5af171f8c",
+    "awards": [
+      { "stars": 5, "label": "PLATFORM PRIZE", "quote": "DEEPLY MOVING" },
+      { "stars": 5, "label": "BEST DIRECTOR", "quote": "QUIETLY DEVASTATING" },
+      { "stars": 4, "label": "AUDIENCE AWARD", "quote": "A PORTRAIT OF SILENCE" }
+    ],
+    "description": "On the eve of a six-month return to silence, four Carmelite nuns open their shutters and their letters. Okafor's patient gaze finds devotion in the smallest gestures — the way light moves across a refectory, the way silence holds a room together long after the bell has rung.",
+    "stats": {
+      "critics": 93,
+      "audience": 89,
+      "runtime": "1h 47m",
+      "format": "DIGITAL 4K",
+      "country": "NIGERIA · SPAIN",
+      "language": "ENGLISH · SPANISH",
+      "aspect": "1.85:1"
+    }
+  },
+  {
+    "id": "ember-and-ash",
+    "eyebrow": "VENICE · ORIZZONTI 2025",
+    "category": "CHARACTER STUDY",
+    "titleLines": ["EMBER &", "ASH"],
+    "year": "2025",
+    "director": "MILO HAVERSTEIN",
+    "image": "/images/cinema-reel/ember-and-ash.jpg",
+    "imageId": "1636766812350-c2842e8c6b76",
+    "awards": [
+      { "stars": 5, "label": "BEST ACTRESS", "quote": "SHE BURNS THE FRAME" },
+      { "stars": 5, "label": "ORIZZONTI PRIZE", "quote": "HAUNTING & PRECISE" },
+      { "stars": 4, "label": "BEST EDITING", "quote": "BURNS LONG AFTER" }
+    ],
+    "description": "A wildfire memoirist returns to the village she once burned down — to face the woman she was. Haverstein's chamber drama burns at one steady temperature, then explodes. A career-defining lead carries the entire frame on the slow inhale of a final cigarette.",
+    "stats": {
+      "critics": 92,
+      "audience": 84,
+      "runtime": "1h 56m",
+      "format": "35MM",
+      "country": "GERMANY · ITALY",
+      "language": "GERMAN · ITALIAN",
+      "aspect": "2.39:1"
+    }
+  },
+  {
+    "id": "cavern",
+    "eyebrow": "TIGER COMPETITION · IFFR 2022",
+    "category": "EXPERIMENTAL",
+    "titleLines": ["CAVERN"],
+    "year": "2022",
+    "director": "SØREN HOLT",
+    "image": "/images/cinema-reel/cavern.jpg",
+    "imageId": "1665426520283-33b35e81bbc7",
+    "awards": [
+      { "stars": 5, "label": "TIGER AWARD", "quote": "ARCHITECTURE OF FEELING" },
+      { "stars": 4, "label": "VPRO BIG SCREEN", "quote": "OBSESSIVELY COMPOSED" },
+      { "stars": 5, "label": "FIPRESCI PRIZE", "quote": "A NEW LANGUAGE" }
+    ],
+    "description": "Eight composers, eight subterranean chambers, one resonant frequency. Holt's experimental documentary descends literally into the earth to record what stone remembers when struck. The result: a film you don't watch so much as feel from the diaphragm out.",
+    "stats": {
+      "critics": 89,
+      "audience": 76,
+      "runtime": "1h 24m",
+      "format": "DIGITAL 4K",
+      "country": "DENMARK · NORWAY",
+      "language": "DANISH",
+      "aspect": "1.43:1"
+    }
+  },
+  {
+    "id": "where-light-breaks",
+    "eyebrow": "DIRECTORS' FORTNIGHT · CANNES 2024",
+    "category": "LYRICAL DOCUMENTARY",
+    "titleLines": ["WHERE LIGHT", "BREAKS"],
+    "year": "2024",
+    "director": "INGRID HALLE",
+    "image": "/images/cinema-reel/where-light-breaks.jpg",
+    "imageId": "1615374744335-dd8adbd9e3e9",
+    "awards": [
+      { "stars": 5, "label": "ART CINEMA AWARD", "quote": "A PRAYER OF A FILM" },
+      { "stars": 5, "label": "BEST CINEMATOGRAPHY", "quote": "LIGHT AS CHARACTER" },
+      { "stars": 4, "label": "PRIX CINÉMA", "quote": "TENDER AND TRUE" }
+    ],
+    "description": "Three generations of foresters, one mountain ridge, an unbroken century. Halle returns to her grandmother's valley with a camera that is older than she is and a question that is older than the trees. What we keep, what we lose, what the light decides.",
+    "stats": {
+      "critics": 95,
+      "audience": 91,
+      "runtime": "1h 41m",
+      "format": "16MM",
+      "country": "NORWAY · FINLAND",
+      "language": "NORWEGIAN",
+      "aspect": "1.66:1"
+    }
+  }
+]
+

@@ -1,0 +1,64 @@
+---
+// v2/src/components/marathon/MarathonHeader.astro
+interface Props {
+  activePage?: 'home' | 'about' | 'contact';
+}
+
+const { activePage = 'home' } = Astro.props;
+---
+
+<header class="fixed inset-x-0 top-[36px] z-50">
+  <div class="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
+    <nav class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div class="flex items-center gap-1 rounded-full border border-white/15 bg-white/10 p-1 backdrop-blur-xl shadow-lg shadow-black/20">
+        <!-- Logo / Home -->
+        <a
+          aria-label="Home"
+          class={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-semibold transition-all duration-300 ${
+            activePage === 'home'
+              ? 'bg-[#E94E1B] text-white shadow-md shadow-[#E94E1B]/30'
+              : 'text-white/75 hover:text-white hover:bg-white/5'
+          }`}
+          href="/marathon"
+        >
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+            <path
+              d="M4 19 C 6 14, 9 13, 11 11 C 13 9, 12 6, 15 5 C 17.5 4.2, 19 5, 20 3"
+              stroke={activePage === 'home' ? '#ffffff' : '#E94E1B'}
+              stroke-width="2.2"
+              stroke-linecap="round"
+              fill="none"
+            />
+            <circle cx="4" cy="19" r="2.2" fill={activePage === 'home' ? '#ffffff' : '#E94E1B'} />
+            <circle cx="20" cy="3" r="2.2" fill={activePage === 'home' ? '#ffffff' : '#E94E1B'} />
+          </svg>
+          <span class="tracking-[0.18em]">MARATHON</span>
+        </a>
+
+        <!-- About -->
+        <a
+          class={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-semibold transition-all duration-300 ${
+            activePage === 'about'
+              ? 'bg-[#E94E1B] text-white shadow-md shadow-[#E94E1B]/30'
+              : 'text-white/75 hover:text-white hover:bg-white/5'
+          }`}
+          href="/marathon/about"
+        >
+          About
+        </a>
+
+        <!-- Contact -->
+        <a
+          class={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-semibold transition-all duration-300 ${
+            activePage === 'contact'
+              ? 'bg-[#E94E1B] text-white shadow-md shadow-[#E94E1B]/30'
+              : 'text-white/75 hover:text-white hover:bg-white/5'
+          }`}
+          href="/marathon/contact"
+        >
+          Contact
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>

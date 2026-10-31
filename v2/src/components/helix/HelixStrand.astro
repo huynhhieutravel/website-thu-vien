@@ -1,0 +1,849 @@
+---
+// v2/src/components/helix/HelixStrand.astro - 3D Vertical Helix Coil Component
+---
+
+<section
+  id="helix-root"
+  aria-label="An endless descending spiral of photographs — hover a print to bring it to centre."
+  class="relative h-[100dvh] w-full overflow-hidden select-none bg-void text-[#f4f2ee]"
+  style="touch-action:none;"
+>
+  <!-- Outer 3D stage and cards are mounted dynamically via high-performance script -->
+</section>
+
+<script>
+  function initHelix() {
+    const root = document.getElementById('helix-root');
+    if (!root) return;
+
+    // Check if already initialized
+    if (root.dataset.initialized === 'true') return;
+    root.dataset.initialized = 'true';
+
+    const PRINT_FILES = [
+      "against-the-current.jpeg",
+      "last-train.jpeg",
+      "the-1994.jpeg",
+      "held-still.jpeg",
+      "long-shadows.jpeg",
+      "half-court.jpeg",
+      "in-a-hurry.jpeg",
+      "the-climb.jpeg",
+      "morning-edition.jpeg",
+      "the-route.jpeg",
+      "still-while-everything-moves.jpeg",
+      "right-of-way.jpeg",
+      "foot-traffic.jpeg"
+    ];
+
+    const PRINTS_METADATA = {
+      "against-the-current.jpeg": { title: "Against the Current", location: "Rush Hour", year: "2023" },
+      "last-train.jpeg": { title: "Last Train", location: "After Midnight", year: "2023" },
+      "the-1994.jpeg": { title: "The 1994", location: "Los Angeles", year: "2023", camera: "Contax T2" },
+      "held-still.jpeg": { title: "Held Still", location: "Milan", year: "2022", camera: "Leica M6" },
+      "long-shadows.jpeg": { title: "Long Shadows", location: "New York", year: "2021", camera: "85mm" },
+      "half-court.jpeg": { title: "Half-Court", location: "New York", year: "2020", camera: "35mm · Portra 400" },
+      "in-a-hurry.jpeg": { title: "In a Hurry", location: "Paris", year: "2023", camera: "50mm" },
+      "the-climb.jpeg": { title: "The Climb", location: "New York", year: "2019", camera: "Ricoh GR" },
+      "morning-edition.jpeg": { title: "Morning Edition", location: "Nowhere in Particular", year: "2024" },
+      "the-route.jpeg": { title: "The Route", location: "New York", year: "2022", camera: "50mm · 1/15s" },
+      "still-while-everything-moves.jpeg": { title: "Still, While Everything Moves", location: "Blue Hour", year: "2023" },
+      "right-of-way.jpeg": { title: "Right of Way", location: "New York", year: "2021", camera: "35mm" },
+      "foot-traffic.jpeg": { title: "Foot Traffic", location: "Midday", year: "2024" }
+    };
+
+    const getMeta = (idx) => {
+      const file = PRINT_FILES[idx % PRINT_FILES.length];
+      return file ? PRINTS_METADATA[file] : undefined;
+    };
+
+    const isChromium = (() => {
+      if (typeof navigator === 'undefined') return false;
+      const ua = navigator.userAgent;
+      return /Chrome|Chromium|Edg\//.test(ua) && !/Firefox/.test(ua);
+    })();
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const finePointer = window.matchMedia("(pointer: fine)");
+    let isReduced = prefersReducedMotion.matches;
+    let isTornDown = false;
+
+    // Stage elements
+    const stage = document.createElement("div");
+    stage.style.cssText = "position:absolute;inset:0;z-index:2;cursor:grab;touch-action:none";
+
+    const world = document.createElement("div");
+    world.style.cssText = "position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d";
+    stage.appendChild(world);
+
+    // Color palettes for procedural fallbacks
+    const PALETTES = [
+      { base: ["#efe9df", "#d8cfc0"], dark: false, figure: ["#7d7264", "#2f2820"], glow: "#37c9b0" },
+      { base: ["#f1ece3", "#cbc3b6"], dark: false, figure: ["#6f6456", "#251f18"], glow: "#d769b8" },
+      { base: ["#e8e2d6", "#c3baa9"], dark: false, figure: ["#867a68", "#332b22"], glow: "#a7d24f" },
+      { base: ["#14110e", "#05040a"], dark: true, figure: ["#5a5560", "#08070c"], glow: "#6c8cff" },
+      { base: ["#f3efe7", "#d2cabc"], dark: false, figure: ["#78695a", "#28211a"], glow: "#f0ab56" },
+      { base: ["#100d12", "#040309"], dark: true, figure: ["#625a60", "#0a080e"], glow: "#e06a9a" },
+      { base: ["#ece6db", "#c8bfae"], dark: false, figure: ["#7a6f60", "#2a231c"], glow: "#5ec8d8" },
+      { base: ["#0f0e0c", "#050406"], dark: true, figure: ["#585149", "#070605"], glow: "#c8a86a" }
+    ];
+
+    function createPlate() {
+      const cvs = document.createElement("canvas");
+      cvs.width = 460;
+      cvs.height = 600;
+      return cvs;
+    }
+
+    function renderProceduralPlate(plate, cardIdx) {
+      const ctx = plate.getContext("2d");
+      if (!ctx) return;
+      const w = plate.width;
+      const h = plate.height;
+
+      // Seeded random
+      let seed = (0x9e3779b1 * cardIdx + 12345) >>> 0;
+      const rnd = () => {
+        seed = (seed + 0x6d2b79f5) | 0;
+        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+        t = t + Math.imul(t ^ (t >>> 7), 61 | t) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 0x100000000;
+      };
+
+      const pal = PALETTES[cardIdx % PALETTES.length];
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = 1;
+      if (typeof ctx.filter === 'string') ctx.filter = "none";
+
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, pal.base[0]);
+      bgGrad.addColorStop(1, pal.base[1]);
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // Figure
+      const fx = w * (0.5 + (rnd() - 0.5) * 0.18);
+      const fp = w * (0.16 + 0.05 * rnd());
+      const fy = h * (0.33 + (rnd() - 0.5) * 0.06);
+      const fbottom = fy + 1.55 * fp;
+      const fg = w * (0.6 + 0.14 * rnd());
+
+      const figGrad = ctx.createLinearGradient(0, fy - fp, 0, h);
+      figGrad.addColorStop(0, pal.figure[0]);
+      figGrad.addColorStop(1, pal.figure[1]);
+
+      ctx.save();
+      if (typeof ctx.filter === 'string') ctx.filter = `blur(${Math.max(1, Math.round(0.01 * w))}px)`;
+      ctx.fillStyle = figGrad;
+      ctx.beginPath();
+      ctx.ellipse(fx, fy, 0.86 * fp, fp, 0, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.fillRect(fx - 0.34 * fp, fy, 0.68 * fp, 1.7 * fp);
+      ctx.beginPath();
+      ctx.moveTo(fx - fg / 2, h);
+      ctx.quadraticCurveTo(fx - fg / 2, fbottom, fx, fbottom);
+      ctx.quadraticCurveTo(fx + fg / 2, fbottom, fx + fg / 2, h);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+
+      // Atmospheric Glow
+      const gx = w * (0.28 + 0.5 * rnd());
+      const gy = h * (0.24 + 0.42 * rnd());
+      const gr = w * (0.3 + 0.22 * rnd());
+      ctx.save();
+      ctx.globalCompositeOperation = "screen";
+      ctx.globalAlpha = 0.28 + 0.22 * rnd();
+      if (typeof ctx.filter === 'string') ctx.filter = `blur(${Math.round(0.08 * w)}px)`;
+
+      const glowGrad = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
+      glowGrad.addColorStop(0, pal.glow);
+      const r = parseInt(pal.glow.slice(1, 3), 16);
+      const g = parseInt(pal.glow.slice(3, 5), 16);
+      const b = parseInt(pal.glow.slice(5, 7), 16);
+      glowGrad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+      ctx.fillStyle = glowGrad;
+      ctx.fillRect(0, 0, w, h);
+      ctx.restore();
+
+      // Subtle edge vignette
+      const edgeVignette = ctx.createRadialGradient(w / 2, 0.42 * h, 0.2 * w, w / 2, 0.52 * h, 0.78 * w);
+      edgeVignette.addColorStop(0, "rgba(0,0,0,0)");
+      edgeVignette.addColorStop(1, pal.dark ? "rgba(0,0,0,0.5)" : "rgba(24,18,12,0.14)");
+      ctx.fillStyle = edgeVignette;
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    // Build 30 cards
+    const cards = [];
+    const TOTAL_CARDS = 30;
+
+    for (let i = 0; i < TOTAL_CARDS; i++) {
+      const cardEl = document.createElement("div");
+      cardEl.style.cssText = "position:absolute;left:0;top:0;pointer-events:none;will-change:transform,opacity,filter;backface-visibility:visible;border-radius:clamp(4px,0.5vw,9px);overflow:hidden;box-shadow:0 30px 70px -28px rgba(20,14,10,0.5);outline:1px solid rgba(0,0,0,0.06);outline-offset:-1px";
+      cardEl.dataset.card = String(i);
+
+      const canvas = document.createElement("canvas");
+      canvas.setAttribute("aria-hidden", "true");
+      canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block";
+
+      const haze = document.createElement("div");
+      haze.setAttribute("aria-hidden", "true");
+      haze.style.cssText = "position:absolute;inset:0;background:#0b0a08;opacity:0";
+
+      cardEl.appendChild(canvas);
+      cardEl.appendChild(haze);
+      world.appendChild(cardEl);
+
+      const plate = createPlate();
+      renderProceduralPlate(plate, i);
+
+      cards.push({
+        el: cardEl,
+        canvas: canvas,
+        ctx: canvas.getContext("2d"),
+        haze: haze,
+        plate: plate,
+        hoverable: false
+      });
+    }
+
+    // Bottom prompt text: "Hover a print"
+    const bottomPrompt = document.createElement("div");
+    bottomPrompt.setAttribute("aria-hidden", "true");
+    bottomPrompt.style.cssText = "position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(18px,4vh,40px);z-index:3;font:500 11px/1 var(--font-heading, sans-serif);letter-spacing:.28em;text-transform:uppercase;pointer-events:none;white-space:nowrap;opacity:0;color:rgba(240,238,232,0.5);";
+    bottomPrompt.textContent = "Hover a print";
+
+    // Active print caption overlay
+    const captionEl = document.createElement("div");
+    captionEl.setAttribute("aria-live", "polite");
+    captionEl.setAttribute("aria-hidden", "true");
+    captionEl.style.cssText = "position:absolute;left:0;top:0;z-index:3000;opacity:0;pointer-events:none;will-change:transform,opacity;text-align:center;font-family:var(--font-heading, sans-serif);text-shadow:0 1px 24px rgba(0,0,0,.55);";
+
+    const capRule = document.createElement("span");
+    capRule.style.cssText = "display:block;width:30px;height:1px;margin:0 auto 10px;transform-origin:center;transform:scaleX(0);background:rgba(244,242,238,0.5);";
+
+    const capEyebrow = document.createElement("div");
+    capEyebrow.style.cssText = "font:500 8.5px/1 var(--font-heading, sans-serif);letter-spacing:.26em;text-transform:uppercase;margin-bottom:8px;opacity:0;color:rgba(244,242,238,0.5);";
+
+    const capTitleWrap = document.createElement("div");
+    capTitleWrap.style.cssText = "overflow:hidden;padding:1px 0;";
+
+    const capTitle = document.createElement("h2");
+    capTitle.style.cssText = "font:500 clamp(15px,1.5vw,21px)/1.12 var(--font-heading, sans-serif);letter-spacing:-0.01em;margin:0;color:#f8f6f2;";
+    capTitleWrap.appendChild(capTitle);
+
+    const capMeta = document.createElement("div");
+    capMeta.style.cssText = "margin-top:9px;font:500 9.5px/1.4 var(--font-heading, sans-serif);letter-spacing:.16em;text-transform:uppercase;opacity:0;color:rgba(244,242,238,0.66);";
+
+    const capCamera = document.createElement("div");
+    capCamera.style.cssText = "margin-top:6px;font:400 9px/1.4 var(--font-heading, sans-serif);letter-spacing:.13em;text-transform:uppercase;opacity:0;color:rgba(244,242,238,0.4);";
+
+    captionEl.appendChild(capRule);
+    captionEl.appendChild(capEyebrow);
+    captionEl.appendChild(capTitleWrap);
+    captionEl.appendChild(capMeta);
+    captionEl.appendChild(capCamera);
+
+    // SVG Filter for Glass Lens refraction
+    const svgNS = "http://www.w3.org/2000/svg";
+    const filterSvg = document.createElementNS(svgNS, "svg");
+    filterSvg.setAttribute("width", "0");
+    filterSvg.setAttribute("height", "0");
+    filterSvg.setAttribute("aria-hidden", "true");
+    filterSvg.style.cssText = "position:absolute;width:0;height:0;pointer-events:none";
+
+    const defs = document.createElementNS(svgNS, "defs");
+    const filter = document.createElementNS(svgNS, "filter");
+    filter.setAttribute("id", "helix-glass-native");
+    filter.setAttribute("filterUnits", "userSpaceOnUse");
+    filter.setAttribute("color-interpolation-filters", "sRGB");
+
+    const feImage = document.createElementNS(svgNS, "feImage");
+    feImage.setAttribute("preserveAspectRatio", "none");
+    feImage.setAttribute("result", "map");
+    filter.appendChild(feImage);
+
+    const displacementPasses = [];
+    const colorChannels = [
+      { key: "r", matrix: "1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" },
+      { key: "g", matrix: "0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" },
+      { key: "b", matrix: "0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" }
+    ];
+
+    colorChannels.forEach(c => {
+      const dm = document.createElementNS(svgNS, "feDisplacementMap");
+      dm.setAttribute("in", "SourceGraphic");
+      dm.setAttribute("in2", "map");
+      dm.setAttribute("xChannelSelector", "R");
+      dm.setAttribute("yChannelSelector", "G");
+      dm.setAttribute("result", `d${c.key}`);
+      dm.setAttribute("scale", "0");
+
+      const cm = document.createElementNS(svgNS, "feColorMatrix");
+      cm.setAttribute("in", `d${c.key}`);
+      cm.setAttribute("type", "matrix");
+      cm.setAttribute("values", c.matrix);
+      cm.setAttribute("result", `c${c.key}`);
+
+      filter.appendChild(dm);
+      filter.appendChild(cm);
+      displacementPasses.push(dm);
+    });
+
+    const blendRG = document.createElementNS(svgNS, "feBlend");
+    blendRG.setAttribute("in", "cr");
+    blendRG.setAttribute("in2", "cg");
+    blendRG.setAttribute("mode", "screen");
+    blendRG.setAttribute("result", "crg");
+
+    const blendRGB = document.createElementNS(svgNS, "feBlend");
+    blendRGB.setAttribute("in", "crg");
+    blendRGB.setAttribute("in2", "cb");
+    blendRGB.setAttribute("mode", "screen");
+
+    filter.appendChild(blendRG);
+    filter.appendChild(blendRGB);
+    defs.appendChild(filter);
+    filterSvg.appendChild(defs);
+
+    // Follower lens
+    const lensEl = document.createElement("div");
+    lensEl.setAttribute("aria-hidden", "true");
+    lensEl.style.cssText = "position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;overflow:hidden;opacity:0;z-index:9000;pointer-events:none;will-change:transform,opacity;display:none;box-shadow:inset 0 0 0 0.8px rgba(255,255,255,0.55), inset 0 0 8px 0 rgba(255,255,255,0.14), 0 0 0 0.5px rgba(255,255,255,0.2), 0 6px 18px -6px rgba(0,0,0,0.5);backdrop-filter:blur(8px) saturate(1.5) brightness(1.08);-webkit-backdrop-filter:blur(8px) saturate(1.5) brightness(1.08);";
+
+    const lensSheen1 = document.createElement("div");
+    lensSheen1.style.cssText = "position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 50% 34%, rgba(255,255,255,0.12), rgba(255,255,255,0) 44%), radial-gradient(circle at 50% 116%, rgba(3,7,14,0.16), rgba(3,7,14,0) 55%);";
+
+    const lensSheen2 = document.createElement("div");
+    lensSheen2.style.cssText = "position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(120% 82% at 50% 6%, rgba(255,255,255,0.24), rgba(255,255,255,0) 40%);";
+
+    lensEl.appendChild(lensSheen1);
+    lensEl.appendChild(lensSheen2);
+
+    // Assemble root
+    root.appendChild(stage);
+    root.appendChild(bottomPrompt);
+    root.appendChild(captionEl);
+    root.appendChild(filterSvg);
+    root.appendChild(lensEl);
+
+    // Hide system cursor when fine pointer
+    let cursorStyle = document.getElementById("helix-cursor-hide-style");
+    if (!cursorStyle) {
+      cursorStyle = document.createElement("style");
+      cursorStyle.id = "helix-cursor-hide-style";
+      cursorStyle.textContent = ".helix-cursor-hide, .helix-cursor-hide * { cursor: none !important; }";
+      document.head.appendChild(cursorStyle);
+    }
+
+    // Geometry state
+    let viewW = 1440;
+    let viewH = 900;
+    let isCompact = false;
+    let baseDim = 800;
+    let dpr = 1;
+    let cardW = 120;
+    let cardH = 156;
+    let isPointerFine = false;
+
+    function renderCardPlate(card) {
+      const ctx = card.ctx;
+      if (!ctx || !card.canvas.width || !card.canvas.height) return;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      ctx.clearRect(0, 0, card.canvas.width, card.canvas.height);
+      ctx.drawImage(card.plate, 0, 0, card.plate.width, card.plate.height, 0, 0, card.canvas.width, card.canvas.height);
+    }
+
+    function updateCursorMode() {
+      const canUseLens = finePointer.matches && !isCompact;
+      if (canUseLens !== isPointerFine) {
+        isPointerFine = canUseLens;
+        if (canUseLens) {
+          root.classList.add("helix-cursor-hide");
+          lensEl.style.display = "block";
+        } else {
+          root.classList.remove("helix-cursor-hide");
+          lensEl.style.display = "none";
+          lensEl.style.opacity = "0";
+        }
+      }
+    }
+
+    function updateLayout() {
+      const rect = root.getBoundingClientRect();
+      viewW = Math.max(1, rect.width);
+      viewH = Math.max(1, rect.height);
+      isCompact = viewW < 760;
+      baseDim = Math.min(viewW, 1.15 * viewH);
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      stage.style.perspective = `${1.95 * baseDim}px`;
+      world.style.transform = `translateY(${(0.06 * baseDim).toFixed(1)}px) rotateX(6deg)`;
+
+      const cardScale = 0.15 * baseDim;
+      cardW = cardScale - 3;
+      cardH = 1.3 * cardScale - 3;
+
+      for (const card of cards) {
+        card.el.style.width = `${cardW}px`;
+        card.el.style.height = `${cardH}px`;
+        card.el.style.marginLeft = `${-cardW / 2}px`;
+        card.el.style.marginTop = `${-cardH / 2}px`;
+
+        const cw = Math.round(cardW * dpr);
+        const ch = Math.round(cardH * dpr);
+        if (card.canvas.width !== cw || card.canvas.height !== ch) {
+          card.canvas.width = cw;
+          card.canvas.height = ch;
+          renderCardPlate(card);
+        }
+      }
+
+      updateCursorMode();
+    }
+
+    // Load actual photographs
+    const loadedImages = [];
+    function applyImageToCard(img, fileIdx) {
+      if (isTornDown || !img.naturalWidth) return;
+      cards.forEach((card, i) => {
+        if (i % PRINT_FILES.length === fileIdx) {
+          const ctx = card.plate.getContext("2d");
+          if (!ctx || !img.naturalWidth || !img.naturalHeight) return;
+
+          const pw = card.plate.width;
+          const ph = card.plate.height;
+          const imgAspect = img.naturalWidth / img.naturalHeight;
+          const plateAspect = pw / ph;
+
+          let dw = pw;
+          let dh = ph;
+          let dx = 0;
+          let dy = 0;
+
+          if (imgAspect > plateAspect) {
+            dh = ph;
+            dw = ph * imgAspect;
+            dx = (pw - dw) / 2;
+          } else {
+            dw = pw;
+            dh = pw / imgAspect;
+            dy = (ph - dh) / 2;
+          }
+
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.globalCompositeOperation = "source-over";
+          ctx.globalAlpha = 1;
+          if (typeof ctx.filter === 'string') ctx.filter = "none";
+          ctx.clearRect(0, 0, pw, ph);
+          ctx.drawImage(img, dx, dy, dw, dh);
+
+          // Subtle vignette
+          const vig = ctx.createRadialGradient(pw / 2, 0.44 * ph, 0.2 * pw, pw / 2, 0.55 * ph, 0.92 * pw);
+          vig.addColorStop(0, "rgba(0,0,0,0)");
+          vig.addColorStop(1, "rgba(0,0,0,0.34)");
+          ctx.fillStyle = vig;
+          ctx.fillRect(0, 0, pw, ph);
+
+          renderCardPlate(card);
+        }
+      });
+    }
+
+    PRINT_FILES.forEach((file, idx) => {
+      const img = new Image();
+      img.decoding = "async";
+      img.onload = () => applyImageToCard(img, idx);
+      img.src = encodeURI(`/assets/helix/${file}`);
+      if (img.complete && img.naturalWidth) {
+        applyImageToCard(img, idx);
+      }
+      loadedImages.push(img);
+    });
+
+    updateLayout();
+
+    // Physics and strand animation state
+    let targetPos = 0;
+    let currentPos = 0;
+    let inertiaTimer = 0;
+    let activeCardIdx = -1;
+    let hoverCandidateIdx = -1;
+    let hoverTime = 0;
+    let snapDist = 1;
+    let userHasInteracted = false;
+    let displayedCardIdx = -1;
+    let isCaptionVisible = false;
+    let captionAnim = null;
+
+    const introProgress = { v: isReduced ? 1 : 0 };
+    if (!isReduced && window.gsap) {
+      window.gsap.to(introProgress, { v: 1, duration: 2.1, ease: "power4.out", delay: 0.1 });
+    }
+
+    function positionCaption(cardIdx) {
+      const cardRect = cards[cardIdx].el.getBoundingClientRect();
+      const rootRect = root.getBoundingClientRect();
+      const capWidth = Math.min(Math.max(1.55 * cardRect.width, 180), 300);
+      captionEl.style.width = `${capWidth}px`;
+      captionEl.style.left = `${cardRect.left - rootRect.left + cardRect.width / 2}px`;
+      captionEl.style.top = `${cardRect.bottom - rootRect.top + 14}px`;
+      captionEl.style.transform = "translate(-50%, 0)";
+    }
+
+    function setActiveCard(cardIdx) {
+      hoverCandidateIdx = cardIdx;
+      hoverTime = performance.now();
+
+      if (cardIdx !== activeCardIdx) {
+        activeCardIdx = cardIdx;
+        snapDist = 1;
+
+        if (displayedCardIdx !== -1 && isCaptionVisible) {
+          isCaptionVisible = false;
+          captionEl.setAttribute("aria-hidden", "true");
+          if (captionAnim) captionAnim.kill();
+          if (isReduced) {
+            captionEl.style.opacity = "0";
+          } else if (window.gsap) {
+            captionAnim = window.gsap.to(captionEl, { opacity: 0, duration: 0.4, ease: "power2.inOut" });
+          }
+        }
+      }
+    }
+
+    function getCardIndexFromEvent(e) {
+      const target = e.target;
+      if (!target || typeof target.closest !== 'function') return -1;
+      const cardEl = target.closest("[data-card]");
+      if (!cardEl || !cardEl.dataset.card) return -1;
+      const idx = Number(cardEl.dataset.card);
+      return Number.isFinite(idx) ? idx : -1;
+    }
+
+    // Pointer & Drag interactions
+    let pointerId = null;
+    let isPointerDragging = false;
+    let dragDist = 0;
+    let isDragThresholdPassed = false;
+    let dragStartClientY = 0;
+    let dragCandidateCard = -1;
+
+    // Mouse positions for lens
+    let mouseX = 0;
+    let mouseY = 0;
+    let lensX = 0;
+    let lensY = 0;
+    let lensVx = 0;
+    let lensVy = 0;
+    let lensOpacity = 0;
+    let lensTargetOpacity = 0;
+    let isMouseOverCard = 0;
+    let lensHoverSize = 0;
+    let lensCurSize = 34;
+
+    function onPointerMove(e) {
+      if (isPointerFine) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        lensTargetOpacity = 1;
+      }
+
+      if (isPointerDragging && e.pointerId === pointerId) {
+        const dy = e.clientY - dragStartClientY;
+        dragStartClientY = e.clientY;
+        dragDist += Math.abs(dy);
+        currentPos += 0.0013 * dy;
+        inertiaTimer = 1400;
+
+        if (dragDist > 6 && !isDragThresholdPassed) {
+          isDragThresholdPassed = true;
+          setActiveCard(-1);
+        }
+        return;
+      }
+
+      if (e.pointerType === "touch" || !finePointer.matches) return;
+
+      const idx = getCardIndexFromEvent(e);
+      isMouseOverCard = idx >= 0 ? 1 : 0;
+      if (idx !== hoverCandidateIdx) {
+        hoverCandidateIdx = idx;
+        hoverTime = performance.now();
+      }
+    }
+
+    function onPointerDown(e) {
+      if (pointerId === null) {
+        pointerId = e.pointerId;
+        isPointerDragging = true;
+        dragDist = 0;
+        isDragThresholdPassed = false;
+        dragStartClientY = e.clientY;
+        dragCandidateCard = getCardIndexFromEvent(e);
+        userHasInteracted = true;
+        stage.style.cursor = "grabbing";
+
+        if (isPointerFine) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          lensTargetOpacity = 1;
+        }
+
+        try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+    }
+
+    function onPointerUp(e) {
+      if (e.pointerId !== pointerId) return;
+      const wasDrag = dragDist > 6;
+      if (pointerId !== null) {
+        try { stage.releasePointerCapture(pointerId); } catch (err) {}
+      }
+      pointerId = null;
+      isPointerDragging = false;
+      isDragThresholdPassed = false;
+      stage.style.cursor = "grab";
+      dragDist = 0;
+
+      if (!wasDrag) {
+        setActiveCard(dragCandidateCard);
+      }
+    }
+
+    function onWheel(e) {
+      e.preventDefault();
+      userHasInteracted = true;
+      setActiveCard(-1);
+      currentPos += 45e-5 * e.deltaY;
+      inertiaTimer = 1400;
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        userHasInteracted = true;
+        setActiveCard(-1);
+        currentPos += e.key === "ArrowDown" ? 1 / 30 : -1 / 30;
+        inertiaTimer = 1400;
+      } else if (e.key === "Enter" || e.key === " ") {
+        const idx = getCardIndexFromEvent(e);
+        if (idx >= 0) {
+          e.preventDefault();
+          userHasInteracted = true;
+          setActiveCard(idx);
+        }
+      } else if (e.key === "Escape") {
+        setActiveCard(-1);
+        if (document.activeElement && typeof document.activeElement.blur === 'function') {
+          document.activeElement.blur();
+        }
+      }
+    }
+
+    stage.addEventListener("wheel", onWheel, { passive: false });
+    stage.addEventListener("pointerdown", onPointerDown);
+    stage.addEventListener("pointerleave", () => {
+      lensTargetOpacity = 0;
+      isMouseOverCard = 0;
+      setActiveCard(-1);
+    });
+
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("pointercancel", onPointerUp);
+    window.addEventListener("keydown", onKeyDown);
+
+    // Math helpers
+    const mod1 = (val) => val - Math.floor(val);
+    const clamp = (val, min, max) => (val < min ? min : val > max ? max : val);
+    const smoothstep = (val) => {
+      const c = clamp(val, 0, 1);
+      return c * c * (3 - 2 * c);
+    };
+
+    let animFrame = 0;
+    let lastTime = 0;
+
+    function renderLoop(time) {
+      animFrame = requestAnimationFrame(renderLoop);
+      const dt = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0.016;
+      lastTime = time;
+
+      // Candidate hover delay check
+      if (hoverCandidateIdx !== activeCardIdx && time - hoverTime >= 150) {
+        setActiveCard(hoverCandidateIdx);
+      }
+
+      const p = introProgress.v;
+      const introSpin = (1 - p) * 1.15;
+      const introAlpha = clamp(1.25 * p, 0, 1);
+      const introScale = 0.92 + 0.08 * p;
+
+      inertiaTimer = Math.max(0, inertiaTimer - 1000 * dt);
+
+      // Snap to active card or continue gentle idle drift
+      if (activeCardIdx >= 0) {
+        let diff = 0.5 - mod1(activeCardIdx / 30 + targetPos + introSpin);
+        diff -= Math.round(diff);
+        snapDist = Math.abs(diff);
+        currentPos = targetPos + diff;
+      } else if (inertiaTimer <= 0 && !isReduced) {
+        currentPos += 0.015 * dt;
+      }
+
+      const lerpSpeed = activeCardIdx >= 0 ? 0.03 : 0.0032;
+      targetPos += (currentPos - targetPos) * (1 - Math.pow(lerpSpeed, dt));
+
+      if (targetPos > 1e6) {
+        targetPos -= 1e6;
+        currentPos -= 1e6;
+      }
+
+      const helixRadius = 0.44 * baseDim * (0.26 + 0.74 * p);
+      const helixHeight = 1.05 * baseDim * (0.46 + 0.54 * p);
+
+      for (let i = 0; i < TOTAL_CARDS; i++) {
+        const card = cards[i];
+        const normPos = mod1(i / 30 + targetPos + introSpin);
+        const angle = 2 * normPos * Math.PI * 2;
+        const cosA = Math.cos(angle);
+        const wave = 0.5 + 0.5 * Math.cos((normPos - 0.5) * Math.PI * 2);
+
+        const x = Math.sin(angle) * helixRadius;
+        const z = cosA * helixRadius + (wave - 0.5) * 0.52 * baseDim;
+        const y = (normPos - 0.5) * helixHeight;
+
+        const forwardFactor = 0.3 + ((cosA + 1) / 2) * 0.7;
+        const waveFactor = 0.42 + 0.58 * wave;
+        const distFade = 1 - smoothstep((Math.abs(y) / baseDim - 0.33) / 0.13);
+        const loopFade = smoothstep(normPos / 0.14) * smoothstep((1 - normPos) / 0.14);
+        const backBlur = clamp((0.5 - cosA) * 6, 0, 6);
+        const waveBlur = (1 - wave) * 3;
+        const blurAmount = Math.max(backBlur, waveBlur);
+
+        const cardAlpha = forwardFactor * loopFade * waveFactor * distFade * introAlpha;
+        const hazeAmount = clamp((1 - (cosA + 1) / 2) * 0.32 + (1 - wave) * 0.14, 0, 0.9);
+
+        card.el.style.opacity = cardAlpha.toFixed(3);
+        card.el.style.zIndex = String(Math.round(1000 + z));
+        card.el.style.filter = blurAmount > 0.35 ? `blur(${blurAmount.toFixed(2)}px)` : "none";
+        card.el.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) rotateY(${angle.toFixed(4)}rad) scale(${introScale.toFixed(4)})`;
+        card.haze.style.opacity = hazeAmount.toFixed(3);
+
+        const isHoverable = cosA > 0.18 && cardAlpha > 0.3;
+        if (isHoverable !== card.hoverable) {
+          card.hoverable = isHoverable;
+          if (isHoverable) {
+            const meta = getMeta(i);
+            card.el.style.pointerEvents = "auto";
+            card.el.setAttribute("role", "button");
+            card.el.removeAttribute("aria-hidden");
+            card.el.setAttribute("tabindex", "0");
+            card.el.setAttribute("aria-label", meta ? `View ${meta.title}, ${meta.location} ${meta.year}` : `View photograph ${i + 1}`);
+          } else {
+            card.el.style.pointerEvents = "none";
+            card.el.removeAttribute("role");
+            card.el.setAttribute("aria-hidden", "true");
+            card.el.setAttribute("tabindex", "-1");
+          }
+        }
+      }
+
+      // Display caption when centered
+      if (activeCardIdx >= 0) {
+        if (displayedCardIdx !== activeCardIdx && snapDist < 0.04) {
+          const meta = getMeta(activeCardIdx);
+          capEyebrow.textContent = `Frame ${String(activeCardIdx + 1).padStart(2, "0")} / 30`;
+          capTitle.textContent = meta ? meta.title : "Untitled";
+          capMeta.textContent = meta ? `${meta.location} · ${meta.year}` : "";
+          capCamera.textContent = meta && meta.camera ? meta.camera : "";
+          capCamera.style.display = meta && meta.camera ? "block" : "none";
+
+          displayedCardIdx = activeCardIdx;
+          isCaptionVisible = true;
+          captionEl.setAttribute("aria-hidden", "false");
+          positionCaption(activeCardIdx);
+
+          if (captionAnim) captionAnim.kill();
+          if (isReduced) {
+            captionEl.style.opacity = "1";
+            capRule.style.transform = "scaleX(1)";
+            capEyebrow.style.opacity = "1";
+            capTitle.style.opacity = "1";
+            capMeta.style.opacity = "1";
+            capCamera.style.opacity = "1";
+          } else if (window.gsap) {
+            const gsap = window.gsap;
+            gsap.set(capRule, { scaleX: 0 });
+            gsap.set(capEyebrow, { opacity: 0, y: 5 });
+            gsap.set(capTitle, { opacity: 0, yPercent: 55 });
+            gsap.set([capMeta, capCamera], { opacity: 0, y: 7 });
+
+            captionAnim = gsap.timeline()
+              .to(captionEl, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0)
+              .to(capRule, { scaleX: 1, duration: 0.85, ease: "power3.out" }, 0.1)
+              .to(capEyebrow, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 0.08)
+              .to(capTitle, { opacity: 1, yPercent: 0, duration: 1, ease: "power4.out" }, 0.14)
+              .to([capMeta, capCamera], { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", stagger: 0.1 }, 0.34);
+          }
+        } else if (displayedCardIdx === activeCardIdx) {
+          positionCaption(activeCardIdx);
+        }
+      }
+
+      bottomPrompt.style.opacity = (0.5 * (!userHasInteracted ? 1 : 0) * p).toFixed(3);
+
+      // Follower lens lerp
+      if (isPointerFine) {
+        const ax = (mouseX - lensX) * 240 - 20 * lensVx;
+        const ay = (mouseY - lensY) * 240 - 20 * lensVy;
+        lensVx += ax * dt;
+        lensVy += ay * dt;
+        lensX += lensVx * dt;
+        lensY += lensVy * dt;
+
+        lensHoverSize += (isMouseOverCard - lensHoverSize) * (1 - Math.pow(0.004, dt));
+        lensOpacity += (lensTargetOpacity - lensOpacity) * (1 - Math.pow(0.02, dt));
+
+        lensEl.style.transform = `translate3d(${lensX.toFixed(2)}px, ${lensY.toFixed(2)}px, 0)`;
+        lensEl.style.opacity = lensOpacity.toFixed(3);
+
+        const targetLensSize = clamp(Math.round(34 * (1 + 1.6 * lensHoverSize)), 20, 100);
+        if (targetLensSize !== lensCurSize) {
+          lensCurSize = targetLensSize;
+          lensEl.style.width = `${targetLensSize}px`;
+          lensEl.style.height = `${targetLensSize}px`;
+          lensEl.style.margin = `${-targetLensSize / 2}px 0 0 ${-targetLensSize / 2}px`;
+        }
+      }
+    }
+
+    animFrame = requestAnimationFrame(renderLoop);
+
+    // Resize observer
+    const ro = new ResizeObserver(() => updateLayout());
+    ro.observe(root);
+
+    // Expose API for headless test automation
+    window.__HELIX_API__ = {
+      setActiveCard,
+      getActiveCard: () => activeCardIdx,
+      getDisplayedCard: () => displayedCardIdx,
+      scrollStrand: (delta) => { currentPos += delta; inertiaTimer = 1400; },
+      getCardCount: () => TOTAL_CARDS
+    };
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHelix);
+  } else {
+    initHelix();
+  }
+</script>
+

@@ -1,0 +1,855 @@
+---
+// v2/src/components/cinema-reel/Reel.astro
+import filmsData from '../../data/cinema_reel_films.json';
+import Cursor from './Cursor.astro';
+import Pips from './Pips.astro';
+import DetailModal from './DetailModal.astro';
+
+const films = filmsData;
+const totalFilms = films.length;
+// Looped slots configuration from Next.js bundle
+const TOTAL_SLOTS = 42;
+const START_SLOT = 19;
+const TARGET_SLOT = 36; // slot 36 corresponds to film 0 (Blueprint No. 7)
+---
+
+<section
+  id="cinema-reel-root"
+  class="relative h-[100dvh] w-full select-none overflow-hidden [--cinema-pad-x:7.5dvh] max-sm:[--cinema-pad-x:2dvh]"
+  style="background:#0a0908;cursor:none;"
+  aria-label="Film festival reel"
+>
+  <!-- Motion Blur SVG Filter -->
+  <svg aria-hidden="true" focusable="false" class="pointer-events-none absolute" style="width:0;height:0;position:absolute;">
+    <defs>
+      <filter id="cinema-motion-blur" x="-5%" y="-25%" width="110%" height="150%">
+        <feGaussianBlur id="blur-filter-elem" in="SourceGraphic" stdDeviation="0 0"></feGaussianBlur>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Track Container for Vertical Reel -->
+  <div
+    id="cinema-track"
+    class="absolute inset-x-0 top-0 will-change-transform"
+    style="touch-action:none;padding-left:var(--cinema-pad-x);padding-right:var(--cinema-pad-x);transform:translate3d(0,calc(10dvh - 85dvh * 19),0);"
+  >
+    {Array.from({ length: TOTAL_SLOTS }).map((_, slotIdx) => {
+      const film = films[slotIdx % totalFilms];
+      const isFirst = slotIdx === TARGET_SLOT;
+      return (
+        <div
+          class="cinema-slide relative w-full"
+          data-slot-index={slotIdx}
+          data-film-id={film.id}
+          style="height:80dvh;margin-bottom:5dvh;perspective:2000px;"
+        >
+          <!-- Card with 3D Fold capability -->
+          <div
+            class="slide-card relative h-full w-full overflow-hidden"
+            style="border-radius:48px;transform-origin:0% 50%;transform-style:preserve-3d;transition:transform 700ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 700ms cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            <!-- Parallax Film Still Background -->
+            <div
+              data-slide-image="true"
+              class="slide-bg will-change-transform"
+              style="position:absolute;top:50%;left:50%;width:100vw;height:120dvh;margin-top:-60dvh;margin-left:-50vw;will-change:transform;"
+            >
+              <img
+                src={film.image}
+                alt={film.titleLines.join(' ')}
+                loading="eager"
+                decoding="async"
+                fetchpriority={isFirst ? "high" : "auto"}
+                draggable="false"
+                style="width:100%;height:100%;object-fit:cover;display:block;"
+              />
+              <!-- Subtle dark film grading vignettes -->
+              <div
+                class="absolute inset-0"
+                style="background:linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.06) 22%, rgba(0,0,0,0.04) 70%, rgba(0,0,0,0.55) 100%);"
+              ></div>
+              <div
+                class="absolute inset-0"
+                style="background:radial-gradient(80% 70% at 50% 50%, transparent 40%, rgba(0,0,0,0.45) 100%);"
+              ></div>
+            </div>
+
+            <!-- Slide Content Overlay (Interpolated Blur & Opacity) -->
+            <div
+              data-slide-content="true"
+              class="slide-content absolute inset-0 will-change-[opacity,filter,transform]"
+              style="opacity:0;filter:blur(16px);"
+            >
+              <div class="relative h-full w-full p-[5.5dvh_6dvh] text-white max-sm:p-[3dvh]">
+                <!-- Top Left: Year, Laurels, Award Symbol -->
+                <div class="absolute left-[6dvh] top-[5.5dvh] flex flex-col gap-3 max-sm:left-[3dvh] max-sm:top-[3dvh] max-sm:gap-2" data-reveal="true">
+                  <div class="font-serif-cinema text-[clamp(1.2rem,2.2dvh,2.4rem)] leading-none text-white/90 italic">
+                    {film.year}
+                  </div>
+                  <div class="text-[10px] font-medium uppercase tracking-[0.32em] text-white/65 max-sm:text-[8.5px] max-sm:tracking-[0.24em] max-w-[28ch]">
+                    {film.eyebrow}
+                  </div>
+
+                  <!-- Award Laurel Badge -->
+                  <div class="mt-3 inline-flex items-center gap-0 max-sm:hidden">
+                    <img
+                      src="/left-award-symbol.svg"
+                      alt=""
+                      aria-hidden="true"
+                      class="h-[44px] w-[28px] shrink-0"
+                      style="margin-right:-10px;filter:brightness(0) invert(1);opacity:0.85;"
+                    />
+                    <div class="flex flex-col items-center gap-1">
+                      <span class="font-serif-cinema text-[10px] font-bold tracking-wide text-white/85">
+                        Award-Winning Reel
+                      </span>
+                      <div class="flex gap-[2px]">
+                        {Array.from({ length: 5 }).map(() => (
+                          <svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" class="fill-white/65" />
+                          </svg>
+                        ))}
+                      </div>
+                    </div>
+                    <img
+                      src="/right-award-symbol.svg"
+                      alt=""
+                      aria-hidden="true"
+                      class="h-[44px] w-[28px] shrink-0"
+                      style="margin-left:-10px;filter:brightness(0) invert(1);opacity:0.85;"
+                    />
+                  </div>
+                </div>
+
+                <!-- Bottom Left: Category, Gigantic Title, Director & Metadata -->
+                <div class="absolute left-[6dvh] flex flex-col gap-5 max-sm:left-[3dvh] max-sm:gap-3" style="bottom:9dvh;" data-reveal="true">
+                  <div class="text-[10px] font-medium uppercase tracking-[0.4em] text-white/55 max-sm:text-[8.5px] max-sm:tracking-[0.28em]">
+                    {film.category}
+                  </div>
+                  <h2
+                    class="font-serif-cinema text-[clamp(2.2rem,8.5dvh,9rem)] font-semibold uppercase max-sm:text-[clamp(1.5rem,5.5dvh,2.4rem)]"
+                    style="line-height:0.92;letter-spacing:-0.02em;color:#f6efe2;"
+                  >
+                    {film.titleLines.map(line => (
+                      <span class="block">{line}</span>
+                    ))}
+                  </h2>
+
+                  <div class="flex flex-col gap-1.5 text-[10px] font-medium uppercase tracking-[0.32em] text-white/70 max-sm:text-[8.5px] max-sm:tracking-[0.22em]">
+                    <div class="flex items-baseline gap-3 max-sm:gap-2">
+                      <span class="text-white/45">DIRECTOR</span>
+                      <span class="text-white/90">{film.director}</span>
+                    </div>
+                    <div class="flex items-baseline gap-3 max-sm:gap-2">
+                      <span class="text-white/45">CATEGORY</span>
+                      <span class="text-white/90">{film.category}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Center Right: Awards List -->
+                <div class="absolute right-[6dvh] flex flex-col max-sm:hidden" style="top:50%;transform:translateY(-50%);">
+                  <div class="flex flex-col gap-7" data-reveal="true">
+                    {film.awards.map(award => (
+                      <div class="flex flex-col items-end gap-1.5 text-right">
+                        <div class="flex items-center gap-1">
+                          {Array.from({ length: 5 }).map((_, starIdx) => (
+                            <span
+                              class="text-[12px]"
+                              style={`color:${starIdx < award.stars ? '#f1e7d2' : 'rgba(255,255,255,0.18)'}`}
+                            >
+                              ★
+                            </span>
+                          ))}
+                        </div>
+                        <div class="text-[9.5px] font-medium uppercase tracking-[0.32em] text-white/55">
+                          {award.label}
+                        </div>
+                        <div class="font-serif-cinema text-[16px] leading-tight text-white/95 italic max-w-[16ch]">
+                          “{award.quote}”
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Bottom Right: Explore Button -->
+                <button
+                  type="button"
+                  data-no-drag="true"
+                  data-reveal="true"
+                  data-explore-id={film.id}
+                  aria-label={`Explore ${film.titleLines.join(' ')}`}
+                  class="explore-btn group absolute bottom-[5dvh] right-[6dvh] flex items-center gap-4 overflow-hidden rounded-full border border-white/35 bg-white/[0.04] px-8 py-4 text-[12px] font-medium uppercase tracking-[0.32em] text-white/95 backdrop-blur-md transition-[background-color,border-color,transform,box-shadow] duration-300 ease-out hover:scale-[1.04] hover:border-white/85 hover:bg-white/[0.14] hover:shadow-[0_10px_30px_rgba(0,0,0,0.45)] max-sm:bottom-[3dvh] max-sm:right-[3dvh] max-sm:gap-3 max-sm:px-5 max-sm:py-3 max-sm:text-[10.5px] max-sm:tracking-[0.24em] cursor-pointer"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="pointer-events-none absolute inset-0 -translate-x-full rounded-full bg-gradient-to-r from-white/[0.02] via-white/10 to-white/[0.02] transition-transform duration-500 ease-out group-hover:translate-x-0"
+                  ></span>
+                  <span class="relative">EXPLORE</span>
+                  <span
+                    aria-hidden="true"
+                    class="relative text-[15px] leading-none transition-transform duration-300 ease-out group-hover:translate-x-1.5 max-sm:text-[13px]"
+                  >
+                    →
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- Top and Bottom Vignette Overlays -->
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 z-30"
+    style="height:10dvh;background:linear-gradient(180deg, #0a0908 0%, rgba(10,9,8,0) 100%);"
+  ></div>
+  <div
+    class="pointer-events-none absolute inset-x-0 bottom-0 z-30"
+    style="height:10dvh;background:linear-gradient(0deg, #0a0908 0%, rgba(10,9,8,0) 100%);"
+  ></div>
+
+  <!-- Scanline Screen Overlay during entrance -->
+  <div
+    id="scanline-overlay"
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 z-[25] transition-opacity duration-500 opacity-0"
+    style="background-image:repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 3px);mix-blend-mode:screen;"
+  ></div>
+
+  <!-- Side Pips Indicator -->
+  <Pips total={totalFilms} />
+
+  <!-- Detail Modal Drawer -->
+  <DetailModal />
+
+  <!-- Custom Cursor Follower -->
+  <Cursor />
+</section>
+
+<script define:vars={{ filmsData: films }}>
+  window.__CINEMA_FILMS__ = filmsData;
+</script>
+
+<script>
+  function initCinemaReel() {
+    const root = document.getElementById('cinema-reel-root');
+    const track = document.getElementById('cinema-track');
+    if (!root || !track) return;
+
+    const films = window.__CINEMA_FILMS__ || [];
+    const totalFilms = films.length;
+    if (!totalFilms) return;
+
+    const TOTAL_SLOTS = 42;
+    const START_SLOT = 19;
+    const TARGET_SLOT = 36; // slot 36 (Blueprint No. 7)
+
+    // Elements
+    const blurElem = document.getElementById('blur-filter-elem');
+    const scanlineOverlay = document.getElementById('scanline-overlay');
+    const pipsRoot = document.getElementById('cinema-pips');
+    const pipsActiveNum = document.getElementById('pips-active-num');
+    const pipDots = document.querySelectorAll('.pip-dot');
+
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const modalDrawer = document.getElementById('modal-drawer');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalImg = document.getElementById('modal-img');
+    const modalEyebrow = document.getElementById('modal-eyebrow');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDirector = document.getElementById('modal-director');
+    const modalYear = document.getElementById('modal-year');
+    const modalCategory = document.getElementById('modal-category');
+    const modalDesc = document.getElementById('modal-description');
+    const modalStatCritics = document.getElementById('modal-stat-critics');
+    const modalStatAudience = document.getElementById('modal-stat-audience');
+    const modalStatRuntime = document.getElementById('modal-stat-runtime');
+    const modalStatFormat = document.getElementById('modal-stat-format');
+    const modalStatCountry = document.getElementById('modal-stat-country');
+    const modalStatAspect = document.getElementById('modal-stat-aspect');
+    const modalAwards = document.getElementById('modal-awards');
+
+    const cursorElem = document.getElementById('cinema-cursor');
+    const cursorScrollLabel = document.getElementById('cursor-scroll-label');
+    const cursorDragIcon = document.getElementById('cursor-drag-icon');
+    const cursorNavTop = document.getElementById('cursor-nav-top');
+    const cursorNavBottom = document.getElementById('cursor-nav-bottom');
+
+    const slides = Array.from(document.querySelectorAll('.cinema-slide'));
+
+    // Heights calculation
+    let vh = window.innerHeight > 10 ? window.innerHeight : (document.documentElement.clientHeight || 900);
+    let stride = 0.85 * vh; // 80dvh height + 5dvh margin
+    let cardHeight = 0.80 * vh;
+    let dragThreshold = 0.14 * vh;
+    let topOffset = 0.10 * vh;
+
+    function updateDims() {
+      vh = window.innerHeight > 10 ? window.innerHeight : (document.documentElement.clientHeight || 900);
+      stride = 0.85 * vh;
+      cardHeight = 0.80 * vh;
+      dragThreshold = 0.14 * vh;
+      topOffset = 0.10 * vh;
+    }
+
+    // State Variables
+    let currentSlot = START_SLOT;
+    let prevSlot = START_SLOT;
+    let currentY = topOffset - START_SLOT * stride;
+    let targetY = currentY;
+    let isAutoScrolling = true;
+    let activeModalFilmId = null;
+
+    // Pointer state
+    const pointer = {
+      active: false,
+      startY: 0,
+      startTrackY: 0,
+      delta: 0,
+      pointerId: 0
+    };
+    let isHoveringRoot = false;
+    let isDragging = false;
+    let lastWheelTime = 0;
+
+    // Cursor Follow State
+    const mousePos = { x: 0, y: 0 };
+    const cursorState = { x: 0, y: 0, scale: 1, opacity: 0 };
+    let hasReceivedMouse = false;
+    let edgeHoverZone = null; // 'top' | 'bottom' | null
+    let isOverNoDrag = false;
+
+    // Helper mod
+    function modN(val, n) {
+      return ((val % n) + n) % n;
+    }
+
+    function updatePipsUI(filmIdx) {
+      if (pipsActiveNum) {
+        pipsActiveNum.innerText = String(filmIdx + 1).padStart(2, '0');
+      }
+      pipDots.forEach((dot, idx) => {
+        if (idx === filmIdx) {
+          dot.style.width = '6px';
+          dot.style.height = '6px';
+          dot.style.background = 'rgba(241, 231, 210, 0.95)';
+        } else {
+          dot.style.width = '4px';
+          dot.style.height = '4px';
+          dot.style.background = 'rgba(255, 255, 255, 0.22)';
+        }
+      });
+    }
+
+    function checkSlotLoop() {
+      while (currentSlot < totalFilms) {
+        currentSlot += totalFilms;
+        prevSlot += totalFilms;
+        const shift = totalFilms * stride;
+        currentY -= shift;
+        targetY -= shift;
+        if (pointer.active) pointer.startTrackY -= shift;
+      }
+      while (currentSlot >= 6 * totalFilms) {
+        currentSlot -= totalFilms;
+        prevSlot -= totalFilms;
+        const shift = totalFilms * stride;
+        currentY += shift;
+        targetY += shift;
+        if (pointer.active) pointer.startTrackY += shift;
+      }
+    }
+
+    function snapToSlot(targetSlotIndex) {
+      if (targetSlotIndex !== currentSlot) {
+        prevSlot = currentSlot;
+        currentSlot = targetSlotIndex;
+        targetY = topOffset - currentSlot * stride;
+        updatePipsUI(modN(currentSlot, totalFilms));
+        checkSlotLoop();
+      }
+    }
+
+    function navigateToFilm(targetFilmIndex) {
+      const currentFilmIdx = modN(currentSlot, totalFilms);
+      let diff = targetFilmIndex - currentFilmIdx;
+      if (diff > totalFilms / 2) diff -= totalFilms;
+      else if (diff < -totalFilms / 2) diff += totalFilms;
+      if (diff !== 0) {
+        snapToSlot(currentSlot + diff);
+      }
+    }
+
+    // Modal Details functions
+    function openModal(filmId) {
+      const film = films.find(f => f.id === filmId);
+      if (!film) return;
+
+      activeModalFilmId = filmId;
+
+      // Populate modal data
+      if (modalImg) modalImg.src = film.image;
+      if (modalEyebrow) modalEyebrow.innerText = film.eyebrow;
+      if (modalTitle) modalTitle.innerHTML = film.titleLines.join('<br/>');
+      if (modalDirector) modalDirector.innerText = film.director;
+      if (modalYear) modalYear.innerText = film.year;
+      if (modalCategory) modalCategory.innerText = film.category;
+      if (modalDesc) modalDesc.innerText = film.description;
+      if (modalStatCritics) modalStatCritics.innerText = film.stats.critics;
+      if (modalStatAudience) modalStatAudience.innerText = film.stats.audience;
+      if (modalStatRuntime) modalStatRuntime.innerText = film.stats.runtime;
+      if (modalStatFormat) modalStatFormat.innerText = film.stats.format;
+      if (modalStatCountry) modalStatCountry.innerText = film.stats.country;
+      if (modalStatAspect) modalStatAspect.innerText = film.stats.aspect;
+
+      // Awards
+      if (modalAwards) {
+        modalAwards.innerHTML = film.awards.map(a => `
+          <div class="flex items-baseline gap-3">
+            <div class="flex shrink-0 items-center gap-[2px]">
+              ${Array.from({ length: 5 }).map((_, i) => `
+                <span class="text-[11px]" style="color:${i < a.stars ? '#f1e7d2' : 'rgba(255,255,255,0.18)'}">★</span>
+              `).join('')}
+            </div>
+            <div class="shrink-0 text-[10px] font-medium uppercase tracking-[0.32em] text-white/55">${a.label}</div>
+            <div class="font-serif-cinema flex-1 text-[13px] leading-tight text-white/90 italic">“${a.quote}”</div>
+          </div>
+        `).join('');
+      }
+
+      // Show backdrop
+      if (modalBackdrop) {
+        modalBackdrop.style.pointerEvents = 'auto';
+        modalBackdrop.style.opacity = '1';
+        modalBackdrop.style.backgroundColor = 'rgba(10,9,8,0.35)';
+        modalBackdrop.style.backdropFilter = 'blur(14px) saturate(120%)';
+        modalBackdrop.style.webkitBackdropFilter = 'blur(14px) saturate(120%)';
+      }
+
+      // Slide drawer in
+      if (modalDrawer) {
+        modalDrawer.style.pointerEvents = 'auto';
+        modalDrawer.style.transform = 'translateX(0)';
+        modalDrawer.style.boxShadow = '-30px 0 80px -20px rgba(0,0,0,0.6)';
+        modalDrawer.setAttribute('aria-hidden', 'false');
+      }
+
+      // Fold active slide card in 3D
+      const activeSlideElem = slides[currentSlot];
+      if (activeSlideElem) {
+        const card = activeSlideElem.querySelector('.slide-card');
+        if (card) {
+          card.style.transform = 'rotateY(15deg)';
+          card.style.boxShadow = '0 30px 80px -20px rgba(0,0,0,0.55), 0 8px 30px -10px rgba(0,0,0,0.35)';
+        }
+      }
+
+      // Hide side pips
+      if (pipsRoot) {
+        pipsRoot.style.opacity = '0';
+      }
+    }
+
+    function closeModal() {
+      if (!activeModalFilmId) return;
+
+      if (modalBackdrop) {
+        modalBackdrop.style.pointerEvents = 'none';
+        modalBackdrop.style.opacity = '0';
+        modalBackdrop.style.backgroundColor = 'rgba(10,9,8,0)';
+        modalBackdrop.style.backdropFilter = 'blur(0px)';
+        modalBackdrop.style.webkitBackdropFilter = 'blur(0px)';
+      }
+
+      if (modalDrawer) {
+        modalDrawer.style.pointerEvents = 'none';
+        modalDrawer.style.transform = 'translateX(calc(100% + var(--cinema-pad-x) + 2dvh))';
+        modalDrawer.style.boxShadow = 'none';
+        modalDrawer.setAttribute('aria-hidden', 'true');
+      }
+
+      // Return active slide card
+      const activeSlideElem = slides[currentSlot];
+      if (activeSlideElem) {
+        const card = activeSlideElem.querySelector('.slide-card');
+        if (card) {
+          card.style.transform = '';
+          card.style.boxShadow = '';
+        }
+      }
+
+      if (pipsRoot) {
+        pipsRoot.style.opacity = '1';
+      }
+
+      activeModalFilmId = null;
+    }
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && activeModalFilmId) {
+        closeModal();
+      }
+    });
+
+    // Pips Click Listener
+    pipDots.forEach((dot, idx) => {
+      const btn = dot.closest('button');
+      if (btn) {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          navigateToFilm(idx);
+        });
+      }
+    });
+
+    // Explore Buttons Listener
+    document.querySelectorAll('.explore-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const filmId = btn.getAttribute('data-explore-id');
+        if (filmId) openModal(filmId);
+      });
+    });
+
+    // Animation & Render Loop
+    function renderLoop() {
+      requestAnimationFrame(renderLoop);
+
+      const now = performance.now();
+      const isDraggingNow = pointer.active;
+      const isWheelingRecent = now - lastWheelTime < 100;
+
+      // Spring physics interpolation towards targetY
+      if (!isDraggingNow && !isWheelingRecent && !isAutoScrolling) {
+        const diff = targetY - currentY;
+        if (Math.abs(diff) < 0.5) {
+          currentY = targetY;
+        } else {
+          currentY += 0.11 * diff;
+        }
+      }
+
+      // Move track
+      track.style.transform = `translate3d(0, ${currentY}px, 0)`;
+
+      // Slide content blur & image parallax
+      const centerY = vh / 2;
+      for (let i = 0; i < slides.length; i++) {
+        const slide = slides[i];
+        if (!slide) continue;
+
+        const slideCenterY = i * stride + currentY + cardHeight / 2;
+        const distFromCenter = slideCenterY - centerY;
+        const normalizedDist = Math.abs(distFromCenter) / cardHeight;
+
+        // Image Parallax
+        const imgWrap = slide.querySelector('[data-slide-image]');
+        if (imgWrap && !isAutoScrolling) {
+          const parallaxY = -distFromCenter / 1.2;
+          imgWrap.style.transform = `translate3d(0, ${parallaxY.toFixed(2)}px, 0)`;
+        }
+
+        // Text Content Reveal / Fade / Blur
+        const contentWrap = slide.querySelector('[data-slide-content]');
+        if (!contentWrap) continue;
+
+        if (isAutoScrolling) {
+          contentWrap.style.opacity = '0';
+          contentWrap.style.filter = 'blur(16px)';
+          continue;
+        }
+
+        if (normalizedDist > 2.0) {
+          if (contentWrap.style.opacity !== '0') {
+            contentWrap.style.opacity = '0';
+            contentWrap.style.filter = 'blur(16px)';
+          }
+          continue;
+        }
+
+        const isCurrent = i === currentSlot;
+        const isPrev = i === prevSlot && prevSlot !== currentSlot;
+
+        let opacity = 0;
+        let blurVal = 16;
+        let translateY = 0;
+
+        if (isCurrent) {
+          const t = Math.max(0, Math.min(1, 1 - normalizedDist / 0.55));
+          const smoothT = t * t * (3 - 2 * t);
+          opacity = smoothT;
+          blurVal = (1 - smoothT) * 14;
+          translateY = (1 - smoothT) * 64 * Math.sign(distFromCenter || 1);
+        } else if (isPrev) {
+          const t = Math.max(0, 1 - Math.max(0, normalizedDist - 0.6) / 0.6);
+          opacity = t;
+          blurVal = (1 - t) * 6;
+          translateY = -(0.42 * distFromCenter);
+        } else {
+          opacity = 0;
+          blurVal = 16;
+          translateY = 0;
+        }
+
+        contentWrap.style.transform = `translate3d(0, ${translateY.toFixed(2)}px, 0)`;
+        contentWrap.style.opacity = opacity.toFixed(3);
+        contentWrap.style.filter = `blur(${blurVal.toFixed(2)}px)`;
+      }
+
+      // Custom Follow Cursor Lerp
+      if (cursorElem && isHoveringRoot) {
+        if (!hasReceivedMouse && (mousePos.x !== 0 || mousePos.y !== 0)) {
+          cursorState.x = mousePos.x;
+          cursorState.y = mousePos.y;
+          hasReceivedMouse = true;
+        }
+
+        cursorState.x += (mousePos.x - cursorState.x) * 0.22;
+        cursorState.y += (mousePos.y - cursorState.y) * 0.22;
+
+        const targetOpacity = isHoveringRoot && hasReceivedMouse ? 1 : 0;
+        cursorState.opacity += (targetOpacity - cursorState.opacity) * 0.18;
+
+        const targetScale = isDragging ? 1.18 : 1;
+        cursorState.scale += (targetScale - cursorState.scale) * 0.22;
+
+        cursorElem.style.transform = `translate3d(${cursorState.x}px, ${cursorState.y}px, 0) translate(-50%, -50%) scale(${cursorState.scale.toFixed(3)})`;
+        cursorElem.style.opacity = cursorState.opacity.toFixed(3);
+
+        // Update cursor icon states
+        if (cursorScrollLabel) {
+          cursorScrollLabel.style.opacity = (edgeHoverZone !== null || isDragging || isOverNoDrag) ? '0' : '1';
+        }
+        if (cursorDragIcon) {
+          cursorDragIcon.style.opacity = (isDragging && edgeHoverZone === null) ? '1' : '0';
+        }
+        if (cursorNavTop) {
+          cursorNavTop.style.opacity = (edgeHoverZone === 'top' || (isDragging && edgeHoverZone === null)) ? '1' : '0';
+        }
+        if (cursorNavBottom) {
+          cursorNavBottom.style.opacity = (edgeHoverZone === 'bottom' || (isDragging && edgeHoverZone === null)) ? '1' : '0';
+        }
+      }
+    }
+
+    requestAnimationFrame(renderLoop);
+
+    // Initial Entrance Timeline with GSAP
+    if (window.gsap) {
+      const gsap = window.gsap;
+      const progressObj = { p: 0 };
+      const vhFraction = vh / 100;
+      let lastProgress = 0;
+      let lastTime = 0;
+
+      const enterTL = gsap.timeline({
+        onUpdate: () => {
+          const p = progressObj.p;
+          const slotProgress = START_SLOT + (TARGET_SLOT - START_SLOT) * p;
+          const dynamicStride = 80 * 1 + 5;
+          currentY = (10 - slotProgress * dynamicStride) * vhFraction;
+          targetY = currentY;
+
+          const nowTime = performance.now();
+          let blurAmount = 0;
+          if (lastTime > 0) {
+            const dt = Math.max(nowTime - lastTime, 1);
+            const dp = Math.abs(p - lastProgress);
+            const totalDist = TARGET_SLOT - START_SLOT;
+            blurAmount = Math.min((dp * totalDist / dt) / (3 * totalDist / 3000), 1);
+          }
+          lastProgress = p;
+          lastTime = nowTime;
+
+          if (blurElem) {
+            blurElem.setAttribute('stdDeviation', `0 ${(18 * blurAmount).toFixed(2)}`);
+          }
+          if (scanlineOverlay) {
+            scanlineOverlay.style.opacity = blurAmount.toFixed(3);
+          }
+        },
+        onComplete: () => {
+          if (blurElem) blurElem.setAttribute('stdDeviation', '0 0');
+          if (scanlineOverlay) scanlineOverlay.style.opacity = '0';
+          isAutoScrolling = false;
+          currentSlot = TARGET_SLOT;
+          prevSlot = TARGET_SLOT;
+          targetY = topOffset - TARGET_SLOT * stride;
+          currentY = targetY;
+          updatePipsUI(modN(TARGET_SLOT, totalFilms));
+          checkSlotLoop();
+
+          // Reveal animations for target slide
+          const activeSlide = slides[TARGET_SLOT];
+          if (activeSlide) {
+            const reveals = activeSlide.querySelectorAll('[data-reveal]');
+            if (reveals.length) {
+              gsap.fromTo(reveals, {
+                autoAlpha: 0,
+                y: 32,
+                filter: 'blur(10px)'
+              }, {
+                autoAlpha: 1,
+                y: 0,
+                filter: 'blur(0px)',
+                duration: 1,
+                ease: 'power4.out',
+                stagger: 0.07
+              });
+            }
+          }
+        }
+      });
+
+      enterTL.to(progressObj, {
+        p: 1,
+        duration: 3,
+        ease: 'power3.out'
+      }, 0);
+    } else {
+      isAutoScrolling = false;
+      snapToSlot(TARGET_SLOT);
+    }
+
+    // Wheel Interaction
+    root.addEventListener('wheel', e => {
+      if (!isHoveringRoot || activeModalFilmId) return;
+      if (e.target && e.target.closest('[data-no-drag]')) return;
+      e.preventDefault();
+
+      const delta = Math.max(-200, Math.min(200, e.deltaY));
+      currentY -= delta;
+      lastWheelTime = performance.now();
+
+      const nearestSlot = Math.round((topOffset - currentY) / stride);
+      if (nearestSlot !== currentSlot) {
+        snapToSlot(nearestSlot);
+      }
+    }, { passive: false });
+
+    // Pointer Drag Interaction
+    root.addEventListener('pointerdown', e => {
+      if (!isHoveringRoot || ("mouse" === e.pointerType && e.button !== 0)) return;
+      if (e.target && e.target.closest('[data-no-drag]')) return;
+
+      lastWheelTime = 0;
+      pointer.active = true;
+      pointer.startY = e.clientY;
+      pointer.startTrackY = currentY;
+      pointer.delta = 0;
+      pointer.pointerId = e.pointerId;
+      isDragging = true;
+
+      try {
+        root.setPointerCapture(e.pointerId);
+      } catch (err) {}
+    });
+
+    root.addEventListener('pointermove', e => {
+      mousePos.x = e.clientX;
+      mousePos.y = e.clientY;
+
+      const topZone = 0.10 * vh;
+      const bottomZone = vh - 0.10 * vh;
+
+      if (e.clientY < topZone) edgeHoverZone = 'top';
+      else if (e.clientY > bottomZone) edgeHoverZone = 'bottom';
+      else edgeHoverZone = null;
+
+      isOverNoDrag = !!(e.target && e.target.closest('[data-no-drag]'));
+
+      if (!pointer.active) return;
+
+      const dy = e.clientY - pointer.startY;
+      pointer.delta = dy;
+      currentY = pointer.startTrackY + dy;
+    });
+
+    function endDrag(shouldSnap = true) {
+      const delta = pointer.delta;
+      const zone = edgeHoverZone;
+      pointer.active = false;
+      isDragging = false;
+
+      if (shouldSnap) {
+        if (zone && Math.abs(delta) < 8) {
+          const nextSlot = currentSlot + (zone === 'top' ? -1 : 1);
+          closeModal();
+          snapToSlot(nextSlot);
+          return;
+        }
+
+        if (Math.abs(delta) > dragThreshold) {
+          snapToSlot(currentSlot + (delta < 0 ? 1 : -1));
+        } else {
+          snapToSlot(currentSlot);
+        }
+      }
+    }
+
+    root.addEventListener('pointerup', e => {
+      if (pointer.active) {
+        try { root.releasePointerCapture(e.pointerId); } catch (err) {}
+        endDrag(true);
+      }
+    });
+
+    root.addEventListener('pointercancel', () => {
+      if (pointer.active) {
+        currentY = pointer.startTrackY;
+        endDrag(false);
+      }
+    });
+
+    root.addEventListener('pointerenter', () => {
+      isHoveringRoot = true;
+    });
+
+    root.addEventListener('pointerleave', () => {
+      isHoveringRoot = false;
+      if (pointer.active) endDrag(true);
+    });
+
+    window.addEventListener('resize', () => {
+      updateDims();
+      targetY = topOffset - currentSlot * stride;
+      currentY = targetY;
+    });
+
+    // Keyboard Arrow Keys
+    window.addEventListener('keydown', e => {
+      if (activeModalFilmId) return;
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        snapToSlot(currentSlot + 1);
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        snapToSlot(currentSlot - 1);
+      }
+    });
+
+    // Expose API for external control & testing
+    window.__CINEMA_REEL_API__ = {
+      snapToSlot,
+      navigateToFilm,
+      openModal,
+      closeModal,
+      getCurrentSlot: () => currentSlot,
+      getActiveFilm: () => films[modN(currentSlot, totalFilms)]
+    };
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCinemaReel);
+  } else {
+    initCinemaReel();
+  }
+</script>

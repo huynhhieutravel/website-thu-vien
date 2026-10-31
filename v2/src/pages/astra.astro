@@ -1,0 +1,26 @@
+---
+// v2/src/pages/astra.astro - Website 15: Astra Brand Identity Studio (Astro Native Component Hóa)
+import AstraLayout from '../layouts/AstraLayout.astro';
+import Header from '../components/astra/Header.astro';
+import SiteMenuDrawer from '../components/astra/SiteMenuDrawer.astro';
+import BlurVeils from '../components/astra/BlurVeils.astro';
+import Hero from '../components/astra/Hero.astro';
+import Philosophy from '../components/astra/Philosophy.astro';
+import SelectedWork from '../components/astra/SelectedWork.astro';
+import Services from '../components/astra/Services.astro';
+import IndexSection from '../components/astra/IndexSection.astro';
+import Process from '../components/astra/Process.astro';
+import Touchpoints from '../components/astra/Touchpoints.astro';
+import Testimonials from '../components/astra/Testimonials.astro';
+import WorkingTogether from '../components/astra/WorkingTogether.astro';
+import FAQ from '../components/astra/FAQ.astro';
+import Journal from '../components/astra/Journal.astro';
+import StartProject from '../components/astra/StartProject.astro';
+import VisitUs from '../components/astra/VisitUs.astro';
+import Footer from '../components/astra/Footer.astro';
+---
+
+<AstraLayout
+  title="Astra — Independent Brand Identity Studio, Paris"
+  description="Astra is an independent brand identity studio in Paris. Identity, art direction, typography, packaging and digital branding for AURA, KIN, VANTA, ARC, NOMA and MONO."
+><div class="relative flex min-h-screen w-full flex-col overflow-x-clip bg-background"><Header /><SiteMenuDrawer /><BlurVeils /><main class="flex-1"><Hero /><div class="relative z-10 bg-background"><Philosophy /><SelectedWork /><Services /><IndexSection /><Process /><Touchpoints /><Testimonials /><WorkingTogether /><FAQ /><Journal /></div></main><StartProject /><VisitUs /><Footer /></div></AstraLayout>

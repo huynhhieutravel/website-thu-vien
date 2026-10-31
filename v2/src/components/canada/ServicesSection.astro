@@ -1,0 +1,10 @@
+---
+// v2/src/components/canada/ServicesSection.astro
+import rawServices from '../../raw/canada-services.html?raw';
+
+const servicesHtml = rawServices
+  .replace(/href="\/contact/g, 'href="/canada/contact');
+---
+
+<Fragment set:html={servicesHtml} />
+

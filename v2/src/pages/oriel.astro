@@ -1,0 +1,20 @@
+---
+// v2/src/pages/oriel.astro - Website 13: Oriel Humanoid Robotics (Phiên Bản Astro Code Native)
+import OrielLayout from '../layouts/OrielLayout.astro';
+import Header from '../components/oriel/Header.astro';
+import Hero from '../components/oriel/Hero.astro';
+import Presence from '../components/oriel/Presence.astro';
+import Everyday from '../components/oriel/Everyday.astro';
+import WithPeople from '../components/oriel/WithPeople.astro';
+import Engineering from '../components/oriel/Engineering.astro';
+import Intelligence from '../components/oriel/Intelligence.astro';
+import Safety from '../components/oriel/Safety.astro';
+import Specs from '../components/oriel/Specs.astro';
+import Reserve from '../components/oriel/Reserve.astro';
+import Footer from '../components/oriel/Footer.astro';
+---
+
+<OrielLayout
+  title="Oriel — Humanoid Robotics for the Home | Astro Native"
+  description="Oriel is a humanoid robot designed for real homes. It tidies, folds, carries and fetches with care, and asks when it isn't sure."
+><Header /><div class="flex min-h-screen flex-col"><main class="flex-1"><Hero /><Presence /><Everyday /><WithPeople /><Engineering /><Intelligence /><Safety /><Specs /><Reserve /></main></div><Footer /></OrielLayout>

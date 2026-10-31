@@ -1,0 +1,117 @@
+---
+// v2/src/components/isle/IsleDock.astro
+---
+
+<div
+  id="isle-dock"
+  class="absolute bottom-7 left-1/2 z-[4] flex -translate-x-1/2 items-center gap-2 rounded-full p-2 select-none md:bottom-9"
+  style="backdrop-filter:blur(14px) saturate(1.5);-webkit-backdrop-filter:blur(14px) saturate(1.5);background:rgba(10,14,22,0.28);box-shadow:0 10px 28px rgba(3,7,14,0.28), inset 0 1px 0 rgba(255,255,255,0.16), inset 0 0 0 0.6px rgba(255,255,255,0.10)"
+>
+  <!-- Scene 1: Aurora -->
+  <button
+    type="button"
+    aria-label="Scene: Aurora"
+    aria-pressed="true"
+    data-scene="aurora"
+    class="isl-dock-btn relative h-[38px] w-[38px] overflow-hidden rounded-full"
+    style="background-image:linear-gradient(165deg, #04140f 0%, #0a3d33 38%, #115c43 55%, #0a1f33 100%);box-shadow:0 0 0 1.5px #7ee8c5, 0 2px 8px rgba(0,0,0,0.35)"
+  >
+    <img
+      src="/isle/video-1.jpg"
+      alt="Aurora"
+      class="absolute inset-0 h-full w-full rounded-full object-cover pointer-events-none"
+      draggable="false"
+    />
+  </button>
+
+  <!-- Scene 2: Alpine -->
+  <button
+    type="button"
+    aria-label="Scene: Alpine"
+    aria-pressed="false"
+    data-scene="alpine"
+    class="isl-dock-btn relative h-[38px] w-[38px] overflow-hidden rounded-full"
+    style="background-image:linear-gradient(165deg, #1a1430 0%, #4a2c4f 40%, #c66a4f 72%, #1d1326 100%);box-shadow:inset 0 0 0 0.8px rgba(255,255,255,0.22), 0 2px 8px rgba(0,0,0,0.3)"
+  >
+    <img
+      src="/isle/video-2.jpg"
+      alt="Alpine"
+      class="absolute inset-0 h-full w-full rounded-full object-cover pointer-events-none"
+      draggable="false"
+    />
+  </button>
+
+  <!-- Scene 3: Metro -->
+  <button
+    type="button"
+    aria-label="Scene: Metro"
+    aria-pressed="false"
+    data-scene="metro"
+    class="isl-dock-btn relative h-[38px] w-[38px] overflow-hidden rounded-full"
+    style="background-image:linear-gradient(165deg, #060a18 0%, #0d1f3c 45%, #27466b 70%, #060912 100%);box-shadow:inset 0 0 0 0.8px rgba(255,255,255,0.22), 0 2px 8px rgba(0,0,0,0.3)"
+  >
+    <img
+      src="/isle/video-3.jpg"
+      alt="Metro"
+      class="absolute inset-0 h-full w-full rounded-full object-cover pointer-events-none"
+      draggable="false"
+    />
+  </button>
+</div>
+
+<script>
+  function initDock() {
+    const dock = document.getElementById('isle-dock');
+    if (!dock) return;
+
+    const buttons = dock.querySelectorAll<HTMLButtonElement>('.isl-dock-btn');
+    const scenes = document.querySelectorAll<HTMLElement>('.isl-scene');
+
+    const sceneAccents: Record<string, string> = {
+      aurora: '#7ee8c5',
+      alpine: '#ffd9c4',
+      metro: '#9fc4ff'
+    };
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sceneId = btn.getAttribute('data-scene');
+        if (!sceneId) return;
+
+        // Update button states
+        buttons.forEach(b => {
+          const id = b.getAttribute('data-scene') || '';
+          if (b === btn) {
+            b.setAttribute('aria-pressed', 'true');
+            b.style.boxShadow = `0 0 0 1.5px ${sceneAccents[id] || '#ffffff'}, 0 2px 8px rgba(0,0,0,0.35)`;
+          } else {
+            b.setAttribute('aria-pressed', 'false');
+            b.style.boxShadow = 'inset 0 0 0 0.8px rgba(255,255,255,0.22), 0 2px 8px rgba(0,0,0,0.3)';
+          }
+        });
+
+        // Switch background video
+        scenes.forEach(s => {
+          const sId = s.getAttribute('data-scene');
+          if (sId === sceneId) {
+            s.style.opacity = '1';
+            const vid = s.querySelector('video');
+            if (vid && vid.paused) vid.play().catch(() => {});
+          } else {
+            s.style.opacity = '0';
+          }
+        });
+
+        // Dispatch scene change event
+        window.dispatchEvent(new CustomEvent('isle:scene-change', { detail: { sceneId } }));
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDock);
+  } else {
+    initDock();
+  }
+</script>
+

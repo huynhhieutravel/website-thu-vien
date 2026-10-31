@@ -1,0 +1,82 @@
+---
+// v2/src/layouts/HardbackLayout.astro - Website 26: Hardback (The Founders Shelf — Interactive 3D Bookshelf)
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "The Founders Shelf | Modulify Site",
+  description = "An interactive 3D bookshelf of twelve essential reads on building, growing, and lasting companies. Pull one from the shelf and open it."
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="stylesheet" href="/_next/static/chunks/1862puzo7jwte.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+  <script src="/scripts/three.min.js" is:inline></script>
+  <script src="/scripts/gsap.min.js" is:inline></script>
+  <style is:global>
+    :root {
+      --hb-bg: #1a130a;
+      --hb-fg: #f3ecd8;
+      --hb-accent: #d4a25a;
+      --font-hardback-serif: 'Cormorant Garamond', Georgia, serif;
+    }
+    [data-theme="light"] {
+      --hb-bg: #eadecb;
+      --hb-fg: #2c2214;
+      --hb-accent: #8b5a2b;
+    }
+    body {
+      background-color: var(--hb-bg);
+      color: var(--hb-fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      user-select: none;
+      transition: background-color 0.6s ease, color 0.6s ease;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(243, 236, 216, 0.2);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col">
+  <!-- Top Bar Navigation quay lại Thư Viện -->
+  <aside style="position:fixed;top:0;left:0;right:0;height:36px;z-index:999999;background:rgba(26,19,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(243,236,216,0.12);padding:0 20px;display:flex;align-items:center;justify-content:space-between;font-size:11px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:#f3ecd8;">
+    <a href="/" style="color:#f3ecd8;text-decoration:none;display:flex;align-items:center;gap:6px;font-weight:600;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <span>← Về Trang Chủ Thư Viện</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span style="background:rgba(243,236,216,0.08);border:1px solid rgba(243,236,216,0.18);padding:3px 12px;border-radius:9999px;font-weight:700;color:#f3ecd8;font-size:10px;">
+        Phiên bản: Astro Code Native (Component Hóa)
+      </span>
+      <a href="/hardback-original" style="color:rgba(243,236,216,0.7);text-decoration:none;font-size:10px;border-left:1px solid rgba(243,236,216,0.2);padding-left:12px;" title="Xem Bản Gốc 1-to-1">
+        Xem Bản Gốc ↗
+      </a>
+    </div>
+  </aside>
+
+  <slot />
+</body>
+</html>
+

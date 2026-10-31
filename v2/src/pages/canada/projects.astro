@@ -1,0 +1,30 @@
+---
+// v2/src/pages/canada/projects.astro
+import CanadaLayout from '../../layouts/CanadaLayout.astro';
+import Navbar from '../../components/canada/Navbar.astro';
+import Footer from '../../components/canada/Footer.astro';
+import CartDrawer from '../../components/canada/CartDrawer.astro';
+import Cursor from '../../components/canada/Cursor.astro';
+import rawContent from '../../raw/canada-projects-content.html?raw';
+
+const contentHtml = rawContent
+  .replace('href="/"', 'href="/canada"')
+  .replace(/href="\/contact/g, 'href="/canada/contact');
+---
+
+<CanadaLayout
+  title="Selected Work | Anny"
+  description="Explore our portfolio of brand identities, systems, and motion design."
+  activePath="/canada/projects"
+  pageName="/projects"
+  extraScripts={[
+    "/_next/static/chunks/12z1kwxob-_ba.js"
+  ]}
+>
+  <Navbar />
+  <Fragment set:html={contentHtml} />
+  <Footer />
+  <CartDrawer />
+  <Cursor />
+</CanadaLayout>
+

@@ -1,0 +1,26 @@
+---
+// v2/src/pages/morph.astro - Website 18: Morph Landscape & Aerial Photography (Astro Native Component Hóa)
+import MorphLayout from '../layouts/MorphLayout.astro';
+import Header from '../components/morph/Header.astro';
+import BackgroundEffects from '../components/morph/BackgroundEffects.astro';
+import PrintScene from '../components/morph/PrintScene.astro';
+import TitleBlock from '../components/morph/TitleBlock.astro';
+import SettingsControls from '../components/morph/SettingsControls.astro';
+import RouteTransition from '../components/morph/RouteTransition.astro';
+---
+
+<MorphLayout
+  title="Morph — Landscape and Aerial Photography"
+  description="Morph is a landscape and aerial photographic practice working at the edges of coastlines, ice and open ground."
+>
+  <Header />
+  <main>
+    <section class="mo" aria-label="Morph, a hang of photographic prints. Use the arrow keys to move along the line.">
+      <BackgroundEffects />
+      <PrintScene />
+      <TitleBlock />
+      <SettingsControls />
+    </section>
+  </main>
+  <RouteTransition />
+</MorphLayout>

@@ -1,0 +1,125 @@
+---
+// v2/src/components/hardback/BookDrawer.astro
+---
+
+<aside
+  id="book-details-drawer"
+  aria-label="Book details"
+  data-no-drag="true"
+  class="pointer-events-auto absolute bottom-[3vh] left-1/2 z-[3] w-[88vw] max-w-[480px] -translate-x-1/2 overflow-y-auto opacity-0 top-[45vh] md:bottom-auto md:left-[calc(50%+3.5vw)] md:top-[28vh] md:w-[min(420px,37vw)] md:max-h-[68vh] md:max-w-none md:translate-y-0 md:translate-x-0 transition-opacity duration-500 ease-out custom-scrollbar"
+  style="color: var(--hb-fg); visibility: hidden; opacity: 0; pointer-events: none;"
+>
+  <div class="buy-panel-content px-1 py-2">
+    <div class="flex items-start justify-between gap-4">
+      <div id="drawer-author-tag" class="pt-1 text-[10px] uppercase tracking-[0.24em] opacity-55">
+        Hardback · Ferriss
+      </div>
+      <button
+        id="drawer-close-btn"
+        type="button"
+        data-no-drag="true"
+        aria-label="Close book"
+        class="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[10.5px] font-medium uppercase tracking-[0.22em] opacity-75 transition-opacity hover:opacity-100 cursor-pointer"
+        style="color: var(--hb-fg); border: 1px solid color-mix(in srgb, var(--hb-fg) 30%, transparent);"
+      >
+        <span>Close</span>
+        <span aria-hidden="true" class="-mr-0.5 text-[15px] leading-none">×</span>
+      </button>
+    </div>
+
+    <h2
+      id="drawer-title"
+      class="mt-3 font-medium leading-[1.05] tracking-[-0.012em]"
+      style='font-family: var(--font-hardback-serif), "Cormorant Garamond", Georgia, serif; font-size: clamp(28px, 2.4vw, 42px);'
+    >
+      The 4-Hour Workweek
+    </h2>
+
+    <div id="drawer-by-author" class="mt-1.5 text-[13px] tracking-[0.06em] opacity-70">
+      by Tim Ferriss
+    </div>
+
+    <p
+      id="drawer-synopsis"
+      class="mt-6 max-w-[36ch] opacity-80"
+      style='font-family: var(--font-hardback-serif), "Cormorant Garamond", Georgia, serif; font-size: clamp(15px, 1.05vw, 17px); line-height: 1.55;'
+    >
+      Escape 9-5, live anywhere, and join the new rich. The blueprint for lifestyle design, remote automation, and selective ignorance that launched a thousand location-independent ventures.
+    </p>
+
+    <blockquote
+      id="drawer-excerpt"
+      class="mt-6 pl-4 italic opacity-75"
+      style='font-family: var(--font-hardback-serif), "Cormorant Garamond", Georgia, serif; font-size: clamp(13.5px, 0.95vw, 15.5px); line-height: 1.5; border-left: 1px solid color-mix(in srgb, var(--hb-fg) 25%, transparent);'
+    >
+      “What we fear doing most is usually what we most need to do.”
+    </blockquote>
+
+    <button
+      id="drawer-buy-btn"
+      type="button"
+      data-no-drag="true"
+      aria-label="Buy this book"
+      class="group mt-8 flex w-fit cursor-pointer items-center justify-center gap-3 rounded-full px-7 py-3.5 text-[12px] font-medium uppercase tracking-[0.2em] hover:gap-4 [transition:gap_220ms_ease,opacity_220ms_ease,box-shadow_220ms_ease]"
+      style="background-color: var(--hb-fg); color: var(--hb-bg);"
+    >
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M2.5 4.5h11l-1 9.5H3.5l-1-9.5z"></path>
+        <path d="M5.5 4.5V3.2a2.5 2.5 0 015 0V4.5"></path>
+      </svg>
+      <span>Buy this book</span>
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 14 14"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="transition-transform group-hover:translate-x-0.5"
+        aria-hidden="true"
+      >
+        <path d="M2 7h10M8 3l4 4-4 4"></path>
+      </svg>
+    </button>
+
+    <div id="drawer-retailers" class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] opacity-70">
+      <a
+        id="retailer-amazon"
+        href="https://www.amazon.com/s?k=The+4-Hour+Workweek"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-no-drag="true"
+        class="underline-offset-4 transition-opacity hover:underline hover:opacity-100"
+      >
+        Amazon <span class="opacity-70">$22.00</span>
+      </a>
+      <span aria-hidden="true" class="opacity-50">·</span>
+      <a
+        id="retailer-bookshop"
+        href="https://bookshop.org/search?keywords=The+4-Hour+Workweek"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-no-drag="true"
+        class="underline-offset-4 transition-opacity hover:underline hover:opacity-100"
+      >
+        Bookshop <span class="opacity-70">$20.46</span>
+      </a>
+    </div>
+
+    <div class="mt-5 hidden text-[10px] uppercase tracking-[0.24em] opacity-45 md:block">
+      press esc to close
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,314 @@
+[
+  {
+    "id": "zero-to-one",
+    "title": "Zero to One",
+    "author": "Peter Thiel",
+    "spineColor": "#0d0d0d",
+    "spineTextColor": "#f3ecd8",
+    "coverColor": "#0d0d0d",
+    "coverTextColor": "#f3ecd8",
+    "synopsis": "Notes on startups, or how to build the future. Peter Thiel's Stanford lectures distilled into a manual for monopoly thinking, going from zero to one, not one to n.",
+    "excerpt": "What important truth do very few people agree with you on?",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$15.99",
+        "url": "https://www.amazon.com/s?k=Zero%20to%20One%20Peter%20Thiel"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$16.74",
+        "url": "https://bookshop.org/search?keywords=Zero%20to%20One%20Peter%20Thiel"
+      }
+    ],
+    "width": 1.95,
+    "height": 3.05,
+    "spineThickness": 0.34
+  },
+  {
+    "id": "lean-startup",
+    "title": "The Lean Startup",
+    "author": "Eric Ries",
+    "spineColor": "#274034",
+    "spineTextColor": "#f3ecd8",
+    "coverColor": "#fbf6e8",
+    "coverTextColor": "#1a1a1a",
+    "synopsis": "How today's entrepreneurs use continuous innovation to create radically successful businesses. The build-measure-learn loop, MVPs, and pivots, the playbook a generation grew up on.",
+    "excerpt": "The only way to win is to learn faster than anyone else.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$17.49",
+        "url": "https://www.amazon.com/s?k=The%20Lean%20Startup%20Eric%20Ries"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$18.59",
+        "url": "https://bookshop.org/search?keywords=The%20Lean%20Startup%20Eric%20Ries"
+      }
+    ],
+    "width": 2,
+    "height": 3.15,
+    "spineThickness": 0.42
+  },
+  {
+    "id": "good-to-great",
+    "title": "Good to Great",
+    "author": "Jim Collins",
+    "spineColor": "#6d1f1f",
+    "spineTextColor": "#f3ecd8",
+    "coverColor": "#f5ede0",
+    "coverTextColor": "#6d1f1f",
+    "synopsis": "Why some companies make the leap and others don't. A five-year study identifies the disciplines, Level 5 leaders, the hedgehog concept, the flywheel, that turn good companies into enduring great ones.",
+    "excerpt": "Good is the enemy of great.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$19.99",
+        "url": "https://www.amazon.com/s?k=Good%20to%20Great%20Jim%20Collins"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$24.18",
+        "url": "https://bookshop.org/search?keywords=Good%20to%20Great%20Jim%20Collins"
+      }
+    ],
+    "width": 2.05,
+    "height": 3.2,
+    "spineThickness": 0.46
+  },
+  {
+    "id": "atomic-habits",
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "spineColor": "#cdb55b",
+    "spineTextColor": "#1a1a1a",
+    "coverColor": "#fbf6e8",
+    "coverTextColor": "#1a1a1a",
+    "synopsis": "Tiny changes, remarkable results. A practical, evidence-based framework for compounding small habits into outsized outcomes, built around four laws that shape every behaviour you'll ever form.",
+    "excerpt": "You do not rise to the level of your goals. You fall to the level of your systems.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$14.99",
+        "url": "https://www.amazon.com/s?k=Atomic%20Habits%20James%20Clear"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$25.11",
+        "url": "https://bookshop.org/search?keywords=Atomic%20Habits%20James%20Clear"
+      }
+    ],
+    "width": 2,
+    "height": 3,
+    "spineThickness": 0.4
+  },
+  {
+    "id": "shoe-dog",
+    "title": "Shoe Dog",
+    "author": "Phil Knight",
+    "spineColor": "#a8501f",
+    "spineTextColor": "#f3ecd8",
+    "coverColor": "#0d0d0d",
+    "coverTextColor": "#f3ecd8",
+    "synopsis": "A memoir by the creator of Nike. From a $50 loan from his father to one of the world's most iconic brands.",
+    "excerpt": "Don't tell people how to do things, tell them what to do and let them surprise you.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$18.00",
+        "url": "https://www.amazon.com/s?k=Shoe%20Dog%20Phil%20Knight"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$19.53",
+        "url": "https://bookshop.org/search?keywords=Shoe%20Dog%20Phil%20Knight"
+      }
+    ],
+    "width": 1.95,
+    "height": 3,
+    "spineThickness": 0.38
+  },
+  {
+    "id": "hard-thing",
+    "title": "The Hard Thing About Hard Things",
+    "author": "Ben Horowitz",
+    "spineColor": "#1a1a1a",
+    "spineTextColor": "#cf9b3a",
+    "coverColor": "#1a1a1a",
+    "coverTextColor": "#cf9b3a",
+    "synopsis": "Building a business when there are no easy answers. Ben Horowitz on layoffs, demotions, betrayals, and the crushing weight of decisions no MBA prepares you for.",
+    "excerpt": "There is no recipe for the hard things. There is no recipe for really complex situations.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$21.99",
+        "url": "https://www.amazon.com/s?k=The%20Hard%20Thing%20About%20Hard%20Things%20Ben%20Horowitz"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$27.90",
+        "url": "https://bookshop.org/search?keywords=The%20Hard%20Thing%20About%20Hard%20Things%20Ben%20Horowitz"
+      }
+    ],
+    "width": 2,
+    "height": 3.1,
+    "spineThickness": 0.42
+  },
+  {
+    "id": "four-hour-week",
+    "title": "The 4-Hour Workweek",
+    "author": "Tim Ferriss",
+    "spineColor": "#b8932a",
+    "spineTextColor": "#1a1a1a",
+    "coverColor": "#fbf6e8",
+    "coverTextColor": "#1a1a1a",
+    "synopsis": "Escape 9 to 5, live anywhere, and join the new rich. Tim Ferriss's manifesto for trading time-for-money for systems-for-freedom.",
+    "excerpt": "What we fear doing most is usually what we most need to do.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$22.00",
+        "url": "https://www.amazon.com/s?k=The%204-Hour%20Workweek%20Tim%20Ferriss"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$20.46",
+        "url": "https://bookshop.org/search?keywords=The%204-Hour%20Workweek%20Tim%20Ferriss"
+      }
+    ],
+    "width": 2,
+    "height": 3.05,
+    "spineThickness": 0.44
+  },
+  {
+    "id": "principles",
+    "title": "Principles",
+    "author": "Ray Dalio",
+    "spineColor": "#1c2a44",
+    "spineTextColor": "#f3ecd8",
+    "coverColor": "#f3ecd8",
+    "coverTextColor": "#1c2a44",
+    "synopsis": "Life and work principles from the founder of Bridgewater. Radical transparency, idea meritocracy, and an algorithmic approach to decision-making.",
+    "excerpt": "Pain plus reflection equals progress.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$30.00",
+        "url": "https://www.amazon.com/s?k=Principles%20Ray%20Dalio"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$27.90",
+        "url": "https://bookshop.org/search?keywords=Principles%20Ray%20Dalio"
+      }
+    ],
+    "width": 2.05,
+    "height": 3.3,
+    "spineThickness": 0.58
+  },
+  {
+    "id": "rework",
+    "title": "Rework",
+    "author": "Jason Fried",
+    "spineColor": "#f0e7d0",
+    "spineTextColor": "#1a1a1a",
+    "coverColor": "#f0e7d0",
+    "coverTextColor": "#1a1a1a",
+    "synopsis": "Change the way you work forever. Short, blunt essays on the nonsense of business orthodoxy.",
+    "excerpt": "Planning is guessing. Workaholism is stupid. Meetings are toxic.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$28.00",
+        "url": "https://www.amazon.com/s?k=Rework%20Jason%20Fried"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$26.04",
+        "url": "https://bookshop.org/search?keywords=Rework%20Jason%20Fried"
+      }
+    ],
+    "width": 1.85,
+    "height": 2.85,
+    "spineThickness": 0.3
+  },
+  {
+    "id": "innovators-dilemma",
+    "title": "The Innovator's Dilemma",
+    "author": "Clayton Christensen",
+    "spineColor": "#3f444a",
+    "spineTextColor": "#f3ecd8",
+    "coverColor": "#3f444a",
+    "coverTextColor": "#f3ecd8",
+    "synopsis": "When new technologies cause great firms to fail. The seminal theory of disruptive innovation.",
+    "excerpt": "The processes key to the success of established companies are the very ones that reject disruption.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$19.99",
+        "url": "https://www.amazon.com/s?k=The%20Innovators%20Dilemma%20Clayton%20Christensen"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$23.25",
+        "url": "https://bookshop.org/search?keywords=The%20Innovators%20Dilemma%20Clayton%20Christensen"
+      }
+    ],
+    "width": 1.95,
+    "height": 3.1,
+    "spineThickness": 0.4
+  },
+  {
+    "id": "start-with-why",
+    "title": "Start with Why",
+    "author": "Simon Sinek",
+    "spineColor": "#7a3a2a",
+    "spineTextColor": "#f3ecd8",
+    "coverColor": "#7a3a2a",
+    "coverTextColor": "#f3ecd8",
+    "synopsis": "How great leaders inspire everyone to take action. The Golden Circle, start with why, then how, then what.",
+    "excerpt": "People don't buy what you do; they buy why you do it.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$18.00",
+        "url": "https://www.amazon.com/s?k=Start%20with%20Why%20Simon%20Sinek"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$16.74",
+        "url": "https://bookshop.org/search?keywords=Start%20with%20Why%20Simon%20Sinek"
+      }
+    ],
+    "width": 1.95,
+    "height": 3,
+    "spineThickness": 0.36
+  },
+  {
+    "id": "built-to-last",
+    "title": "Built to Last",
+    "author": "Jim Collins",
+    "spineColor": "#3a1818",
+    "spineTextColor": "#cf9b3a",
+    "coverColor": "#3a1818",
+    "coverTextColor": "#cf9b3a",
+    "synopsis": "Successful habits of visionary companies. What makes a company endure for a century, not a quarter.",
+    "excerpt": "Preserve the core, stimulate progress.",
+    "retailers": [
+      {
+        "name": "Amazon",
+        "price": "$19.99",
+        "url": "https://www.amazon.com/s?k=Built%20to%20Last%20Jim%20Collins"
+      },
+      {
+        "name": "Bookshop",
+        "price": "$22.32",
+        "url": "https://bookshop.org/search?keywords=Built%20to%20Last%20Jim%20Collins"
+      }
+    ],
+    "width": 2,
+    "height": 3.15,
+    "spineThickness": 0.48
+  }
+]

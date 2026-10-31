@@ -1,0 +1,138 @@
+---
+// v2/src/pages/isle/about.astro - Website 29: Isle About (Bản Astro Native Component Hóa)
+import IsleLayout from '../../layouts/IsleLayout.astro';
+---
+
+<IsleLayout
+  title="About | Isle — Liquid Glass"
+  description="Isle is a study in Liquid Glass — an experiment in making the web bend light the way Apple's material does."
+  currentPath="/isle/about"
+>
+  <main class="relative min-h-screen w-full overflow-hidden bg-[#060810] text-white">
+    <!-- Background Video (Scene 2: Alpine) -->
+    <video
+      aria-hidden="true"
+      autoplay
+      loop
+      muted
+      playsinline
+      poster="/isle/video-2.jpg"
+      preload="auto"
+      src="/isle/video-2.webm"
+      class="absolute inset-0 h-full w-full scale-[1.06] object-cover pointer-events-none"
+      draggable="false"
+    ></video>
+
+    <!-- Gradient Shadows -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0"
+      style="background:linear-gradient(180deg, rgba(2,5,10,0.62) 0%, rgba(2,5,10,0) 26%), linear-gradient(0deg, rgba(2,5,10,0.78) 0%, rgba(2,5,10,0) 46%), radial-gradient(ellipse 75% 60% at 50% 42%, rgba(2,5,10,0) 35%, rgba(2,5,10,0.55) 100%);"
+    ></div>
+
+    <!-- Noise Texture Overlay -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay"
+      style="background-image:url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\");background-size:200px 200px;"
+    ></div>
+
+    <!-- Main Content -->
+    <div class="relative z-10">
+      <section class="mx-auto flex max-w-5xl flex-col px-6 pb-24 pt-36">
+        <p class="mb-5 text-[11px] uppercase tracking-[0.34em] text-white/60">
+          About Isle
+        </p>
+        <h1 class="max-w-[15ch] text-[clamp(40px,7vw,82px)] font-semibold leading-[0.98] tracking-[-0.04em]">
+          An island of real glass.
+        </h1>
+        <p class="mt-7 max-w-[54ch] text-[16px] leading-relaxed text-white/72">
+          Isle is a study in Liquid Glass — an experiment in making the web bend light the way Apple’s material does. Every surface is genuine refraction composited from first principles, springing, drifting, and adapting to the footage playing behind it.
+        </p>
+
+        <!-- 3 Feature Glass Cards -->
+        <div class="mt-14 grid gap-3 sm:grid-cols-3">
+          <!-- Card 1 -->
+          <article
+            class="group relative overflow-hidden rounded-2xl border border-white/12 p-6 backdrop-blur-xl transition-colors duration-300 hover:border-white/25"
+            style="background:rgba(12,16,26,0.34);box-shadow:0 14px 40px rgba(3,7,14,0.34), inset 0 1px 0 rgba(255,255,255,0.12);"
+          >
+            <span class="text-[11px] font-medium tracking-[0.2em] text-white/40">
+              01
+            </span>
+            <h2 class="mt-3 text-[19px] font-semibold tracking-tight">
+              Real refraction
+            </h2>
+            <p class="mt-2.5 text-[13.5px] leading-relaxed text-white/62">
+              Not a blur. A displacement map baked from Snell’s law bends light through a convex bevel, so the glass genuinely lenses whatever sits behind it.
+            </p>
+          </article>
+
+          <!-- Card 2 -->
+          <article
+            class="group relative overflow-hidden rounded-2xl border border-white/12 p-6 backdrop-blur-xl transition-colors duration-300 hover:border-white/25"
+            style="background:rgba(12,16,26,0.34);box-shadow:0 14px 40px rgba(3,7,14,0.34), inset 0 1px 0 rgba(255,255,255,0.12);"
+          >
+            <span class="text-[11px] font-medium tracking-[0.2em] text-white/40">
+              02
+            </span>
+            <h2 class="mt-3 text-[19px] font-semibold tracking-tight">
+              A living island
+            </h2>
+            <p class="mt-2.5 text-[13.5px] leading-relaxed text-white/62">
+              Tap the capsule and it springs open into a player with a true overshoot — the same spring that drives the iPhone’s Dynamic Island.
+            </p>
+          </article>
+
+          <!-- Card 3 -->
+          <article
+            class="group relative overflow-hidden rounded-2xl border border-white/12 p-6 backdrop-blur-xl transition-colors duration-300 hover:border-white/25"
+            style="background:rgba(12,16,26,0.34);box-shadow:0 14px 40px rgba(3,7,14,0.34), inset 0 1px 0 rgba(255,255,255,0.12);"
+          >
+            <span class="text-[11px] font-medium tracking-[0.2em] text-white/40">
+              03
+            </span>
+            <h2 class="mt-3 text-[19px] font-semibold tracking-tight">
+              Hand-held lens
+            </h2>
+            <p class="mt-2.5 text-[13.5px] leading-relaxed text-white/62">
+              Grab the glass puck, fling it, and watch it bounce off the walls while it fisheyes the cinematic scene drifting underneath.
+            </p>
+          </article>
+        </div>
+
+        <!-- Metrics Stats Row -->
+        <div
+          class="mt-3 flex flex-wrap gap-x-12 gap-y-6 rounded-2xl border border-white/12 px-7 py-6 backdrop-blur-xl"
+          style="background:rgba(12,16,26,0.34);"
+        >
+          <div>
+            <p class="text-[30px] font-semibold leading-none tracking-tight">
+              3
+            </p>
+            <p class="mt-2 text-[12px] uppercase tracking-[0.16em] text-white/50">
+              Live scenes
+            </p>
+          </div>
+          <div>
+            <p class="text-[30px] font-semibold leading-none tracking-tight">
+              60fps
+            </p>
+            <p class="mt-2 text-[12px] uppercase tracking-[0.16em] text-white/50">
+              Single rAF loop
+            </p>
+          </div>
+          <div>
+            <p class="text-[30px] font-semibold leading-none tracking-tight">
+              1.5
+            </p>
+            <p class="mt-2 text-[12px] uppercase tracking-[0.16em] text-white/50">
+              Index of refraction
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</IsleLayout>
+

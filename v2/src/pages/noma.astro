@@ -1,0 +1,52 @@
+---
+// v2/src/pages/noma.astro - Website 19: Noma Studio Brand & Web (Astro Native Component Hóa)
+import NomaLayout from '../layouts/NomaLayout.astro';
+import IntroCurtain from '../components/noma/IntroCurtain.astro';
+import PageTransition from '../components/noma/PageTransition.astro';
+import Header from '../components/noma/Header.astro';
+import MenuOverlay from '../components/noma/MenuOverlay.astro';
+import Hero from '../components/noma/Hero.astro';
+import About from '../components/noma/About.astro';
+import Work from '../components/noma/Work.astro';
+import Clients from '../components/noma/Clients.astro';
+import WhyUs from '../components/noma/WhyUs.astro';
+import Services from '../components/noma/Services.astro';
+import Team from '../components/noma/Team.astro';
+import Process from '../components/noma/Process.astro';
+import Proof from '../components/noma/Proof.astro';
+import Testimonials from '../components/noma/Testimonials.astro';
+import Pricing from '../components/noma/Pricing.astro';
+import Faq from '../components/noma/Faq.astro';
+import BookCall from '../components/noma/BookCall.astro';
+import JournalFeed from '../components/noma/JournalFeed.astro';
+import Footer from '../components/noma/Footer.astro';
+---
+
+<NomaLayout
+  title="Noma Studio — Brand & Web for Ambitious Founders"
+  description="Noma is a brand and web studio for founders who care how they are seen. Fewer projects, more attention, and work that closes the gap between who you are and how you look."
+>
+  <IntroCurtain />
+  <PageTransition />
+  <Header />
+  <MenuOverlay />
+  <div>
+    <main class="relative" id="main">
+      <Hero />
+      <About />
+      <Work />
+      <Clients />
+      <WhyUs />
+      <Services />
+      <Team />
+      <Process />
+      <Proof />
+      <Testimonials />
+      <Pricing />
+      <Faq />
+      <BookCall />
+      <JournalFeed />
+    </main>
+    <Footer />
+  </div>
+</NomaLayout>

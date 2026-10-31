@@ -1,0 +1,167 @@
+---
+// v2/src/components/atelier/DesktopTiles.astro - 11 Interactive Desktop Tiles for Atelier
+const tiles = [
+  {
+    id: "noir-leather",
+    title: "Noir Leather Collection",
+    category: "Brand Identity",
+    img: "/atelier/projects/noir-leather.jpg",
+    xPct: 8,
+    yPct: 14,
+  },
+  {
+    id: "kestrel-outerwear",
+    title: "Kestrel Outerwear FW",
+    category: "Campaign",
+    img: "/atelier/projects/kestrel-outerwear.jpg",
+    xPct: 22,
+    yPct: 22,
+  },
+  {
+    id: "lume-eyewear",
+    title: "Lume Eyewear Launch",
+    category: "Product Design",
+    img: "/atelier/projects/lume-eyewear.jpg",
+    xPct: 38,
+    yPct: 15,
+  },
+  {
+    id: "pulp-press",
+    title: "Pulp Cold-Press Identity",
+    category: "Brand & Packaging",
+    img: "/atelier/projects/pulp-press.jpg",
+    xPct: 57,
+    yPct: 19,
+  },
+  {
+    id: "solenne-womenswear",
+    title: "Solenne Womenswear",
+    category: "Editorial",
+    img: "/atelier/projects/solenne-womenswear.jpg",
+    xPct: 74,
+    yPct: 32,
+  },
+  {
+    id: "quiet-quarterly",
+    title: "Quiet Quarterly · Issue 04",
+    category: "Publication",
+    img: "/atelier/projects/quiet-quarterly.jpg",
+    xPct: 14,
+    yPct: 40,
+  },
+  {
+    id: "bloom-sneaker",
+    title: "Bloom Sneaker Campaign",
+    category: "Art Direction",
+    img: "/atelier/projects/bloom-sneaker.jpg",
+    xPct: 28,
+    yPct: 56,
+  },
+  {
+    id: "kew-botanical",
+    title: "Kew Botanical Skincare",
+    category: "Packaging System",
+    img: "/atelier/projects/kew-botanical.jpg",
+    xPct: 66,
+    yPct: 46,
+  },
+  {
+    id: "poppy-press",
+    title: "Poppy Press — Spring Issue",
+    category: "Print Design",
+    img: "/atelier/projects/poppy-press.jpg",
+    xPct: 64,
+    yPct: 58,
+  },
+  {
+    id: "saffron-issue",
+    title: "Saffron — A Yellow Issue",
+    category: "Book Design",
+    img: "/atelier/projects/saffron-issue.jpg",
+    xPct: 80,
+    yPct: 50,
+  },
+  {
+    id: "dont-open",
+    title: "Don't Open",
+    category: "Folder",
+    img: "/atelier/doc-icons/folder.png",
+    isFolder: true,
+    xPct: 6,
+    yPct: 66,
+  }
+];
+---
+
+<!-- Desktop Freeform Layout (Desktop screens) -->
+<div class="atelier-desktop-tiles absolute inset-0 z-10 pointer-events-none">
+  {tiles.map((tile) => (
+    <div
+      data-atelier-tile="true"
+      data-tile-id={tile.id}
+      data-xpct={tile.xPct / 100}
+      data-ypct={tile.yPct / 100}
+      role="button"
+      tabindex="0"
+      aria-label={tile.title}
+      class="desktop-tile pointer-events-auto absolute flex cursor-pointer select-none flex-col items-center outline-none transition-transform duration-150 hover:scale-105 active:scale-95"
+      style={`left: ${tile.xPct}%; top: ${tile.yPct}%; width: 96px; pointer-events: auto !important;`}
+    >
+      <div class="relative overflow-hidden rounded-[14px] border border-white/20 bg-[rgba(255,255,255,0.06)] shadow-[0_12px_24px_-10px_rgba(0,0,0,0.6)] backdrop-blur-sm transition-shadow duration-150 hover:shadow-[0_16px_32px_-8px_rgba(0,0,0,0.8)]" style="width: 78px; height: 78px;">
+        <img
+          alt={tile.title}
+          draggable="false"
+          class={`size-full ${tile.isFolder ? 'object-contain p-2' : 'object-cover'}`}
+          src={tile.img}
+        />
+      </div>
+      <div class="mt-2 max-w-[110px] truncate rounded-[5px] px-1.5 py-[1px] text-center text-[11px] font-medium leading-tight text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] bg-black/25">
+        {tile.title}
+      </div>
+    </div>
+  ))}
+</div>
+
+<!-- Mobile Grid Layout (Mobile / Narrow screens only) -->
+<div class="atelier-mobile-tiles absolute inset-x-0 bottom-[90px] top-[50px] z-10 grid-cols-3 content-start gap-x-2 gap-y-4 overflow-y-auto px-4 pb-4 pt-2">
+  {tiles.map((tile) => (
+    <div
+      data-atelier-tile="true"
+      data-tile-id={tile.id}
+      role="button"
+      tabindex="0"
+      aria-label={tile.title}
+      class="desktop-tile flex select-none flex-col items-center outline-none active:scale-95 transition-transform"
+      style="pointer-events: auto !important;"
+    >
+      <div class="relative overflow-hidden rounded-[14px] border border-white/20 bg-[rgba(255,255,255,0.06)] shadow-[0_12px_24px_-10px_rgba(0,0,0,0.6)]" style="width: 68px; height: 68px;">
+        <img
+          alt={tile.title}
+          draggable="false"
+          class={`size-full ${tile.isFolder ? 'object-contain p-2' : 'object-cover'}`}
+          src={tile.img}
+        />
+      </div>
+      <div class="mt-1.5 max-w-[90px] truncate text-center text-[10px] font-medium text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+        {tile.title}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .atelier-desktop-tiles {
+    display: block !important;
+  }
+  .atelier-mobile-tiles {
+    display: none !important;
+  }
+  @media (max-width: 767px) {
+    .atelier-desktop-tiles {
+      display: none !important;
+    }
+    .atelier-mobile-tiles {
+      display: grid !important;
+    }
+  }
+</style>

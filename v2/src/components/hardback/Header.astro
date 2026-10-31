@@ -1,0 +1,30 @@
+---
+// v2/src/components/hardback/Header.astro
+---
+
+<div class="pointer-events-none absolute inset-x-0 top-0 z-[2] flex flex-col items-center px-6 text-center" style="padding-top: calc(38px + 3vh);">
+  <div
+    class="font-medium leading-[0.96] tracking-[-0.02em] select-none"
+    style='font-family:var(--font-hardback-serif), "Cormorant Garamond", Georgia, serif;color:var(--hb-fg);font-size:clamp(46px, 6.6vw, 108px);perspective:1400px;perspective-origin:50% 90%;transform-style:preserve-3d'
+  ><span class="title-letter inline-block" style="font-style: italic; font-weight: 400;">T</span><span class="title-letter inline-block" style="font-style: italic; font-weight: 400;">h</span><span class="title-letter inline-block" style="font-style: italic; font-weight: 400;">e</span><span class="inline-block" style="width: 0.28em;">&nbsp;</span><span class="title-letter inline-block" style="font-style: normal; font-weight: 500;">F</span><span class="title-letter inline-block" style="font-style: normal; font-weight: 500;">o</span><span class="title-letter inline-block" style="font-style: normal; font-weight: 500;">u</span><span class="title-letter inline-block" style="font-style: normal; font-weight: 500;">n</span><span class="title-letter inline-block" style="font-style: normal; font-weight: 500;">d</span><span class="title-letter inline-block" style="font-style: normal; font-weight: 500;">e</span><span class="title-letter inline-block" style="font-style: normal; font-weight: 500;">r</span><span class="title-letter inline-block" style="font-style: normal; font-weight: 500;">s</span><span class="inline-block" style="width: 0.28em;">&nbsp;</span><span class="title-letter inline-block" style="font-style: italic; font-weight: 400;">S</span><span class="title-letter inline-block" style="font-style: italic; font-weight: 400;">h</span><span class="title-letter inline-block" style="font-style: italic; font-weight: 400;">e</span><span class="title-letter inline-block" style="font-style: italic; font-weight: 400;">l</span><span class="title-letter inline-block" style="font-style: italic; font-weight: 400;">f</span></div>
+
+  <div
+    id="hardback-subtitle"
+    class="mt-5 max-w-[44rem] italic transition-opacity duration-700 select-none"
+    style='color: rgba(243, 236, 216, 0.65); font-family: var(--font-hardback-serif), "Cormorant Garamond", Georgia, serif; font-size: clamp(15px, 1.18vw, 19px); font-weight: 400; line-height: 1.6;'
+  >
+    Twelve books on building, growing, and lasting. Pull one from the shelf; the lamp is on.
+  </div>
+
+  <div
+    id="hardback-book-indicator"
+    class="mt-8 flex flex-col items-center gap-1.5 text-[11.5px] font-medium uppercase tracking-[0.24em] md:flex-row md:gap-3 transition-all duration-300 select-none"
+    style="color: var(--hb-accent);"
+  >
+    <span class="hidden h-px w-10 bg-current opacity-50 md:block"></span>
+    <span id="indicator-title">The 4-Hour Workweek</span>
+    <span class="hidden opacity-55 md:inline">·</span>
+    <span id="indicator-author" class="text-[10.5px] opacity-75 md:text-[11.5px] md:opacity-100">Tim Ferriss</span>
+    <span class="hidden h-px w-10 bg-current opacity-50 md:block"></span>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+---
+// v2/src/layouts/NomaLayout.astro - Dedicated Layout for Noma Studio Brand & Web (Astro Native)
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Noma Studio — Brand & Web for Ambitious Founders | Astro Native",
+  description = "Noma is a brand and web studio for founders who care how they are seen. Fewer projects, more attention, and work that closes the gap between who you are and how you look.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:site_name" content="Noma Studio" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/noma-thumb-16x9.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/images/noma-thumb-16x9.jpg" />
+    <link rel="icon" href="/favicon-noma.svg" type="image/svg+xml" />
+
+    <!-- Fonts Preload -->
+    <link rel="preload" href="/_next/static/media/c89730c3ffa99552-s.p.0mnsxr00wo6ma.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+    <link rel="preload" href="/_next/static/media/99e609270109b47d-s.p.16-z~2sp29ex6.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+    <link rel="preload" href="/_next/static/media/effe91970fc4db64-s.p.07ig5l8azj~hy.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+    <link rel="preload" href="/_next/static/media/23b7a97ae3b5c134-s.p.0o14nraug8u5s.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+    <link rel="preload" href="/_next/static/media/a7e15459c1805da0-s.p.15mmg7gamto4l.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+    <link rel="preload" href="/_next/static/media/6ca52d5502d9aad4-s.p.0vdlhmo1mtook.woff2" as="font" type="font/woff2" crossorigin="anonymous" data-next-font="size-adjust" />
+
+    <!-- Noma Design System CSS -->
+    <link rel="stylesheet" href="/_next/static/chunks/0sg349fad9_8r.css" />
+
+    <!-- Next.js Client Runtime Chunks for Slider, Animations, Navigation & Pinned Layouts -->
+    <script is:inline src="/_next/static/chunks/03kgq17v1shey.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0mmpg.u0.bfoa.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0cwzi6xsr2fsh.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/turbopack-0kanh2do6hlk9.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/13hoia..m_79k.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0~4v.az6i32a4.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0aq5v9incop83.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/0m~tpa.ret2gv.js" defer=""></script>
+    <script is:inline src="/_next/static/chunks/turbopack-0hlkj27ggke-q.js" defer=""></script>
+    <script is:inline src="/_next/static/ZUpBSvxBdN7PbuzgPQQVT/_buildManifest.js" defer=""></script>
+    <script is:inline src="/_next/static/ZUpBSvxBdN7PbuzgPQQVT/_ssgManifest.js" defer=""></script>
+    <script is:inline src="/_next/static/ZUpBSvxBdN7PbuzgPQQVT/_clientMiddlewareManifest.js" defer=""></script>
+
+    <style is:global>
+      header.fixed {
+        top: 40px !important;
+      }
+      [data-modulify-badge] {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-full flex flex-col antialiased">
+    <!-- Top Bar Navigation quay lại Thư Viện -->
+    <aside style="position:fixed;top:0;left:0;right:0;z-index:99999;background:rgba(18,17,16,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.12);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:0.18em;font-family:sans-serif;color:#f7f7f7;">
+      <a href="/" style="color:#f7f7f7;text-decoration:none;display:flex;align-items:center;gap:6px;font-weight:600;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>← Về Trang Chủ Thư Viện</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);padding:3px 12px;border-radius:9999px;color:#f7f7f7;font-size:10px;font-weight:700;">
+          Phiên Bản: Astro Code Native (Component Hóa)
+        </span>
+        <a href="/noma-original" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:10px;border-left:1px solid rgba(255,255,255,0.2);padding-left:12px;" title="Xem Bản Gốc">
+          Xem Bản Gốc ↗
+        </a>
+      </div>
+    </aside>
+
+    <div id="__next"><div class="font-sans"><div class="relative min-h-screen bg-ink text-paper"><slot /></div></div></div>
+
+    <script is:inline id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/","query":{},"buildId":"ZUpBSvxBdN7PbuzgPQQVT","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script>
+  </body>
+</html>

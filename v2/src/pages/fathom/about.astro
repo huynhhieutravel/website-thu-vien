@@ -1,0 +1,25 @@
+---
+// v2/src/pages/fathom/about.astro - Fathom About Page (Astro Native)
+import FathomLayout from '../../layouts/FathomLayout.astro';
+import Header from '../../components/fathom/Header.astro';
+import AboutContent from '../../components/fathom/AboutContent.astro';
+import Footer from '../../components/fathom/Footer.astro';
+---
+
+<FathomLayout
+  title="About — Stories In Motion | Fathom"
+  description="An endless forward approach on a pure-black stage, built to be wandered rather than scrolled through."
+  activePath="/fathom/about"
+  pageName="/about"
+  extraScripts={[
+    "/_next/static/chunks/0gwnngva7-.xf.js",
+    "/_next/static/chunks/turbopack-0-ba_c6h.tm1m.js"
+  ]}
+>
+  <div class="flex min-h-screen flex-col">
+    <Header current="about" />
+    <AboutContent />
+    <Footer />
+  </div>
+</FathomLayout>
+

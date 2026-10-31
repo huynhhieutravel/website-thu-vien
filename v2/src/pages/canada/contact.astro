@@ -1,0 +1,29 @@
+---
+// v2/src/pages/canada/contact.astro
+import CanadaLayout from '../../layouts/CanadaLayout.astro';
+import Navbar from '../../components/canada/Navbar.astro';
+import Footer from '../../components/canada/Footer.astro';
+import CartDrawer from '../../components/canada/CartDrawer.astro';
+import Cursor from '../../components/canada/Cursor.astro';
+import rawContent from '../../raw/canada-contact-content.html?raw';
+
+const contentHtml = rawContent
+  .replace('href="/"', 'href="/canada"');
+---
+
+<CanadaLayout
+  title="Start a Project | Anny"
+  description="Let's build something remarkable together. Drop us a line with your project details."
+  activePath="/canada/contact"
+  pageName="/contact"
+  extraScripts={[
+    "/_next/static/chunks/0.2~t8_mzgy5b.js"
+  ]}
+>
+  <Navbar />
+  <Fragment set:html={contentHtml} />
+  <Footer />
+  <CartDrawer />
+  <Cursor />
+</CanadaLayout>
+

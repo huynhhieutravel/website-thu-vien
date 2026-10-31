@@ -1,0 +1,1282 @@
+---
+// v2/src/components/atelier/Windows.astro - Complete Authentic macOS App Windows System
+---
+
+
+<!-- Project Modal Window (Authentic macOS Light Theme) -->
+<div
+  id="window-project"
+  role="dialog"
+  aria-label="Project Details"
+  class="atelier-window hidden pointer-events-auto absolute flex-col overflow-hidden rounded-[14px] border border-black/15 bg-[#fbfaf7] text-[#1a1612] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45),0_8px_24px_-8px_rgba(0,0,0,0.35)] transition-all duration-150"
+  style="left: 50%; top: 50%; width: min(880px, 94vw); max-height: calc(100vh - 110px); transform: translate(-50%, -50%); z-index: 100;"
+>
+  <!-- Window Titlebar -->
+  <div class="window-titlebar flex h-10 shrink-0 items-center justify-between border-b border-black/[0.07] px-3.5 select-none cursor-grab active:cursor-grabbing bg-[#ecebe6]">
+    <div class="flex items-center gap-1.5">
+      <button type="button" data-close-window="project" aria-label="Close" class="group flex size-3 items-center justify-center rounded-full bg-[#ff5f57] ring-1 ring-black/10 hover:brightness-90 cursor-pointer">
+        <svg class="size-2 text-[#4d0000] opacity-0 group-hover:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <button type="button" aria-label="Minimize" class="size-3 rounded-full bg-[#febc2e] ring-1 ring-black/10"></button>
+      <button type="button" aria-label="Maximize" class="size-3 rounded-full bg-[#28c840] ring-1 ring-black/10"></button>
+    </div>
+    <div class="flex items-center justify-center">
+      <span id="proj-titlebar" class="truncate text-[12px] font-medium tracking-tight text-black/70">Project Details</span>
+    </div>
+    <div class="w-12"></div>
+  </div>
+  
+  <!-- Window Body -->
+  <div class="flex-1 overflow-y-auto overflow-x-hidden px-5 py-6 sm:px-9 sm:py-8" style="max-height: calc(100vh - 170px);">
+    <!-- Section 1: Header -->
+    <div class="grid grid-cols-12 gap-5 border-b border-black/[0.08] pb-6">
+      <div class="col-span-12 md:col-span-3">
+        <p id="proj-num-badge" class="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45">01 — Project</p>
+        <p id="proj-category" class="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45">Product Design</p>
+      </div>
+      <div class="col-span-12 md:col-span-9">
+        <h2 id="proj-title" class="text-[30px] font-semibold leading-[1.05] tracking-[-0.025em] text-[#1a1612] sm:text-[38px]">Lume Eyewear Launch</h2>
+        <p id="proj-positioning" class="mt-2.5 max-w-2xl text-[14px] leading-snug text-black/65">Eyewear that reads as an object first, a product second.</p>
+      </div>
+    </div>
+
+    <!-- Section 2: Overview & 3-Column Brief -->
+    <div class="grid grid-cols-12 gap-5 border-b border-black/[0.08] py-7 sm:gap-8">
+      <div class="col-span-12 md:col-span-5">
+        <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45">Overview</p>
+        <p id="proj-desc" class="mt-2 text-[13.5px] leading-relaxed text-black/80">Naming, packaging, and launch system for an independent eyewear house. Every frame ships in a fold-flat case designed to sit on a shelf like a small sculpture.</p>
+      </div>
+      <div class="col-span-12 md:col-span-7">
+        <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45">Brief</p>
+        <div class="mt-2 grid gap-5 sm:grid-cols-3">
+          <div>
+            <p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-black/45">Challenge</p>
+            <p id="proj-challenge" class="mt-1.5 text-[13px] leading-relaxed text-black/75">Stand out in a category owned by two conglomerates and a thousand lookalikes.</p>
+          </div>
+          <div>
+            <p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-black/45">Direction</p>
+            <p id="proj-direction" class="mt-1.5 text-[13px] leading-relaxed text-black/75">Lead with the silhouette. Strip the packaging to one colour and one line of type. Let the lens do the talking.</p>
+          </div>
+          <div>
+            <p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-black/45">Outcome</p>
+            <p id="proj-outcome" class="mt-1.5 text-[13px] leading-relaxed text-black/75">Sold through the launch colourway in three weeks. Picked up by two concept stores in Copenhagen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Gallery -->
+    <div class="py-6">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45 mb-3">Gallery</p>
+      <div id="proj-gallery-grid" class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Folder Don't Open Window -->
+<div
+  id="window-dont-open"
+  role="dialog"
+  aria-label="Don't Open"
+  class="atelier-window hidden pointer-events-auto absolute flex-col overflow-hidden rounded-[14px] border border-black/15 bg-[#fbfaf7] text-[#1a1612] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)]"
+  style="left: 50%; top: 50%; width: min(500px, 92vw); height: min(320px, 70vh); transform: translate(-50%, -50%); z-index: 104;"
+>
+  <div class="window-titlebar flex h-10 shrink-0 items-center justify-between border-b border-black/[0.07] px-3.5 select-none cursor-grab active:cursor-grabbing bg-[#ecebe6]">
+    <div class="flex items-center gap-1.5">
+      <button type="button" data-close-window="dont-open" aria-label="Close" class="group flex size-3 items-center justify-center rounded-full bg-[#ff5f57] ring-1 ring-black/10 hover:brightness-90 cursor-pointer">
+        <svg class="size-2 text-[#4d0000] opacity-0 group-hover:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <button type="button" class="size-3 rounded-full bg-[#febc2e] ring-1 ring-black/10"></button>
+      <button type="button" class="size-3 rounded-full bg-[#28c840] ring-1 ring-black/10"></button>
+    </div>
+    <div class="text-[12px] font-medium tracking-tight text-black/70">Folder: Don't Open 🤫</div>
+    <div class="w-12"></div>
+  </div>
+  <div class="flex-1 flex flex-col items-center justify-center p-6 text-center space-y-3">
+    <div class="text-4xl">📁👀</div>
+    <h3 class="text-base font-bold text-black">Curiosity rewarded!</h3>
+    <p class="text-xs text-black/70 max-w-sm">You weren't supposed to open this folder, but since you're here: Alex Morgan is available for select design commissions starting Q1 2027.</p>
+    <a href="mailto:alex@atelier.design" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-black/10 hover:bg-black/20 text-xs font-semibold text-black transition-colors">
+      Say Hello →
+    </a>
+  </div>
+</div>
+
+<!-- Lightbox Overlay -->
+<div id="gallery-lightbox" class="pointer-events-auto hidden fixed inset-0 z-[200] bg-black/85 flex items-center justify-center p-4 backdrop-blur-md cursor-zoom-out">
+  <div class="relative max-w-4xl max-h-[85vh] overflow-hidden rounded-xl">
+    <img id="lightbox-img" src="" alt="Gallery Preview" class="size-full object-contain shadow-2xl" />
+    <button type="button" id="lightbox-close" class="absolute top-3 right-3 size-8 rounded-full bg-black/60 text-white flex items-center justify-center text-sm font-bold hover:bg-black cursor-pointer">✕</button>
+  </div>
+</div>
+
+
+<div aria-label="Notes" class="pointer-events-auto absolute flex flex-col overflow-hidden rounded-[12px] border border-black/15 bg-[#fbfaf7] text-[#1a1612] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45),0_8px_24px_-8px_rgba(0,0,0,0.35)] hidden atelier-window" data-window-type="notes" id="window-notes" role="dialog" style="left: 360px; top: 118.5px; width: 720px; height: 520px; z-index: 101; translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">
+ <div class="flex shrink-0 items-center gap-3 border-b border-black/[0.07] px-3 py-2 select-none cursor-grab active:cursor-grabbing bg-[#ecebe6]" style="touch-action: none;">
+  <div class="flex items-center gap-1.5" data-traffic-light="true">
+   <button aria-label="Close window" class="group/tl flex size-3 items-center justify-center rounded-full bg-[#ff5f57] ring-1 ring-black/10" type="button">
+    <svg class="opacity-0 group-hover/tl:opacity-100" height="6" viewbox="0 0 6 6" width="6">
+     <path d="M1 1 L5 5 M5 1 L1 5" stroke="#5a0900" stroke-linecap="round" stroke-width="1.1">
+     </path>
+    </svg>
+   </button>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#febc2e] ring-1 ring-black/10">
+   </span>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#28c840] ring-1 ring-black/10">
+   </span>
+  </div>
+  <div class="flex min-w-0 flex-1 items-center justify-center">
+   <span class="truncate text-[12px] font-medium tracking-tight text-black/70">
+    Notes
+   </span>
+  </div>
+  <div class="flex shrink-0 items-center justify-end" style="min-width: 60px;">
+  </div>
+ </div>
+ <div class="relative min-h-0 flex-1 overflow-hidden">
+  <div class="flex h-full">
+   <div class="flex flex-col bg-[#f7f5ee] md:border-r md:border-black/[0.08] w-60">
+    <p class="border-b border-black/[0.06] px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45">
+     Notes — 5
+    </p>
+    <div class="flex-1 overflow-y-auto">
+     <button class="block w-full border-b border-black/[0.05] px-4 py-3 text-left transition-colors bg-[#f4d34c]/60" type="button">
+      <p class="truncate text-[13px] font-semibold text-[#1a1612]">
+       CV — Alex Morgan
+      </p>
+      <div class="mt-0.5 flex items-baseline gap-2">
+       <span class="text-[11px] font-medium text-black/70">
+        Pinned
+       </span>
+       <span class="truncate text-[11px] text-black/55">
+        Independent product &amp; brand designer, 12 years in.
+       </span>
+      </div>
+     </button>
+     <button class="block w-full border-b border-black/[0.05] px-4 py-3 text-left transition-colors hover:bg-black/[0.03]" type="button">
+      <p class="truncate text-[13px] font-semibold text-[#1a1612]">
+       Design principles
+      </p>
+      <div class="mt-0.5 flex items-baseline gap-2">
+       <span class="text-[11px] font-medium text-black/70">
+        Today
+       </span>
+       <span class="truncate text-[11px] text-black/55">
+        Clarity over cleverness. Restraint over fireworks.
+       </span>
+      </div>
+     </button>
+     <button class="block w-full border-b border-black/[0.05] px-4 py-3 text-left transition-colors hover:bg-black/[0.03]" type="button">
+      <p class="truncate text-[13px] font-semibold text-[#1a1612]">
+       Current obsessions
+      </p>
+      <div class="mt-0.5 flex items-baseline gap-2">
+       <span class="text-[11px] font-medium text-black/70">
+        Yesterday
+       </span>
+       <span class="truncate text-[11px] text-black/55">
+        Variable fonts, glassy chrome, palette temperature.
+       </span>
+      </div>
+     </button>
+     <button class="block w-full border-b border-black/[0.05] px-4 py-3 text-left transition-colors hover:bg-black/[0.03]" type="button">
+      <p class="truncate text-[13px] font-semibold text-[#1a1612]">
+       Why I care about clarity
+      </p>
+      <div class="mt-0.5 flex items-baseline gap-2">
+       <span class="text-[11px] font-medium text-black/70">
+        Apr 14
+       </span>
+       <span class="truncate text-[11px] text-black/55">
+        A page that explains itself is a page that respects you.
+       </span>
+      </div>
+     </button>
+     <button class="block w-full border-b border-black/[0.05] px-4 py-3 text-left transition-colors hover:bg-black/[0.03]" type="button">
+      <p class="truncate text-[13px] font-semibold text-[#1a1612]">
+       Things I keep refining
+      </p>
+      <div class="mt-0.5 flex items-baseline gap-2">
+       <span class="text-[11px] font-medium text-black/70">
+        Mar 02
+       </span>
+       <span class="truncate text-[11px] text-black/55">
+        Spring constants, hover timing, colour confidence.
+       </span>
+      </div>
+     </button>
+    </div>
+   </div>
+   <div class="flex min-w-0 flex-1 flex-col overflow-hidden">
+    <div class="flex-1 overflow-y-auto px-5 py-6 sm:px-8 sm:py-7">
+     <p class="text-[11px] text-black/45">
+      Pinned
+     </p>
+     <h3 class="mt-1 text-[22px] font-semibold leading-tight tracking-tight text-[#1a1612]">
+      CV — Alex Morgan
+     </h3>
+     <p class="mt-5 whitespace-pre-line text-[14px] leading-relaxed text-black/80">
+      Independent product &amp; brand designer. 12 years turning fuzzy briefs into things people actually use.
+
+EXPERIENCE
+Independent — Design lead for hire (2018–now)
+Pentagram — Senior designer (2015–2018)
+Method — Product designer (2013–2015)
+Wolff Olins — Designer (2011–2013)
+
+SELECTED CLIENTS
+Independent fashion houses, two national retailers, a handful of startups you have probably tapped this week, and three magazines.
+
+CAPABILITIES
+Brand identity · Art direction · Product &amp; web design · Packaging · Motion direction · The annoying details no one else wants to own.
+
+CONTACT
+hello@ateliermorgan.com — open to project work and the occasional good argument about kerning.
+     </p>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+<div aria-label="Photos" class="pointer-events-auto absolute flex flex-col overflow-hidden rounded-[12px] border border-black/15 bg-[#fbfaf7] text-[#1a1612] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45),0_8px_24px_-8px_rgba(0,0,0,0.35)] hidden atelier-window" data-window-type="photos" id="window-photos" role="dialog" style="left: 308px; top: 57px; width: 880px; height: 600px; z-index: 102; translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">
+ <div class="flex shrink-0 items-center gap-3 border-b border-black/[0.07] px-3 py-2 select-none cursor-grab active:cursor-grabbing bg-[#ecebe6]" style="touch-action: none;">
+  <div class="flex items-center gap-1.5" data-traffic-light="true">
+   <button aria-label="Close window" class="group/tl flex size-3 items-center justify-center rounded-full bg-[#ff5f57] ring-1 ring-black/10" type="button">
+    <svg class="opacity-0 group-hover/tl:opacity-100" height="6" viewbox="0 0 6 6" width="6">
+     <path d="M1 1 L5 5 M5 1 L1 5" stroke="#5a0900" stroke-linecap="round" stroke-width="1.1">
+     </path>
+    </svg>
+   </button>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#febc2e] ring-1 ring-black/10">
+   </span>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#28c840] ring-1 ring-black/10">
+   </span>
+  </div>
+  <div class="flex min-w-0 flex-1 items-center justify-center">
+   <span class="truncate text-[12px] font-medium tracking-tight text-black/70">
+    Photos
+   </span>
+  </div>
+  <div class="flex shrink-0 items-center justify-end" style="min-width: 60px;">
+  </div>
+ </div>
+ <div class="relative min-h-0 flex-1 overflow-hidden">
+  <div class="h-full overflow-y-auto px-6 py-7 sm:px-8 sm:py-8">
+   <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45">
+    Recents · 9
+   </p>
+   <div class="mt-4 grid auto-rows-[120px] grid-cols-4 gap-3" style="grid-auto-flow: dense;">
+    <button class="group relative overflow-hidden rounded-[8px] bg-black/5 col-span-2" type="button">
+     <img alt="Late shore run" class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]" draggable="false" loading="lazy" src="/atelier/myphotos/darwin-boaventura-3lE9CTYns9o-unsplash.jpg"/>
+     <span class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-[11px] font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+      Late shore run
+     </span>
+     <span class="sr-only">
+      Open photo
+     </span>
+    </button>
+    <button class="group relative overflow-hidden rounded-[8px] bg-black/5 row-span-2" type="button">
+     <img alt="Cone after dark" class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]" draggable="false" loading="lazy" src="/atelier/myphotos/darwin-boaventura-B6r__yz6_rQ-unsplash.jpg"/>
+     <span class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-[11px] font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+      Cone after dark
+     </span>
+    </button>
+    <button class="group relative overflow-hidden rounded-[8px] bg-black/5 row-span-2" type="button">
+     <img alt="Doorway, Paraty" class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]" draggable="false" loading="lazy" src="/atelier/myphotos/darwin-boaventura-UeJkhBp_gNU-unsplash.jpg"/>
+     <span class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-[11px] font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+      Doorway, Paraty
+     </span>
+    </button>
+    <button class="group relative overflow-hidden rounded-[8px] bg-black/5 row-span-2" type="button">
+     <img alt="Nagano, before the dig-out" class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]" draggable="false" loading="lazy" src="/atelier/myphotos/jack-berry-9rWOIkEHGqk-unsplash.jpg"/>
+     <span class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-[11px] font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+      Nagano, before the dig-out
+     </span>
+    </button>
+    <button class="group relative overflow-hidden rounded-[8px] bg-black/5 row-span-2" type="button">
+     <img alt="Garden plate" class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]" draggable="false" loading="lazy" src="/atelier/myphotos/jamie-cooper-_4uJWT6tVNY-unsplash.jpg"/>
+     <span class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-[11px] font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+      Garden plate
+     </span>
+    </button>
+    <button class="group relative overflow-hidden rounded-[8px] bg-black/5 col-span-2" type="button">
+     <img alt="North coast, golden hour" class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]" draggable="false" loading="lazy" src="/atelier/myphotos/laurence-ziegler-XfOuweUwQTI-unsplash.jpg"/>
+     <span class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-[11px] font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+      North coast, golden hour
+     </span>
+    </button>
+    <button class="group relative overflow-hidden rounded-[8px] bg-black/5 row-span-2" type="button">
+     <img alt="Lofoten, first night" class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]" draggable="false" loading="lazy" src="/atelier/myphotos/laurence-ziegler-XhBNTX4-a68-unsplash.jpg"/>
+     <span class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-[11px] font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+      Lofoten, first night
+     </span>
+    </button>
+    <button class="group relative overflow-hidden rounded-[8px] bg-black/5 col-span-2" type="button">
+     <img alt="Late landing" class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]" draggable="false" loading="lazy" src="/atelier/myphotos/laurence-ziegler-qgj0DdEKQFs-unsplash.jpg"/>
+     <span class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-[11px] font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+      Late landing
+     </span>
+    </button>
+    <button class="group relative overflow-hidden rounded-[8px] bg-black/5 row-span-2" type="button">
+     <img alt="Self, in a window" class="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]" draggable="false" loading="lazy" src="/atelier/myphotos/nikita-pishchugin-9Ai-n2F9Zz0-unsplash.jpg"/>
+     <span class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-[11px] font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+      Self, in a window
+     </span>
+    </button>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+<div aria-label="Elon Musk (@elonmusk) / X" class="pointer-events-auto absolute flex flex-col overflow-hidden rounded-[12px] border border-black/15 bg-[#fbfaf7] text-[#1a1612] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45),0_8px_24px_-8px_rgba(0,0,0,0.35)] hidden atelier-window" data-window-type="x" id="window-x" role="dialog" style="left: 476px; top: 28px; width: 600px; height: 640px; z-index: 103; translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">
+ <div class="flex shrink-0 items-center gap-3 border-b border-black/[0.07] px-3 py-2 select-none cursor-grab active:cursor-grabbing bg-[#ecebe6]" style="touch-action: none;">
+  <div class="flex items-center gap-1.5" data-traffic-light="true">
+   <button aria-label="Close window" class="group/tl flex size-3 items-center justify-center rounded-full bg-[#ff5f57] ring-1 ring-black/10" type="button">
+    <svg class="opacity-0 group-hover/tl:opacity-100" height="6" viewbox="0 0 6 6" width="6">
+     <path d="M1 1 L5 5 M5 1 L1 5" stroke="#5a0900" stroke-linecap="round" stroke-width="1.1">
+     </path>
+    </svg>
+   </button>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#febc2e] ring-1 ring-black/10">
+   </span>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#28c840] ring-1 ring-black/10">
+   </span>
+  </div>
+  <div class="flex min-w-0 flex-1 items-center justify-center">
+   <span class="truncate text-[12px] font-medium tracking-tight text-black/70">
+    Elon Musk (@elonmusk) / X
+   </span>
+  </div>
+  <div class="flex shrink-0 items-center justify-end" style="min-width: 60px;">
+  </div>
+ </div>
+ <div class="relative min-h-0 flex-1 overflow-hidden bg-black">
+  <div class="h-full overflow-y-auto bg-black text-white">
+   <div class="flex shrink-0 items-center gap-2 border-b border-black/[0.08] bg-[#ebebeb] px-3 py-2">
+    <div class="h-[30px] items-center rounded-full bg-white px-1 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05),0_1px_0_rgba(255,255,255,0.6)] hidden md:flex">
+     <button aria-label="Sidebar" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-2 py-1" type="button">
+      <svg fill="none" height="13" stroke="currentColor" stroke-width="1.4" viewbox="0 0 15 13" width="15">
+       <rect height="11.6" rx="2" width="13.6" x="0.7" y="0.7">
+       </rect>
+       <line x1="5" x2="5" y1="0.7" y2="12.3">
+       </line>
+      </svg>
+     </button>
+     <button aria-label="Sidebar options" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-1 py-1" type="button">
+      <svg class="lucide lucide-chevron-down size-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m6 9 6 6 6-6">
+       </path>
+      </svg>
+     </button>
+    </div>
+    <div class="hidden items-center px-1 text-black/55 md:flex">
+     <button aria-label="Back" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-2 py-1" type="button">
+      <svg class="lucide lucide-chevron-left size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m15 18-6-6 6-6">
+       </path>
+      </svg>
+     </button>
+     <span class="h-3.5 w-px bg-black/15">
+     </span>
+     <button aria-label="Forward" class="rounded-full transition-colors px-2 py-1 text-black/25 hover:bg-transparent hover:text-black/25" disabled="" type="button">
+      <svg class="lucide lucide-chevron-right size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m9 18 6-6-6-6">
+       </path>
+      </svg>
+     </button>
+    </div>
+    <div class="flex h-[30px] min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-3 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05),0_1px_0_rgba(255,255,255,0.6)]">
+     <svg class="lucide lucide-align-left size-[15px] shrink-0 text-black/45" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 12H3">
+      </path>
+      <path d="M17 18H3">
+      </path>
+      <path d="M21 6H3">
+      </path>
+     </svg>
+     <span class="min-w-0 flex-1 truncate text-center text-[12.5px] text-[#1a1612]">
+      x.com/elonmusk
+     </span>
+     <svg class="lucide lucide-refresh-cw size-3.5 shrink-0 text-black/45" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8">
+      </path>
+      <path d="M21 3v5h-5">
+      </path>
+      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16">
+      </path>
+      <path d="M8 16H3v5">
+      </path>
+     </svg>
+    </div>
+    <div class="h-[30px] items-center rounded-full bg-white px-1 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05),0_1px_0_rgba(255,255,255,0.6)] hidden md:flex">
+     <button aria-label="Share" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-2 py-1" type="button">
+      <svg class="lucide lucide-share size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8">
+       </path>
+       <polyline points="16 6 12 2 8 6">
+       </polyline>
+       <line x1="12" x2="12" y1="2" y2="15">
+       </line>
+      </svg>
+     </button>
+     <button aria-label="New tab" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-2 py-1" type="button">
+      <svg class="lucide lucide-plus size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M5 12h14">
+       </path>
+       <path d="M12 5v14">
+       </path>
+      </svg>
+     </button>
+    </div>
+    <div class="h-[30px] items-center rounded-full bg-white px-1 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05),0_1px_0_rgba(255,255,255,0.6)] hidden md:flex">
+     <button aria-label="Show all tabs" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-2 py-1" type="button">
+      <svg class="lucide lucide-chevrons-right size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m6 17 5-5-5-5">
+       </path>
+       <path d="m13 17 5-5-5-5">
+       </path>
+      </svg>
+     </button>
+    </div>
+   </div>
+   <div class="sticky top-0 z-10 flex items-center gap-5 border-b border-white/10 bg-black/85 px-4 py-3 backdrop-blur-md">
+    <button aria-label="Back" class="rounded-full p-1.5 transition-colors hover:bg-white/10" type="button">
+     <svg class="lucide lucide-chevron-left size-[18px]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="m15 18-6-6 6-6">
+      </path>
+     </svg>
+    </button>
+    <div class="flex flex-col">
+     <span class="text-[15px] font-bold leading-tight">
+      Elon Musk
+     </span>
+     <span class="text-[12.5px] text-white/55">
+      209K posts
+     </span>
+    </div>
+   </div>
+   <div aria-hidden="true" class="h-[150px] bg-cover bg-center" style='background-image: url("/atelier/x_ui/elon_cover.jpeg");'>
+   </div>
+   <div class="relative px-4">
+    <div class="absolute -top-[56px] left-4 size-28 overflow-hidden rounded-full border-4 border-black bg-black">
+     <img alt="Elon Musk" class="size-full object-cover" draggable="false" src="/atelier/x_ui/Elon_pfp.jpg"/>
+    </div>
+    <div class="flex justify-end pt-3">
+     <button class="rounded-full bg-white px-4 py-1 text-[13.5px] font-bold text-black transition-colors hover:bg-white/90" type="button">
+      Following
+     </button>
+    </div>
+    <div class="mt-3 flex items-center gap-1">
+     <span class="text-[19px] font-extrabold leading-tight">
+      Elon Musk
+     </span>
+     <img alt="Verified" class="object-contain size-[18px]" draggable="false" src="/atelier/x_ui/check_mark.svg" style="filter: brightness(0) saturate(100%) invert(46%) sepia(74%) saturate(2419%) hue-rotate(180deg) brightness(101%) contrast(101%);"/>
+    </div>
+    <p class="text-[14px] text-white/55">
+     @elonmusk
+    </p>
+    <p class="mt-3 text-[14.5px] leading-snug">
+     Trying to make life multi-planetary. Free speech absolutist. Mostly jokes.
+    </p>
+    <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[13.5px] text-white/55">
+     <span class="flex items-center gap-1">
+      <svg class="lucide lucide-map-pin size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
+       </path>
+       <circle cx="12" cy="10" r="3">
+       </circle>
+      </svg>
+      Mars
+     </span>
+     <span class="flex items-center gap-1">
+      <svg class="lucide lucide-calendar size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M8 2v4">
+       </path>
+       <path d="M16 2v4">
+       </path>
+       <rect height="18" rx="2" width="18" x="3" y="4">
+       </rect>
+       <path d="M3 10h18">
+       </path>
+      </svg>
+      Joined June 2009
+     </span>
+    </div>
+    <div class="mt-3 flex gap-5 text-[13.5px]">
+     <span>
+      <strong class="text-white">
+       684
+      </strong>
+      <span class="text-white/55">
+       Following
+      </span>
+     </span>
+     <span>
+      <strong class="text-white">
+       221.4M
+      </strong>
+      <span class="text-white/55">
+       Followers
+      </span>
+     </span>
+    </div>
+   </div>
+   <div class="mt-3 flex border-b border-white/10">
+    <button class="relative flex-1 py-3 text-center text-[14px] transition-colors font-bold text-white" type="button">
+     Posts
+     <span class="absolute inset-x-1/2 bottom-0 h-[3.5px] w-12 -translate-x-1/2 rounded-full bg-[#1d9bf0]">
+     </span>
+    </button>
+    <button class="relative flex-1 py-3 text-center text-[14px] transition-colors text-white/55 hover:bg-white/[0.04]" type="button">
+     Replies
+    </button>
+    <button class="relative flex-1 py-3 text-center text-[14px] transition-colors text-white/55 hover:bg-white/[0.04]" type="button">
+     Highlights
+    </button>
+    <button class="relative flex-1 py-3 text-center text-[14px] transition-colors text-white/55 hover:bg-white/[0.04]" type="button">
+     Media
+    </button>
+    <button class="relative flex-1 py-3 text-center text-[14px] transition-colors text-white/55 hover:bg-white/[0.04]" type="button">
+     Likes
+    </button>
+   </div>
+   <article class="border-b border-white/10 px-4 py-3">
+    <div class="mb-1.5 flex items-center gap-1.5 text-[12.5px] text-white/55">
+     <svg class="lucide lucide-pin size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 17v5">
+      </path>
+      <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z">
+      </path>
+     </svg>
+     Pinned
+    </div>
+    <div class="flex gap-3">
+     <img alt="Elon Musk" class="size-10 shrink-0 rounded-full object-cover" draggable="false" src="/atelier/x_ui/Elon_pfp.jpg"/>
+     <div class="min-w-0 flex-1">
+      <div class="flex items-center gap-1 text-[14.5px]">
+       <span class="font-bold">
+        Elon Musk
+       </span>
+       <img alt="Verified" class="object-contain size-[16px]" draggable="false" src="/atelier/x_ui/check_mark.svg" style="filter: brightness(0) saturate(100%) invert(46%) sepia(74%) saturate(2419%) hue-rotate(180deg) brightness(101%) contrast(101%);"/>
+       <span class="text-white/55">
+        @elonmusk
+       </span>
+       <span class="text-white/55">
+        ·
+       </span>
+       <span class="text-white/55">
+        2h
+       </span>
+      </div>
+      <p class="mt-1 whitespace-pre-wrap text-[15.5px] leading-snug">
+       <a class="text-[#1d9bf0] hover:underline" href="https://www.motionin.design" rel="noreferrer" target="_blank">
+        https://www.motionin.design
+       </a>
+       has the craziest ai animations ever
+      </p>
+      <div class="mt-3 grid grid-cols-6 gap-1 text-[12.5px] text-white/55">
+       <span class="flex items-center gap-1 rounded-full p-1">
+        <img alt="" class="size-[17px] object-contain" draggable="false" src="/atelier/x_ui/reaply.svg" style="filter: invert(72%) sepia(0%) saturate(0%) brightness(95%);"/>
+        3.4K
+       </span>
+       <span class="flex items-center gap-1 rounded-full p-1">
+        <img alt="" class="size-[17px] object-contain" draggable="false" src="/atelier/x_ui/repost.svg" style="filter: invert(72%) sepia(0%) saturate(0%) brightness(95%);"/>
+        12K
+       </span>
+       <span class="flex items-center gap-1 rounded-full p-1">
+        <img alt="" class="size-[17px] object-contain" draggable="false" src="/atelier/x_ui/like.svg" style="filter: invert(72%) sepia(0%) saturate(0%) brightness(95%);"/>
+        89K
+       </span>
+       <span class="flex items-center gap-1 rounded-full p-1">
+        <img alt="" class="size-[17px] object-contain" draggable="false" src="/atelier/x_ui/reach.svg" style="filter: invert(72%) sepia(0%) saturate(0%) brightness(95%);"/>
+        1.2M
+       </span>
+       <span class="flex items-center gap-1 rounded-full p-1">
+        <img alt="" class="size-[17px] object-contain" draggable="false" src="/atelier/x_ui/save.svg" style="filter: invert(72%) sepia(0%) saturate(0%) brightness(95%);"/>
+        1.1K
+       </span>
+       <span class="flex items-center gap-1 rounded-full p-1">
+        <img alt="" class="size-[17px] object-contain" draggable="false" src="/atelier/x_ui/share.svg" style="filter: invert(72%) sepia(0%) saturate(0%) brightness(95%);"/>
+       </span>
+      </div>
+     </div>
+    </div>
+   </article>
+   <p class="px-4 py-6 text-center text-[13px] text-white/35">
+    You're all caught up
+   </p>
+  </div>
+ </div>
+</div>
+
+
+<div aria-label="compose" class="pointer-events-auto absolute flex flex-col overflow-hidden rounded-[12px] border border-black/15 bg-[#fbfaf7] text-[#1a1612] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45),0_8px_24px_-8px_rgba(0,0,0,0.35)] hidden atelier-window" data-window-type="mail" id="window-mail" role="dialog" style="left: 484px; top: 77px; width: 640px; height: 580px; z-index: 104; translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">
+ <div class="flex shrink-0 items-center gap-3 border-b border-black/[0.07] px-3 py-2 select-none cursor-grab active:cursor-grabbing bg-white" style="touch-action: none;">
+  <div class="flex items-center gap-1.5" data-traffic-light="true">
+   <button aria-label="Close window" class="group/tl flex size-3 items-center justify-center rounded-full bg-[#ff5f57] ring-1 ring-black/10" type="button">
+    <svg class="opacity-0 group-hover/tl:opacity-100" height="6" viewbox="0 0 6 6" width="6">
+     <path d="M1 1 L5 5 M5 1 L1 5" stroke="#5a0900" stroke-linecap="round" stroke-width="1.1">
+     </path>
+    </svg>
+   </button>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#febc2e] ring-1 ring-black/10">
+   </span>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#28c840] ring-1 ring-black/10">
+   </span>
+  </div>
+  <div class="flex min-w-0 flex-1 items-center justify-center">
+   <div class="hidden items-center gap-2 text-black/60 sm:flex">
+    <span class="rounded-full border border-black/[0.07] bg-white px-2 py-1 text-[12px] font-semibold shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+     Aa
+    </span>
+    <span class="flex items-center gap-0.5 rounded-full border border-black/[0.07] bg-white px-2 py-1 shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+     <svg class="lucide lucide-corner-up-left size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="9 14 4 9 9 4">
+      </polyline>
+      <path d="M20 20v-7a4 4 0 0 0-4-4H4">
+      </path>
+     </svg>
+    </span>
+    <span class="flex items-center gap-0.5 rounded-full border border-black/[0.07] bg-white px-2 py-1 shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+     <svg class="lucide lucide-smile size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10">
+      </circle>
+      <path d="M8 14s1.5 2 4 2 4-2 4-2">
+      </path>
+      <line x1="9" x2="9.01" y1="9" y2="9">
+      </line>
+      <line x1="15" x2="15.01" y1="9" y2="9">
+      </line>
+     </svg>
+    </span>
+    <span class="flex items-center gap-0.5 rounded-full border border-black/[0.07] bg-white px-2 py-1 shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+     <svg class="lucide lucide-check size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 6 9 17l-5-5">
+      </path>
+     </svg>
+    </span>
+    <span class="flex items-center gap-0.5 rounded-full border border-black/[0.07] bg-white px-2 py-1 shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+     <svg class="lucide lucide-image size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <rect height="18" rx="2" ry="2" width="18" x="3" y="3">
+      </rect>
+      <circle cx="9" cy="9" r="2">
+      </circle>
+      <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21">
+      </path>
+     </svg>
+     <svg class="lucide lucide-chevron-down size-2.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="m6 9 6 6 6-6">
+      </path>
+     </svg>
+    </span>
+    <span class="flex items-center gap-0.5 rounded-full border border-black/[0.07] bg-white px-2 py-1 shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+     <svg class="lucide lucide-paperclip size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48">
+      </path>
+     </svg>
+     <svg class="lucide lucide-chevron-down size-2.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="m6 9 6 6 6-6">
+      </path>
+     </svg>
+    </span>
+    <span class="flex items-center gap-0.5 rounded-full border border-black/[0.07] bg-white px-2 py-1 shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+     <svg class="lucide lucide-circle-plus size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10">
+      </circle>
+      <path d="M8 12h8">
+      </path>
+      <path d="M12 8v8">
+      </path>
+     </svg>
+     <svg class="lucide lucide-chevron-down size-2.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="m6 9 6 6 6-6">
+      </path>
+     </svg>
+    </span>
+   </div>
+  </div>
+  <div class="flex shrink-0 items-center justify-end" style="min-width: 60px;">
+   <button aria-label="Send" class="flex size-9 items-center justify-center rounded-full text-white shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-colors focus-visible:ring-2 focus-visible:ring-[#0a84ff]/45 bg-[#a9d3ff]" disabled="" type="button">
+    <svg class="lucide lucide-arrow-up size-[18px]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+     <path d="m5 12 7-7 7 7">
+     </path>
+     <path d="M12 19V5">
+     </path>
+    </svg>
+   </button>
+  </div>
+ </div>
+ <div class="relative min-h-0 flex-1 overflow-hidden bg-white">
+  <div class="flex h-full flex-col">
+   <div class="flex items-center gap-3 border-b border-black/[0.07] px-4 py-2">
+    <span class="w-[60px] shrink-0 text-[12.5px] text-black/55">
+     To:
+    </span>
+    <div class="min-w-0 flex-1">
+     <span class="inline-flex items-center gap-1 rounded-md border border-[#cfe2ff] bg-[#e5efff] px-2 py-[2px] text-[13px] text-[#1a3a86]">
+      hello@ateliermorgan.com
+      <svg class="lucide lucide-chevron-down size-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m6 9 6 6 6-6">
+       </path>
+      </svg>
+     </span>
+    </div>
+   </div>
+   <div class="flex items-center gap-3 border-b border-black/[0.07] px-4 py-2">
+    <span class="w-[60px] shrink-0 text-[12.5px] text-black/55">
+     Subject:
+    </span>
+    <div class="min-w-0 flex-1">
+     <input class="w-full bg-transparent text-[13px] text-[#1a1612] outline-none" value=""/>
+    </div>
+   </div>
+   <div class="flex items-center gap-3 border-b border-black/[0.07] px-4 py-2">
+    <span class="w-[60px] shrink-0 text-[12.5px] text-black/55">
+     From:
+    </span>
+    <div class="min-w-0 flex-1">
+     <input class="w-full bg-transparent text-[13px] text-[#1a1612] outline-none placeholder:text-black/30" placeholder="Your name – you@example.com" value=""/>
+    </div>
+   </div>
+   <div class="relative min-h-0 flex-1">
+    <textarea class="size-full resize-none bg-transparent p-5 text-[13.5px] leading-relaxed text-[#1a1612] outline-none placeholder:text-black/30" placeholder="Write your message…"></textarea>
+    <input aria-hidden="true" autocomplete="off" class="absolute left-[-9999px] size-0 opacity-0" name="website" tabindex="-1" type="text" value=""/>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+<div aria-label="Trash" class="pointer-events-auto absolute flex flex-col overflow-hidden rounded-[12px] border border-black/15 bg-[#fbfaf7] text-[#1a1612] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45),0_8px_24px_-8px_rgba(0,0,0,0.35)] hidden atelier-window" data-window-type="trash" id="window-trash" role="dialog" style="left: 452px; top: 197px; width: 760px; height: 460px; z-index: 105; translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">
+ <div class="flex shrink-0 items-center gap-3 border-b border-black/[0.07] px-3 py-2 select-none cursor-grab active:cursor-grabbing bg-[#ecebe6]" style="touch-action: none;">
+  <div class="flex items-center gap-1.5" data-traffic-light="true">
+   <button aria-label="Close window" class="group/tl flex size-3 items-center justify-center rounded-full bg-[#ff5f57] ring-1 ring-black/10" type="button">
+    <svg class="opacity-0 group-hover/tl:opacity-100" height="6" viewbox="0 0 6 6" width="6">
+     <path d="M1 1 L5 5 M5 1 L1 5" stroke="#5a0900" stroke-linecap="round" stroke-width="1.1">
+     </path>
+    </svg>
+   </button>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#febc2e] ring-1 ring-black/10">
+   </span>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#28c840] ring-1 ring-black/10">
+   </span>
+  </div>
+  <div class="flex min-w-0 flex-1 items-center justify-center">
+   <span class="truncate text-[12px] font-medium tracking-tight text-black/70">
+    Trash
+   </span>
+  </div>
+  <div class="flex shrink-0 items-center justify-end" style="min-width: 60px;">
+  </div>
+ </div>
+ <div class="relative min-h-0 flex-1 overflow-hidden">
+  <div class="flex h-full flex-col bg-[#f7f5ef]">
+   <div class="flex items-center gap-3 border-b border-black/[0.06] bg-[#ecebe6] px-3 py-1.5">
+    <div class="flex items-center text-black/35">
+     <button aria-label="Back" class="rounded-md p-1 transition-colors hover:bg-black/5" type="button">
+      <svg class="lucide lucide-chevron-left size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m15 18-6-6 6-6">
+       </path>
+      </svg>
+     </button>
+     <button aria-label="Forward" class="rounded-md p-1 transition-colors hover:bg-black/5" type="button">
+      <svg class="lucide lucide-chevron-right size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m9 18 6-6-6-6">
+       </path>
+      </svg>
+     </button>
+    </div>
+    <div class="flex items-center gap-1.5 text-[12px] font-semibold text-[#1a1612]">
+     <svg class="lucide lucide-folder shrink-0 text-[#4aa3f0]" fill="#4aa3f0" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="width: 14px; height: 14px;" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z">
+      </path>
+     </svg>
+     Trash
+    </div>
+    <div class="flex-1">
+    </div>
+    <div class="flex items-center gap-0.5 rounded-md border border-black/10 bg-white/70 p-0.5">
+     <button aria-label="Icon view" class="rounded p-1 bg-white text-black/70 shadow-[0_1px_0_rgba(0,0,0,0.08)]" type="button">
+      <svg class="lucide lucide-layout-grid size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <rect height="7" rx="1" width="7" x="3" y="3">
+       </rect>
+       <rect height="7" rx="1" width="7" x="14" y="3">
+       </rect>
+       <rect height="7" rx="1" width="7" x="14" y="14">
+       </rect>
+       <rect height="7" rx="1" width="7" x="3" y="14">
+       </rect>
+      </svg>
+     </button>
+     <button aria-label="List view" class="rounded p-1 text-black/45" type="button">
+      <svg class="lucide lucide-list size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M3 12h.01">
+       </path>
+       <path d="M3 18h.01">
+       </path>
+       <path d="M3 6h.01">
+       </path>
+       <path d="M8 12h13">
+       </path>
+       <path d="M8 18h13">
+       </path>
+       <path d="M8 6h13">
+       </path>
+      </svg>
+     </button>
+     <button aria-label="Column view" class="rounded p-1 text-black/45" type="button">
+      <svg class="lucide lucide-columns3 size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <rect height="18" rx="2" width="18" x="3" y="3">
+       </rect>
+       <path d="M9 3v18">
+       </path>
+       <path d="M15 3v18">
+       </path>
+      </svg>
+     </button>
+     <button aria-label="Gallery view" class="rounded p-1 text-black/45" type="button">
+      <svg class="lucide lucide-image size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <rect height="18" rx="2" ry="2" width="18" x="3" y="3">
+       </rect>
+       <circle cx="9" cy="9" r="2">
+       </circle>
+       <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21">
+       </path>
+      </svg>
+     </button>
+    </div>
+    <button aria-label="Search" class="rounded-md p-1 text-black/40 transition-colors hover:bg-black/5" type="button">
+     <svg class="lucide lucide-search size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="11" cy="11" r="8">
+      </circle>
+      <path d="m21 21-4.3-4.3">
+      </path>
+     </svg>
+    </button>
+   </div>
+   <div class="flex min-h-0 flex-1">
+    <div class="hidden w-40 shrink-0 overflow-y-auto bg-[#ecebe6] px-2 py-2 sm:block">
+     <p class="px-1.5 py-1 text-[10px] font-semibold uppercase tracking-[0.06em] text-black/45">
+      iCloud
+     </p>
+     <div class="flex items-center gap-2 rounded-[6px] px-1.5 py-1 transition-colors hover:bg-black/[0.06]">
+      <span class="size-3 rounded-[3px]" style="background: rgb(124, 133, 149);">
+      </span>
+      <span class="truncate text-[12px] text-[#1a1612]">
+       Recents
+      </span>
+     </div>
+     <div class="flex items-center gap-2 rounded-[6px] px-1.5 py-1 transition-colors hover:bg-black/[0.06]">
+      <span class="size-3 rounded-[3px]" style="background: rgb(124, 133, 149);">
+      </span>
+      <span class="truncate text-[12px] text-[#1a1612]">
+       Shared
+      </span>
+     </div>
+     <p class="mt-2 px-1.5 py-1 text-[10px] font-semibold uppercase tracking-[0.06em] text-black/45">
+      Favorites
+     </p>
+     <div class="flex items-center gap-2 rounded-[6px] px-1.5 py-1 transition-colors hover:bg-black/[0.06]">
+      <span class="size-3 rounded-[3px]" style="background: rgb(98, 168, 232);">
+      </span>
+      <span class="truncate text-[12px] text-[#1a1612]">
+       Desktop
+      </span>
+     </div>
+     <div class="flex items-center gap-2 rounded-[6px] px-1.5 py-1 transition-colors hover:bg-black/[0.06]">
+      <span class="size-3 rounded-[3px]" style="background: rgb(124, 133, 149);">
+      </span>
+      <span class="truncate text-[12px] text-[#1a1612]">
+       Applications
+      </span>
+     </div>
+     <div class="flex items-center gap-2 rounded-[6px] px-1.5 py-1 transition-colors hover:bg-black/[0.06]">
+      <span class="size-3 rounded-[3px]" style="background: rgb(124, 133, 149);">
+      </span>
+      <span class="truncate text-[12px] text-[#1a1612]">
+       Projects
+      </span>
+     </div>
+     <div class="flex items-center gap-2 rounded-[6px] px-1.5 py-1 transition-colors hover:bg-black/[0.06]">
+      <span class="size-3 rounded-[3px]" style="background: rgb(95, 208, 201);">
+      </span>
+      <span class="truncate text-[12px] text-[#1a1612]">
+       MotionIn.Design
+      </span>
+     </div>
+     <div class="flex items-center gap-2 rounded-[6px] px-1.5 py-1 transition-colors hover:bg-black/[0.06]">
+      <span class="size-3 rounded-[3px]" style="background: rgb(168, 160, 139);">
+      </span>
+      <span class="truncate text-[12px] text-[#1a1612]">
+       Work
+      </span>
+     </div>
+     <div class="flex items-center gap-2 rounded-[6px] px-1.5 py-1 transition-colors hover:bg-black/[0.06]">
+      <span class="size-3 rounded-[3px]" style="background: rgb(211, 110, 98);">
+      </span>
+      <span class="truncate text-[12px] text-[#1a1612]">
+       Movies
+      </span>
+     </div>
+     <div class="flex items-center gap-2 rounded-[6px] px-1.5 py-1 transition-colors hover:bg-black/[0.06]">
+      <span class="size-3 rounded-[3px]" style="background: rgb(124, 133, 149);">
+      </span>
+      <span class="truncate text-[12px] text-[#1a1612]">
+       Downloads
+      </span>
+     </div>
+     <div class="flex items-center gap-2 rounded-[6px] px-1.5 py-1 transition-colors hover:bg-black/[0.06]">
+      <span class="size-3 rounded-[3px]" style="background: rgb(124, 133, 149);">
+      </span>
+      <span class="truncate text-[12px] text-[#1a1612]">
+       Documents
+      </span>
+     </div>
+    </div>
+    <div class="min-w-0 flex-1 overflow-y-auto bg-white px-5 py-4">
+     <div class="grid gap-x-2 gap-y-4" style="grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));">
+      <button class="group flex flex-col items-center gap-1.5 rounded-md p-2 focus:outline-none focus-visible:bg-[#cce3ff]" type="button">
+       <span class="size-[68px]">
+        <img alt="" class="size-full object-contain" draggable="false" src="/atelier/doc-icons/mov.png"/>
+       </span>
+       <span class="line-clamp-2 max-w-[96px] rounded-[4px] px-1 text-center text-[11px] font-medium leading-[1.2] text-[#1a1612] group-focus-visible:bg-[#3b82f6] group-focus-visible:text-white">
+        I hope my mom doesn't see this.mov
+       </span>
+      </button>
+     </div>
+    </div>
+   </div>
+   <div class="flex items-center gap-1.5 border-t border-black/[0.06] bg-[#f4f2eb] px-3 py-1.5 text-[10.5px] text-black/55">
+    <svg class="lucide lucide-folder shrink-0 text-[#4aa3f0]" fill="#4aa3f0" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="width: 12px; height: 12px;" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+     <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z">
+     </path>
+    </svg>
+    <span class="flex items-center gap-1">
+     Macintosh HD
+     <svg class="lucide lucide-chevron-right size-2.5 text-black/35" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="m9 18 6-6-6-6">
+      </path>
+     </svg>
+     Users
+     <svg class="lucide lucide-chevron-right size-2.5 text-black/35" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="m9 18 6-6-6-6">
+      </path>
+     </svg>
+     alex
+     <svg class="lucide lucide-chevron-right size-2.5 text-black/35" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="m9 18 6-6-6-6">
+      </path>
+     </svg>
+     Desktop
+     <svg class="lucide lucide-chevron-right size-2.5 text-black/35" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="m9 18 6-6-6-6">
+      </path>
+     </svg>
+     <span class="font-semibold text-black/75">
+      Trash
+     </span>
+    </span>
+    <span class="ml-auto">
+     1 item
+    </span>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+<div aria-label="Claude" class="pointer-events-auto absolute flex flex-col overflow-hidden rounded-[12px] border border-black/15 bg-[#fbfaf7] text-[#1a1612] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45),0_8px_24px_-8px_rgba(0,0,0,0.35)] hidden atelier-window" data-window-type="claude" id="window-claude" role="dialog" style="left: 500px; top: 37px; width: 720px; height: 620px; z-index: 106; translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">
+ <div class="flex shrink-0 items-center gap-3 border-b border-black/[0.07] px-3 py-2 select-none cursor-grab active:cursor-grabbing bg-[#ecebe6]" style="touch-action: none;">
+  <div class="flex items-center gap-1.5" data-traffic-light="true">
+   <button aria-label="Close window" class="group/tl flex size-3 items-center justify-center rounded-full bg-[#ff5f57] ring-1 ring-black/10" type="button">
+    <svg class="opacity-0 group-hover/tl:opacity-100" height="6" viewbox="0 0 6 6" width="6">
+     <path d="M1 1 L5 5 M5 1 L1 5" stroke="#5a0900" stroke-linecap="round" stroke-width="1.1">
+     </path>
+    </svg>
+   </button>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#febc2e] ring-1 ring-black/10">
+   </span>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#28c840] ring-1 ring-black/10">
+   </span>
+  </div>
+  <div class="flex min-w-0 flex-1 items-center justify-center">
+   <span class="truncate text-[12px] font-medium tracking-tight text-black/70">
+    Claude
+   </span>
+  </div>
+  <div class="flex shrink-0 items-center justify-end" style="min-width: 60px;">
+  </div>
+ </div>
+ <div class="relative min-h-0 flex-1 overflow-hidden">
+  <div class="flex h-full bg-[#faf9f5] text-[#1f1d1a]">
+   <div class="flex flex-col bg-[#f1efe8] md:border-r md:border-black/[0.06] w-[220px]">
+    <div class="px-3 pt-4">
+     <button class="flex w-full items-center gap-2 rounded-[10px] border border-black/[0.07] bg-white px-3 py-2 text-[13px] font-medium text-[#1f1d1a] shadow-[0_1px_0_rgba(0,0,0,0.03)] transition-colors hover:bg-black/[0.03]" type="button">
+      <svg class="lucide lucide-plus size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M5 12h14">
+       </path>
+       <path d="M12 5v14">
+       </path>
+      </svg>
+      New chat
+     </button>
+    </div>
+    <p class="mt-5 px-4 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-black/45">
+     Recents
+    </p>
+    <div class="mt-1 flex-1 overflow-y-auto px-2 pb-3">
+     <button class="block w-full truncate rounded-[8px] bg-black/[0.08] px-2.5 py-1.5 text-left text-[13px] font-medium text-[#1f1d1a]" type="button">
+      Make me a cool portfolio
+     </button>
+     <span class="mt-0.5 block w-full cursor-default truncate rounded-[8px] px-2.5 py-1.5 text-[13px] text-black/65 transition-colors hover:bg-black/[0.04]">
+      Stop explosive diarrhea?
+     </span>
+     <span class="mt-0.5 block w-full cursor-default truncate rounded-[8px] px-2.5 py-1.5 text-[13px] text-black/65 transition-colors hover:bg-black/[0.04]">
+      Delete embarrassing video
+     </span>
+     <span class="mt-0.5 block w-full cursor-default truncate rounded-[8px] px-2.5 py-1.5 text-[13px] text-black/65 transition-colors hover:bg-black/[0.04]">
+      How to make it pop
+     </span>
+     <span class="mt-0.5 block w-full cursor-default truncate rounded-[8px] px-2.5 py-1.5 text-[13px] text-black/65 transition-colors hover:bg-black/[0.04]">
+      Can you make this better?
+     </span>
+     <span class="mt-0.5 block w-full cursor-default truncate rounded-[8px] px-2.5 py-1.5 text-[13px] text-black/65 transition-colors hover:bg-black/[0.04]">
+      How to be famous on X
+     </span>
+     <span class="mt-0.5 block w-full cursor-default truncate rounded-[8px] px-2.5 py-1.5 text-[13px] text-black/65 transition-colors hover:bg-black/[0.04]">
+      Find me a job — $1M a year
+     </span>
+    </div>
+   </div>
+   <div class="flex min-w-0 flex-1 flex-col overflow-hidden">
+    <div class="flex-1 overflow-y-auto px-6 py-7 sm:px-8 sm:py-9">
+     <div class="flex justify-end" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+      <p class="max-w-[80%] rounded-[18px] bg-[#ecebe6] px-4 py-2 text-[15px]" style='font-family: Charter, "Tiempos Text", ui-serif, Georgia, serif;'>
+       Make me a cool portfolio
+      </p>
+     </div>
+     <div class="mt-8">
+      <div class="flex items-center gap-1 text-[13.5px] text-black/45" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+       Architected an animated portfolio showcasing a designer's best work
+       <svg class="lucide lucide-chevron-right size-[11px]" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+        <path d="m9 18 6-6-6-6">
+        </path>
+       </svg>
+      </div>
+      <p class="mt-3 text-[17px] leading-[1.5] text-[#1f1d1a]" style='font-family: Charter, "Tiempos Text", ui-serif, Georgia, serif; translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;'>
+       Aight, bet! Check
+       <a class="underline decoration-black/30 underline-offset-2 transition-colors hover:text-[#c96442] hover:decoration-current" href="https://www.motionin.design" rel="noreferrer" target="_blank">
+        https://motionin.design/gallery/atelier
+       </a>
+      </p>
+      <div class="mt-4 flex items-center gap-1 text-black/40" style="opacity: 1;">
+       <button aria-label="Message action" class="rounded-md p-1.5 transition-colors hover:bg-black/[0.05] hover:text-black/70" type="button">
+        <svg class="lucide lucide-copy size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <rect height="14" rx="2" ry="2" width="14" x="8" y="8">
+         </rect>
+         <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2">
+         </path>
+        </svg>
+       </button>
+       <button aria-label="Message action" class="rounded-md p-1.5 transition-colors hover:bg-black/[0.05] hover:text-black/70" type="button">
+        <svg class="lucide lucide-thumbs-up size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <path d="M7 10v12">
+         </path>
+         <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z">
+         </path>
+        </svg>
+       </button>
+       <button aria-label="Message action" class="rounded-md p-1.5 transition-colors hover:bg-black/[0.05] hover:text-black/70" type="button">
+        <svg class="lucide lucide-thumbs-down size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <path d="M17 14V2">
+         </path>
+         <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z">
+         </path>
+        </svg>
+       </button>
+       <button aria-label="Message action" class="rounded-md p-1.5 transition-colors hover:bg-black/[0.05] hover:text-black/70" type="button">
+        <svg class="lucide lucide-refresh-cw size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8">
+         </path>
+         <path d="M21 3v5h-5">
+         </path>
+         <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16">
+         </path>
+         <path d="M8 16H3v5">
+         </path>
+        </svg>
+       </button>
+      </div>
+     </div>
+    </div>
+    <div class="px-6 pb-4 pt-2">
+     <div class="rounded-[22px] border border-black/[0.07] bg-white px-4 py-3 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.07)]">
+      <p class="text-[15px] text-black/30">
+       Write a message…
+      </p>
+      <div class="mt-3 flex items-center justify-between">
+       <button aria-label="Attach" class="rounded-md p-1 transition-colors hover:bg-black/[0.05]" type="button">
+        <svg class="lucide lucide-plus size-4 text-black/55" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <path d="M5 12h14">
+         </path>
+         <path d="M12 5v14">
+         </path>
+        </svg>
+       </button>
+       <div class="flex items-center gap-2">
+        <span class="flex items-center gap-1 rounded-full border border-[#467cc6] px-3 py-[3px] text-[12px] text-[#1f1d1a]">
+         <span class="font-medium">
+          Haiku 4.5
+         </span>
+         <span class="text-black/45">
+          Extended
+         </span>
+         <svg class="lucide lucide-chevron-down size-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="m6 9 6 6 6-6">
+          </path>
+         </svg>
+        </span>
+        <button aria-label="Voice" class="rounded-md p-1 transition-colors hover:bg-black/[0.05]" type="button">
+         <svg class="lucide lucide-mic size-4 text-black/55" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z">
+          </path>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2">
+          </path>
+          <line x1="12" x2="12" y1="19" y2="22">
+          </line>
+         </svg>
+        </button>
+       </div>
+      </div>
+     </div>
+     <p class="mt-2 text-center text-[11px] text-black/40">
+      Claude is AI and can make mistakes. Please double-check responses.
+     </p>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+<div aria-label="Figma" class="pointer-events-auto absolute flex flex-col overflow-hidden rounded-[12px] border border-black/15 bg-[#fbfaf7] text-[#1a1612] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45),0_8px_24px_-8px_rgba(0,0,0,0.35)] hidden atelier-window" data-window-type="figma" id="window-figma" role="dialog" style="left: 420px; top: 57px; width: 880px; height: 600px; z-index: 107; translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">
+ <div class="flex shrink-0 items-center gap-3 border-b border-black/[0.07] px-3 py-2 select-none cursor-grab active:cursor-grabbing bg-[#ecebe6]" style="touch-action: none;">
+  <div class="flex items-center gap-1.5" data-traffic-light="true">
+   <button aria-label="Close window" class="group/tl flex size-3 items-center justify-center rounded-full bg-[#ff5f57] ring-1 ring-black/10" type="button">
+    <svg class="opacity-0 group-hover/tl:opacity-100" height="6" viewbox="0 0 6 6" width="6">
+     <path d="M1 1 L5 5 M5 1 L1 5" stroke="#5a0900" stroke-linecap="round" stroke-width="1.1">
+     </path>
+    </svg>
+   </button>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#febc2e] ring-1 ring-black/10">
+   </span>
+   <span aria-hidden="true" class="size-3 rounded-full bg-[#28c840] ring-1 ring-black/10">
+   </span>
+  </div>
+  <div class="flex min-w-0 flex-1 items-center justify-center">
+   <span class="truncate text-[12px] font-medium tracking-tight text-black/70">
+    Figma
+   </span>
+  </div>
+  <div class="flex shrink-0 items-center justify-end" style="min-width: 60px;">
+  </div>
+ </div>
+ <div class="relative min-h-0 flex-1 overflow-hidden">
+  <div class="flex h-full flex-col bg-[#f7f5ef]">
+   <div class="flex shrink-0 items-center gap-2 border-b border-black/[0.08] bg-[#ebebeb] px-3 py-2">
+    <div class="h-[30px] items-center rounded-full bg-white px-1 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05),0_1px_0_rgba(255,255,255,0.6)] hidden md:flex">
+     <button aria-label="Sidebar" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-2 py-1" type="button">
+      <svg fill="none" height="13" stroke="currentColor" stroke-width="1.4" viewbox="0 0 15 13" width="15">
+       <rect height="11.6" rx="2" width="13.6" x="0.7" y="0.7">
+       </rect>
+       <line x1="5" x2="5" y1="0.7" y2="12.3">
+       </line>
+      </svg>
+     </button>
+     <button aria-label="Sidebar options" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-1 py-1" type="button">
+      <svg class="lucide lucide-chevron-down size-3" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m6 9 6 6 6-6">
+       </path>
+      </svg>
+     </button>
+    </div>
+    <div class="hidden items-center px-1 text-black/55 md:flex">
+     <button aria-label="Back" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-2 py-1" type="button">
+      <svg class="lucide lucide-chevron-left size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m15 18-6-6 6-6">
+       </path>
+      </svg>
+     </button>
+     <span class="h-3.5 w-px bg-black/15">
+     </span>
+     <button aria-label="Forward" class="rounded-full transition-colors px-2 py-1 text-black/25 hover:bg-transparent hover:text-black/25" disabled="" type="button">
+      <svg class="lucide lucide-chevron-right size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m9 18 6-6-6-6">
+       </path>
+      </svg>
+     </button>
+    </div>
+    <div class="flex h-[30px] min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-3 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05),0_1px_0_rgba(255,255,255,0.6)]">
+     <svg class="lucide lucide-align-left size-[15px] shrink-0 text-black/45" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 12H3">
+      </path>
+      <path d="M17 18H3">
+      </path>
+      <path d="M21 6H3">
+      </path>
+     </svg>
+     <span class="min-w-0 flex-1 truncate text-center text-[12.5px] text-[#1a1612]">
+      figma.com/design/D2ePsCUWyaFq2ZRTYHsKzF/Modulify-Showcase
+     </span>
+     <svg class="lucide lucide-refresh-cw size-3.5 shrink-0 text-black/45" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8">
+      </path>
+      <path d="M21 3v5h-5">
+      </path>
+      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16">
+      </path>
+      <path d="M8 16H3v5">
+      </path>
+     </svg>
+    </div>
+    <div class="h-[30px] items-center rounded-full bg-white px-1 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05),0_1px_0_rgba(255,255,255,0.6)] hidden md:flex">
+     <button aria-label="Share" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-2 py-1" type="button">
+      <svg class="lucide lucide-share size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8">
+       </path>
+       <polyline points="16 6 12 2 8 6">
+       </polyline>
+       <line x1="12" x2="12" y1="2" y2="15">
+       </line>
+      </svg>
+     </button>
+     <button aria-label="New tab" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-2 py-1" type="button">
+      <svg class="lucide lucide-plus size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M5 12h14">
+       </path>
+       <path d="M12 5v14">
+       </path>
+      </svg>
+     </button>
+    </div>
+    <div class="h-[30px] items-center rounded-full bg-white px-1 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05),0_1px_0_rgba(255,255,255,0.6)] hidden md:flex">
+     <button aria-label="Show all tabs" class="rounded-full text-black/60 transition-colors hover:bg-black/[0.06] hover:text-black/80 px-2 py-1" type="button">
+      <svg class="lucide lucide-chevrons-right size-3.5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+       <path d="m6 17 5-5-5-5">
+       </path>
+       <path d="m13 17 5-5-5-5">
+       </path>
+      </svg>
+     </button>
+    </div>
+   </div>
+   <iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" class="size-full flex-1 border-0" src="https://embed.figma.com/design/D2ePsCUWyaFq2ZRTYHsKzF/Modulify-Showcase?node-id=0-1&amp;embed-host=share" title="Figma design">
+   </iframe>
+  </div>
+ </div>
+</div>
+

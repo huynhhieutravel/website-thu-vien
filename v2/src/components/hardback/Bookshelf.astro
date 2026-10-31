@@ -1,0 +1,902 @@
+---
+// v2/src/components/hardback/Bookshelf.astro
+import booksData from '../../data/hardback_books.json';
+---
+
+<div class="relative isolate h-screen w-full select-none overflow-hidden">
+  <!-- Background Evening (Night) -->
+  <div
+    id="night-bg-layer"
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0"
+    style="background-image:url(/images/books-bg.png);background-size:cover;background-position:center bottom;background-repeat:no-repeat;opacity:1;transition:opacity 600ms ease"
+  ></div>
+
+  <!-- Background Daytime -->
+  <div
+    id="day-bg-layer"
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0"
+    style="background-image:url(/images/books-bg-day.png);background-size:cover;background-position:center bottom;background-repeat:no-repeat;opacity:0;transition:opacity 600ms ease"
+  ></div>
+
+  <!-- Radial Shadows & Ambiance -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0"
+    style="background:radial-gradient(ellipse 130% 130% at 50% 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.32) 100%)"
+  ></div>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0"
+    style="background: radial-gradient(circle at 50% 62%, rgba(212, 162, 90, 0.18), rgba(0, 0, 0, 0) 56%); mix-blend-mode: screen; opacity: 0.75;"
+  ></div>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 opacity-[0.045] mix-blend-overlay"
+    style="background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;);background-size:160px 160px"
+  ></div>
+
+  <!-- Canvas Container for Three.js 3D Bookshelf -->
+  <div class="absolute inset-0 z-[1] cursor-grab active:cursor-grabbing">
+    <canvas id="bookshelf-canvas" class="size-full block"></canvas>
+  </div>
+</div>
+
+<script define:vars={{ books: booksData }}>
+  window.__HARDBACK_BOOKS__ = books;
+</script>
+
+<script>
+  function initBookshelf() {
+    const canvas = document.getElementById('bookshelf-canvas');
+    if (!canvas || !window.THREE) return;
+
+    const THREE = window.THREE;
+    const books = window.__HARDBACK_BOOKS__ || [];
+    if (!books.length) return;
+
+    const drawer = document.getElementById('book-details-drawer');
+    const drawerTitle = document.getElementById('drawer-title');
+    const drawerAuthor = document.getElementById('drawer-by-author');
+    const drawerAuthorTag = document.getElementById('drawer-author-tag');
+    const drawerSynopsis = document.getElementById('drawer-synopsis');
+    const drawerExcerpt = document.getElementById('drawer-excerpt');
+    const drawerBuyBtn = document.getElementById('drawer-buy-btn');
+    const retailerAmazon = document.getElementById('retailer-amazon');
+    const retailerBookshop = document.getElementById('retailer-bookshop');
+    const closeBtn = document.getElementById('drawer-close-btn');
+
+    const indTitle = document.getElementById('indicator-title');
+    const indAuthor = document.getElementById('indicator-author');
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    const isMobile = width < 768;
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    // Scene
+    const scene = new THREE.Scene();
+
+    // Camera: exact authentic parameters
+    const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 80);
+    camera.position.set(0, 2.7, 11.95);
+    camera.lookAt(0, -0.4, 0);
+
+    // Lights (Authentic parameters from Next.js bundle 17pe-fy8_vosy.js)
+    let isDark = true;
+    const ambientLight = new THREE.AmbientLight(0xffead0, 0.42);
+    scene.add(ambientLight);
+
+    const mainLight = new THREE.DirectionalLight(0xffd9a8, 1.45);
+    mainLight.position.set(5, 7, 6);
+    mainLight.castShadow = true;
+    mainLight.shadow.mapSize.width = 2048;
+    mainLight.shadow.mapSize.height = 2048;
+    mainLight.shadow.camera.left = -14;
+    mainLight.shadow.camera.right = 14;
+    mainLight.shadow.camera.top = 8;
+    mainLight.shadow.camera.bottom = -8;
+    mainLight.shadow.camera.near = 0.1;
+    mainLight.shadow.camera.far = 30;
+    mainLight.shadow.bias = -0.0004;
+    mainLight.shadow.normalBias = 0.02;
+    scene.add(mainLight);
+
+    const fillLight = new THREE.DirectionalLight(0xb8d0e8, 0.4);
+    fillLight.position.set(-6, 4, 3);
+    scene.add(fillLight);
+
+    const pointLight = new THREE.PointLight(0xffc89a, 0.35);
+    pointLight.position.set(0, -3, 4);
+    scene.add(pointLight);
+
+    // Helpers
+    const fontSerif = '"Cormorant Garamond", "Playfair Display", Georgia, serif';
+    const fontSans = '"Helvetica Neue", Helvetica, Arial, sans-serif';
+
+    function wrapText(ctx, text, maxWidth) {
+      const words = text.split(/\s+/);
+      const lines = [];
+      let current = "";
+      for (const w of words) {
+        const test = current ? `${current} ${w}` : w;
+        if (ctx.measureText(test).width > maxWidth && current) {
+          lines.push(current);
+          current = w;
+        } else {
+          current = test;
+        }
+      }
+      if (current) lines.push(current);
+      return lines;
+    }
+
+    function createTexture(canvas) {
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 4;
+      tex.needsUpdate = true;
+      return tex;
+    }
+
+    function createSpineTexture(b) {
+      const c = document.createElement('canvas');
+      c.width = 200;
+      c.height = 1024;
+      const ctx = c.getContext('2d');
+
+      ctx.fillStyle = b.spineColor;
+      ctx.fillRect(0, 0, 200, 1024);
+
+      // Lines
+      ctx.fillStyle = b.spineTextColor + "26";
+      ctx.fillRect(0, 26, 200, 2);
+      ctx.fillRect(0, 996, 200, 2);
+
+      ctx.save();
+      ctx.translate(100, 512);
+      ctx.rotate(Math.PI / 2);
+      ctx.fillStyle = b.spineTextColor;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      let size = 72;
+      ctx.font = `600 ${size}px ${fontSerif}`;
+      while (ctx.measureText(b.title.toUpperCase()).width > 824 && size > 32) {
+        size -= 2;
+        ctx.font = `600 ${size}px ${fontSerif}`;
+      }
+      ctx.fillText(b.title.toUpperCase(), 0, -10);
+
+      const authorSize = Math.max(18, Math.min(28, 0.42 * size));
+      ctx.font = `500 ${authorSize}px ${fontSans}`;
+      ctx.fillText(b.author.toUpperCase(), 0, 0.7 * size + 0.6 * authorSize);
+      ctx.restore();
+
+      return createTexture(c);
+    }
+
+    function createFrontCoverTexture(b) {
+      const c = document.createElement('canvas');
+      c.width = 640;
+      c.height = 960;
+      const ctx = c.getContext('2d');
+
+      ctx.fillStyle = b.coverColor;
+      ctx.fillRect(0, 0, 640, 960);
+
+      ctx.strokeStyle = b.coverTextColor + "33";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(28, 28, 584, 904);
+
+      ctx.fillStyle = b.coverTextColor;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = `500 22px ${fontSans}`;
+      ctx.globalAlpha = 0.7;
+      ctx.fillText("THE FOUNDERS COLLECTION", 320, 86);
+      ctx.globalAlpha = 1.0;
+
+      const baseSize = b.title.length > 18 ? 72 : 92;
+      let titleSize = baseSize;
+      let lines = [];
+      for (let s = baseSize; s >= 36; s -= 4) {
+        ctx.font = `700 ${s}px ${fontSerif}`;
+        const testLines = wrapText(ctx, b.title, 510);
+        if (testLines.length <= 3) {
+          lines = testLines;
+          titleSize = s;
+          break;
+        }
+      }
+      if (lines.length === 0) {
+        titleSize = 36;
+        ctx.font = `700 ${titleSize}px ${fontSerif}`;
+        lines = wrapText(ctx, b.title, 510);
+      }
+      ctx.font = `700 ${titleSize}px ${fontSerif}`;
+      const lineSpacing = 1.08 * titleSize;
+      const startY = 480 - (lineSpacing * lines.length) / 2 + lineSpacing / 2;
+      lines.forEach((line, idx) => ctx.fillText(line, 320, startY + idx * lineSpacing));
+
+      ctx.strokeStyle = b.coverTextColor;
+      ctx.globalAlpha = 0.5;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(260, 790);
+      ctx.lineTo(380, 790);
+      ctx.stroke();
+      ctx.globalAlpha = 1.0;
+
+      ctx.font = `500 26px ${fontSans}`;
+      ctx.fillText(b.author.toUpperCase(), 320, 830);
+
+      return createTexture(c);
+    }
+
+    function createInsideCoverTexture(b) {
+      const c = document.createElement('canvas');
+      c.width = 640;
+      c.height = 960;
+      const ctx = c.getContext('2d');
+
+      // Exact Authentic Warm Parchment Paper
+      ctx.fillStyle = "#f3ead2";
+      ctx.fillRect(0, 0, 640, 960);
+
+      // Paper grain
+      ctx.fillStyle = "rgba(45, 30, 10, 0.025)";
+      for (let i = 0; i < 280; i++) {
+        ctx.fillRect(640 * Math.random(), 960 * Math.random(), 1, 1);
+      }
+
+      // Elegant inner border line
+      ctx.strokeStyle = "rgba(58, 42, 20, 0.32)";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(40, 40, 560, 880);
+
+      ctx.fillStyle = "#3a2a14";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      ctx.font = `500 18px ${fontSans}`;
+      ctx.globalAlpha = 0.7;
+      ctx.fillText("FROM THE LIBRARY OF", 320, 384);
+
+      ctx.globalAlpha = 1.0;
+      ctx.fillStyle = "#3a2a14";
+      ctx.font = `600 36px ${fontSerif}`;
+      ctx.fillText(b.title, 320, 480);
+
+      ctx.font = `500 22px ${fontSans}`;
+      ctx.fillStyle = "#3a2a14";
+      ctx.globalAlpha = 0.85;
+      ctx.fillText(b.author, 320, 544);
+      ctx.globalAlpha = 1.0;
+
+      return createTexture(c);
+    }
+
+    function createInsidePageTexture(b) {
+      const c = document.createElement('canvas');
+      c.width = 640;
+      c.height = 960;
+      const ctx = c.getContext('2d');
+
+      // Exact Authentic Warm Parchment
+      ctx.fillStyle = "#f7efd9";
+      ctx.fillRect(0, 0, 640, 960);
+
+      // Paper grain
+      ctx.fillStyle = "rgba(20, 14, 4, 0.025)";
+      for (let i = 0; i < 280; i++) {
+        ctx.fillRect(640 * Math.random(), 960 * Math.random(), 1, 1);
+      }
+
+      // Top Running Header: TITLE · AUTHOR
+      ctx.fillStyle = "#3a2a14";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = `500 14px ${fontSans}`;
+      ctx.globalAlpha = 0.65;
+      ctx.fillText(`${b.title.toUpperCase()}  ·  ${b.author.toUpperCase()}`, 320, 140);
+      ctx.globalAlpha = 1.0;
+
+      // Decorative top dash
+      ctx.fillStyle = "#3a2a14";
+      ctx.font = `500 60px ${fontSerif}`;
+      ctx.fillText("—", 320, 220);
+
+      // Excerpt quote in Cormorant Garamond, crisp dark typography
+      ctx.fillStyle = "#1a1208";
+      let bestSize = 38;
+      let lines = [];
+      for (let s = 42; s >= 22; s -= 2) {
+        ctx.font = `italic 500 ${s}px ${fontSerif}`;
+        const wrapped = wrapText(ctx, `"${b.excerpt}"`, 500);
+        if (wrapped.length <= 6) {
+          lines = wrapped;
+          bestSize = s;
+          break;
+        }
+      }
+      if (lines.length === 0) {
+        bestSize = 22;
+        ctx.font = `italic 500 ${bestSize}px ${fontSerif}`;
+        lines = wrapText(ctx, `"${b.excerpt}"`, 500);
+      }
+      ctx.font = `italic 500 ${bestSize}px ${fontSerif}`;
+      const lineHeight = 1.45 * bestSize;
+      const startY = 480 - (lineHeight * lines.length) / 2 + lineHeight / 2;
+      lines.forEach((line, idx) => ctx.fillText(line, 320, startY + idx * lineHeight));
+
+      // Footer Book Meta & Page number
+      ctx.fillStyle = "#3a2a14";
+      ctx.font = `500 18px ${fontSans}`;
+      ctx.globalAlpha = 0.75;
+      ctx.fillText(`${b.title.toUpperCase()}  ·  ${b.author.toUpperCase()}`, 320, 864);
+
+      ctx.globalAlpha = 0.5;
+      ctx.font = `500 16px ${fontSans}`;
+      ctx.fillText("· 1 ·", 320, 904);
+      ctx.globalAlpha = 1.0;
+
+      return createTexture(c);
+    }
+
+    // Shelf & Book Constants
+    const SHELF_Y = -3.1;
+    const COVER_THICK = 0.05;
+    const PAGE_INSET = 0.025;
+    const SPINE_WRAP_T = 0.06;
+    const COVER_Z_LIFT = 0.18;
+    const OPEN_ANGLE = 0.8 * Math.PI;
+    const OPEN_POS_X = -1.25;
+    const OPEN_POS_Y = -1.5;
+    const OPEN_POS_Z = 2.4;
+    const OPEN_TILT_X = -0.26;
+    const MOBILE_OPEN_POS_X = 0.8;
+    const MOBILE_OPEN_POS_Y = -0.25;
+    const MOBILE_OPEN_POS_Z = -1.5;
+    const SHELF_OPEN_Y = -5.5;
+    const SHELF_OPEN_Z = 4.5;
+    const FALL_DEPTH = 3.2;
+
+    function smoothstep(x, min, max) {
+      if (x <= min) return 0;
+      if (x >= max) return 1;
+      x = (x - min) / (max - min);
+      return x * x * (3 - 2 * x);
+    }
+
+    function easeInOutCubic(x) {
+      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    }
+
+    function easeOutQuart(x) {
+      return 1 - Math.pow(1 - x, 4);
+    }
+
+    function clamp01(x) {
+      return Math.max(0, Math.min(1, x));
+    }
+
+    function lerp(a, b, t) {
+      return a + (b - a) * t;
+    }
+
+    function layoutShelf(pos) {
+      const t = books.length;
+      const n = [];
+      const o = [];
+      for (let r = 0; r < t; r++) {
+        const coverness = Math.max(0, 1 - Math.abs(r - pos));
+        o.push(coverness);
+        const w = books[r].width + 0.85;
+        n.push(0.82 + (w - 0.82) * coverness);
+      }
+      const a = [0];
+      for (let e = 1; e < t; e++) a.push(a[e - 1] + n[e - 1]);
+      const s = n.map((e, t) => a[t] + e / 2);
+      const u = Math.floor(pos);
+      const l = Math.max(0, Math.min(t - 1, u));
+      const c = Math.max(0, Math.min(t - 1, u + 1));
+      const anchor = s[l] + (s[c] - s[l]) * (pos - u);
+      return { centres: s, covernesses: o, anchor };
+    }
+
+    // Build the Shelf Group
+    const shelfGroup = new THREE.Group();
+    scene.add(shelfGroup);
+
+    // Build Table Shadow
+    const shadowCanvas = document.createElement('canvas');
+    shadowCanvas.width = 512;
+    shadowCanvas.height = 128;
+    const sCtx = shadowCanvas.getContext('2d');
+    const grad = sCtx.createRadialGradient(256, 64, 10, 256, 64, 250);
+    grad.addColorStop(0, 'rgba(0,0,0,0.65)');
+    grad.addColorStop(0.4, 'rgba(0,0,0,0.3)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    sCtx.fillStyle = grad;
+    sCtx.fillRect(0, 0, 512, 128);
+
+    const shadowTex = new THREE.CanvasTexture(shadowCanvas);
+    const shadowMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(16, 4),
+      new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, opacity: 0.85, depthWrite: false })
+    );
+    shadowMesh.rotation.x = -Math.PI / 2;
+    shadowMesh.position.set(0, SHELF_Y + 0.01, 0);
+    shelfGroup.add(shadowMesh);
+
+    // Build 12 Complete Books with Authentic Hinged Front Cover
+    const bookGroups = [];
+    const pivotGroups = [];
+    const raycastTargets = [];
+
+    books.forEach((b, idx) => {
+      const w = b.width;
+      const h = b.height;
+      const d = b.spineThickness;
+      const f = d - 2 * COVER_THICK;
+      const m = SPINE_WRAP_T / 2;
+
+      // Textures
+      const spineTex = createSpineTexture(b);
+      const coverTex = createFrontCoverTexture(b);
+      const insideCoverTex = createInsideCoverTexture(b);
+      const insidePageTex = createInsidePageTexture(b);
+
+      const makeMat = opts => new THREE.MeshStandardMaterial({ roughness: 0.7, ...opts });
+      const pageEdgeMat = roughness => makeMat({ color: "#e8d8a8", roughness });
+      const spineColorMat = () => makeMat({ color: b.spineColor, roughness: 0.6 });
+
+      // Materials
+      const backMats = [
+        pageEdgeMat(0.85),
+        makeMat({ color: b.spineColor, roughness: 0.6 }),
+        pageEdgeMat(0.85),
+        pageEdgeMat(0.85),
+        makeMat({ color: "#f3ead2", roughness: 0.7 }),
+        makeMat({ color: b.coverColor, roughness: 0.55 })
+      ];
+
+      const pageMats = [
+        pageEdgeMat(0.95),
+        pageEdgeMat(0.95),
+        pageEdgeMat(0.95),
+        pageEdgeMat(0.95),
+        makeMat({ map: insidePageTex, roughness: 0.8 }),
+        pageEdgeMat(0.95)
+      ];
+
+      const frontMats = [
+        pageEdgeMat(0.85),
+        makeMat({ color: b.spineColor, roughness: 0.6 }),
+        pageEdgeMat(0.85),
+        pageEdgeMat(0.85),
+        makeMat({ map: coverTex, roughness: 0.5 }),
+        makeMat({ map: insideCoverTex, roughness: 0.75 })
+      ];
+
+      const spineMats = [
+        spineColorMat(),
+        makeMat({ map: spineTex, roughness: 0.6 }),
+        spineColorMat(),
+        spineColorMat(),
+        spineColorMat(),
+        spineColorMat()
+      ];
+
+      // Book Root Group
+      const bookGroup = new THREE.Group();
+      bookGroup.userData = { index: idx, book: b };
+
+      // 1. Back Cover
+      const backMesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, COVER_THICK), backMats);
+      backMesh.position.set(m, 0, -d / 2 + COVER_THICK / 2);
+      backMesh.castShadow = true;
+      backMesh.receiveShadow = true;
+      bookGroup.add(backMesh);
+
+      // 2. Page Block
+      const pageMesh = new THREE.Mesh(new THREE.BoxGeometry(w - PAGE_INSET, h - PAGE_INSET, f), pageMats);
+      pageMesh.position.set(m + PAGE_INSET / 2, 0, -d / 2 + COVER_THICK + f / 2);
+      pageMesh.castShadow = true;
+      pageMesh.receiveShadow = true;
+      bookGroup.add(pageMesh);
+
+      // 3. Spine
+      const spineMesh = new THREE.Mesh(new THREE.BoxGeometry(SPINE_WRAP_T, h, d), spineMats);
+      spineMesh.position.set(m - w / 2 - SPINE_WRAP_T / 2, 0, 0);
+      spineMesh.castShadow = true;
+      spineMesh.receiveShadow = true;
+      bookGroup.add(spineMesh);
+
+      // 4. Pivot Group (Hinged Front Cover)
+      const pivot = new THREE.Group();
+      pivot.position.set(m - w / 2, 0, d / 2 - COVER_THICK / 2);
+
+      const frontMesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, COVER_THICK), frontMats);
+      frontMesh.position.set(w / 2, 0, 0);
+      frontMesh.castShadow = true;
+      frontMesh.receiveShadow = true;
+      pivot.add(frontMesh);
+
+      bookGroup.add(pivot);
+      scene.add(bookGroup);
+
+      bookGroups.push(bookGroup);
+      pivotGroups.push(pivot);
+
+      // Add clickable target
+      const hitBox = new THREE.Mesh(
+        new THREE.BoxGeometry(w + 0.1, h + 0.1, d + 0.1),
+        new THREE.MeshBasicMaterial({ visible: false })
+      );
+      hitBox.userData = { index: idx };
+      bookGroup.add(hitBox);
+      raycastTargets.push(hitBox);
+    });
+
+    // Dedicated Soft Contact Shadow for Open Book on the table
+    const openShadowCanvas = document.createElement('canvas');
+    openShadowCanvas.width = 512;
+    openShadowCanvas.height = 256;
+    const osCtx = openShadowCanvas.getContext('2d');
+    const osGrad = osCtx.createRadialGradient(256, 128, 15, 256, 128, 220);
+    osGrad.addColorStop(0, 'rgba(10, 5, 2, 0.90)');
+    osGrad.addColorStop(0.35, 'rgba(15, 8, 3, 0.55)');
+    osGrad.addColorStop(0.70, 'rgba(20, 10, 4, 0.20)');
+    osGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    osCtx.fillStyle = osGrad;
+    osCtx.fillRect(0, 0, 512, 256);
+
+    const openShadowTex = new THREE.CanvasTexture(openShadowCanvas);
+    const openShadowMat = new THREE.MeshBasicMaterial({
+      map: openShadowTex,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false
+    });
+    const openShadowMesh = new THREE.Mesh(new THREE.PlaneGeometry(6.5, 3.2), openShadowMat);
+    openShadowMesh.rotation.x = -Math.PI / 2;
+    openShadowMesh.position.set(OPEN_POS_X, SHELF_Y + 0.015, OPEN_POS_Z);
+    scene.add(openShadowMesh);
+
+    // Font readiness: rebuild canvas textures once Google Fonts are fully loaded
+    function rebuildTextures() {
+      books.forEach((b, idx) => {
+        const bg = bookGroups[idx];
+        const pv = pivotGroups[idx];
+        if (!bg) return;
+        const pageMesh = bg.children[1];
+        if (pageMesh && Array.isArray(pageMesh.material) && pageMesh.material[4]) {
+          pageMesh.material[4].map = createInsidePageTexture(b);
+          pageMesh.material[4].needsUpdate = true;
+        }
+        const frontMesh = pv && pv.children[0];
+        if (frontMesh && Array.isArray(frontMesh.material)) {
+          if (frontMesh.material[4]) {
+            frontMesh.material[4].map = createFrontCoverTexture(b);
+            frontMesh.material[4].needsUpdate = true;
+          }
+          if (frontMesh.material[5]) {
+            frontMesh.material[5].map = createInsideCoverTexture(b);
+            frontMesh.material[5].needsUpdate = true;
+          }
+        }
+      });
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        rebuildTextures();
+      });
+    }
+
+    // State Variables
+    let sliderPos = 6.0;
+    let targetPos = 6.0;
+    let selectedIndex = -1;
+    let isOpen = false;
+    let openProgress = 0;
+    let targetOpenProgress = 0;
+    let hoveredIndex = -1;
+
+    function updateIndicator(b) {
+      if (!b) return;
+      if (indTitle) indTitle.innerText = b.title;
+      if (indAuthor) indAuthor.innerText = b.author;
+    }
+
+    function openBook(idx) {
+      if (idx < 0 || idx >= books.length) return;
+      selectedIndex = idx;
+      isOpen = true;
+      targetOpenProgress = 1.0;
+      targetPos = idx;
+
+      const b = books[idx];
+      updateIndicator(b);
+
+      const ind = document.getElementById('hardback-book-indicator');
+      if (ind) {
+        ind.style.opacity = '0';
+        ind.style.pointerEvents = 'none';
+        ind.style.visibility = 'hidden';
+      }
+
+      if (drawer) {
+        drawer.style.visibility = 'visible';
+        drawer.style.pointerEvents = 'auto';
+        drawer.style.opacity = '1';
+        drawer.setAttribute('aria-label', `${b.title} — details`);
+
+        if (drawerTitle) drawerTitle.innerText = b.title;
+        if (drawerAuthor) drawerAuthor.innerText = `by ${b.author}`;
+        if (drawerAuthorTag) drawerAuthorTag.innerText = `Hardback · ${b.author.split(' ').pop()}`;
+        if (drawerSynopsis) drawerSynopsis.innerText = b.synopsis;
+        if (drawerExcerpt) drawerExcerpt.innerText = `“${b.excerpt}”`;
+
+        if (b.retailers && b.retailers[0] && retailerAmazon) {
+          retailerAmazon.href = b.retailers[0].url;
+          retailerAmazon.innerHTML = `Amazon <span class="opacity-70">${b.retailers[0].price}</span>`;
+        }
+        if (b.retailers && b.retailers[1] && retailerBookshop) {
+          retailerBookshop.href = b.retailers[1].url;
+          retailerBookshop.innerHTML = `Bookshop <span class="opacity-70">${b.retailers[1].price}</span>`;
+        }
+
+        if (drawerBuyBtn) {
+          drawerBuyBtn.onclick = () => {
+            const url = b.retailers?.[0]?.url || `https://www.amazon.com/s?k=${encodeURIComponent(b.title)}`;
+            window.open(url, '_blank', 'noopener,noreferrer');
+          };
+        }
+      }
+    }
+
+    function closeBook() {
+      isOpen = false;
+      targetOpenProgress = 0.0;
+      selectedIndex = -1;
+
+      const ind = document.getElementById('hardback-book-indicator');
+      if (ind) {
+        ind.style.opacity = '1';
+        ind.style.pointerEvents = 'auto';
+        ind.style.visibility = 'visible';
+      }
+
+      if (drawer) {
+        drawer.style.opacity = '0';
+        drawer.style.pointerEvents = 'none';
+        setTimeout(() => {
+          if (!isOpen) drawer.style.visibility = 'hidden';
+        }, 500);
+      }
+    }
+
+    // Expose API for external control & testing
+    window.__HARDBACK_API__ = {
+      openBook,
+      closeBook,
+      setSliderPos: (p) => { targetPos = p; }
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeBook);
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && isOpen) closeBook();
+    });
+
+    // Theme listener
+    window.addEventListener('hardback:theme', (e) => {
+      isDark = e.detail?.isDark;
+      if (isDark) {
+        ambientLight.color.set(0xffead0);
+        ambientLight.intensity = 0.42;
+        mainLight.color.set(0xffd9a8);
+        mainLight.intensity = 1.45;
+        fillLight.intensity = 0.4;
+        pointLight.intensity = 0.35;
+      } else {
+        ambientLight.color.set(0xfff5e8);
+        ambientLight.intensity = 0.78;
+        mainLight.color.set(0xfff2d8);
+        mainLight.intensity = 1.1;
+        fillLight.intensity = 0.55;
+        pointLight.intensity = 0.25;
+      }
+    });
+
+    // Pointer Interaction (Drag & Wheel)
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2(-999, -999);
+    let isDragging = false;
+    let startX = 0;
+    let startSliderPos = 6.0;
+    let hasMovedFar = false;
+
+    window.addEventListener('wheel', e => {
+      if (isOpen) return;
+      targetPos += e.deltaY * 0.0035;
+      targetPos = Math.max(0, Math.min(books.length - 1, targetPos));
+    }, { passive: true });
+
+    canvas.addEventListener('pointerdown', e => {
+      isDragging = true;
+      hasMovedFar = false;
+      startX = e.clientX;
+      startSliderPos = targetPos;
+    });
+
+    window.addEventListener('pointermove', e => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      if (isDragging) {
+        const dx = e.clientX - startX;
+        if (Math.abs(dx) > 8) hasMovedFar = true;
+        targetPos = startSliderPos - dx * 0.0065;
+        targetPos = Math.max(0, Math.min(books.length - 1, targetPos));
+      }
+    });
+
+    window.addEventListener('pointerup', e => {
+      if (isDragging) {
+        isDragging = false;
+        if (!hasMovedFar) {
+          raycaster.setFromCamera(mouse, camera);
+          const intersects = raycaster.intersectObjects(raycastTargets);
+          if (intersects.length > 0) {
+            const hit = intersects[0].object;
+            const idx = hit.userData.index;
+            if (isOpen && selectedIndex === idx) {
+              closeBook();
+            } else {
+              openBook(idx);
+            }
+          }
+        }
+      }
+    });
+
+    // Resize Handler
+    window.addEventListener('resize', () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    });
+
+    updateIndicator(books[6]);
+
+    // Animation Loop
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Smooth interpolation
+      sliderPos += (targetPos - sliderPos) * 0.16;
+      openProgress += (targetOpenProgress - openProgress) * 0.14;
+
+      const y = openProgress;
+      const isOpening = (isOpen || openProgress > 0.001);
+
+      // Raycast for hover
+      if (!isDragging && !isOpen) {
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(raycastTargets);
+        if (intersects.length > 0) {
+          const newIdx = intersects[0].object.userData.index;
+          if (newIdx !== hoveredIndex) {
+            hoveredIndex = newIdx;
+            updateIndicator(books[hoveredIndex]);
+          }
+        } else {
+          hoveredIndex = -1;
+          const centerIdx = Math.round(sliderPos);
+          if (books[centerIdx]) updateIndicator(books[centerIdx]);
+        }
+      }
+
+      // Authentic Layout Calculation
+      const { centres, covernesses, anchor } = layoutShelf(sliderPos);
+      const S = isMobile ? MOBILE_OPEN_POS_X : OPEN_POS_X;
+      const M = isMobile ? MOBILE_OPEN_POS_Y : OPEN_POS_Y;
+      const W = isMobile ? MOBILE_OPEN_POS_Z : OPEN_POS_Z;
+
+      books.forEach((b, idx) => {
+        const bookGroup = bookGroups[idx];
+        const pivot = pivotGroups[idx];
+        if (!bookGroup) return;
+
+        const r = covernesses[idx];
+        const a = centres[idx] - anchor;
+        const s = b.height / 2 + SHELF_Y;
+        const u = COVER_Z_LIFT * r;
+        const c = 0.5 * Math.PI * (1 - r);
+
+        let posX = a;
+        let posY = s;
+        let posZ = u;
+        let rotX = 0;
+        let rotY = c;
+        let openAngle = 0;
+        let opacity = 1;
+
+        if (isOpening) {
+          if (idx === selectedIndex) {
+            const e1 = smoothstep(y, 0, 0.6);
+            const t1 = smoothstep(y, 0.45, 1);
+            posX = lerp(a, S, e1);
+            posY = lerp(s, M + b.height / 2, e1);
+            posZ = lerp(u, W, e1);
+            rotY = lerp(c, 0, e1);
+            rotX = lerp(0, OPEN_TILT_X, e1);
+            openAngle = OPEN_ANGLE * easeInOutCubic(t1);
+          } else {
+            const t1 = Math.abs(idx - selectedIndex);
+            const n1 = clamp01(0.04 * t1);
+            const i1 = smoothstep(y, n1, n1 + 0.55);
+            posZ = u - FALL_DEPTH * easeOutQuart(i1);
+            rotX = -0.18 * i1;
+            opacity = 1 - i1;
+          }
+        }
+
+        // Hover effect when browsing
+        if (!isOpening && hoveredIndex === idx) {
+          posY += 0.18;
+          posZ += 0.12;
+        }
+
+        bookGroup.visible = opacity > 0.02;
+        bookGroup.position.set(posX, posY, posZ);
+        bookGroup.rotation.set(rotX, rotY, 0);
+
+        if (pivot) {
+          pivot.rotation.y = -openAngle;
+        }
+      });
+
+      // Shelf Group drop when open
+      const shelfAnim = isOpening ? smoothstep(y, 0.05, 0.95) : 0;
+      const shelfT = easeInOutCubic(shelfAnim);
+      shelfGroup.position.set(0, SHELF_OPEN_Y * shelfT, SHELF_OPEN_Z * shelfT);
+
+      // Dedicated open book soft contact shadow on desk
+      if (openShadowMesh && openShadowMat) {
+        const shadowT = isOpening ? smoothstep(y, 0.35, 0.95) : 0;
+        openShadowMat.opacity = easeInOutCubic(shadowT) * 0.85;
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBookshelf);
+  } else {
+    initBookshelf();
+  }
+</script>

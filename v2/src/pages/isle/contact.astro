@@ -1,0 +1,141 @@
+---
+// v2/src/pages/isle/contact.astro - Website 29: Isle Contact (Bản Astro Native Component Hóa)
+import IsleLayout from '../../layouts/IsleLayout.astro';
+---
+
+<IsleLayout
+  title="Contact | Isle — Liquid Glass"
+  description="Questions about the glass, a project in mind, or just want to say hello? Drop a note and it lands straight in our inbox."
+  currentPath="/isle/contact"
+>
+  <main class="relative min-h-screen w-full overflow-hidden bg-[#060810] text-white">
+    <!-- Background Video (Scene 1: Aurora) -->
+    <video
+      aria-hidden="true"
+      autoplay
+      loop
+      muted
+      playsinline
+      poster="/isle/video-1.jpg"
+      preload="auto"
+      src="/isle/video-1.webm"
+      class="absolute inset-0 h-full w-full scale-[1.06] object-cover pointer-events-none"
+      draggable="false"
+    ></video>
+
+    <!-- Gradient Shadows -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0"
+      style="background:linear-gradient(180deg, rgba(2,5,10,0.62) 0%, rgba(2,5,10,0) 26%), linear-gradient(0deg, rgba(2,5,10,0.78) 0%, rgba(2,5,10,0) 46%), radial-gradient(ellipse 75% 60% at 50% 42%, rgba(2,5,10,0) 35%, rgba(2,5,10,0.55) 100%);"
+    ></div>
+
+    <!-- Noise Texture Overlay -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay"
+      style="background-image:url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\");background-size:200px 200px;"
+    ></div>
+
+    <!-- Main Content Container -->
+    <div class="relative z-10">
+      <section class="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-6 pb-20 pt-32">
+        <div
+          class="overflow-hidden rounded-3xl border border-white/14 p-8 backdrop-blur-2xl sm:p-10"
+          style="background:rgba(10,14,22,0.42);box-shadow:0 26px 60px rgba(3,7,14,0.45), inset 0 1px 0 rgba(255,255,255,0.16);"
+        >
+          <p class="mb-4 text-[11px] uppercase tracking-[0.34em] text-white/60">
+            Contact
+          </p>
+          <h1 class="text-[clamp(34px,5.5vw,56px)] font-semibold leading-[1.0] tracking-[-0.035em]">
+            Let’s talk.
+          </h1>
+          <p class="mt-4 max-w-[44ch] text-[14.5px] leading-relaxed text-white/68">
+            Questions about the glass, a project in mind, or just want to say hello? Drop a note and it lands straight in our inbox.
+          </p>
+
+          <form id="contact-form" class="mt-8 flex flex-col gap-3">
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <input
+                id="input-name"
+                class="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-[14px] text-white placeholder:text-white/35 outline-none transition-colors duration-200 focus:border-white/40 focus:bg-white/[0.09]"
+                placeholder="Your name"
+                required
+                type="text"
+              />
+              <input
+                id="input-email"
+                class="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-[14px] text-white placeholder:text-white/35 outline-none transition-colors duration-200 focus:border-white/40 focus:bg-white/[0.09]"
+                placeholder="Your email"
+                required
+                type="email"
+              />
+            </div>
+            <textarea
+              id="input-message"
+              class="w-full rounded-xl border border-white/12 bg-white/[0.06] px-4 py-3 text-[14px] text-white placeholder:text-white/35 outline-none transition-colors duration-200 focus:border-white/40 focus:bg-white/[0.09] resize-none"
+              placeholder="Your message"
+              required
+              rows="4"
+            ></textarea>
+            <button
+              id="btn-submit"
+              class="mt-1 rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-[#060810] transition-transform duration-200 hover:scale-[1.015] active:scale-[0.98] disabled:opacity-70"
+              type="submit"
+            >
+              Send message
+            </button>
+            <p id="form-status" class="hidden text-center text-[13px] text-emerald-400 mt-2 font-medium">
+              Message sent successfully!
+            </p>
+          </form>
+
+          <p class="mt-6 text-[13px] text-white/45">
+            Or email us directly at
+            <a
+              class="text-white/80 underline underline-offset-4 transition-colors hover:text-white ml-1"
+              href="mailto:hello@isle.studio"
+            >
+              hello@isle.studio
+            </a>
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    function initForm() {
+      const form = document.getElementById('contact-form') as HTMLFormElement;
+      const btn = document.getElementById('btn-submit') as HTMLButtonElement;
+      const status = document.getElementById('form-status') as HTMLElement;
+
+      if (!form || !btn) return;
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        setTimeout(() => {
+          btn.textContent = 'Message sent!';
+          if (status) status.classList.remove('hidden');
+          form.reset();
+
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.textContent = 'Send message';
+            if (status) status.classList.add('hidden');
+          }, 3000);
+        }, 600);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initForm);
+    } else {
+      initForm();
+    }
+  </script>
+</IsleLayout>
+
